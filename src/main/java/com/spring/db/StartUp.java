@@ -1,24 +1,30 @@
 package com.spring.db;
 
 import com.spring.model.dto.ArchiveFileDto;
+import com.spring.model.entity.Export;
+import com.spring.repository.ArchiveFileRepository;
+import com.spring.repository.ExportRepository;
 import com.spring.services.ArchiveFileServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 public class StartUp implements CommandLineRunner {
 
-    private final ArchiveFileServices archiveFileRepository;
+    private final ArchiveFileServices archiveFileServices;
+    private final ArchiveFileRepository archiveFileRepository;
+    private final ExportRepository exportRepository;
 
     @Override
     public void run(String... args) throws Exception {
 
-        if (archiveFileRepository.count() == 0) {
+        if (archiveFileServices.count() == 0) {
 
             ArchiveFileDto archiveFile1 = new ArchiveFileDto(1L, "وارد مكتب رئيس الجامعة", (byte) 1);
             ArchiveFileDto archiveFile2 = new ArchiveFileDto(2L, "وارد نائب رئيس الجامعة للدراسات العليا والبحوث", (byte) 1);
@@ -155,8 +161,159 @@ public class StartUp implements CommandLineRunner {
             archiveFileDtos.add(archiveFile63);
 
 
-            archiveFileRepository.saveAll(archiveFileDtos);
+            archiveFileServices.saveAll(archiveFileDtos);
 
+        }
+
+        if (exportRepository.findAll().isEmpty()) {
+            Export export1 = Export.builder()
+                    .date(new Date(123, 8, 19))
+                    .numberOfApprove(0L)
+                    .receiver("رئيس الجامعة")
+                    .summary("بشان عدم التواصل مع الجهات الاجنبية او المنظمات الدولية")
+                    .recipientName("أسماء")
+                    .urgentNum((short) 4)
+                    .urgentDate(new Date(123, 8, 19))
+                    .urgentNum((short) 1)
+                    .archiveFile(archiveFileRepository.findById((short) 16).get())
+                    .build();
+            Export export2 = Export.builder()
+                    .date(new Date(123, 8, 19))
+                    .numberOfApprove(0L)
+                    .receiver("رئيس الجامعة")
+                    .summary("بشان عدم التواصل مع الجهات الاجنبية او المنظمات الدولية")
+                    .recipientName("أسماء")
+                    .urgentNum((short) 4)
+                    .urgentDate(new Date(123, 8, 19))
+                    .urgentNum((short) 1)
+                    .archiveFile(archiveFileRepository.findById((short) 16).get())
+                    .build();
+            Export export3 = Export.builder()
+                    .date(new Date(123, 8, 19))
+                    .numberOfApprove(0L)
+                    .receiver("رئيس الجامعة")
+                    .summary("بشان عدم التواصل مع الجهات الاجنبية او المنظمات الدولية")
+                    .recipientName("أسماء")
+                    .urgentNum((short) 4)
+                    .urgentDate(new Date(123, 8, 19))
+                    .urgentNum((short) 1)
+                    .archiveFile(archiveFileRepository.findById((short) 16).get())
+                    .build();
+            Export export4 = Export.builder()
+                    .date(new Date(123, 8, 19))
+                    .numberOfApprove(0L)
+                    .receiver("رئيس الجامعة")
+                    .summary("بشان عدم التواصل مع الجهات الاجنبية او المنظمات الدولية")
+                    .recipientName("أسماء")
+                    .urgentNum((short) 4)
+                    .urgentDate(new Date(123, 8, 19))
+                    .urgentNum((short) 1)
+                    .archiveFile(archiveFileRepository.findById((short) 16).get())
+                    .build();
+            Export export5 = Export.builder()
+                    .date(new Date(123, 8, 19))
+                    .numberOfApprove(0L)
+                    .receiver("رئيس الجامعة")
+                    .summary("بشان عدم التواصل مع الجهات الاجنبية او المنظمات الدولية")
+                    .recipientName("أسماء")
+                    .urgentNum((short) 4)
+                    .urgentDate(new Date(123, 8, 19))
+                    .urgentNum((short) 1)
+                    .archiveFile(archiveFileRepository.findById((short) 16).get())
+                    .build();
+            Export export6 = Export.builder()
+                    .date(new Date(123, 8, 19))
+                    .numberOfApprove(0L)
+                    .receiver("رئيس الجامعة")
+                    .summary("بشان عدم التواصل مع الجهات الاجنبية او المنظمات الدولية")
+                    .recipientName("أسماء")
+                    .urgentNum((short) 4)
+                    .urgentDate(new Date(123, 8, 19))
+                    .urgentNum((short) 1)
+                    .archiveFile(archiveFileRepository.findById((short) 16).get())
+                    .build();
+            Export export7 = Export.builder()
+                    .date(new Date(123, 8, 19))
+                    .numberOfApprove(0L)
+                    .receiver("رئيس الجامعة")
+                    .summary("بشان عدم التواصل مع الجهات الاجنبية او المنظمات الدولية")
+                    .recipientName("أسماء")
+                    .urgentNum((short) 4)
+                    .urgentDate(new Date(123, 8, 19))
+                    .urgentNum((short) 1)
+                    .archiveFile(archiveFileRepository.findById((short) 16).get())
+                    .build();
+            Export export8 = Export.builder()
+                    .date(new Date(123, 8, 19))
+                    .numberOfApprove(0L)
+                    .receiver("رئيس الجامعة")
+                    .summary("بشان عدم التواصل مع الجهات الاجنبية او المنظمات الدولية")
+                    .recipientName("أسماء")
+                    .urgentNum((short) 4)
+                    .urgentDate(new Date(123, 8, 19))
+                    .urgentNum((short) 1)
+                    .archiveFile(archiveFileRepository.findById((short) 16).get())
+                    .build();
+            Export export9 = Export.builder()
+                    .date(new Date(123, 8, 19))
+                    .numberOfApprove(0L)
+                    .receiver("رئيس الجامعة")
+                    .summary("بشان عدم التواصل مع الجهات الاجنبية او المنظمات الدولية")
+                    .recipientName("أسماء")
+                    .urgentNum((short) 4)
+                    .urgentDate(new Date(123, 8, 19))
+                    .urgentNum((short) 1)
+                    .archiveFile(archiveFileRepository.findById((short) 16).get())
+                    .build();
+            Export export10 = Export.builder()
+                    .date(new Date(123, 8, 19))
+                    .numberOfApprove(0L)
+                    .receiver("رئيس الجامعة")
+                    .summary("بشان عدم التواصل مع الجهات الاجنبية او المنظمات الدولية")
+                    .recipientName("أسماء")
+                    .urgentNum((short) 4)
+                    .urgentDate(new Date(123, 8, 19))
+                    .urgentNum((short) 1)
+                    .archiveFile(archiveFileRepository.findById((short) 16).get())
+                    .build();
+            Export export11 = Export.builder()
+                    .date(new Date(123, 8, 19))
+                    .numberOfApprove(0L)
+                    .receiver("رئيس الجامعة")
+                    .summary("بشان عدم التواصل مع الجهات الاجنبية او المنظمات الدولية")
+                    .recipientName("أسماء")
+                    .urgentNum((short) 4)
+                    .urgentDate(new Date(123, 8, 19))
+                    .urgentNum((short) 1)
+                    .archiveFile(archiveFileRepository.findById((short) 16).get())
+                    .build();
+            Export export12 = Export.builder()
+                    .date(new Date(123, 8, 19))
+                    .numberOfApprove(0L)
+                    .receiver("رئيس الجامعة")
+                    .summary("بشان عدم التواصل مع الجهات الاجنبية او المنظمات الدولية")
+                    .recipientName("أسماء")
+                    .urgentNum((short) 4)
+                    .urgentDate(new Date(123, 8, 19))
+                    .urgentNum((short) 1)
+                    .archiveFile(archiveFileRepository.findById((short) 16).get())
+                    .build();
+
+
+            List<Export> exports = new ArrayList<>();
+            exports.add(export1);
+            exports.add(export2);
+            exports.add(export3);
+            exports.add(export4);
+            exports.add(export5);
+            exports.add(export6);
+            exports.add(export7);
+            exports.add(export8);
+            exports.add(export9);
+            exports.add(export10);
+            exports.add(export11);
+            exports.add(export12);
+            exportRepository.saveAll(exports);
         }
 
     }

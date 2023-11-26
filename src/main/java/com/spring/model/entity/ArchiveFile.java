@@ -4,6 +4,8 @@ import com.spring.model.enums.FileType;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Setter
 @Getter
 @Entity
@@ -15,7 +17,7 @@ public class ArchiveFile extends BaseEntity<Short> {
 
     //  private Short id       primary key
 
-    @Column(name = "num",  nullable = false)
+    @Column(name = "num", nullable = false)
     private Long num;//   رقم الملف
 
     @Column(name = "name", unique = true, nullable = false, length = 255)
@@ -28,9 +30,9 @@ public class ArchiveFile extends BaseEntity<Short> {
     @Column(name = "type_number", nullable = false)
     private Byte typeNumber;// رفم نوع الملف
 
-//    @OneToMany(mappedBy = "archiveFile")
-//    @JsonIgnore
-//    private List<Export> exports;
+    @OneToMany(mappedBy = "archiveFile")
+    private List<Export> exports;
+
 //
 //    @OneToMany(mappedBy = "archiveFile")
 //    @JsonIgnore
