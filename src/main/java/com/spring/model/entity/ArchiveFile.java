@@ -1,5 +1,6 @@
 package com.spring.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spring.model.enums.FileType;
 import jakarta.persistence.*;
 import lombok.*;
@@ -13,12 +14,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "archivefile")
-public class ArchiveFile extends BaseEntity<Short> {
+public class ArchiveFile extends BaseEntity {
 
-    //  private Short id       primary key
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Short id;     // primary key
 
     @Column(name = "num", nullable = false)
-    private Long num;//   رقم الملف
+    private Short num;//   رقم الملف
 
     @Column(name = "name", unique = true, nullable = false, length = 255)
     private String name;// اسم الملف
@@ -31,12 +34,13 @@ public class ArchiveFile extends BaseEntity<Short> {
     private Byte typeNumber;// رفم نوع الملف
 
     @OneToMany(mappedBy = "archiveFile")
+    @JsonIgnore
     private List<Export> exports;
 
-//
-//    @OneToMany(mappedBy = "archiveFile")
-//    @JsonIgnore
-//    private List<Import> imports;
+
+    @OneToMany(mappedBy = "archiveFile")
+    @JsonIgnore
+    private List<Import> imports;
 
 
 }

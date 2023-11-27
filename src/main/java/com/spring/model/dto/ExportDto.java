@@ -18,7 +18,7 @@ public class ExportDto {
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date; //تاريخ
-    private Long numberOfApprove; //عدد الموافقات
+    private Byte numberOfAttachments; //عدد الموافقات
     private String receiver; //الجهة الصادر منها الخطاب
     private String summary;//ملخص الخطاب
     private String recipientName;// المستلم
@@ -39,6 +39,7 @@ public class ExportDto {
     @JsonIgnore
     private ArchiveFileDto archiveFile;
 
+    private Short archiveId;
     private Byte typeNumber;
     private Long num;
 

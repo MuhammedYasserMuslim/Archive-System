@@ -7,7 +7,7 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring",uses = {
 
-        ExportMapper.class,
+        //ExportMapper.class,
         ArchiveFileMapper.class
 })
 public interface ImportMapper {
@@ -15,6 +15,7 @@ public interface ImportMapper {
     @Mapping(target = "archiveFile",ignore = true)
     @Mapping(target = "typeNumber",source = "archiveFile.typeNumber")
     @Mapping(target = "num",source = "archiveFile.num")
+    @Mapping(target = "archiveId" ,source = "archiveFile.id")
     @Mapping(target = "export",ignore = true)
     @Mapping(target = "responseNumber",source = "export.id")
     @Mapping(target = "responseDate",source = "export.date")
@@ -22,8 +23,6 @@ public interface ImportMapper {
     ImportDto mapToDto(Import entity);
 
 
-    @Mapping(source = "typeNumber",target = "archiveFile.typeNumber")
-    @Mapping(source = "num",target = "archiveFile.num")
     Import mapToEntity(ImportDto dto);
 
 

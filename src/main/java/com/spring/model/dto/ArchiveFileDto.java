@@ -13,15 +13,15 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ArchiveFileDto {
 
-    private Long id;
+    private Short id;
 
-    private Long num;
+    private Short num;
 
     private String name;
 
     private Byte typeNumber;
 
-    public ArchiveFileDto(Long num, String name, Byte typeNumber) {
+    public ArchiveFileDto(Short num, String name, Byte typeNumber) {
         this.num = num;
         this.name = name;
         this.typeNumber = typeNumber;

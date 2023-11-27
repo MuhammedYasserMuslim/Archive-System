@@ -3,6 +3,7 @@ package com.spring.controller;
 import com.spring.model.dto.ExportDto;
 import com.spring.model.entity.Export;
 import com.spring.services.ExportServices;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -19,15 +20,30 @@ public class ExportController {
     private final ExportServices exportServices;
 
     @GetMapping("/exports")
-    public List<ExportDto> findAll(){
+    @Operation(summary = "Get All Exports")
+    public List<ExportDto> findAll() {
         return exportServices.findAll();
     }
-    @GetMapping("/export")
-    public ExportDto findById(@RequestParam Short id){
+
+    @GetMapping("/export-id")
+    @Operation(summary = "Get Exports By Id")
+    public ExportDto findById(@RequestParam Short id) {
         return exportServices.findById(id);
     }
-    @PostMapping("/export")
-    public void insert(ExportDto dto){
+
+    @GetMapping("/export-summary")
+    @Operation(summary = "Get Archive File By Summary")
+    public List<ExportDto> findBySummary(@RequestParam String  summary) {
+        return exportServices.findBySummary(summary);
+    }
+
+    @PostMapping("/export-dto")
+    @Operation(summary = "Add Export ")
+    public void insert(@RequestBody ExportDto dto) {
         exportServices.insert(dto);
+    }
+    @PostMapping("/export-entity")
+    public void insert(@RequestBody Export export){
+        exportServices.insert(export);
     }
 }

@@ -17,10 +17,8 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @EntityListeners({AuditingEntityListener.class})
-public abstract class BaseEntity<ID> {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private ID id;
+public abstract class BaseEntity {
+
 
     @CreatedBy
     private String createdBy;

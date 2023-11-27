@@ -32,9 +32,22 @@ public class ExportServices {
 
 
     }
+    public List<ExportDto> findBySummary(String summary){
+        List<Export> exports= exportRepository.findBySummaryContaining(summary);
+        List<ExportDto> dtos = new ArrayList<>();
+        for (Export export : exports) {
+            dtos.add(exportMapper.mapToDto(export));
+        }
+        return dtos;
+    }
+
 
     public void insert(ExportDto dto){
         Export export =exportMapper.mapToEntity(dto);
+        exportRepository.save(export);
+    }
+
+    public void insert(Export export){
         exportRepository.save(export);
     }
 

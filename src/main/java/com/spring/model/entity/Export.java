@@ -13,16 +13,17 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "exports")
-public class Export extends BaseEntity<Short>{
-
-    //private Short id;//رقم
+public class Export extends BaseEntity{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Short id;//رقم
 
     @Column(name = "date")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date; //تاريخ
 
-    @Column(name = "number_of_approve")
-    private Long numberOfApprove; //عدد الموافقات
+    @Column(name = "number_of_attachments")
+    private Byte numberOfAttachments; //عدد الموافقات
 
     @Column(name = "receiver")
     private String receiver; //الجهة الصادر منها الخطاب
@@ -47,11 +48,16 @@ public class Export extends BaseEntity<Short>{
 //    @Column(name = "response_date")
 //    private Date responseDate; //تاريخ الرد
 //
-    @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "response_number")
+    @OneToOne(cascade = {CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+    @JoinColumn(name = "response_id")
     private Import aimport;
 
-    @ManyToOne(cascade = {CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE})
+    @ManyToOne
     @JoinColumn(name = "archive_file_id")
     private ArchiveFile archiveFile;
+
+
+
+
+
 }

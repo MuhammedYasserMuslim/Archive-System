@@ -1,5 +1,6 @@
 package com.spring.model.dto;
 
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -20,7 +21,7 @@ public class ImportDto {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date incomeDate; //تاريخ الورود
 
-    private Short numberOfApprove; //عدد الموافقات
+    private Byte numberOfAttachments; //عدد الموافقات
 
     private String sender; //الجهة الوارد منها الخطاب
 
@@ -50,6 +51,8 @@ public class ImportDto {
     @JsonIgnore
     private ArchiveFileDto archiveFile;
 
+    private Long archiveId;
     private Byte typeNumber;
     private Long num;
 }
+
