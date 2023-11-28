@@ -19,6 +19,12 @@ public class ImportController {
 
     private final ImportServices importServices;
 
+    @GetMapping("/count")
+    @Operation(summary = "Get Import Count")
+    public Long count(){
+        return importServices.count();
+    }
+
     @GetMapping("/imports")
     @Operation(summary = "Get All Imports")
     public List<ImportDto> findAll() {

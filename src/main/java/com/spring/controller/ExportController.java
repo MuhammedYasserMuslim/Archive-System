@@ -19,6 +19,13 @@ public class ExportController {
 
     private final ExportServices exportServices;
 
+
+    @GetMapping("/count")
+    @Operation(summary = "Get Exports Count")
+    public Long count(){
+        return exportServices.count();
+    }
+
     @GetMapping("/exports")
     @Operation(summary = "Get All Exports")
     public List<ExportDto> findAll() {

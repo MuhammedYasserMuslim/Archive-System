@@ -17,6 +17,10 @@ public class ImportServices {
     private final ImportRepository importRepository;
     private final ImportMapper importMapper;
 
+    public Long count(){
+        return importRepository.count();
+    }
+
     public List<ImportDto> findAll() {
         List<Import> imports = importRepository.findAll();
         List<ImportDto> dtos = new ArrayList<>();

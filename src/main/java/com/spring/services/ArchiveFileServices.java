@@ -7,7 +7,6 @@ import com.spring.model.enums.FileType;
 import com.spring.model.mapper.ArchiveFileMapper;
 import com.spring.repository.ArchiveFileRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -44,56 +43,39 @@ public class ArchiveFileServices {
     }
 
 
-    public List<ArchiveFileDto> findByTypeNumber(Byte typeNumber){
-        if (typeNumber==1 || typeNumber ==2 || typeNumber ==3 ) {
+    public List<ArchiveFileDto> findByTypeNumber(Byte typeNumber) {
+        if (typeNumber == 1 || typeNumber == 2 || typeNumber == 3) {
             List<ArchiveFile> archiveFiles = archiveFileRepository.findByTypeNumber(typeNumber);
             List<ArchiveFileDto> dtos = new ArrayList<>();
-            for (int i = 0; i < archiveFiles.size(); i++) {
-                dtos.add(archiveFileMapper.mapToDto(archiveFiles.get(i)));
+            for (ArchiveFile archiveFile : archiveFiles) {
+                dtos.add(archiveFileMapper.mapToDto(archiveFile));
             }
             return dtos;
-        }
-        else
-            throw new RecordNotFountException("This Record With Type Number "+ typeNumber +" Not Found");
+        } else
+            throw new RecordNotFountException("This Record With Type Number " + typeNumber + " Not Found");
 
     }
 
-    public List<ArchiveFileDto> findByNameContaining(String name){
-        if (!archiveFileRepository.findByNameContaining(name).isEmpty() ) {
+    public List<ArchiveFileDto> findByNameContaining(String name) {
+        if (!archiveFileRepository.findByNameContaining(name).isEmpty()) {
             List<ArchiveFile> archiveFiles = archiveFileRepository.findByNameContaining(name);
             List<ArchiveFileDto> dtos = new ArrayList<>();
-            for (int i = 0; i < archiveFiles.size(); i++) {
-                dtos.add(archiveFileMapper.mapToDto(archiveFiles.get(i)));
+            for (ArchiveFile archiveFile : archiveFiles) {
+                dtos.add(archiveFileMapper.mapToDto(archiveFile));
             }
             return dtos;
 
-        }
-        else
-            throw new RecordNotFountException("This Record With name "+ name +" Not Found");
+        } else
+            throw new RecordNotFountException("This Record With name " + name + " Not Found");
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     // @CacheEvict(value = "findAllArchive", key = "#root.methodName", allEntries = true)
     //refresh cache when in method in value
     public void insert(ArchiveFileDto dto) {
 
-        ArchiveFile archiveFile =archiveFileMapper.mapToEntity(dto);
+        ArchiveFile archiveFile = archiveFileMapper.mapToEntity(dto);
         switch (archiveFile.getTypeNumber()) {
             case 1 -> archiveFile.setFileType(FileType.exports);
             case 2 -> archiveFile.setFileType(FileType.imports);
@@ -106,7 +88,7 @@ public class ArchiveFileServices {
     //@CacheEvict(value = "findAllArchive", key = "#root.methodName", allEntries = true)
     //refresh cache when in method in value
     public void update(ArchiveFileDto dto) {
-        ArchiveFile archiveFile =archiveFileMapper.mapToEntity(dto);
+        ArchiveFile archiveFile = archiveFileMapper.mapToEntity(dto);
         archiveFileRepository.save(archiveFile);
     }
 
@@ -130,7 +112,6 @@ public class ArchiveFileServices {
 
         archiveFileRepository.saveAll(archiveFiles);
     }
-
 
     public void deleteById(Short id) {
         archiveFileRepository.deleteById(id);

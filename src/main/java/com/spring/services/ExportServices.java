@@ -17,6 +17,11 @@ public class ExportServices {
     private final ExportRepository exportRepository;
     private final ExportMapper exportMapper;
 
+
+    public Long count(){
+        return exportRepository.count();
+    }
+
     public List<ExportDto> findAll(){
         List<Export> exports= exportRepository.findAll();
         List<ExportDto> dtos = new ArrayList<>();
