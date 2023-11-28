@@ -2,7 +2,6 @@ package com.spring.model.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,7 +37,6 @@ public class ImportDto {
     private Date recipientDate; // تاريخ الاستلام
 
     //Export
-    @JsonIgnore
     private ExportDto export;
 
     private Short responseNumber; // رقم الرد
@@ -48,10 +46,9 @@ public class ImportDto {
 
 
     // ArchiveFileDto
-    @JsonIgnore
     private ArchiveFileDto archiveFile;
 
-    private Long archiveId;
+    private Short archiveId;
     private Byte typeNumber;
     private Long num;
 }

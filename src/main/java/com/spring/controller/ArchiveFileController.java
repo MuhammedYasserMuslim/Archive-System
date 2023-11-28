@@ -1,7 +1,6 @@
 package com.spring.controller;
 
 import com.spring.model.dto.ArchiveFileDto;
-import com.spring.model.entity.ArchiveFile;
 import com.spring.services.ArchiveFileServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,31 +23,37 @@ public class ArchiveFileController {
     public Long count() {
         return archiveFileServices.count();
     }
+
     @GetMapping("/archives")
     @Operation(summary = "Get All Archive Files")
     public List<ArchiveFileDto> findAll() {
         return archiveFileServices.findAll();
     }
+
     @GetMapping("/archive-id")
     @Operation(summary = "Get Archive File By Id")
     public ArchiveFileDto findById(@RequestParam Short id) {
         return archiveFileServices.findById(id);
     }
+
     @GetMapping("/archive-num")
     @Operation(summary = "Get Archive File By Number")
-    public List<ArchiveFileDto> findByTypeNumber(@RequestParam  Byte num){
+    public List<ArchiveFileDto> findByTypeNumber(@RequestParam Byte num) {
         return archiveFileServices.findByTypeNumber(num);
     }
+
     @GetMapping("/archive-name")
     @Operation(summary = "Get Archive File By Name")
-    public List<ArchiveFileDto> findByNameLike(String name){
+    public List<ArchiveFileDto> findByNameLike(String name) {
         return archiveFileServices.findByNameContaining(name);
     }
+
     @PostMapping("/archive")
     @Operation(summary = "Add Archive File")
     public void insert(@RequestBody ArchiveFileDto archiveFile) {
         archiveFileServices.insert(archiveFile);
     }
+
     @PostMapping("/archives")
     @Operation(summary = "Add List Of  Archive Files")
     public void saveAll(@RequestBody List<ArchiveFileDto> archiveFiles) {
@@ -61,6 +66,7 @@ public class ArchiveFileController {
     public void update(@RequestBody ArchiveFileDto archiveFile) {
         archiveFileServices.update(archiveFile);
     }
+
     @DeleteMapping("/archive")
     @Operation(summary = "Delete Archive Files By Id")
     public void deleteById(Short id) {

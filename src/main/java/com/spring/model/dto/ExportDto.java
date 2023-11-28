@@ -14,6 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class ExportDto {
 
+
     private Short id;   //رقم
 
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -26,8 +27,7 @@ public class ExportDto {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date urgentDate; //تاريخ الاستعجالات
 
-    // Import ;
-    @JsonIgnore
+    // Import
     private ImportDto aimport;
 
     private Short responseNumber; // رقم الرد
@@ -36,7 +36,6 @@ public class ExportDto {
 
 
     // ArchiveFileDto
-    @JsonIgnore
     private ArchiveFileDto archiveFile;
 
     private Short archiveId;

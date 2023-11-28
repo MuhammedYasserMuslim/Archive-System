@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.Map;
 
 @Setter
 @Getter
@@ -20,7 +21,6 @@ public class Import extends BaseEntity {
     private Short id; // رقم الملف
 
     @Column(name = "income_date")
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date incomeDate; //تاريخ الورود
 
     @Column(name = "number_of_attachments")
@@ -43,18 +43,20 @@ public class Import extends BaseEntity {
     private String recipientName;//توقيع المستلم
 
     @Column(name = "recipient_date")
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date recipientDate; // تاريخ الاستلام
 
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
     @JoinColumn(name = "response_id")
     private Export export;
 
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE})
+    @ManyToOne
     @JoinColumn(name = "archive_file_id")
     private ArchiveFile archiveFile;
+
+    @OneToOne(mappedBy = "aimport")
+    private Export exportRel;
 
 
 

@@ -5,7 +5,7 @@ import com.spring.model.enums.FileType;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -35,12 +35,12 @@ public class ArchiveFile extends BaseEntity {
 
     @OneToMany(mappedBy = "archiveFile")
     @JsonIgnore
-    private List<Export> exports;
+    private Set<Export> exports;
 
 
     @OneToMany(mappedBy = "archiveFile")
     @JsonIgnore
-    private List<Import> imports;
+    private Set<Import> imports;
 
 
 }

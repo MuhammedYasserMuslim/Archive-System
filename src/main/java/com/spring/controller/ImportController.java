@@ -1,12 +1,11 @@
 package com.spring.controller;
 
-import com.spring.model.dto.ExportDto;
 import com.spring.model.dto.ImportDto;
-import com.spring.model.entity.Import;
 import com.spring.services.ImportServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,14 +39,10 @@ public class ImportController {
 
     @PostMapping("/import")
     @Operation(summary = "Add Import ")
-    public void insert(ImportDto dto) {
+    public ResponseEntity<?> insert(@RequestBody ImportDto dto) {
         importServices.insert(dto);
+        return ResponseEntity.ok(dto);
     }
 
-    @PostMapping("/import-entity")
-    @Operation(summary = "Add Import ")
-    public void insertEntity(Import dto) {
-        importServices.insertEntity(dto);
-    }
 
 }

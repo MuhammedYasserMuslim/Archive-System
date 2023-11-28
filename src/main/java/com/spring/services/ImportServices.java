@@ -1,8 +1,6 @@
 package com.spring.services;
 
-import com.spring.model.dto.ExportDto;
 import com.spring.model.dto.ImportDto;
-import com.spring.model.entity.Export;
 import com.spring.model.entity.Import;
 import com.spring.model.mapper.ImportMapper;
 import com.spring.repository.ImportRepository;
@@ -19,8 +17,8 @@ public class ImportServices {
     private final ImportRepository importRepository;
     private final ImportMapper importMapper;
 
-    public List<ImportDto> findAll(){
-        List<Import>imports = importRepository.findAll();
+    public List<ImportDto> findAll() {
+        List<Import> imports = importRepository.findAll();
         List<ImportDto> dtos = new ArrayList<>();
 
         for (Import anImport : imports) {
@@ -29,24 +27,18 @@ public class ImportServices {
         return dtos;
     }
 
-
-    public ImportDto findById(Short id){
+    public ImportDto findById(Short id) {
         Import importa = importRepository.findById(id).get();
-        ImportDto dto = importMapper.mapToDto(importa);
-        return dto;
+        return importMapper.mapToDto(importa);
     }
-    public void insert(ImportDto dto){
-        Import importa =importMapper.mapToEntity(dto);
+
+    public void insert(ImportDto dto) {
+        Import importa = importMapper.mapToEntity(dto);
         importRepository.save(importa);
     }
 
-
-    public void insertEntity(Import importa){
-        importRepository.save(importa);
-    }
-
-    public List<ImportDto> findBySummary(String summary){
-        List<Import>imports = importRepository.findBySummaryContaining(summary);
+    public List<ImportDto> findBySummary(String summary) {
+        List<Import> imports = importRepository.findBySummaryContaining(summary);
         List<ImportDto> dtos = new ArrayList<>();
 
         for (Import anImport : imports) {

@@ -27,8 +27,7 @@ public class ExportServices {
     }
     public ExportDto findById(Short id){
         Export export = exportRepository.findById(id).get();
-        ExportDto dto = exportMapper.mapToDto(export);
-        return dto;
+        return exportMapper.mapToDto(export);
 
 
     }
@@ -47,8 +46,6 @@ public class ExportServices {
         exportRepository.save(export);
     }
 
-    public void insert(Export export){
-        exportRepository.save(export);
-    }
+
 
 }
