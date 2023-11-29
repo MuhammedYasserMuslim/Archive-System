@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -18,26 +19,42 @@ public class ExportServices {
     private final ExportMapper exportMapper;
 
 
-    public Long count(){
+    public Long count() {
         return exportRepository.count();
     }
 
-    public List<ExportDto> findAll(){
-        List<Export> exports= exportRepository.findAll();
+    public Long countCurrent() {
+        return exportRepository.countCurrent();
+    }
+
+    public List<ExportDto> findAll() {
+        List<Export> exports = exportRepository.findAll();
         List<ExportDto> dtos = new ArrayList<>();
         for (Export export : exports) {
             dtos.add(exportMapper.mapToDto(export));
         }
         return dtos;
     }
-    public ExportDto findById(Short id){
+
+    public ExportDto findById(Short id) {
         Export export = exportRepository.findById(id).get();
         return exportMapper.mapToDto(export);
 
 
     }
-    public List<ExportDto> findBySummary(String summary){
-        List<Export> exports= exportRepository.findBySummaryContaining(summary);
+
+    public List<ExportDto> findBySummary(String summary) {
+        List<Export> exports = exportRepository.findBySummaryContaining(summary);
+        List<ExportDto> dtos = new ArrayList<>();
+        for (Export export : exports) {
+            dtos.add(exportMapper.mapToDto(export));
+        }
+        return dtos;
+    }
+
+    public List<ExportDto> findByDate() {
+
+        List<Export> exports = exportRepository.findByDate();
         List<ExportDto> dtos = new ArrayList<>();
         for (Export export : exports) {
             dtos.add(exportMapper.mapToDto(export));
@@ -46,11 +63,14 @@ public class ExportServices {
     }
 
 
-    public void insert(ExportDto dto){
-        Export export =exportMapper.mapToEntity(dto);
+    public void insert(ExportDto dto) {
+        Export export = exportMapper.mapToEntity(dto);
         exportRepository.save(export);
     }
 
+    public void deleteById(Short id) {
+        exportRepository.deleteById(id);
+    }
 
 
 }

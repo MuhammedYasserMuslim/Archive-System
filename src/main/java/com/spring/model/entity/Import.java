@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
-import java.util.Map;
 
 @Setter
 @Getter
@@ -46,20 +45,14 @@ public class Import extends BaseEntity {
     private Date recipientDate; // تاريخ الاستلام
 
 
-    @OneToOne(cascade = {CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "response_id")
     private Export export;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "archive_file_id")
     private ArchiveFile archiveFile;
-
-    @OneToOne(mappedBy = "aimport")
-    private Export exportRel;
-
-
-
 
 
 }

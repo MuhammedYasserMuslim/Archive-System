@@ -17,8 +17,11 @@ public class ImportServices {
     private final ImportRepository importRepository;
     private final ImportMapper importMapper;
 
-    public Long count(){
+    public Long count() {
         return importRepository.count();
+    }
+    public Long  countCurrent(){
+        return importRepository.countCurrent();
     }
 
     public List<ImportDto> findAll() {
@@ -36,10 +39,6 @@ public class ImportServices {
         return importMapper.mapToDto(importa);
     }
 
-    public void insert(ImportDto dto) {
-        Import importa = importMapper.mapToEntity(dto);
-        importRepository.save(importa);
-    }
 
     public List<ImportDto> findBySummary(String summary) {
         List<Import> imports = importRepository.findBySummaryContaining(summary);
@@ -49,5 +48,24 @@ public class ImportServices {
             dtos.add(importMapper.mapToDto(anImport));
         }
         return dtos;
+    }
+
+    public List<ImportDto> findByIncomeDate() {
+        List<Import> imports = importRepository.findByIncomeDate();
+        List<ImportDto> dtos = new ArrayList<>();
+        for (Import anImport : imports) {
+            dtos.add(importMapper.mapToDto(anImport));
+        }
+        return dtos;
+
+    }
+
+    public void insert(ImportDto dto) {
+        Import importa = importMapper.mapToEntity(dto);
+        importRepository.save(importa);
+    }
+
+    public void deleteById(Short id) {
+        importRepository.deleteById(id);
     }
 }

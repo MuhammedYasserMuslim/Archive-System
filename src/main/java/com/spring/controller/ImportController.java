@@ -25,6 +25,13 @@ public class ImportController {
         return importServices.count();
     }
 
+    @GetMapping("/count-current")
+    @Operation(summary = "Get Import today Count")
+    public Long countCurrent() {
+        return importServices.countCurrent();
+    }
+
+
     @GetMapping("/imports")
     @Operation(summary = "Get All Imports")
     public List<ImportDto> findAll() {
@@ -43,11 +50,24 @@ public class ImportController {
         return importServices.findBySummary(summary);
     }
 
+    @GetMapping("/import-date")
+    @Operation(summary = "Get Today Imports")
+    private List<ImportDto> findByIncomeDate(){
+        return importServices.findByIncomeDate();
+    }
+
     @PostMapping("/import")
     @Operation(summary = "Add Import ")
     public ResponseEntity<?> insert(@RequestBody ImportDto dto) {
         importServices.insert(dto);
         return ResponseEntity.ok(dto);
+    }
+
+
+    @DeleteMapping("/import")
+    @Operation(summary = "Delete Import ")
+    public void deleteById(@RequestParam Short id){
+        importServices.deleteById(id);
     }
 
 

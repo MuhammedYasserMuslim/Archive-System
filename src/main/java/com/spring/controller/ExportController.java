@@ -22,33 +22,53 @@ public class ExportController {
 
     @GetMapping("/count")
     @Operation(summary = "Get Exports Count")
-    public Long count(){
-        return exportServices.count();
+    public ResponseEntity<Long> count(){
+        return ResponseEntity.ok(exportServices.count());
+    }
+
+    @GetMapping("/count-current")
+    @Operation(summary = "Get Exports today Count")
+    public Long countCurrent() {
+        return exportServices.countCurrent();
     }
 
     @GetMapping("/exports")
     @Operation(summary = "Get All Exports")
-    public List<ExportDto> findAll() {
-        return exportServices.findAll();
+    public ResponseEntity<List<ExportDto>> findAll() {
+        return ResponseEntity.ok(exportServices.findAll());
     }
 
     @GetMapping("/export-id")
     @Operation(summary = "Get Exports By Id")
-    public ExportDto findById(@RequestParam Short id) {
-        return exportServices.findById(id);
+    public ResponseEntity<ExportDto> findById(@RequestParam Short id) {
+        return ResponseEntity.ok(exportServices.findById(id));
     }
 
     @GetMapping("/export-summary")
-    @Operation(summary = "Get Archive File By Summary")
-    public List<ExportDto> findBySummary(@RequestParam String summary) {
-        return exportServices.findBySummary(summary);
+    @Operation(summary = "Get Export By Summary")
+    public  ResponseEntity<List<ExportDto>> findBySummary(@RequestParam String summary) {
+        return ResponseEntity.ok(exportServices.findBySummary(summary));
+    }
+    @GetMapping("/export-date")
+    @Operation(summary = "Get Today Export")
+    public ResponseEntity<List<ExportDto>> findByDate(){
+        return ResponseEntity.ok(exportServices.findByDate());
     }
 
     @PostMapping("/export")
     @Operation(summary = "Add Export ")
-    public ResponseEntity<?> insert(@RequestBody ExportDto dto) {
+    public ResponseEntity<ExportDto> insert(@RequestBody ExportDto dto) {
         exportServices.insert(dto);
         return ResponseEntity.ok(dto);
     }
+
+    @DeleteMapping("/export")
+    @Operation(summary = "Delete Export ")
+    public void deleteById(@RequestParam Short id){
+        exportServices.deleteById(id);
+    }
+
+
+
 
 }

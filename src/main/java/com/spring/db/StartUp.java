@@ -6,6 +6,7 @@ import com.spring.repository.ArchiveFileRepository;
 import com.spring.repository.ExportRepository;
 import com.spring.services.ArchiveFileServices;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
+@Log4j2
 public class StartUp implements CommandLineRunner {
 
     private final ArchiveFileServices archiveFileServices;
@@ -316,5 +318,8 @@ public class StartUp implements CommandLineRunner {
             exportRepository.saveAll(exports);
         }
 
+
     }
+
+
 }

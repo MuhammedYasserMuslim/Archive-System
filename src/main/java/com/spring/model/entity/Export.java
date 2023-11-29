@@ -42,16 +42,15 @@ public class Export extends BaseEntity{
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date urgentDate; //تاريخ الاستعجالات
 
-    @OneToOne(cascade = {CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+    @OneToOne(cascade = {CascadeType.DETACH,CascadeType.REFRESH})
     @JoinColumn(name = "response_id")
     private Import aimport; //رقم الرد / تاريخ الرد
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "archive_file_id")
     private ArchiveFile archiveFile;
 
-    @OneToOne(mappedBy = "export")
-    private Import importRel;
+
 
 
 

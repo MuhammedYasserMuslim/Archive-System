@@ -37,8 +37,7 @@ public class ArchiveFileServices {
     public ArchiveFileDto findById(Short id) {
         if (archiveFileRepository.findById(id).isPresent()) {
             ArchiveFile archiveFile = archiveFileRepository.findById(id).get();
-            ArchiveFileDto archiveFileDto = archiveFileMapper.mapToDto(archiveFile);
-            return archiveFileDto;
+            return archiveFileMapper.mapToDto(archiveFile);
         } else throw new RecordNotFountException("This Record With id " + id + " Not Found");
     }
 
