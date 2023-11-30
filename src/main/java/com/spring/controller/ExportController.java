@@ -28,8 +28,8 @@ public class ExportController {
 
     @GetMapping("/count-current")
     @Operation(summary = "Get Exports today Count")
-    public Long countCurrent() {
-        return exportServices.countCurrent();
+    public ResponseEntity<Long> countCurrent() {
+        return ResponseEntity.ok(exportServices.countCurrent());
     }
 
     @GetMapping("/exports")
@@ -53,6 +53,12 @@ public class ExportController {
     @Operation(summary = "Get Today Export")
     public ResponseEntity<List<ExportDto>> findByDate(){
         return ResponseEntity.ok(exportServices.findByDate());
+    }
+
+    @GetMapping("/export-archive")
+    @Operation(summary = "Get Export By Archive File Id")
+    public ResponseEntity<List<ExportDto>> findByArchiveFile(@RequestParam short id){
+        return ResponseEntity.ok(exportServices.findByArchiveFile(id));
     }
 
     @PostMapping("/export")

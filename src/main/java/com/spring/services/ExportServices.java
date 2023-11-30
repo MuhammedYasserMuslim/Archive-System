@@ -1,8 +1,11 @@
 package com.spring.services;
 
+import com.spring.model.dto.ArchiveFileDto;
 import com.spring.model.dto.ExportDto;
 import com.spring.model.entity.Export;
+import com.spring.model.mapper.ArchiveFileMapper;
 import com.spring.model.mapper.ExportMapper;
+import com.spring.repository.ArchiveFileRepository;
 import com.spring.repository.ExportRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,8 @@ import java.util.List;
 public class ExportServices {
 
     private final ExportRepository exportRepository;
+    private final ArchiveFileServices archiveFileServices;
+    private final ArchiveFileMapper archiveFileMapper;
     private final ExportMapper exportMapper;
 
 
@@ -59,6 +64,17 @@ public class ExportServices {
         for (Export export : exports) {
             dtos.add(exportMapper.mapToDto(export));
         }
+        return dtos;
+    }
+
+    public List<ExportDto> findByArchiveFile(short id){
+        ArchiveFileDto dto = archiveFileServices.findById(id);
+        List<Export> exports= exportRepository.findByArchiveFile(archiveFileMapper.mapToEntity(dto));
+        List<ExportDto> dtos = new ArrayList<>();
+        for (Export export : exports) {
+            dtos.add(exportMapper.mapToDto(export));
+        }
+
         return dtos;
     }
 

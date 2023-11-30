@@ -21,39 +21,45 @@ public class ImportController {
 
     @GetMapping("/count")
     @Operation(summary = "Get Import Count")
-    public Long count(){
-        return importServices.count();
+    public ResponseEntity<Long> count() {
+        return ResponseEntity.ok(importServices.count());
     }
 
     @GetMapping("/count-current")
     @Operation(summary = "Get Import today Count")
-    public Long countCurrent() {
-        return importServices.countCurrent();
+    public ResponseEntity<Long> countCurrent() {
+        return ResponseEntity.ok(importServices.countCurrent());
     }
 
 
     @GetMapping("/imports")
     @Operation(summary = "Get All Imports")
-    public List<ImportDto> findAll() {
-        return importServices.findAll();
+    public ResponseEntity<List<ImportDto>> findAll() {
+        return ResponseEntity.ok(importServices.findAll());
     }
 
     @GetMapping("/import-id")
     @Operation(summary = "Get Imports By Id")
-    public ImportDto findById(@RequestParam Short id) {
-        return importServices.findById(id);
+    public ResponseEntity<ImportDto> findById(@RequestParam Short id) {
+        return ResponseEntity.ok(importServices.findById(id));
     }
 
     @GetMapping("/import-summary")
     @Operation(summary = "Get Imports By Summary")
-    public List<ImportDto> findBySummary(@RequestParam String summary) {
-        return importServices.findBySummary(summary);
+    public ResponseEntity<List<ImportDto>> findBySummary(@RequestParam String summary) {
+        return ResponseEntity.ok(importServices.findBySummary(summary));
     }
 
     @GetMapping("/import-date")
     @Operation(summary = "Get Today Imports")
-    private List<ImportDto> findByIncomeDate(){
+    private List<ImportDto> findByIncomeDate() {
         return importServices.findByIncomeDate();
+    }
+
+    @GetMapping("/import-archive")
+    @Operation(summary = "Get Import By Archive File Id")
+    public ResponseEntity< List<ImportDto>> findByArchiveFile(@RequestParam short id) {
+        return ResponseEntity.ok(importServices.findByArchiveFile(id));
     }
 
     @PostMapping("/import")
@@ -66,7 +72,7 @@ public class ImportController {
 
     @DeleteMapping("/import")
     @Operation(summary = "Delete Import ")
-    public void deleteById(@RequestParam Short id){
+    public void deleteById(@RequestParam Short id) {
         importServices.deleteById(id);
     }
 

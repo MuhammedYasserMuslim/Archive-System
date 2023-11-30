@@ -1,7 +1,11 @@
 package com.spring.services;
 
+import com.spring.model.dto.ArchiveFileDto;
+import com.spring.model.dto.ExportDto;
 import com.spring.model.dto.ImportDto;
+import com.spring.model.entity.Export;
 import com.spring.model.entity.Import;
+import com.spring.model.mapper.ArchiveFileMapper;
 import com.spring.model.mapper.ImportMapper;
 import com.spring.repository.ImportRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +19,8 @@ import java.util.List;
 public class ImportServices {
 
     private final ImportRepository importRepository;
+    private final ArchiveFileServices archiveFileServices;
+    private final ArchiveFileMapper archiveFileMapper;
     private final ImportMapper importMapper;
 
     public Long count() {
@@ -58,6 +64,16 @@ public class ImportServices {
         }
         return dtos;
 
+    }
+
+    public List<ImportDto> findByArchiveFile(short id){
+        ArchiveFileDto dto = archiveFileServices.findById(id);
+        List<Import> imports= importRepository.findByArchiveFile(archiveFileMapper.mapToEntity(dto));
+        List<ImportDto> dtos = new ArrayList<>();
+        for (Import anImport : imports) {
+            dtos.add(importMapper.mapToDto(anImport));
+        }
+        return dtos;
     }
 
     public void insert(ImportDto dto) {
