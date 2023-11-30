@@ -30,6 +30,11 @@ public class ImportController {
     public ResponseEntity<Long> countCurrent() {
         return ResponseEntity.ok(importServices.countCurrent());
     }
+    @GetMapping("/count-respone-date") //خطابات حان موعدها
+    @Operation(summary = "Get count Import time has come (عدد خطابات حان موعدها)")
+    public ResponseEntity<Long> countExpectResponseDate() {
+        return ResponseEntity.ok(importServices.countExpectResponseDate());
+    }
 
 
     @GetMapping("/imports")
@@ -60,6 +65,12 @@ public class ImportController {
     @Operation(summary = "Get Import By Archive File Id")
     public ResponseEntity< List<ImportDto>> findByArchiveFile(@RequestParam short id) {
         return ResponseEntity.ok(importServices.findByArchiveFile(id));
+    }
+
+    @GetMapping("/import-response-date")
+    @Operation(summary = "Get  Import time has come ( خطابات حان موعدها)")
+    public ResponseEntity< List<ImportDto>> findByExpectResponseDate(){
+        return ResponseEntity.ok(importServices.findByExpectResponseDate());
     }
 
     @PostMapping("/import")

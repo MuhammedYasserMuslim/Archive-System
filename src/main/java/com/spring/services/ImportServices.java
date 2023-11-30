@@ -26,8 +26,13 @@ public class ImportServices {
     public Long count() {
         return importRepository.count();
     }
-    public Long  countCurrent(){
+
+    public Long countCurrent() {
         return importRepository.countCurrent();
+    }
+
+    public Long countExpectResponseDate() {
+        return importRepository.countExpectResponseDate();
     }
 
     public List<ImportDto> findAll() {
@@ -66,15 +71,27 @@ public class ImportServices {
 
     }
 
-    public List<ImportDto> findByArchiveFile(short id){
+    public List<ImportDto> findByExpectResponseDate() {
+        List<Import> imports = importRepository.findByExpectResponseDate();
+        List<ImportDto> dtos = new ArrayList<>();
+
+        for (Import anImport : imports) {
+            dtos.add(importMapper.mapToDto(anImport));
+        }
+
+        return dtos;
+    }
+
+    public List<ImportDto> findByArchiveFile(short id) {
         ArchiveFileDto dto = archiveFileServices.findById(id);
-        List<Import> imports= importRepository.findByArchiveFile(archiveFileMapper.mapToEntity(dto));
+        List<Import> imports = importRepository.findByArchiveFile(archiveFileMapper.mapToEntity(dto));
         List<ImportDto> dtos = new ArrayList<>();
         for (Import anImport : imports) {
             dtos.add(importMapper.mapToDto(anImport));
         }
         return dtos;
     }
+
 
     public void insert(ImportDto dto) {
         Import importa = importMapper.mapToEntity(dto);

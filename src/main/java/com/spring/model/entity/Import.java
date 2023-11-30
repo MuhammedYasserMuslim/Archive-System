@@ -54,5 +54,7 @@ public class Import extends BaseEntity {
     @JoinColumn(name = "archive_file_id")
     private ArchiveFile archiveFile;
 
+    @Column(name = "expect_response_date")
+    private Date expectResponseDate;
 
 }
