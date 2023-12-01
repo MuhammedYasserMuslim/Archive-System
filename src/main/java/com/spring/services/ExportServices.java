@@ -1,17 +1,17 @@
 package com.spring.services;
 
+import com.spring.exception.RecordNotFountException;
 import com.spring.model.dto.ArchiveFileDto;
 import com.spring.model.dto.ExportDto;
 import com.spring.model.entity.Export;
 import com.spring.model.mapper.ArchiveFileMapper;
 import com.spring.model.mapper.ExportMapper;
-import com.spring.repository.ArchiveFileRepository;
 import com.spring.repository.ExportRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -42,8 +42,12 @@ public class ExportServices {
     }
 
     public ExportDto findById(Short id) {
-        Export export = exportRepository.findById(id).get();
-        return exportMapper.mapToDto(export);
+
+        if (exportRepository.findById(id).isPresent()){
+            Export export = exportRepository.findById(id).get();
+            return exportMapper.mapToDto(export);}
+        else
+            throw new RecordNotFountException("File With id " + id +" Not Found");
 
 
     }
@@ -67,9 +71,9 @@ public class ExportServices {
         return dtos;
     }
 
-    public List<ExportDto> findByArchiveFile(short id){
+    public List<ExportDto> findByArchiveFile(short id) {
         ArchiveFileDto dto = archiveFileServices.findById(id);
-        List<Export> exports= exportRepository.findByArchiveFile(archiveFileMapper.mapToEntity(dto));
+        List<Export> exports = exportRepository.findByArchiveFile(archiveFileMapper.mapToEntity(dto));
         List<ExportDto> dtos = new ArrayList<>();
         for (Export export : exports) {
             dtos.add(exportMapper.mapToDto(export));

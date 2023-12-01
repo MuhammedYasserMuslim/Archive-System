@@ -32,7 +32,7 @@ public class ImportController {
     }
 
     @GetMapping("/count-important")
-    @Operation(summary = "Get count Import time has passed (عدد الخطابات الهامة )")
+    @Operation(summary = "Get count Important Imports  (عدد الخطابات الهامة )")
     public ResponseEntity<Long> countImportantFile() {
         return ResponseEntity.ok(importServices.countImportantFile());
     }
@@ -50,7 +50,7 @@ public class ImportController {
     }
 
     @GetMapping("/count-response-date-not-time")
-    @Operation(summary = "Get count Import time has passed (عدد خطابات لم يحن  موعدها)")
+    @Operation(summary = "Get count Import time has not come (عدد خطابات لم يحن  موعدها)")
     public ResponseEntity<Long> countItIsNotTime() {
         return ResponseEntity.ok(importServices.countItIsNotTime());
     }
@@ -87,7 +87,7 @@ public class ImportController {
     }
 
     @GetMapping("/import-important")
-    @Operation(summary = "Get  Import time has passed ( الملفات الهامة)")
+    @Operation(summary = "Get  important Import File ( الملفات الهامة)")
     public ResponseEntity<List<ImportDto>> findImportantFile() {
         return ResponseEntity.ok(importServices.findImportantFile());
     }
@@ -99,7 +99,7 @@ public class ImportController {
     }
 
     @GetMapping("/import-response-date-not-time")
-    @Operation(summary = "Get  Import time has passed ( خطابات  لم يحن موعدها)")
+    @Operation(summary = "Get  Import time has Not come  ( خطابات  لم يحن موعدها)")
     public ResponseEntity<List<ImportDto>> findItIsNotTime() {
         return ResponseEntity.ok(importServices.findItIsNotTime());
     }
@@ -117,8 +117,6 @@ public class ImportController {
         importServices.insert(dto);
         return ResponseEntity.ok(dto);
     }
-
-
     @DeleteMapping("/import")
     @Operation(summary = "Delete Import ")
     public void deleteById(@RequestParam Short id) {
