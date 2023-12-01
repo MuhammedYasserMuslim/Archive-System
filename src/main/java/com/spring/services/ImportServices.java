@@ -1,9 +1,7 @@
 package com.spring.services;
 
 import com.spring.model.dto.ArchiveFileDto;
-import com.spring.model.dto.ExportDto;
 import com.spring.model.dto.ImportDto;
-import com.spring.model.entity.Export;
 import com.spring.model.entity.Import;
 import com.spring.model.mapper.ArchiveFileMapper;
 import com.spring.model.mapper.ImportMapper;
@@ -31,8 +29,20 @@ public class ImportServices {
         return importRepository.countCurrent();
     }
 
-    public Long countExpectResponseDate() {
-        return importRepository.countExpectResponseDate();
+    public Long countItIsTime() {
+        return importRepository.countItIsTime();
+    }
+
+    public Long countPassedDate() {
+        return importRepository.countPassedDate();
+    }
+
+    public Long countImportantFile() {
+        return importRepository.countImportantFile();
+    }
+
+    public Long countItIsNotTime(){
+        return importRepository.countItIsNotTime();
     }
 
     public List<ImportDto> findAll() {
@@ -71,8 +81,41 @@ public class ImportServices {
 
     }
 
-    public List<ImportDto> findByExpectResponseDate() {
-        List<Import> imports = importRepository.findByExpectResponseDate();
+    public List<ImportDto> findItIsTime() {
+        List<Import> imports = importRepository.findItIsTime();
+        List<ImportDto> dtos = new ArrayList<>();
+
+        for (Import anImport : imports) {
+            dtos.add(importMapper.mapToDto(anImport));
+        }
+
+        return dtos;
+    }
+
+    public List<ImportDto>findItIsNotTime(){
+        List<Import> imports = importRepository.findItIsNotTime();
+        List<ImportDto> dtos = new ArrayList<>();
+
+        for (Import anImport : imports) {
+            dtos.add(importMapper.mapToDto(anImport));
+        }
+
+        return dtos;
+    }
+
+    public List<ImportDto> findPassedDate() {
+        List<Import> imports = importRepository.findPassedDate();
+        List<ImportDto> dtos = new ArrayList<>();
+
+        for (Import anImport : imports) {
+            dtos.add(importMapper.mapToDto(anImport));
+        }
+
+        return dtos;
+    }
+
+    public List<ImportDto> findImportantFile() {
+        List<Import> imports = importRepository.findImportantFile();
         List<ImportDto> dtos = new ArrayList<>();
 
         for (Import anImport : imports) {

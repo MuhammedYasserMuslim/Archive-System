@@ -30,10 +30,29 @@ public class ImportController {
     public ResponseEntity<Long> countCurrent() {
         return ResponseEntity.ok(importServices.countCurrent());
     }
-    @GetMapping("/count-respone-date") //خطابات حان موعدها
+
+    @GetMapping("/count-important")
+    @Operation(summary = "Get count Import time has passed (عدد الخطابات الهامة )")
+    public ResponseEntity<Long> countImportantFile() {
+        return ResponseEntity.ok(importServices.countImportantFile());
+    }
+
+    @GetMapping("/count-response-date-is-time")
     @Operation(summary = "Get count Import time has come (عدد خطابات حان موعدها)")
-    public ResponseEntity<Long> countExpectResponseDate() {
-        return ResponseEntity.ok(importServices.countExpectResponseDate());
+    public ResponseEntity<Long> countItIsTime() {
+        return ResponseEntity.ok(importServices.countItIsTime());
+    }
+
+    @GetMapping("/count-response-date-passed")
+    @Operation(summary = "Get count Import time has passed (عدد خطابات ذهب موعدها)")
+    public ResponseEntity<Long> countPassedDate() {
+        return ResponseEntity.ok(importServices.countPassedDate());
+    }
+
+    @GetMapping("/count-response-date-not-time")
+    @Operation(summary = "Get count Import time has passed (عدد خطابات لم يحن  موعدها)")
+    public ResponseEntity<Long> countItIsNotTime() {
+        return ResponseEntity.ok(importServices.countItIsNotTime());
     }
 
 
@@ -63,15 +82,34 @@ public class ImportController {
 
     @GetMapping("/import-archive")
     @Operation(summary = "Get Import By Archive File Id")
-    public ResponseEntity< List<ImportDto>> findByArchiveFile(@RequestParam short id) {
+    public ResponseEntity<List<ImportDto>> findByArchiveFile(@RequestParam short id) {
         return ResponseEntity.ok(importServices.findByArchiveFile(id));
     }
 
-    @GetMapping("/import-response-date")
-    @Operation(summary = "Get  Import time has come ( خطابات حان موعدها)")
-    public ResponseEntity< List<ImportDto>> findByExpectResponseDate(){
-        return ResponseEntity.ok(importServices.findByExpectResponseDate());
+    @GetMapping("/import-important")
+    @Operation(summary = "Get  Import time has passed ( الملفات الهامة)")
+    public ResponseEntity<List<ImportDto>> findImportantFile() {
+        return ResponseEntity.ok(importServices.findImportantFile());
     }
+
+    @GetMapping("/import-response-date-is-time")
+    @Operation(summary = "Get  Import time has come ( خطابات حان موعدها)")
+    public ResponseEntity<List<ImportDto>> findItIsTime() {
+        return ResponseEntity.ok(importServices.findItIsTime());
+    }
+
+    @GetMapping("/import-response-date-not-time")
+    @Operation(summary = "Get  Import time has passed ( خطابات  لم يحن موعدها)")
+    public ResponseEntity<List<ImportDto>> findItIsNotTime() {
+        return ResponseEntity.ok(importServices.findItIsNotTime());
+    }
+
+    @GetMapping("/import-response-date-passed")
+    @Operation(summary = "Get  Import time has passed ( خطابات ذهب موعدها)")
+    public ResponseEntity<List<ImportDto>> findPassedDate() {
+        return ResponseEntity.ok(importServices.findPassedDate());
+    }
+
 
     @PostMapping("/import")
     @Operation(summary = "Add Import ")
