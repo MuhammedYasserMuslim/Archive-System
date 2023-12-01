@@ -78,7 +78,6 @@ public class FileUploadService {
 
         }
     }
-
     public byte[] getFileFromFileSystem(String name) throws IOException {
         Optional<Image> image = imageRepository.findByName(name);
         String filePath=basePath+image.get().getImagePath();

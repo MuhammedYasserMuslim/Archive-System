@@ -1,6 +1,7 @@
 package com.spring.model.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spring.model.entity.Export;
 import com.spring.model.entity.Import;
 import com.spring.model.enums.FileType;
@@ -26,8 +27,9 @@ public class ArchiveFileDto {
 
     private Byte typeNumber;
 
+    @JsonIgnore
     private Set<Import> imports;
-
+    @JsonIgnore
     private Set<Export> exports;
 
     public ArchiveFileDto(Short num, String name, Byte typeNumber) {
