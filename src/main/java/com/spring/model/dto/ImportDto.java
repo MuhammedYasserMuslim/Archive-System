@@ -2,7 +2,7 @@ package com.spring.model.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Column;
+import com.spring.model.entity.Export;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,6 +43,7 @@ public class ImportDto {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date responseDate; //تاريخ الرد
     private String responseSide; //الجهة الصادر اليها الخطاب
+    private Export exportRel;
 
 
     // ArchiveFileDto

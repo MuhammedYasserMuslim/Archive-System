@@ -15,6 +15,7 @@ public interface ExportMapper {
     @Mapping(target = "aimport",ignore = true)
     @Mapping(target = "responseNumber", source = "aimport.id")
     @Mapping(target = "responseDate", source = "aimport.incomeDate")
+    @Mapping(target = "importRel",ignore = true)
     ExportDto mapToDto(Export entity);
 
 

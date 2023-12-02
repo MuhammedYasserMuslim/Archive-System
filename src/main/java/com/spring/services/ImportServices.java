@@ -141,6 +141,10 @@ public class ImportServices {
         importRepository.save(importa);
     }
 
+    public void insertAll(List<Import> imports){
+        importRepository.saveAll(imports);
+    }
+
     public void deleteById(Short id) {
         importRepository.deleteById(id);
     }

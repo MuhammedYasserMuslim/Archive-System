@@ -43,11 +43,11 @@ public class ExportServices {
 
     public ExportDto findById(Short id) {
 
-        if (exportRepository.findById(id).isPresent()){
+        if (exportRepository.findById(id).isPresent()) {
             Export export = exportRepository.findById(id).get();
-            return exportMapper.mapToDto(export);}
-        else
-            throw new RecordNotFountException("File With id " + id +" Not Found");
+            return exportMapper.mapToDto(export);
+        } else
+            throw new RecordNotFountException("File With id " + id + " Not Found");
 
 
     }
@@ -86,6 +86,20 @@ public class ExportServices {
     public void insert(ExportDto dto) {
         Export export = exportMapper.mapToEntity(dto);
         exportRepository.save(export);
+    }
+
+    public void insertAll(List<Export> exports){
+        exportRepository.saveAll(exports);
+    }
+
+    public void insertAlla(List<ExportDto> dtos) {
+        List<Export> exports = new ArrayList<>();
+
+        for (ExportDto dto : dtos) {
+            exports.add(exportMapper.mapToEntity(dto));
+        }
+        exportRepository.saveAll(exports);
+
     }
 
     public void deleteById(Short id) {

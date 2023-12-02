@@ -46,6 +46,9 @@ public class Export extends BaseEntity{
     @JoinColumn(name = "response_id")
     private Import aimport; //رقم الرد / تاريخ الرد
 
+    @OneToOne(mappedBy = "export")
+    private Import importRel;
+
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "archive_file_id")
     private ArchiveFile archiveFile;

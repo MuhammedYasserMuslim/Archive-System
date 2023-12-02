@@ -49,6 +49,9 @@ public class Import extends BaseEntity {
     @JoinColumn(name = "response_id")
     private Export export;
 
+    @OneToOne(mappedBy = "aimport")
+    private Export exportRel;
+
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "archive_file_id")
