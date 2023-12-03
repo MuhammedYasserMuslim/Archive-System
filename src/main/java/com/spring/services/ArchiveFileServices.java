@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -67,6 +68,13 @@ public class ArchiveFileServices {
         } else
             throw new RecordNotFountException("This Record With name " + name + " Not Found");
 
+    }
+
+    public ArchiveFileDto findByTypeNumberAndNum(Byte typeNumber, Short num) {
+        if (archiveFileRepository.findByTypeNumberAndNum(typeNumber, num).isPresent()) {
+            ArchiveFile archiveFile = archiveFileRepository.findByTypeNumberAndNum(typeNumber, num).get();
+            return archiveFileMapper.mapToDto(archiveFile);
+        } else throw new RecordNotFountException("This Record With number " + typeNumber + "/" + num + " Not Found");
     }
 
 

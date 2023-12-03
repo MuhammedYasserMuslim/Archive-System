@@ -1,7 +1,6 @@
 package com.spring.controller;
 
 import com.spring.model.dto.ExportDto;
-import com.spring.model.entity.Export;
 import com.spring.services.ExportServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -71,7 +70,7 @@ public class ExportController {
 
     @PostMapping("/exports")
     @Operation(summary = "Add List Of Exports ")
-    public ResponseEntity<List<Export>> insertAll(@RequestBody List<Export> dtos){
+    public ResponseEntity<List<ExportDto>> insertAll(@RequestBody List<ExportDto> dtos){
         exportServices.insertAll(dtos);
         return ResponseEntity.ok(dtos);
     }

@@ -26,5 +26,4 @@ public interface ImportMapper {
     @Mapping(target = "export",ignore = true)
     Import mapToEntity(ImportDto dto);
 
-
 }

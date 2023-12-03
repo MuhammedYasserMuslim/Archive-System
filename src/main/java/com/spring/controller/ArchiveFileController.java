@@ -36,16 +36,17 @@ public class ArchiveFileController {
         return archiveFileServices.findById(id);
     }
 
-    @GetMapping("/archive-num")
-    @Operation(summary = "Get Archive File By Number")
-    public List<ArchiveFileDto> findByTypeNumber(@RequestParam Byte num) {
-        return archiveFileServices.findByTypeNumber(num);
-    }
-
     @GetMapping("/archive-name")
     @Operation(summary = "Get Archive File By Name")
     public List<ArchiveFileDto> findByNameLike(String name) {
         return archiveFileServices.findByNameContaining(name);
+    }
+
+    @GetMapping("/archive-num")
+    @Operation(summary = "Get Archive File By Number and Num")
+    public ArchiveFileDto findByTypeNumberAndNum(@RequestParam Byte typeNumber, @RequestParam Short num) {
+
+        return archiveFileServices.findByTypeNumberAndNum(typeNumber, num);
     }
 
     @PostMapping("/archive")
@@ -59,7 +60,6 @@ public class ArchiveFileController {
     public void saveAll(@RequestBody List<ArchiveFileDto> archiveFiles) {
         archiveFileServices.saveAll(archiveFiles);
     }
-
 
     @PutMapping("/archive")
     @Operation(summary = "Update Archive Files")

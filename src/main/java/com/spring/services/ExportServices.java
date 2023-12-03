@@ -10,7 +10,6 @@ import com.spring.repository.ExportRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,24 +81,17 @@ public class ExportServices {
         return dtos;
     }
 
-
     public void insert(ExportDto dto) {
         Export export = exportMapper.mapToEntity(dto);
         exportRepository.save(export);
     }
 
-    public void insertAll(List<Export> exports){
-        exportRepository.saveAll(exports);
-    }
-
-    public void insertAlla(List<ExportDto> dtos) {
+    public void insertAll(List<ExportDto> dtos) {
         List<Export> exports = new ArrayList<>();
-
         for (ExportDto dto : dtos) {
             exports.add(exportMapper.mapToEntity(dto));
         }
         exportRepository.saveAll(exports);
-
     }
 
     public void deleteById(Short id) {
