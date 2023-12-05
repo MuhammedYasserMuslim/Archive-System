@@ -1,6 +1,6 @@
 package com.spring.controller;
 
-import com.spring.model.dto.ArchiveFileDto;
+import com.spring.model.dto.archivefile.ArchiveFileDto;
 import com.spring.services.ArchiveFileServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

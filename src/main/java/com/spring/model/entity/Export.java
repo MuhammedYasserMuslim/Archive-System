@@ -3,6 +3,7 @@ package com.spring.model.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 
@@ -13,13 +14,14 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "exports")
-public class Export extends BaseEntity{
+public class Export extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Short id;//رقم
 
     @Column(name = "date")
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @CreationTimestamp
     private Date date; //تاريخ
 
     @Column(name = "number_of_attachments")
@@ -42,21 +44,14 @@ public class Export extends BaseEntity{
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date urgentDate; //تاريخ الاستعجالات
 
-    @OneToOne(cascade = {CascadeType.DETACH,CascadeType.REFRESH})
+    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "response_id")
     private Import aimport; //رقم الرد / تاريخ الرد
 
-    @OneToOne(mappedBy = "export")
-    private Import importRel;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "archive_file_id")
     private ArchiveFile archiveFile;
-
-
-
-
-
 
 
 }

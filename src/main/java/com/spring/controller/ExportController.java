@@ -1,6 +1,8 @@
 package com.spring.controller;
 
-import com.spring.model.dto.ExportDto;
+import com.spring.model.dto.exports.ExportDto;
+import com.spring.model.dto.exports.ExportDtoPost;
+import com.spring.model.dto.exports.ExportDtoPut;
 import com.spring.services.ExportServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,7 +24,7 @@ public class ExportController {
 
     @GetMapping("/count")
     @Operation(summary = "Get Exports Count")
-    public ResponseEntity<Long> count(){
+    public ResponseEntity<Long> count() {
         return ResponseEntity.ok(exportServices.count());
     }
 
@@ -46,41 +48,28 @@ public class ExportController {
 
     @GetMapping("/export-summary")
     @Operation(summary = "Get Export By Summary")
-    public  ResponseEntity<List<ExportDto>> findBySummary(@RequestParam String summary) {
+    public ResponseEntity<List<ExportDto>> findBySummary(@RequestParam String summary) {
         return ResponseEntity.ok(exportServices.findBySummary(summary));
     }
+
     @GetMapping("/export-date")
     @Operation(summary = "Get Today Export")
-    public ResponseEntity<List<ExportDto>> findByDate(){
+    public ResponseEntity<List<ExportDto>> findByDate() {
         return ResponseEntity.ok(exportServices.findByDate());
     }
 
     @GetMapping("/export-archive")
     @Operation(summary = "Get Export By Archive File Id")
-    public ResponseEntity<List<ExportDto>> findByArchiveFile(@RequestParam short id){
+    public ResponseEntity<List<ExportDto>> findByArchiveFile(@RequestParam short id) {
         return ResponseEntity.ok(exportServices.findByArchiveFile(id));
     }
 
     @PostMapping("/export")
     @Operation(summary = "Add Export ")
-    public ResponseEntity<ExportDto> insert(@RequestBody ExportDto dto) {
+    public ResponseEntity<ExportDtoPost> insert(@RequestBody ExportDtoPost dto) {
         exportServices.insert(dto);
         return ResponseEntity.ok(dto);
     }
-
-    @PostMapping("/exports")
-    @Operation(summary = "Add List Of Exports ")
-    public ResponseEntity<List<ExportDto>> insertAll(@RequestBody List<ExportDto> dtos){
-        exportServices.insertAll(dtos);
-        return ResponseEntity.ok(dtos);
-    }
-
-    @DeleteMapping("/export")
-    @Operation(summary = "Delete Export ")
-    public void deleteById(@RequestParam Short id){
-        exportServices.deleteById(id);
-    }
-
 
 
 

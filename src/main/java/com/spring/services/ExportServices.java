@@ -1,8 +1,10 @@
 package com.spring.services;
 
 import com.spring.exception.RecordNotFountException;
-import com.spring.model.dto.ArchiveFileDto;
-import com.spring.model.dto.ExportDto;
+import com.spring.model.dto.archivefile.ArchiveFileDto;
+import com.spring.model.dto.exports.ExportDto;
+import com.spring.model.dto.exports.ExportDtoPost;
+import com.spring.model.dto.exports.ExportDtoPut;
 import com.spring.model.entity.Export;
 import com.spring.model.mapper.ArchiveFileMapper;
 import com.spring.model.mapper.ExportMapper;
@@ -81,21 +83,17 @@ public class ExportServices {
         return dtos;
     }
 
-    public void insert(ExportDto dto) {
+    public void insert(ExportDtoPost dto) {
         Export export = exportMapper.mapToEntity(dto);
+        export.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum(export.getArchiveFile().getTypeNumber(), export.getArchiveFile().getNum())));
         exportRepository.save(export);
     }
 
-    public void insertAll(List<ExportDto> dtos) {
-        List<Export> exports = new ArrayList<>();
-        for (ExportDto dto : dtos) {
-            exports.add(exportMapper.mapToEntity(dto));
-        }
-        exportRepository.saveAll(exports);
-    }
+    public void update(ExportDtoPut dto) {
+        Export export = exportMapper.maoToEntityPut(dto);
+        export.setId(dto.getId());
+        exportRepository.save(export);
 
-    public void deleteById(Short id) {
-        exportRepository.deleteById(id);
     }
 
 

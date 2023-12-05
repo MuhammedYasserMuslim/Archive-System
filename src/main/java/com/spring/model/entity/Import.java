@@ -3,6 +3,7 @@ package com.spring.model.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 
@@ -20,6 +21,7 @@ public class Import extends BaseEntity {
     private Short id; // رقم الملف
 
     @Column(name = "income_date")
+    @CreationTimestamp
     private Date incomeDate; //تاريخ الورود
 
     @Column(name = "number_of_attachments")
@@ -49,8 +51,6 @@ public class Import extends BaseEntity {
     @JoinColumn(name = "response_id")
     private Export export;
 
-    @OneToOne(mappedBy = "aimport")
-    private Export exportRel;
 
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})

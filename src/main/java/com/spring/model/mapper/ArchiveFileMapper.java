@@ -1,6 +1,6 @@
 package com.spring.model.mapper;
 
-import com.spring.model.dto.ArchiveFileDto;
+import com.spring.model.dto.archivefile.ArchiveFileDto;
 import com.spring.model.entity.ArchiveFile;
 import org.mapstruct.Mapper;
 

@@ -1,7 +1,7 @@
 package com.spring.services;
 
 import com.spring.exception.RecordNotFountException;
-import com.spring.model.dto.ArchiveFileDto;
+import com.spring.model.dto.archivefile.ArchiveFileDto;
 import com.spring.model.entity.ArchiveFile;
 import com.spring.model.enums.FileType;
 import com.spring.model.mapper.ArchiveFileMapper;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -84,8 +83,8 @@ public class ArchiveFileServices {
 
         ArchiveFile archiveFile = archiveFileMapper.mapToEntity(dto);
         switch (archiveFile.getTypeNumber()) {
-            case 1 -> archiveFile.setFileType(FileType.exports);
-            case 2 -> archiveFile.setFileType(FileType.imports);
+            case 1 -> archiveFile.setFileType(FileType.imports);
+            case 2 -> archiveFile.setFileType(FileType.exports);
             case 3 -> archiveFile.setFileType(FileType.special);
             default -> throw new RuntimeException("Invalid Input Value " + archiveFile.getTypeNumber());
         }

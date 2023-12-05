@@ -1,7 +1,8 @@
 package com.spring.services;
 
-import com.spring.model.dto.ArchiveFileDto;
-import com.spring.model.dto.ImportDto;
+import com.spring.model.dto.archivefile.ArchiveFileDto;
+import com.spring.model.dto.imports.ImportDto;
+import com.spring.model.dto.imports.ImportDtoPost;
 import com.spring.model.entity.Import;
 import com.spring.model.mapper.ArchiveFileMapper;
 import com.spring.model.mapper.ImportMapper;
@@ -20,6 +21,7 @@ public class ImportServices {
     private final ArchiveFileServices archiveFileServices;
     private final ArchiveFileMapper archiveFileMapper;
     private final ImportMapper importMapper;
+
 
     public Long count() {
         return importRepository.count();
@@ -136,16 +138,12 @@ public class ImportServices {
     }
 
 
-    public void insert(ImportDto dto) {
+    public void insert(ImportDtoPost dto) {
         Import importa = importMapper.mapToEntity(dto);
+        importa.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum(importa.getArchiveFile().getTypeNumber(),importa.getArchiveFile().getNum())));
+
         importRepository.save(importa);
     }
 
-    public void insertAll(List<Import> imports){
-        importRepository.saveAll(imports);
-    }
 
-    public void deleteById(Short id) {
-        importRepository.deleteById(id);
-    }
 }

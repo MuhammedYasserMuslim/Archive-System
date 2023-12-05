@@ -1,6 +1,7 @@
 package com.spring.controller;
 
-import com.spring.model.dto.ImportDto;
+import com.spring.model.dto.imports.ImportDto;
+import com.spring.model.dto.imports.ImportDtoPost;
 import com.spring.model.entity.Import;
 import com.spring.services.ImportServices;
 import io.swagger.v3.oas.annotations.Operation;
@@ -114,21 +115,12 @@ public class ImportController {
 
     @PostMapping("/import")
     @Operation(summary = "Add Import ")
-    public ResponseEntity<?> insert(@RequestBody ImportDto dto) {
+    public ResponseEntity<?> insert(@RequestBody ImportDtoPost dto) {
         importServices.insert(dto);
         return ResponseEntity.ok(dto);
     }
 
-    @PostMapping("/imports")
-    @Operation(summary = "Add List Of Imports ")
-    public void insertAll(@RequestBody List<Import> imports){
-        importServices.insertAll(imports);
-    }
-    @DeleteMapping("/import")
-    @Operation(summary = "Delete Import ")
-    public void deleteById(@RequestParam Short id) {
-        importServices.deleteById(id);
-    }
+
 
 
 }
