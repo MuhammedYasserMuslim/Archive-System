@@ -139,6 +139,7 @@ public class ImportServices {
 
 
     public void insert(ImportDtoPost dto) {
+        dto.setTypeNumber((byte) 1);
         Import importa = importMapper.mapToEntity(dto);
         importa.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum(importa.getArchiveFile().getTypeNumber(),importa.getArchiveFile().getNum())));
 

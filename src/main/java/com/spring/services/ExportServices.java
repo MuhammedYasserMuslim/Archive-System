@@ -84,17 +84,15 @@ public class ExportServices {
     }
 
     public void insert(ExportDtoPost dto) {
+        dto.setTypeNumber((byte) 2);
         Export export = exportMapper.mapToEntity(dto);
-        export.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum(export.getArchiveFile().getTypeNumber(), export.getArchiveFile().getNum())));
+        export.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
+                (export.getArchiveFile().getTypeNumber(),
+                export.getArchiveFile().getNum())));
         exportRepository.save(export);
     }
 
-    public void update(ExportDtoPut dto) {
-        Export export = exportMapper.maoToEntityPut(dto);
-        export.setId(dto.getId());
-        exportRepository.save(export);
 
-    }
 
 
 }

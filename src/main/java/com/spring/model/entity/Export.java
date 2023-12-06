@@ -37,6 +37,7 @@ public class Export extends BaseEntity {
     private String recipientName;// المستلم
 
 
+
     @Column(name = "urgent_num")
     private Short urgentNum;// رقم الاستعجلات
 

@@ -25,10 +25,8 @@ public class ImportDtoPost {
     private String recipientName;//توقيع المستلم
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date recipientDate; // تاريخ الاستلام
-
     // ArchiveFileDto
     private ArchiveFileDto archiveFile;
-    private Short archiveId;
     private Byte typeNumber;
     private Long num;
     @JsonFormat(pattern = "yyyy-MM-dd")

@@ -20,7 +20,7 @@ public interface ImportMapper {
     ImportDto mapToDto(Import entity);
 
 
-    @Mapping(source = "archiveId" ,target = "archiveFile.id")
+    
     @Mapping(target = "archiveFile",ignore = true)
     @Mapping(source = "typeNumber",target = "archiveFile.typeNumber")
     @Mapping(source = "num",target = "archiveFile.num")
