@@ -120,6 +120,13 @@ public class ImportController {
         return ResponseEntity.ok(dto);
     }
 
+    @PutMapping("/import")
+    @Operation(summary = "Update Import")
+    public ResponseEntity<?> update(@RequestBody ImportDtoPost dto){
+        importServices.update(dto);
+        return  ResponseEntity.ok(dto);
+    }
+
 
 
 

@@ -16,7 +16,7 @@ import java.util.Date;
 public class ImportDtoPost {
 
 
-
+    private Short id;
     private String sender; //الجهة الوارد منها الخطاب
     private Short incomingLetterNumber; //رقم الخطاب الوارد
     @JsonFormat(pattern = "yyyy-MM-dd")

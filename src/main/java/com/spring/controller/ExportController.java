@@ -71,8 +71,19 @@ public class ExportController {
         return ResponseEntity.ok(dto);
     }
 
+    @PutMapping("/export")
+    @Operation(summary = "Update Export ")
+    public ResponseEntity<ExportDtoPost> update(@RequestBody ExportDtoPost dto) {
+        exportServices.update(dto);
+        return ResponseEntity.ok(dto);
+    }
 
-
+    @PutMapping("/export-add-urgent")
+    @Operation(summary = "Update Urgent ")
+    public ResponseEntity<ExportDtoPost> addUrgent(@RequestBody ExportDtoPost dto, @RequestParam short id) {
+        exportServices.addUrgent(dto, id);
+        return ResponseEntity.ok(dto);
+    }
 
 
 }

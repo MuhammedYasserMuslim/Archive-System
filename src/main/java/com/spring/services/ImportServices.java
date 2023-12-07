@@ -1,11 +1,14 @@
 package com.spring.services;
 
 import com.spring.model.dto.archivefile.ArchiveFileDto;
+import com.spring.model.dto.exports.ExportDtoPost;
 import com.spring.model.dto.imports.ImportDto;
 import com.spring.model.dto.imports.ImportDtoPost;
+import com.spring.model.entity.Export;
 import com.spring.model.entity.Import;
 import com.spring.model.mapper.ArchiveFileMapper;
 import com.spring.model.mapper.ImportMapper;
+import com.spring.model.mapper.ImportPostDto;
 import com.spring.repository.ImportRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -142,6 +145,28 @@ public class ImportServices {
         dto.setTypeNumber((byte) 1);
         Import importa = importMapper.mapToEntity(dto);
         importa.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum(importa.getArchiveFile().getTypeNumber(),importa.getArchiveFile().getNum())));
+
+        importRepository.save(importa);
+    }
+
+    public void update(ImportDtoPost dto) {
+        Import importa = importMapper.mapToEntity(dto);
+        dto.setTypeNumber((byte) 1);
+        importa.setId(dto.getId());
+        importa.setSender(dto.getSender());
+        importa.setIncomingLetterNumber(dto.getIncomingLetterNumber());
+        importa.setIncomingLetterDate(dto.getIncomingLetterDate());
+        importa.setSummary(dto.getSummary());
+        importa.setRecipientName(dto.getRecipientName());
+        importa.setRecipientDate(dto.getRecipientDate());
+        importa.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
+                ((byte)1,
+                        importa.getArchiveFile().getNum())));
+        importa.setIncomeDate(importRepository.findById(dto.getId()).get().getIncomeDate());
+        importa.setExport(importRepository.findById(dto.getId()).get().getExport());
+        importa.setNumberOfAttachments(importRepository.findById(dto.getId()).get().getNumberOfAttachments());
+        importa.setCreatedBy(importRepository.findById(dto.getId()).get().getCreatedBy());
+        importa.setCreatedDate(importRepository.findById(dto.getId()).get().getCreatedDate());
 
         importRepository.save(importa);
     }

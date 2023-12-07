@@ -4,7 +4,7 @@ import com.spring.exception.RecordNotFountException;
 import com.spring.model.dto.archivefile.ArchiveFileDto;
 import com.spring.model.dto.exports.ExportDto;
 import com.spring.model.dto.exports.ExportDtoPost;
-import com.spring.model.dto.exports.ExportDtoPut;
+import com.spring.model.dto.imports.ImportDtoPost;
 import com.spring.model.entity.Export;
 import com.spring.model.mapper.ArchiveFileMapper;
 import com.spring.model.mapper.ExportMapper;
@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -23,6 +24,7 @@ public class ExportServices {
     private final ArchiveFileServices archiveFileServices;
     private final ArchiveFileMapper archiveFileMapper;
     private final ExportMapper exportMapper;
+    private final ImportServices importServices;
 
 
     public Long count() {
@@ -88,11 +90,36 @@ public class ExportServices {
         Export export = exportMapper.mapToEntity(dto);
         export.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
                 (export.getArchiveFile().getTypeNumber(),
-                export.getArchiveFile().getNum())));
+                        export.getArchiveFile().getNum())));
         exportRepository.save(export);
     }
 
+    public void update(ExportDtoPost dto) {
+        Export export = exportMapper.mapToEntity(dto);
+        dto.setTypeNumber((byte) 2);
+        export.setId(dto.getId());
+        export.setReceiver(dto.getReceiver());
+        export.setSummary(dto.getSummary());
+        export.setRecipientName(dto.getRecipientName());
+        export.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
+                ((byte) 2,
+                        export.getArchiveFile().getNum())));
+        export.setDate(exportRepository.findById(dto.getId()).get().getDate());
+        export.setAimport(exportRepository.findById(dto.getId()).get().getAimport());
+        export.setNumberOfAttachments(exportRepository.findById(dto.getId()).get().getNumberOfAttachments());
+        export.setCreatedBy(exportRepository.findById(dto.getId()).get().getCreatedBy());
+        export.setCreatedDate(exportRepository.findById(dto.getId()).get().getCreatedDate());
 
+        exportRepository.save(export);
+    }
+
+    public void addUrgent(ExportDtoPost dto , short id){
+        insert(dto);
+        Export export = exportRepository.findById(id).get();
+        export.setUrgentNum((short)exportRepository.count());
+        export.setUrgentDate(new Date());
+        exportRepository.save(export);
+    }
 
 
 }
