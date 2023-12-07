@@ -54,4 +54,7 @@ public class Export extends BaseEntity {
     private ArchiveFile archiveFile;
 
 
+    public Export(Short id) {
+        this.id = id;
+    }
 }

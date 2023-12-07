@@ -2,7 +2,7 @@ package com.spring.controller;
 
 import com.spring.model.dto.exports.ExportDto;
 import com.spring.model.dto.exports.ExportDtoPost;
-import com.spring.model.dto.exports.ExportDtoPut;
+import com.spring.model.dto.imports.ImportDtoPost;
 import com.spring.services.ExportServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -66,9 +66,8 @@ public class ExportController {
 
     @PostMapping("/export")
     @Operation(summary = "Add Export ")
-    public ResponseEntity<ExportDtoPost> insert(@RequestBody ExportDtoPost dto) {
+    public void insert(@RequestBody ExportDtoPost dto) {
         exportServices.insert(dto);
-        return ResponseEntity.ok(dto);
     }
 
     @PutMapping("/export")
@@ -79,9 +78,16 @@ public class ExportController {
     }
 
     @PutMapping("/export-add-urgent")
-    @Operation(summary = "Update Urgent ")
+    @Operation(summary = "Add  Urgent ")
     public ResponseEntity<ExportDtoPost> addUrgent(@RequestBody ExportDtoPost dto, @RequestParam short id) {
         exportServices.addUrgent(dto, id);
+        return ResponseEntity.ok(dto);
+    }
+
+    @PutMapping("/export-add-response")
+    @Operation(summary = "Add  Response ")
+    public ResponseEntity<ImportDtoPost> addResponse(@RequestBody ImportDtoPost dto, @RequestParam short id) {
+        exportServices.addResponse(dto, id);
         return ResponseEntity.ok(dto);
     }
 

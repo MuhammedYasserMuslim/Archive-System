@@ -1,13 +1,16 @@
 package com.spring.services;
 
+import com.spring.exception.ConflictException;
 import com.spring.exception.RecordNotFountException;
 import com.spring.model.dto.archivefile.ArchiveFileDto;
 import com.spring.model.dto.exports.ExportDto;
 import com.spring.model.dto.exports.ExportDtoPost;
 import com.spring.model.dto.imports.ImportDtoPost;
 import com.spring.model.entity.Export;
+import com.spring.model.entity.Import;
 import com.spring.model.mapper.ArchiveFileMapper;
 import com.spring.model.mapper.ExportMapper;
+import com.spring.model.mapper.ImportMapper;
 import com.spring.repository.ExportRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,10 +27,11 @@ public class ExportServices {
     private final ArchiveFileServices archiveFileServices;
     private final ArchiveFileMapper archiveFileMapper;
     private final ExportMapper exportMapper;
+    private final ImportMapper importMapper;
     private final ImportServices importServices;
 
 
-    public Long count() {
+    public long count() {
         return exportRepository.count();
     }
 
@@ -113,13 +117,30 @@ public class ExportServices {
         exportRepository.save(export);
     }
 
-    public void addUrgent(ExportDtoPost dto , short id){
-        insert(dto);
+    public void addUrgent(ExportDtoPost dto, short id) {
         Export export = exportRepository.findById(id).get();
-        export.setUrgentNum((short)exportRepository.count());
-        export.setUrgentDate(new Date());
-        exportRepository.save(export);
+        if (export.getUrgentNum()==null){
+            insert(dto);
+            export.setUrgentNum((short) exportRepository.count());
+            export.setUrgentDate(new Date());
+            exportRepository.save(export);
+        }
+        else
+            throw new ConflictException("This File has Urgent Number is " + export.getUrgentNum());
     }
 
+    public void addResponse(ImportDtoPost dto, short id) {
+        Export export =exportRepository.findById(id).get();
+        if (export.getAimport()==null){
+            importServices.insert(dto);
+
+            export.setAimport(
+                    new Import((short) importServices.count())
+            );
+            exportRepository.save(export);
+        }
+        else
+            throw new ConflictException("This File has Response Number is " + export.getAimport().getId());
+    }
 
 }

@@ -60,4 +60,7 @@ public class Import extends BaseEntity {
     @Column(name = "expect_response_date")
     private Date expectResponseDate;
 
+    public Import(Short id) {
+        this.id = id;
+    }
 }

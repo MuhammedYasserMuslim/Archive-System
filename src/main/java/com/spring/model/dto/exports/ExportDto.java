@@ -39,9 +39,6 @@ public class ExportDto {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date responseDate; //تاريخ الرد
 
-
-
-
     // ArchiveFileDto
     @JsonBackReference
     private ArchiveFileDto archiveFile;

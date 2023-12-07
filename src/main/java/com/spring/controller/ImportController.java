@@ -1,5 +1,6 @@
 package com.spring.controller;
 
+import com.spring.model.dto.exports.ExportDtoPost;
 import com.spring.model.dto.imports.ImportDto;
 import com.spring.model.dto.imports.ImportDtoPost;
 import com.spring.model.entity.Import;
@@ -115,16 +116,14 @@ public class ImportController {
 
     @PostMapping("/import")
     @Operation(summary = "Add Import ")
-    public ResponseEntity<?> insert(@RequestBody ImportDtoPost dto) {
+    public void insert(@RequestBody ImportDtoPost dto) {
         importServices.insert(dto);
-        return ResponseEntity.ok(dto);
     }
 
     @PutMapping("/import")
     @Operation(summary = "Update Import")
-    public ResponseEntity<?> update(@RequestBody ImportDtoPost dto){
+    public void update(@RequestBody ImportDtoPost dto) {
         importServices.update(dto);
-        return  ResponseEntity.ok(dto);
     }
 
 
