@@ -10,23 +10,32 @@ import com.spring.model.entity.Import;
 import com.spring.model.mapper.ArchiveFileMapper;
 import com.spring.model.mapper.ImportMapper;
 import com.spring.model.mapper.ImportPostDto;
+import com.spring.repository.ExportRepository;
 import com.spring.repository.ImportRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class ImportServices {
 
-    private final ImportRepository importRepository;
-    private final ArchiveFileServices archiveFileServices;
-    private final ArchiveFileMapper archiveFileMapper;
-    private final ImportMapper importMapper;
-
-
+    @Autowired
+    private  ImportRepository importRepository;
+    @Autowired
+    private  ArchiveFileServices archiveFileServices;
+    @Autowired
+    private  ArchiveFileMapper archiveFileMapper;
+    @Autowired
+    private  ImportMapper importMapper;
+    private final ExportServices exportServices;
+    @Lazy
+    public ImportServices(ExportServices exportServices) {
+        this.exportServices = exportServices;
+    }
 
     public long count() {
         return importRepository.count();
@@ -173,7 +182,19 @@ public class ImportServices {
         importRepository.save(importa);
     }
 
+    public void addResponse(ExportDtoPost dto, short id) {
+        Import aImport =importRepository.findById(id).get();
+        if (aImport.getExport()==null){
+            exportServices.insert(dto);
 
+            aImport.setExport(
+                    new Export((short) exportServices.count())
+            );
+            importRepository.save(aImport);
+        }
+        else
+            throw new ConflictException("This File has Response Number is " + aImport.getExport().getId());
+    }
 
 
 }

@@ -126,7 +126,11 @@ public class ImportController {
         importServices.update(dto);
     }
 
-
+    @PutMapping("/import-add-response")
+    @Operation(summary = "Update Import")
+    public void addResponse(@RequestBody ExportDtoPost dto, @RequestParam short id) {
+        importServices.addResponse(dto,id);
+    }
 
 
 }

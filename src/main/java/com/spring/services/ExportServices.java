@@ -13,6 +13,8 @@ import com.spring.model.mapper.ExportMapper;
 import com.spring.model.mapper.ImportMapper;
 import com.spring.repository.ExportRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,16 +22,22 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class ExportServices {
 
-    private final ExportRepository exportRepository;
-    private final ArchiveFileServices archiveFileServices;
-    private final ArchiveFileMapper archiveFileMapper;
-    private final ExportMapper exportMapper;
-    private final ImportMapper importMapper;
+    @Autowired
+    private  ExportRepository exportRepository;
+    @Autowired
+    private  ArchiveFileServices archiveFileServices;
+    @Autowired
+    private  ArchiveFileMapper archiveFileMapper;
+    @Autowired
+    private  ExportMapper exportMapper;
     private final ImportServices importServices;
 
+    @Lazy
+    public ExportServices(ImportServices importServices) {
+        this.importServices = importServices;
+    }
 
     public long count() {
         return exportRepository.count();
