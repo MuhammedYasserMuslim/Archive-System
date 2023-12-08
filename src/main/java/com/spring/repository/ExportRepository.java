@@ -15,9 +15,9 @@ public interface ExportRepository extends JpaRepository<Export, Short> {
 
     List<Export> findByArchiveFile(ArchiveFile archiveFile);
 
-    @Query(value = "SELECT * FROM archive.exports where date = current_date()", nativeQuery = true)
+    @Query(value = "SELECT * FROM archive.exports where date between current_date() and current_date()+ INTERVAL 1 DAY", nativeQuery = true)
     List<Export> findByDate();
 
-    @Query(value = "SELECT count(*) FROM archive.exports where date = current_date()", nativeQuery = true)
+    @Query(value = "SELECT count(*) FROM archive.exports where date between current_date() and current_date()+ INTERVAL 1 DAY", nativeQuery = true)
     Long countCurrent();
 }
