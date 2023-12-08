@@ -1,6 +1,7 @@
 package com.spring.services;
 
 import com.spring.exception.ConflictException;
+import com.spring.exception.RecordNotFountException;
 import com.spring.model.dto.archivefile.ArchiveFileDto;
 import com.spring.model.dto.exports.ExportDtoPost;
 import com.spring.model.dto.imports.ImportDto;
@@ -9,10 +10,7 @@ import com.spring.model.entity.Export;
 import com.spring.model.entity.Import;
 import com.spring.model.mapper.ArchiveFileMapper;
 import com.spring.model.mapper.ImportMapper;
-import com.spring.model.mapper.ImportPostDto;
-import com.spring.repository.ExportRepository;
 import com.spring.repository.ImportRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -24,14 +22,15 @@ import java.util.List;
 public class ImportServices {
 
     @Autowired
-    private  ImportRepository importRepository;
+    private ImportRepository importRepository;
     @Autowired
-    private  ArchiveFileServices archiveFileServices;
+    private ArchiveFileServices archiveFileServices;
     @Autowired
-    private  ArchiveFileMapper archiveFileMapper;
+    private ArchiveFileMapper archiveFileMapper;
     @Autowired
-    private  ImportMapper importMapper;
+    private ImportMapper importMapper;
     private final ExportServices exportServices;
+
     @Lazy
     public ImportServices(ExportServices exportServices) {
         this.exportServices = exportServices;
@@ -57,7 +56,7 @@ public class ImportServices {
         return importRepository.countImportantFile();
     }
 
-    public Long countItIsNotTime(){
+    public Long countItIsNotTime() {
         return importRepository.countItIsNotTime();
     }
 
@@ -72,73 +71,89 @@ public class ImportServices {
     }
 
     public ImportDto findById(Short id) {
-        Import importa = importRepository.findById(id).get();
-        return importMapper.mapToDto(importa);
+        if (importRepository.findById(id).isPresent()) {
+            Import importa = importRepository.findById(id).get();
+            return importMapper.mapToDto(importa);
+        } else throw new RecordNotFountException("Your search -" + id + " - did not match any documents.");
     }
 
 
     public List<ImportDto> findBySummary(String summary) {
-        List<Import> imports = importRepository.findBySummaryContaining(summary);
-        List<ImportDto> dtos = new ArrayList<>();
+        if (!importRepository.findBySummaryContaining(summary).isEmpty()) {
+            List<Import> imports = importRepository.findBySummaryContaining(summary);
+            List<ImportDto> dtos = new ArrayList<>();
 
-        for (Import anImport : imports) {
-            dtos.add(importMapper.mapToDto(anImport));
-        }
-        return dtos;
+            for (Import anImport : imports) {
+                dtos.add(importMapper.mapToDto(anImport));
+            }
+            return dtos;
+        } else throw new RecordNotFountException("Your search -" + summary + " - did not match any documents.");
     }
 
     public List<ImportDto> findByIncomeDate() {
-        List<Import> imports = importRepository.findByIncomeDate();
-        List<ImportDto> dtos = new ArrayList<>();
-        for (Import anImport : imports) {
-            dtos.add(importMapper.mapToDto(anImport));
-        }
-        return dtos;
+        if (!importRepository.findByIncomeDate().isEmpty()) {
+            List<Import> imports = importRepository.findByIncomeDate();
+            List<ImportDto> dtos = new ArrayList<>();
+            for (Import anImport : imports) {
+                dtos.add(importMapper.mapToDto(anImport));
+            }
+            return dtos;
+        } else
 
+            throw new RecordNotFountException("There are no new files today.");
     }
 
     public List<ImportDto> findItIsTime() {
-        List<Import> imports = importRepository.findItIsTime();
-        List<ImportDto> dtos = new ArrayList<>();
+        if (!importRepository.findItIsTime().isEmpty()) {
+            List<Import> imports = importRepository.findItIsTime();
+            List<ImportDto> dtos = new ArrayList<>();
 
-        for (Import anImport : imports) {
-            dtos.add(importMapper.mapToDto(anImport));
-        }
+            for (Import anImport : imports) {
+                dtos.add(importMapper.mapToDto(anImport));
+            }
+            return dtos;
+        } else throw new RecordNotFountException("There are no new files time has come");
 
-        return dtos;
     }
 
-    public List<ImportDto>findItIsNotTime(){
-        List<Import> imports = importRepository.findItIsNotTime();
-        List<ImportDto> dtos = new ArrayList<>();
+    public List<ImportDto> findItIsNotTime() {
+        if (!importRepository.findItIsNotTime().isEmpty()) {
+            List<Import> imports = importRepository.findItIsNotTime();
+            List<ImportDto> dtos = new ArrayList<>();
 
-        for (Import anImport : imports) {
-            dtos.add(importMapper.mapToDto(anImport));
-        }
+            for (Import anImport : imports) {
+                dtos.add(importMapper.mapToDto(anImport));
+            }
 
-        return dtos;
+            return dtos;
+        } else throw new RecordNotFountException("There are no  files time has not come");
     }
 
     public List<ImportDto> findPassedDate() {
-        List<Import> imports = importRepository.findPassedDate();
-        List<ImportDto> dtos = new ArrayList<>();
+        if (!importRepository.findPassedDate().isEmpty()) {
+            List<Import> imports = importRepository.findPassedDate();
+            List<ImportDto> dtos = new ArrayList<>();
 
-        for (Import anImport : imports) {
-            dtos.add(importMapper.mapToDto(anImport));
-        }
+            for (Import anImport : imports) {
+                dtos.add(importMapper.mapToDto(anImport));
+            }
 
-        return dtos;
+            return dtos;
+        } else throw new RecordNotFountException("There are no  files time has passed");
     }
 
     public List<ImportDto> findImportantFile() {
-        List<Import> imports = importRepository.findImportantFile();
-        List<ImportDto> dtos = new ArrayList<>();
+        if (!importRepository.findImportantFile().isEmpty()) {
+            List<Import> imports = importRepository.findImportantFile();
+            List<ImportDto> dtos = new ArrayList<>();
 
-        for (Import anImport : imports) {
-            dtos.add(importMapper.mapToDto(anImport));
-        }
+            for (Import anImport : imports) {
+                dtos.add(importMapper.mapToDto(anImport));
+            }
 
-        return dtos;
+            return dtos;
+        } else throw new RecordNotFountException("There are no Important files ");
+
     }
 
     public List<ImportDto> findByArchiveFile(short id) {
@@ -155,7 +170,7 @@ public class ImportServices {
     public void insert(ImportDtoPost dto) {
         dto.setTypeNumber((byte) 1);
         Import importa = importMapper.mapToEntity(dto);
-        importa.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum(importa.getArchiveFile().getTypeNumber(),importa.getArchiveFile().getNum())));
+        importa.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum(importa.getArchiveFile().getTypeNumber(), importa.getArchiveFile().getNum())));
 
         importRepository.save(importa);
     }
@@ -171,7 +186,7 @@ public class ImportServices {
         importa.setRecipientName(dto.getRecipientName());
         importa.setRecipientDate(dto.getRecipientDate());
         importa.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
-                ((byte)1,
+                ((byte) 1,
                         importa.getArchiveFile().getNum())));
         importa.setIncomeDate(importRepository.findById(dto.getId()).get().getIncomeDate());
         importa.setExport(importRepository.findById(dto.getId()).get().getExport());
@@ -183,16 +198,15 @@ public class ImportServices {
     }
 
     public void addResponse(ExportDtoPost dto, short id) {
-        Import aImport =importRepository.findById(id).get();
-        if (aImport.getExport()==null){
+        Import aImport = importRepository.findById(id).get();
+        if (aImport.getExport() == null) {
             exportServices.insert(dto);
 
             aImport.setExport(
                     new Export((short) exportServices.count())
             );
             importRepository.save(aImport);
-        }
-        else
+        } else
             throw new ConflictException("This File has Response Number is " + aImport.getExport().getId());
     }
 

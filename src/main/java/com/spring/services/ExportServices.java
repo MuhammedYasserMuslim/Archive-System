@@ -10,9 +10,7 @@ import com.spring.model.entity.Export;
 import com.spring.model.entity.Import;
 import com.spring.model.mapper.ArchiveFileMapper;
 import com.spring.model.mapper.ExportMapper;
-import com.spring.model.mapper.ImportMapper;
 import com.spring.repository.ExportRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -25,13 +23,13 @@ import java.util.List;
 public class ExportServices {
 
     @Autowired
-    private  ExportRepository exportRepository;
+    private ExportRepository exportRepository;
     @Autowired
-    private  ArchiveFileServices archiveFileServices;
+    private ArchiveFileServices archiveFileServices;
     @Autowired
-    private  ArchiveFileMapper archiveFileMapper;
+    private ArchiveFileMapper archiveFileMapper;
     @Autowired
-    private  ExportMapper exportMapper;
+    private ExportMapper exportMapper;
     private final ImportServices importServices;
 
     @Lazy
@@ -62,28 +60,32 @@ public class ExportServices {
             Export export = exportRepository.findById(id).get();
             return exportMapper.mapToDto(export);
         } else
-            throw new RecordNotFountException("File With id " + id + " Not Found");
+            throw new RecordNotFountException("Your search -" + id + " - did not match any documents.");
 
 
     }
 
     public List<ExportDto> findBySummary(String summary) {
-        List<Export> exports = exportRepository.findBySummaryContaining(summary);
-        List<ExportDto> dtos = new ArrayList<>();
-        for (Export export : exports) {
-            dtos.add(exportMapper.mapToDto(export));
-        }
-        return dtos;
+        if (!exportRepository.findBySummaryContaining(summary).isEmpty()) {
+            List<Export> exports = exportRepository.findBySummaryContaining(summary);
+            List<ExportDto> dtos = new ArrayList<>();
+            for (Export export : exports) {
+                dtos.add(exportMapper.mapToDto(export));
+            }
+            return dtos;
+        } else throw new RecordNotFountException("Your search -" + summary + " - did not match any documents.");
     }
 
     public List<ExportDto> findByDate() {
+        if (!exportRepository.findByDate().isEmpty()) {
 
-        List<Export> exports = exportRepository.findByDate();
-        List<ExportDto> dtos = new ArrayList<>();
-        for (Export export : exports) {
-            dtos.add(exportMapper.mapToDto(export));
-        }
-        return dtos;
+            List<Export> exports = exportRepository.findByDate();
+            List<ExportDto> dtos = new ArrayList<>();
+            for (Export export : exports) {
+                dtos.add(exportMapper.mapToDto(export));
+            }
+            return dtos;
+        } else throw new RecordNotFountException("There are no new files today.");
     }
 
     public List<ExportDto> findByArchiveFile(short id) {
@@ -127,27 +129,25 @@ public class ExportServices {
 
     public void addUrgent(ExportDtoPost dto, short id) {
         Export export = exportRepository.findById(id).get();
-        if (export.getUrgentNum()==null){
+        if (export.getUrgentNum() == null) {
             insert(dto);
             export.setUrgentNum((short) exportRepository.count());
             export.setUrgentDate(new Date());
             exportRepository.save(export);
-        }
-        else
+        } else
             throw new ConflictException("This File has Urgent Number is " + export.getUrgentNum());
     }
 
     public void addResponse(ImportDtoPost dto, short id) {
-        Export export =exportRepository.findById(id).get();
-        if (export.getAimport()==null){
+        Export export = exportRepository.findById(id).get();
+        if (export.getAimport() == null) {
             importServices.insert(dto);
 
             export.setAimport(
                     new Import((short) importServices.count())
             );
             exportRepository.save(export);
-        }
-        else
+        } else
             throw new ConflictException("This File has Response Number is " + export.getAimport().getId());
     }
 
