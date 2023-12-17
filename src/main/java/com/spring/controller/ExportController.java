@@ -78,7 +78,7 @@ public class ExportController {
     @PutMapping("/export-id")
     @Operation(summary = "Update Export By Id ")
     public void update(@RequestBody ExportDtoPost dto,@RequestParam  short id) {
-        exportServices.update(dto);
+        exportServices.update(dto,id);
     }
 
     @PutMapping("/export-add-urgent")

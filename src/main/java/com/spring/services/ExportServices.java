@@ -130,9 +130,10 @@ public class ExportServices {
     }
 
     public void update(ExportDtoPost dto, Short id) {
+        dto.setId(id);
         Export export = exportMapper.mapToEntity(dto);
         dto.setTypeNumber((byte) 2);
-        export.setId(id);
+        export.setId(dto.getId());
         export.setReceiver(dto.getReceiver());
         export.setSummary(dto.getSummary());
         export.setRecipientName(dto.getRecipientName());
