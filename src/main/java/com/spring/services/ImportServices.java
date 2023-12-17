@@ -199,6 +199,29 @@ public class ImportServices {
         importRepository.save(importa);
     }
 
+    public void update(ImportDtoPost dto, short id) {
+        dto.setId(id);
+        Import importa = importMapper.mapToEntity(dto);
+        dto.setTypeNumber((byte) 1);
+        importa.setId(dto.getId());
+        importa.setSender(dto.getSender());
+        importa.setIncomingLetterNumber(dto.getIncomingLetterNumber());
+        importa.setIncomingLetterDate(dto.getIncomingLetterDate());
+        importa.setSummary(dto.getSummary());
+        importa.setRecipientName(dto.getRecipientName());
+        importa.setRecipientDate(dto.getRecipientDate());
+        importa.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
+                ((byte) 1,
+                        importa.getArchiveFile().getNum())));
+        importa.setIncomeDate(importRepository.findById(dto.getId()).get().getIncomeDate());
+        importa.setExport(importRepository.findById(dto.getId()).get().getExport());
+        importa.setNumberOfAttachments(importRepository.findById(dto.getId()).get().getNumberOfAttachments());
+        importa.setCreatedBy(importRepository.findById(dto.getId()).get().getCreatedBy());
+        importa.setCreatedDate(importRepository.findById(dto.getId()).get().getCreatedDate());
+
+        importRepository.save(importa);
+    }
+
     public void addResponse(ExportDtoPost dto, short id) {
         Import aImport = importRepository.findById(id).get();
         if (aImport.getExport() == null) {

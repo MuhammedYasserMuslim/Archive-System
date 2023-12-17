@@ -125,6 +125,12 @@ public class ImportController {
         importServices.update(dto);
     }
 
+    @PutMapping("/import-id")
+    @Operation(summary = "Update Import By Id")
+    public void update(@RequestBody ImportDtoPost dto ,@RequestParam Short id) {
+        importServices.update(dto,id);
+    }
+
     @PutMapping("/import-add-response")
     @Operation(summary = "Update Import")
     public void addResponse(@RequestBody ExportDtoPost dto, @RequestParam short id) {
