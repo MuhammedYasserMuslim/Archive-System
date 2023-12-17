@@ -12,6 +12,7 @@ import com.spring.model.mapper.ArchiveFileMapper;
 import com.spring.model.mapper.ImportMapper;
 import com.spring.repository.ImportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
@@ -60,6 +61,7 @@ public class ImportServices {
         return importRepository.countItIsNotTime();
     }
 
+    //@Cacheable(value = "findAllImports", key = "#root.methodName")
     public List<ImportDto> findAll() {
         List<Import> imports = importRepository.findAll();
         List<ImportDto> dtos = new ArrayList<>();

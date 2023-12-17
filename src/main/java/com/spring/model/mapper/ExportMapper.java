@@ -2,7 +2,6 @@ package com.spring.model.mapper;
 
 import com.spring.model.dto.exports.ExportDto;
 import com.spring.model.dto.exports.ExportDtoPost;
-import com.spring.model.dto.exports.ExportDtoPut;
 import com.spring.model.entity.Export;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

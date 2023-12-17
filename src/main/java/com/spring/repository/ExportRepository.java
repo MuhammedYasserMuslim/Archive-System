@@ -11,7 +11,9 @@ import java.util.List;
 @Repository
 public interface ExportRepository extends JpaRepository<Export, Short> {
 
+
     List<Export> findBySummaryContaining(String summary);
+
 
     List<Export> findByArchiveFile(ArchiveFile archiveFile);
 

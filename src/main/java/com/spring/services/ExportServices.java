@@ -12,6 +12,7 @@ import com.spring.model.mapper.ArchiveFileMapper;
 import com.spring.model.mapper.ExportMapper;
 import com.spring.repository.ExportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
@@ -54,6 +55,7 @@ public class ExportServices {
         return dtos;
     }
 
+    //@Cacheable(value = "findAllExports", key = "#root.methodName")
     public ExportDto findById(Short id) {
 
         if (exportRepository.findById(id).isPresent()) {
@@ -112,6 +114,25 @@ public class ExportServices {
         Export export = exportMapper.mapToEntity(dto);
         dto.setTypeNumber((byte) 2);
         export.setId(dto.getId());
+        export.setReceiver(dto.getReceiver());
+        export.setSummary(dto.getSummary());
+        export.setRecipientName(dto.getRecipientName());
+        export.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
+                ((byte) 2,
+                        export.getArchiveFile().getNum())));
+        export.setDate(exportRepository.findById(dto.getId()).get().getDate());
+        export.setAimport(exportRepository.findById(dto.getId()).get().getAimport());
+        export.setNumberOfAttachments(exportRepository.findById(dto.getId()).get().getNumberOfAttachments());
+        export.setCreatedBy(exportRepository.findById(dto.getId()).get().getCreatedBy());
+        export.setCreatedDate(exportRepository.findById(dto.getId()).get().getCreatedDate());
+
+        exportRepository.save(export);
+    }
+
+    public void update(ExportDtoPost dto, Short id) {
+        Export export = exportMapper.mapToEntity(dto);
+        dto.setTypeNumber((byte) 2);
+        export.setId(id);
         export.setReceiver(dto.getReceiver());
         export.setSummary(dto.getSummary());
         export.setRecipientName(dto.getRecipientName());
