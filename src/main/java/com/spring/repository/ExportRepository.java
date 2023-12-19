@@ -11,13 +11,15 @@ import java.util.List;
 @Repository
 public interface ExportRepository extends JpaRepository<Export, Short> {
 
+    List<Export> findAllByOrderByIdDesc();
 
-    List<Export> findBySummaryContaining(String summary);
+
+    List<Export> findBySummaryContainingOrderByIdDesc(String summary);
 
 
     List<Export> findByArchiveFile(ArchiveFile archiveFile);
 
-    @Query(value = "SELECT  * FROM archive.exports WHERE date >= CURRENT_DATE() AND date < CURRENT_DATE() + INTERVAL 1 DAY;", nativeQuery = true)
+    @Query(value = "SELECT  * FROM archive.exports WHERE date >= CURRENT_DATE() AND date < CURRENT_DATE() + INTERVAL 1 DAY order by id desc", nativeQuery = true)
     List<Export> findByDate();
 
     @Query(value = "SELECT  count(*) FROM archive.exports WHERE date >= CURRENT_DATE() AND date < CURRENT_DATE() + INTERVAL 1 DAY;", nativeQuery = true)

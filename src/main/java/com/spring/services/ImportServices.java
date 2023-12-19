@@ -63,7 +63,7 @@ public class ImportServices {
 
     //@Cacheable(value = "findAllImports", key = "#root.methodName")
     public List<ImportDto> findAll() {
-        List<Import> imports = importRepository.findAll();
+        List<Import> imports = importRepository.findAllByOrderByIdDesc();
         List<ImportDto> dtos = new ArrayList<>();
 
         for (Import anImport : imports) {

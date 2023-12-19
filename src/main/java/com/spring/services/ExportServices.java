@@ -47,7 +47,7 @@ public class ExportServices {
     }
 
     public List<ExportDto> findAll() {
-        List<Export> exports = exportRepository.findAll();
+        List<Export> exports = exportRepository.findAllByOrderByIdDesc();
         List<ExportDto> dtos = new ArrayList<>();
         for (Export export : exports) {
             dtos.add(exportMapper.mapToDto(export));
@@ -68,8 +68,8 @@ public class ExportServices {
     }
 
     public List<ExportDto> findBySummary(String summary) {
-        if (!exportRepository.findBySummaryContaining(summary).isEmpty()) {
-            List<Export> exports = exportRepository.findBySummaryContaining(summary);
+        if (!exportRepository.findBySummaryContainingOrderByIdDesc(summary).isEmpty()) {
+            List<Export> exports = exportRepository.findBySummaryContainingOrderByIdDesc(summary);
             List<ExportDto> dtos = new ArrayList<>();
             for (Export export : exports) {
                 dtos.add(exportMapper.mapToDto(export));

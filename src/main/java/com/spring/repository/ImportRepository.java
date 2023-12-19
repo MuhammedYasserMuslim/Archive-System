@@ -1,6 +1,7 @@
 package com.spring.repository;
 
 import com.spring.model.entity.ArchiveFile;
+import com.spring.model.entity.Export;
 import com.spring.model.entity.Import;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Repository
 public interface ImportRepository extends JpaRepository<Import,Short> {
+    List<Import> findAllByOrderByIdDesc();
     List<Import> findBySummaryContaining(String summary);
     List<Import> findByArchiveFile(ArchiveFile archiveFile);
 
