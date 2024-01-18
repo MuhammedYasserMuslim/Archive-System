@@ -1,4 +1,4 @@
-package com.spring.security.entity;
+package com.spring.security.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;

@@ -1,10 +1,11 @@
 package com.spring.security.configuration;
 
 import com.spring.security.jwt.JwtAuthenticationFilter;
-import com.spring.security.security.AppUserDetailsService;
+import com.spring.security.model.AppUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -36,6 +37,7 @@ public class SecurityConfiguration {
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((authz) -> authz
                         .requestMatchers("/login").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS).permitAll()
                         .anyRequest().permitAll())
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

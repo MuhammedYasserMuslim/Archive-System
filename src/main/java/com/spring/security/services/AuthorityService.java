@@ -1,6 +1,6 @@
 package com.spring.security.services;
 
-import com.spring.security.entity.Authority;
+import com.spring.security.model.entity.Authority;
 import com.spring.security.repository.AuthorityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

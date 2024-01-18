@@ -1,11 +1,11 @@
 package com.spring.security.services;
 
-import com.spring.security.dto.AuthenticationRequest;
-import com.spring.security.dto.AuthenticationResponse;
-import com.spring.security.entity.AppUser;
+import com.spring.security.model.dto.AuthenticationRequest;
+import com.spring.security.model.dto.AuthenticationResponse;
+import com.spring.security.model.entity.AppUser;
 import com.spring.security.jwt.JwtServices;
 import com.spring.security.repository.UserRepository;
-import com.spring.security.security.AppUserDetail;
+import com.spring.security.model.AppUserDetail;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

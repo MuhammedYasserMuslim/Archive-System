@@ -1,4 +1,4 @@
-package com.spring.security.dto;
+package com.spring.security.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

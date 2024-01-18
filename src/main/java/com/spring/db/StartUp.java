@@ -1,6 +1,10 @@
 package com.spring.db;
 
 import com.spring.model.dto.archivefile.ArchiveFileDto;
+import com.spring.security.model.entity.AppUser;
+import com.spring.security.model.entity.Authority;
+import com.spring.security.services.AuthorityService;
+import com.spring.security.services.UserServices;
 import com.spring.services.ArchiveFileServices;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -15,9 +19,33 @@ import java.util.List;
 @Log4j2
 public class StartUp implements CommandLineRunner {
 
+    private final UserServices userServices;
+    private final AuthorityService authorityService;
+
     private final ArchiveFileServices archiveFileServices;
     @Override
     public void run(String... args) throws Exception {
+
+        List<Authority> authorities = authorityService.findAll();
+        if (false) {
+            AppUser user = new AppUser("admin", ("123"), 1);
+            user.getAuthorities().add(authorities.get(0));
+            user.getAuthorities().add(authorities.get(1));
+            user.getAuthorities().add(authorities.get(2));
+            userServices.save(user);
+            AppUser user0 = new AppUser("manager", ("456"), 1);
+            user0.getAuthorities().add(authorities.get(1));
+            user0.getAuthorities().add(authorities.get(2));
+            userServices.save(user0);
+            AppUser user1 = new AppUser("user", ("789"), 1);
+            user1.getAuthorities().add(authorities.get(2));
+            userServices.save(user1);
+        }
+        if (authorityService.findAll().isEmpty()) {
+            authorityService.insert(new Authority(1L, "ROLE_ADMIN"));
+            authorityService.insert(new Authority(2L, "ROLE_MANGER"));
+            authorityService.insert(new Authority(3L, "ROLE_USER"));
+        }
 
         if (archiveFileServices.count() == 0) {
 

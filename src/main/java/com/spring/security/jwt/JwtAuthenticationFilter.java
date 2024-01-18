@@ -1,7 +1,7 @@
 package com.spring.security.jwt;
 
-import com.spring.security.security.AppUserDetail;
-import com.spring.security.security.AppUserDetailsService;
+import com.spring.security.model.AppUserDetail;
+import com.spring.security.model.AppUserDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

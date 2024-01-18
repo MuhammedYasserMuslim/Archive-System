@@ -1,6 +1,6 @@
 package com.spring.security.services;
 
-import com.spring.security.entity.AppUser;
+import com.spring.security.model.entity.AppUser;
 import com.spring.security.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,6 +20,7 @@ public class UserServices  {
     }
 
     public void save(AppUser user) {
+        user.setIsActive(0);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         this.userRepository.save(user);
     }
