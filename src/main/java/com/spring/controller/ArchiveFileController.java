@@ -20,6 +20,7 @@ public class ArchiveFileController {
 
     @GetMapping("/count")
     @Operation(summary = "Get Archive Files Count ")
+   // @PreAuthorize("hasRole('MANGER') or hasRole('ADMIN') or hasRole('USER')")
     public Long count() {
         return archiveFileServices.count();
     }
