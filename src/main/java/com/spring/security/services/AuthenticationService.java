@@ -18,6 +18,7 @@ public class AuthenticationService {
     private final UserRepository repository;
     private final JwtServices jwtService;
     private final AuthenticationManager authenticationManager;
+    private final UserServices userServices;
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
@@ -29,8 +30,10 @@ public class AuthenticationService {
 
         AppUser user = repository.findByUsername(request.getUsername()).orElseThrow();
         var jwtToken = jwtService.generateToken(new AppUserDetail(user));
+        AppUser user1 =userServices.findByUserName(request.getUsername());
         return AuthenticationResponse.builder()
                 .Token(jwtToken)
+                .name(user.getFirstName().concat(" ") .concat(user.getLastName()))
                 .build();
     }
 }

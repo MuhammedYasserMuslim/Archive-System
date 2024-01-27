@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +24,10 @@ public class UserServices  {
         user.setIsActive(0);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         this.userRepository.save(user);
+    }
+
+    public AppUser findByUserName(String username){
+        return userRepository.findByUsername(username).get();
     }
 
 
