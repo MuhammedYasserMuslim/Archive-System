@@ -24,7 +24,7 @@ public class SecurityController {
     public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest request) throws Exception {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
-    @PostMapping("/register")
+    @PostMapping("register")
     public ResponseEntity<?> register(@RequestBody AppUser user) {
         for (AppUser users : userServices.findAll()) {
             if (users.getUsername().equals(user.getUsername())) {
