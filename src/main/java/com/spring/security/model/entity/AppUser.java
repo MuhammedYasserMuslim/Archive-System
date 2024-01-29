@@ -28,7 +28,6 @@ public class AppUser {
 
     private String firstName;
     private String lastName;
-    private String email;
 
 
     @JoinTable(

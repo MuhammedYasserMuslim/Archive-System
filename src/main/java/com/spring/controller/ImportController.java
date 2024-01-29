@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class ImportController {
 
     @GetMapping("/count")
     @Operation(summary = "Get Import Count")
+    @PreAuthorize("hasRole('MANGER') or hasRole('ADMIN')")
     public ResponseEntity<Long> count() {
         return ResponseEntity.ok(importServices.count());
     }
@@ -34,6 +36,7 @@ public class ImportController {
     }
 
     @GetMapping("/count-important")
+    @PreAuthorize(" hasRole('ADMIN') ")
     @Operation(summary = "Get count Important Imports  (عدد الخطابات الهامة )")
     public ResponseEntity<Long> countImportantFile() {
         return ResponseEntity.ok(importServices.countImportantFile());

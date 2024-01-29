@@ -3,6 +3,7 @@ package com.spring.security.controller;
 import com.spring.exception.UserExistedException;
 import com.spring.security.model.dto.AuthenticationRequest;
 import com.spring.security.model.dto.AuthenticationResponse;
+import com.spring.security.model.dto.UserDto;
 import com.spring.security.model.entity.AppUser;
 import com.spring.security.services.AuthenticationService;
 import com.spring.security.services.UserServices;
@@ -25,14 +26,13 @@ public class SecurityController {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
     @PostMapping("register")
-    public ResponseEntity<?> register(@RequestBody AppUser user) {
+    public ResponseEntity<?> register(@RequestBody UserDto dto) {
         for (AppUser users : userServices.findAll()) {
-            if (users.getUsername().equals(user.getUsername())) {
-                throw new UserExistedException("This username ( " + user.getUsername() + " ) is exist");
-            } else if (users.getEmail().equals(user.getEmail()))
-                throw new UserExistedException("This email ( " + user.getEmail() + " ) is exist");
+            if (users.getUsername().equals(dto.getUsername())) {
+                throw new UserExistedException("This username ( " + dto.getUsername() + " ) is exist");
+            }
         }
-        userServices.save(user);
+        userServices.save(dto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
