@@ -30,10 +30,11 @@ public class AuthenticationService {
 
         AppUser user = repository.findByUsername(request.getUsername()).orElseThrow();
         var jwtToken = jwtService.generateToken(new AppUserDetail(user));
-        AppUser user1 =userServices.findByUserName(request.getUsername());
+
         return AuthenticationResponse.builder()
                 .Token(jwtToken)
                 .name(user.getFirstName().concat(" ") .concat(user.getLastName()))
+                .imagePath("assets\\277-200x300.jpg")
                 .build();
     }
 }

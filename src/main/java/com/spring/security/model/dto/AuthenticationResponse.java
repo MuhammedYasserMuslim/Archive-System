@@ -13,5 +13,7 @@ public class AuthenticationResponse {
 
     private String Token;
     private String name;
+    private String imagePath;
+
 
 }
