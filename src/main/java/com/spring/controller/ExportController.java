@@ -7,8 +7,8 @@ import com.spring.services.ExportServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,6 +39,11 @@ public class ExportController {
     @Operation(summary = "Get All Exports")
     public ResponseEntity<List<ExportDto>> findAll() {
         return ResponseEntity.ok(exportServices.findAll());
+    }
+
+    @GetMapping("/exports-pagination")
+    public ResponseEntity<List<ExportDto>> findAllPagination(@RequestParam int page) {
+        return new ResponseEntity<>(exportServices.findAllPagination(page-1), HttpStatus.OK);
     }
 
     @GetMapping("/export-id")
@@ -76,10 +81,11 @@ public class ExportController {
     public void update(@RequestBody ExportDtoPost dto) {
         exportServices.update(dto);
     }
+
     @PutMapping("/export-id")
     @Operation(summary = "Update Export By Id ")
-    public void update(@RequestBody ExportDtoPost dto,@RequestParam  short id) {
-        exportServices.update(dto,id);
+    public void update(@RequestBody ExportDtoPost dto, @RequestParam short id) {
+        exportServices.update(dto, id);
     }
 
     @PutMapping("/export-add-urgent")
@@ -95,7 +101,6 @@ public class ExportController {
         exportServices.addResponse(dto, id);
         return ResponseEntity.ok(dto);
     }
-
 
 
 }

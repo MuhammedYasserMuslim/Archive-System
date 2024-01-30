@@ -1,5 +1,6 @@
 package com.spring.controller;
 
+import com.spring.model.dto.exports.ExportDto;
 import com.spring.model.dto.exports.ExportDtoPost;
 import com.spring.model.dto.imports.ImportDto;
 import com.spring.model.dto.imports.ImportDtoPost;
@@ -7,6 +8,7 @@ import com.spring.services.ImportServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -65,6 +67,10 @@ public class ImportController {
     @Operation(summary = "Get All Imports")
     public ResponseEntity<List<ImportDto>> findAll() {
         return ResponseEntity.ok(importServices.findAll());
+    }
+    @GetMapping("/imports-pagination")
+    public ResponseEntity<List<ImportDto>> findAllPagination(@RequestParam int page) {
+        return new ResponseEntity<>(importServices.findAllPagination(page-1), HttpStatus.OK);
     }
 
     @GetMapping("/import-id")

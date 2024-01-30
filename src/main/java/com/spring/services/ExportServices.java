@@ -14,6 +14,8 @@ import com.spring.repository.ExportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -56,6 +58,16 @@ public class ExportServices {
         }
         return dtos;
     }
+    public  List<ExportDto> findAllPagination(int page) {
+        Pageable pageable = PageRequest.of(page,1);
+        List<Export> exports = exportRepository.findAll(pageable).getContent();
+        List<ExportDto> dtos = new ArrayList<>();
+        for (Export export : exports) {
+            dtos.add(exportMapper.mapToDto(export));
+        }
+        return dtos;
+    }
+
 
     //@Cacheable(value = "findAllExports", key = "#root.methodName")
     public ExportDto findById(Short id) {
@@ -174,5 +186,6 @@ public class ExportServices {
         } else
             throw new ConflictException("This File has Response Number is " + export.getAimport().getId());
     }
+
 
 }

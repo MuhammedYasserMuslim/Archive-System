@@ -3,6 +3,7 @@ package com.spring.services;
 import com.spring.exception.ConflictException;
 import com.spring.exception.RecordNotFountException;
 import com.spring.model.dto.archivefile.ArchiveFileDto;
+import com.spring.model.dto.exports.ExportDto;
 import com.spring.model.dto.exports.ExportDtoPost;
 import com.spring.model.dto.imports.ImportDto;
 import com.spring.model.dto.imports.ImportDtoPost;
@@ -14,6 +15,8 @@ import com.spring.repository.ImportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -72,6 +75,15 @@ public class ImportServices {
         return dtos;
     }
 
+    public  List<ImportDto> findAllPagination(int page) {
+        Pageable pageable = PageRequest.of(page,1);
+        List<Import> imports = importRepository.findAll(pageable).getContent();
+        List<ImportDto> dtos = new ArrayList<>();
+        for (Import importa : imports) {
+            dtos.add(importMapper.mapToDto(importa));
+        }
+        return dtos;
+    }
     public ImportDto findById(Short id) {
         if (importRepository.findById(id).isPresent()) {
             Import importa = importRepository.findById(id).get();
@@ -234,6 +246,7 @@ public class ImportServices {
         } else
             throw new ConflictException("This File has Response Number is " + aImport.getExport().getId());
     }
+
 
 
 }
