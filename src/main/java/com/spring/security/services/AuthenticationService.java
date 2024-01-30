@@ -34,7 +34,7 @@ public class AuthenticationService {
         return AuthenticationResponse.builder()
                 .Token(jwtToken)
                 .name(user.getFirstName().concat(" ") .concat(user.getLastName()))
-                .imagePath("assets\\277-200x300.jpg")
+                .imagePath(user.getImagePath())
                 .build();
     }
 }

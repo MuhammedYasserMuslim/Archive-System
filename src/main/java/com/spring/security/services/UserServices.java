@@ -45,7 +45,8 @@ public class UserServices {
         Set<Authority> set = new HashSet<>();
         set.add(authorities.get(2));
         user.setAuthorities(set);
-        user.setIsActive(0);
+        user.setIsActive(1);
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         this.userRepository.save(user);
     }

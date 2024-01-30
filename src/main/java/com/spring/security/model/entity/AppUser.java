@@ -29,6 +29,8 @@ public class AppUser {
     private String firstName;
     private String lastName;
 
+    private String imagePath;
+
 
     @JoinTable(
             name = "user_authority",

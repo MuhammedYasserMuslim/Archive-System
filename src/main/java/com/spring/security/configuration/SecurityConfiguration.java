@@ -38,7 +38,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests((authz) -> authz
                         .requestMatchers("/login").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS).permitAll()
-                        .anyRequest().permitAll())
+                        .anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .httpBasic(withDefaults())
