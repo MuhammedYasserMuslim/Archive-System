@@ -25,9 +25,7 @@ public class FileUploadController {
     @PostMapping("/upload")
     public ResponseEntity<Object> uploadFile(@RequestParam Long id, @RequestParam String pathType
             , @RequestParam MultipartFile file) {
-
         String fileName = fileUploadService.storeFile(fileUploadService.convertMultiPartFileToFile(file), id, pathType);
-
         return ResponseEntity.ok(fileName);
     }
 
@@ -36,7 +34,7 @@ public class FileUploadController {
                                                  @RequestParam("id") Long id, @RequestParam String pathType) {
         Arrays.asList(files).stream().map(file -> uploadFile(id, pathType, file)).collect(Collectors.toList());
 
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(files);
     }
 
     @GetMapping("/fileSystem/{fileName}")

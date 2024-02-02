@@ -38,7 +38,6 @@ public class SecurityController {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
     @PostMapping("register")
-   // @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> register(@RequestBody UserRequest dto) {
         for (AppUser users : userServices.findAll()) {
             if (users.getUsername().equals(dto.getUsername())) {

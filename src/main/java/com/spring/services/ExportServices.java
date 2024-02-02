@@ -13,6 +13,8 @@ import com.spring.model.mapper.ExportMapper;
 import com.spring.repository.ExportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -49,7 +51,7 @@ public class ExportServices {
     public Long countCurrent() {
         return exportRepository.countCurrent();
     }
-
+  //  @Cacheable(value = "findAllExports", key = "#root.methodName")
     public List<ExportDto> findAll() {
         List<Export> exports = exportRepository.findAllByOrderByIdDesc();
         List<ExportDto> dtos = new ArrayList<>();
@@ -115,6 +117,7 @@ public class ExportServices {
         return dtos;
     }
 
+   // @CacheEvict(value = "findAllExports", key = "#root.methodName", allEntries = true)
     public void insert(ExportDtoPost dto) {
         dto.setTypeNumber((byte) 2);
         Export export = exportMapper.mapToEntity(dto);
@@ -123,7 +126,7 @@ public class ExportServices {
                         export.getArchiveFile().getNum())));
         exportRepository.save(export);
     }
-
+   // @CacheEvict(value = "findAllExports", key = "#root.methodName", allEntries = true)
     public void update(ExportDtoPost dto) {
         Export export = exportMapper.mapToEntity(dto);
         dto.setTypeNumber((byte) 2);
@@ -142,7 +145,7 @@ public class ExportServices {
 
         exportRepository.save(export);
     }
-
+   // @CacheEvict(value = "findAllExports", key = "#root.methodName", allEntries = true)
     public void update(ExportDtoPost dto, Short id) {
         dto.setId(id);
         Export export = exportMapper.mapToEntity(dto);
@@ -162,7 +165,7 @@ public class ExportServices {
 
         exportRepository.save(export);
     }
-
+    //@CacheEvict(value = "findAllExports", key = "#root.methodName", allEntries = true)
     public void addUrgent(ExportDtoPost dto, short id) {
         Export export = exportRepository.findById(id).get();
         if (export.getUrgentNum() == null) {
@@ -173,7 +176,7 @@ public class ExportServices {
         } else
             throw new ConflictException("This File has Urgent Number is " + export.getUrgentNum());
     }
-
+   // @CacheEvict(value = "findAllExports", key = "#root.methodName", allEntries = true)
     public void addResponse(ImportDtoPost dto, short id) {
         Export export = exportRepository.findById(id).get();
         if (export.getAimport() == null) {

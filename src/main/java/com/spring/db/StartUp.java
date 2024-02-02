@@ -27,7 +27,7 @@ public class StartUp implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         List<Authority> authorities = authorityService.findAll();
-        if (false) {
+        if (userServices.findAll().isEmpty()) {
             AppUser user = new AppUser("admin", ("123"), 1);
             user.getAuthorities().add(authorities.get(0));
             user.getAuthorities().add(authorities.get(1));
