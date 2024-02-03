@@ -4,6 +4,7 @@ package com.spring.services;
 import com.spring.exception.FileStorageException;
 import com.spring.model.entity.Image;
 import com.spring.repository.ImageRepository;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Log4j2
+@Getter
 public class FileUploadService {
 
     private Path fileStorageLocation;
