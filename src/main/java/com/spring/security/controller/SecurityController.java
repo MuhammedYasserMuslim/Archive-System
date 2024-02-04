@@ -59,7 +59,7 @@ public class SecurityController {
         AppUser user = userServices.findByUserName(username);
         String fileName = fileUploadService.storeFile(fileUploadService.convertMultiPartFileToFile(file), id, pathType);
         user.setImagePath(fileUploadService.getBasePath().concat( pathType.concat("\\").concat(fileName)));
-        userServices.save(user);
+        userServices.update(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

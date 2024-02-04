@@ -27,7 +27,7 @@ public class FileUploadService {
     private Path fileStorageLocation;
 
     private final ImageRepository imageRepository;
-    private final String basePath = "E:\\ArchiveSystem\\Images\\";
+    private final String basePath = "E:\\ArchiveSystem\\Front_End\\Archive\\src\\assets\\";
 
     public String storeFile(File file, Long id, String pathType) {
 

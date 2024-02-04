@@ -51,6 +51,16 @@ public class UserServices {
         this.userRepository.save(user);
     }
 
+    public void update(AppUser user) {
+        List<Authority> authorities = authorityService.findAll();
+        Set<Authority> set = new HashSet<>();
+        set.add(authorities.get(2));
+        user.setAuthorities(set);
+        user.setIsActive(1);
+        user.setPassword(user.getPassword());
+        this.userRepository.save(user);
+    }
+
     public AppUser findByUserName(String username) {
         return userRepository.findByUsername(username).get();
     }
