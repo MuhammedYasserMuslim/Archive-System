@@ -29,11 +29,10 @@ public class SecurityController {
     private final FileUploadService fileUploadService;
 
 
-
-   // @PreAuthorize("hasRole('ADMIN')")
+    // @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("user/users")
-    public ResponseEntity<List<UserResponse>> findALlUsers(){
-        return new ResponseEntity<>(userServices.findALlUsers(),HttpStatus.OK);
+    public ResponseEntity<List<UserResponse>> findALlUsers() {
+        return new ResponseEntity<>(userServices.findALlUsers(), HttpStatus.OK);
     }
 
     @PostMapping("login")
@@ -42,18 +41,25 @@ public class SecurityController {
     }
 
 
-
     @PostMapping("register")
-    public ResponseEntity<?> register(@RequestPart("dto") UserRequest dto, @RequestParam Long id, @RequestParam String pathType
-            , @RequestParam MultipartFile file) {
+    public ResponseEntity<?> register(@RequestBody UserRequest dto) {
         for (AppUser users : userServices.findAll()) {
             if (users.getUsername().equals(dto.getUsername())) {
                 throw new UserExistedException("This username ( " + dto.getUsername() + " ) is exist");
             }
         }
-        String fileName = fileUploadService.storeFile(fileUploadService.convertMultiPartFileToFile(file), id, pathType);
-        dto.setImagePath(fileUploadService.getBasePath().concat( pathType.concat("\\").concat(fileName)));
         userServices.save(dto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+
+    @PostMapping("register/add-image")
+    public ResponseEntity<?> addUserImage(@RequestParam String username, @RequestParam Long id, @RequestParam String pathType
+            , @RequestParam MultipartFile file) {
+        AppUser user = userServices.findByUserName(username);
+        String fileName = fileUploadService.storeFile(fileUploadService.convertMultiPartFileToFile(file), id, pathType);
+        user.setImagePath(fileUploadService.getBasePath().concat( pathType.concat("\\").concat(fileName)));
+        userServices.save(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

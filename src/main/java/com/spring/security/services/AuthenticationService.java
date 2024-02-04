@@ -32,6 +32,8 @@ public class AuthenticationService {
         var jwtToken = jwtService.generateToken(new AppUserDetail(user));
 
         return AuthenticationResponse.builder()
+                .username(user.getUsername())
+                .id(user.getId())
                 .Token(jwtToken)
                 .name(user.getFirstName().concat(" ") .concat(user.getLastName()))
                 .imagePath(user.getImagePath())
