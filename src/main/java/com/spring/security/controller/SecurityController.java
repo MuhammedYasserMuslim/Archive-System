@@ -41,7 +41,7 @@ public class SecurityController {
     @GetMapping("user/user")
     public ResponseEntity<UserResponse> findById(@RequestParam Long id) {
         if (userServices.findById(id).isPresent())
-            return new ResponseEntity<>(userMapper.mapToDto(userServices.findById(id).get()), HttpStatus.FOUND);
+            return new ResponseEntity<>(userMapper.mapToDto(userServices.findById(id).get()), HttpStatus.OK);
         else
             throw new UsernameNotFoundException("invalid User Id  :" + id);
     }
