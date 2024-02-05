@@ -10,10 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -35,6 +32,9 @@ public class UserServices {
     public List<AppUser> findAll(){
         return userRepository.findAll();
     }
+    public Optional<AppUser> findById(Long id){
+        return userRepository.findById(id);
+    }
 
     public void save(UserRequest dto) {
         this.save(userMapper.mapToEntity(dto));
@@ -46,18 +46,28 @@ public class UserServices {
         set.add(authorities.get(2));
         user.setAuthorities(set);
         user.setIsActive(1);
-
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         this.userRepository.save(user);
     }
 
     public void update(AppUser user) {
-        List<Authority> authorities = authorityService.findAll();
-        Set<Authority> set = new HashSet<>();
-        set.add(authorities.get(2));
-        user.setAuthorities(set);
+
+        user.setAuthorities(userRepository.findById(user.getId()).get().getAuthorities());
         user.setIsActive(1);
-        user.setPassword(user.getPassword());
+        user.setPassword((user.getPassword()));
+        this.userRepository.save(user);
+    }
+
+    public void update(UserRequest dto) {
+        AppUser user =userMapper.mapToEntity(dto);
+        user.setId(dto.getId());
+        user.setFirstName(dto.getFirstName());
+        user.setLastName(dto.getLastName());
+        user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        user.setUsername(dto.getUsername());
+        user.setAuthorities(userRepository.findById(dto.getId()).get().getAuthorities());
+        user.setIsActive(userRepository.findById(dto.getId()).get().getIsActive());
+        user.setImagePath(userRepository.findById(dto.getId()).get().getImagePath());
         this.userRepository.save(user);
     }
 
