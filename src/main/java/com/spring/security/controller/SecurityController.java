@@ -1,10 +1,7 @@
 package com.spring.security.controller;
 
 import com.spring.exception.UserExistedException;
-import com.spring.security.model.dto.AuthenticationRequest;
-import com.spring.security.model.dto.AuthenticationResponse;
-import com.spring.security.model.dto.UserRequest;
-import com.spring.security.model.dto.UserResponse;
+import com.spring.security.model.dto.*;
 import com.spring.security.model.entity.AppUser;
 import com.spring.security.model.mapper.UserMapper;
 import com.spring.security.services.AuthenticationService;
@@ -64,7 +61,7 @@ public class SecurityController {
     }
 
     @PutMapping("user/user")
-    public ResponseEntity<?> update(@RequestBody UserRequest dto, @RequestParam Long id) {
+    public ResponseEntity<?> update(@RequestBody UserUpdate dto, @RequestParam Long id) {
         userServices.update(dto, id);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }

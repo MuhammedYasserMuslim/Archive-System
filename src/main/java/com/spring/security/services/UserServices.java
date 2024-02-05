@@ -2,6 +2,7 @@ package com.spring.security.services;
 
 import com.spring.security.model.dto.UserRequest;
 import com.spring.security.model.dto.UserResponse;
+import com.spring.security.model.dto.UserUpdate;
 import com.spring.security.model.entity.AppUser;
 import com.spring.security.model.entity.Authority;
 import com.spring.security.model.mapper.UserMapper;
@@ -60,16 +61,16 @@ public class UserServices {
         this.userRepository.save(user);
     }
 
-    public void update(UserRequest dto, Long id) {
+    public void update(UserUpdate dto, Long id) {
         AppUser user = userMapper.mapToEntity(dto);
         user.setId(id);
         user.setFirstName(dto.getFirstName());
         user.setLastName(dto.getLastName());
-        user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setUsername(dto.getUsername());
         user.setAuthorities(userRepository.findById(id).get().getAuthorities());
         user.setIsActive(userRepository.findById(id).get().getIsActive());
         user.setImagePath(userRepository.findById(id).get().getImagePath());
+        user.setPassword(userRepository.findById(id).get().getPassword());
         this.userRepository.save(user);
     }
 
