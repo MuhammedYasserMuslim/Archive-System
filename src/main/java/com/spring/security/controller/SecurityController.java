@@ -77,5 +77,17 @@ public class SecurityController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @PutMapping("user/changePassword")
+    private ResponseEntity<?> changePassword(@RequestParam  String username , @RequestBody ChangePassword password){
+        userServices.changePassword(username,password);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+   // @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("user/changePassword-admin")
+    private ResponseEntity<?> changePassword(@RequestParam  String username , @RequestParam String  password){
+        userServices.changePassword(username,password);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
 }
 

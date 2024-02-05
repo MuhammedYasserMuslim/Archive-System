@@ -1,5 +1,7 @@
 package com.spring.security.services;
 
+import com.spring.exception.InvalidPasswordException;
+import com.spring.security.model.dto.ChangePassword;
 import com.spring.security.model.dto.UserRequest;
 import com.spring.security.model.dto.UserResponse;
 import com.spring.security.model.dto.UserUpdate;
@@ -8,6 +10,7 @@ import com.spring.security.model.entity.Authority;
 import com.spring.security.model.mapper.UserMapper;
 import com.spring.security.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -73,6 +76,23 @@ public class UserServices {
         user.setPassword(userRepository.findById(id).get().getPassword());
         this.userRepository.save(user);
     }
+
+    public void changePassword(String username, ChangePassword password) {
+        AppUser user = userRepository.findByUsername(username).get();
+        if (passwordEncoder.matches(password.getOldPassword(), user.getPassword())) {
+            user.setPassword(passwordEncoder.encode(password.getNewPassword()));
+            userRepository.save(user);
+        } else
+            throw new InvalidPasswordException("invalid password");
+    }
+
+
+    public void changePassword(String username, String password) {
+        AppUser user = userRepository.findByUsername(username).get();
+        user.setPassword(passwordEncoder.encode(password));
+        userRepository.save(user);
+    }
+
 
     public AppUser findByUserName(String username) {
         return userRepository.findByUsername(username).get();
