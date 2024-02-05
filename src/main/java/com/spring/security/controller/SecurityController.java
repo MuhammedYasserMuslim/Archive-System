@@ -37,10 +37,11 @@ public class SecurityController {
     public ResponseEntity<List<UserResponse>> findALlUsers() {
         return new ResponseEntity<>(userServices.findALlUsers(), HttpStatus.OK);
     }
+
     @GetMapping("user/user")
-    public ResponseEntity<UserResponse> findById(@RequestParam Long id){
+    public ResponseEntity<UserResponse> findById(@RequestParam Long id) {
         if (userServices.findById(id).isPresent())
-            return new ResponseEntity<>(userMapper.mapToDto(userServices.findById(id).get()),HttpStatus.FOUND);
+            return new ResponseEntity<>(userMapper.mapToDto(userServices.findById(id).get()), HttpStatus.FOUND);
         else
             throw new UsernameNotFoundException("invalid User Id  :" + id);
     }
@@ -63,11 +64,10 @@ public class SecurityController {
     }
 
     @PutMapping("user/user")
-    public ResponseEntity<?> update(@RequestBody UserRequest dto) {
-        userServices.update(dto);
+    public ResponseEntity<?> update(@RequestBody UserRequest dto, @RequestParam Long id) {
+        userServices.update(dto, id);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
-
 
 
     @PostMapping("register/add-image")

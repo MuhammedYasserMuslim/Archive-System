@@ -29,10 +29,12 @@ public class UserServices {
         }
         return dtos;
     }
-    public List<AppUser> findAll(){
+
+    public List<AppUser> findAll() {
         return userRepository.findAll();
     }
-    public Optional<AppUser> findById(Long id){
+
+    public Optional<AppUser> findById(Long id) {
         return userRepository.findById(id);
     }
 
@@ -58,16 +60,16 @@ public class UserServices {
         this.userRepository.save(user);
     }
 
-    public void update(UserRequest dto) {
-        AppUser user =userMapper.mapToEntity(dto);
-        user.setId(dto.getId());
+    public void update(UserRequest dto, Long id) {
+        AppUser user = userMapper.mapToEntity(dto);
+        user.setId(id);
         user.setFirstName(dto.getFirstName());
         user.setLastName(dto.getLastName());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setUsername(dto.getUsername());
-        user.setAuthorities(userRepository.findById(dto.getId()).get().getAuthorities());
-        user.setIsActive(userRepository.findById(dto.getId()).get().getIsActive());
-        user.setImagePath(userRepository.findById(dto.getId()).get().getImagePath());
+        user.setAuthorities(userRepository.findById(id).get().getAuthorities());
+        user.setIsActive(userRepository.findById(id).get().getIsActive());
+        user.setImagePath(userRepository.findById(id).get().getImagePath());
         this.userRepository.save(user);
     }
 
