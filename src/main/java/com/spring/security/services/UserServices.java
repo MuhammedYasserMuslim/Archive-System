@@ -11,6 +11,7 @@ import com.spring.security.model.mapper.UserMapper;
 import com.spring.security.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -95,7 +96,29 @@ public class UserServices {
 
 
     public AppUser findByUserName(String username) {
-        return userRepository.findByUsername(username).get();
+        if (userRepository.findByUsername(username).isPresent())
+            return userRepository.findByUsername(username).get();
+        else
+            throw new UsernameNotFoundException("This user id Not Exist");
+    }
+
+
+    public void activeUser(String username) {
+        if (userRepository.findByUsername(username).isPresent()) {
+            AppUser user = findByUserName(username);
+            user.setIsActive(1);
+            userRepository.save(user);
+        } else
+            throw new UsernameNotFoundException("This user id Not Exist");
+    }
+
+    public void unActiveUser(String username) {
+        if (userRepository.findByUsername(username).isPresent()) {
+            AppUser user = findByUserName(username);
+            user.setIsActive(0);
+            userRepository.save(user);
+        } else
+            throw new UsernameNotFoundException("This user id Not Exist");
     }
 
 

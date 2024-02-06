@@ -72,7 +72,6 @@ public class FileUploadService {
     private void updateImagePath(Long id, String pathType, String imagePath,File file) {
 
         if (pathType.contains("type")) {
-            // update author image path
             Image image = new Image();
             image.setImagePath(imagePath);
             image.setName(file.getName());

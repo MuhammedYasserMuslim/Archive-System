@@ -78,15 +78,34 @@ public class SecurityController {
     }
 
     @PutMapping("user/changePassword")
-    private ResponseEntity<?> changePassword(@RequestParam  String username , @RequestBody ChangePassword password){
-        userServices.changePassword(username,password);
+    private ResponseEntity<?> changePassword(@RequestParam String username, @RequestBody ChangePassword password) {
+        userServices.changePassword(username, password);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-   // @PreAuthorize("hasRole('ADMIN')")
+
+    // @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("user/changePassword-admin")
-    private ResponseEntity<?> changePassword(@RequestParam  String username , @RequestParam String  password){
-        userServices.changePassword(username,password);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    private ResponseEntity<?> changePassword(@RequestParam String username, @RequestParam String password) {
+        for (AppUser users : userServices.findAll()) {
+            if (users.getUsername().equals(username)) {
+                userServices.changePassword(username, password);
+                return new ResponseEntity<>(HttpStatus.CREATED);
+            }
+        }
+        throw new UserExistedException("This username ( " + username + " ) is exist");
+    }
+
+
+    @PostMapping("user/activated")
+    public ResponseEntity<?> activeUser(@RequestParam String username) {
+        userServices.activeUser(username);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("user/unactivated")
+    public ResponseEntity<?> unActiveUser(@RequestParam String username) {
+        userServices.unActiveUser(username);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
