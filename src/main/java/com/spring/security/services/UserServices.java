@@ -30,9 +30,23 @@ public class UserServices {
         List<AppUser> users = userRepository.findAll();
         List<UserResponse> dtos = new ArrayList<>();
         for (AppUser user : users) {
-            dtos.add(userMapper.mapToDto(user));
+            UserResponse dto = userMapper.mapToDto(user);
+            dto.setRoles(getAuthority(user.getAuthorities()));
+            dtos.add(dto);
         }
         return dtos;
+    }
+
+    private String getAuthority(Set<Authority> authorities) {
+
+        if (authorities.size() == 3)
+            return "Admin";
+        else if (authorities.size() == 2)
+            return "Manager";
+        else
+            return "User";
+
+
     }
 
     public List<AppUser> findAll() {

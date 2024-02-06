@@ -72,7 +72,7 @@ public class SecurityController {
             , @RequestParam MultipartFile file) {
         AppUser user = userServices.findByUserName(username);
         String fileName = fileUploadService.storeFile(fileUploadService.convertMultiPartFileToFile(file), id, pathType);
-        user.setImagePath(fileUploadService.getBasePath().concat(pathType.concat("\\").concat(fileName)));
+        user.setImagePath("assets\\".concat(pathType.concat("\\").concat(fileName)));
         userServices.update(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

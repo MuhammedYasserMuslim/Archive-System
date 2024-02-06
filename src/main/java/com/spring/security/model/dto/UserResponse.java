@@ -15,4 +15,8 @@ public class UserResponse {
     private int isActive;
     private String firstName;
     private String lastName;
+    private String roles;
+
+
+
 }
