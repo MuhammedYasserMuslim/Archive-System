@@ -6,6 +6,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
+import java.util.List;
 
 @Setter
 @Getter
@@ -26,6 +27,9 @@ public class Export extends BaseEntity {
 
     @Column(name = "number_of_attachments")
     private Byte numberOfAttachments; //عدد الموافقات
+
+    @OneToMany(mappedBy = "export")
+    private List<Image> images ;
 
     @Column(name = "receiver")
     private String receiver; //الجهة الصادر منها الخطاب

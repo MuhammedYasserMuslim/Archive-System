@@ -1,5 +1,7 @@
 package com.spring.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,5 +25,15 @@ public class Image extends BaseEntity {
 
     @Column(name = "image_path")
     private String imagePath;
+
+    @ManyToOne
+    @JoinColumn(name = "export_id")
+    @JsonIgnore
+    private Export export ;
+
+    @ManyToOne
+    @JoinColumn(name = "import_id")
+    @JsonIgnore
+    private Import anImport ;
 }
 

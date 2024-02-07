@@ -2,7 +2,9 @@ package com.spring.services;
 
 
 import com.spring.exception.FileStorageException;
+import com.spring.model.entity.Export;
 import com.spring.model.entity.Image;
+import com.spring.model.entity.Import;
 import com.spring.repository.ImageRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +31,7 @@ public class FileUploadService {
     private final ImageRepository imageRepository;
     private final String basePath = "E:\\ArchiveSystem\\Front_End\\Archive\\src\\assets\\";
 
-    public String storeFile(File file, Long id, String pathType) {
+    public String storeFile(File file, Short id, String pathType) {
 
         // create uploaded path
         this.fileStorageLocation = Paths.get(basePath + pathType).toAbsolutePath().normalize();
@@ -42,16 +44,13 @@ public class FileUploadService {
         }
         String fileName = StringUtils.cleanPath(id + "-" + file.getName());
         try {
-            // Check if the file's name contains invalid characters
             if (fileName.contains("..")) {
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
             }
-            // Copy file to the target location (Replacing existing file with the same name)
             Path targetLocation = this.fileStorageLocation.resolve(fileName);
             InputStream targetStream = new FileInputStream(file);
             Files.copy(targetStream, targetLocation, StandardCopyOption.REPLACE_EXISTING);
-
-            updateImagePath(id, pathType, pathType + "/" + fileName,file);
+            updateImagePath(id, pathType, pathType + "\\" + fileName, file);
 
             return fileName;
         } catch (IOException ex) {
@@ -69,19 +68,24 @@ public class FileUploadService {
         return file;
     }
 
-    private void updateImagePath(Long id, String pathType, String imagePath,File file) {
+    private void updateImagePath(Short id, String pathType, String imagePath, File file) {
 
-        if (pathType.contains("type")) {
+        if (pathType.contains("imports") || pathType.contains("exports")) {
             Image image = new Image();
-            image.setImagePath(imagePath);
+            image.setImagePath("assets\\".concat(imagePath));
             image.setName(file.getName());
+            if (pathType.equals("imports"))
+                image.setAnImport(new Import(id));
+            if (pathType.equals("exports"))
+                image.setExport(new Export(id));
             imageRepository.save(image);
 
         }
     }
+
     public byte[] getFileFromFileSystem(String name) throws IOException {
         Optional<Image> image = imageRepository.findByName(name);
-        String filePath=basePath+image.get().getImagePath();
+        String filePath = basePath + image.get().getImagePath();
         byte[] images = Files.readAllBytes(new File(filePath).toPath());
         return images;
     }

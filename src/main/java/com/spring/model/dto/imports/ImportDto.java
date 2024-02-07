@@ -3,15 +3,19 @@ package com.spring.model.dto.imports;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spring.model.dto.archivefile.ArchiveFileDto;
 import com.spring.model.dto.exports.ExportDto;
+import com.spring.model.entity.Image;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Setter
 @Getter
@@ -24,6 +28,10 @@ public class ImportDto {
     @CreationTimestamp
     private Date incomeDate; //تاريخ الورود
     private Byte numberOfAttachments; //عدد الموافقات
+
+    @JsonIgnore
+    private List<Image> images;
+    private List<String> paths;
     private String sender; //الجهة الوارد منها الخطاب
     private Short incomingLetterNumber; //رقم الخطاب الوارد
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -49,5 +57,16 @@ public class ImportDto {
     private Long num;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date expectResponseDate;
+
+    public Byte getNumberOfAttachments() {
+        return (byte)this.images.size();
+    }
+    public List<String> getPaths() {
+        List<String> path = new ArrayList<>();
+        for (Image im : this.images) {
+            path.add(im.getImagePath());
+        }
+        return path;
+    }
 }
 

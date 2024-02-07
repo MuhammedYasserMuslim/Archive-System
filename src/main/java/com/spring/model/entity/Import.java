@@ -6,6 +6,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
+import java.util.List;
 
 @Setter
 @Getter
@@ -26,6 +27,9 @@ public class Import extends BaseEntity {
 
     @Column(name = "number_of_attachments")
     private Short numberOfAttachments; //عدد الموافقات
+
+    @OneToMany(mappedBy = "anImport")
+    private List<Image> images ;
 
     @Column(name = "sender")
     private String sender; //الجهة الوارد منها الخطاب

@@ -68,7 +68,7 @@ public class SecurityController {
 
 
     @PostMapping("register/add-image")
-    public ResponseEntity<?> addUserImage(@RequestParam String username, @RequestParam Long id, @RequestParam String pathType
+    public ResponseEntity<?> addUserImage(@RequestParam String username, @RequestParam Short id, @RequestParam String pathType
             , @RequestParam MultipartFile file) {
         AppUser user = userServices.findByUserName(username);
         String fileName = fileUploadService.storeFile(fileUploadService.convertMultiPartFileToFile(file), id, pathType);

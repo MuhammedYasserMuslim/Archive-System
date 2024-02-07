@@ -10,7 +10,6 @@ import com.spring.security.model.entity.Authority;
 import com.spring.security.model.mapper.UserMapper;
 import com.spring.security.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
