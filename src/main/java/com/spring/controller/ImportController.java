@@ -1,6 +1,5 @@
 package com.spring.controller;
 
-import com.spring.model.dto.exports.ExportDto;
 import com.spring.model.dto.exports.ExportDtoPost;
 import com.spring.model.dto.imports.ImportDto;
 import com.spring.model.dto.imports.ImportDtoPost;
@@ -87,8 +86,8 @@ public class ImportController {
 
     @GetMapping("/import-date")
     @Operation(summary = "Get Today Imports")
-    private List<ImportDto> findByIncomeDate() {
-        return importServices.findByIncomeDate();
+    private ResponseEntity<List<ImportDto>> findByIncomeDate() {
+        return new ResponseEntity<>(importServices.findByIncomeDate(),HttpStatus.OK);
     }
 
     @GetMapping("/import-archive")

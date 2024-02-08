@@ -3,6 +3,7 @@ package com.spring.model.dto.exports;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spring.model.dto.Img;
 import com.spring.model.dto.archivefile.ArchiveFileDto;
 import com.spring.model.dto.imports.ImportDto;
 import com.spring.model.entity.Image;
@@ -31,7 +32,7 @@ public class ExportDto {
     private Byte numberOfAttachments; //عدد الموافقات
     @JsonIgnore
     private List<Image> images;
-    private List<String> paths;
+    private List<Img> paths;
     private String receiver; //الجهة الصادر منها الخطاب
     private String summary;//ملخص الخطاب
     private String recipientName;// المستلم
@@ -59,11 +60,14 @@ public class ExportDto {
         return (byte)this.images.size();
     }
 
-    public List<String> getPaths() {
-        List<String> path = new ArrayList<>();
-        for (Image im : this.images) {
-            path.add(im.getImagePath());
+    public List<Img> getPaths() {
+        List<Img> imgs = new ArrayList<>();
+
+        for (Image image : this.images) {
+            Img img = new Img(image.getId(), image.getImagePath());
+            imgs.add(img);
         }
-        return path;
+        return imgs;
+
     }
 }

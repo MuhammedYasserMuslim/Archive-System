@@ -4,6 +4,7 @@ package com.spring.model.dto.imports;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spring.model.dto.Img;
 import com.spring.model.dto.archivefile.ArchiveFileDto;
 import com.spring.model.dto.exports.ExportDto;
 import com.spring.model.entity.Image;
@@ -31,7 +32,7 @@ public class ImportDto {
 
     @JsonIgnore
     private List<Image> images;
-    private List<String> paths;
+    private List<Img> paths;
     private String sender; //الجهة الوارد منها الخطاب
     private Short incomingLetterNumber; //رقم الخطاب الوارد
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -59,14 +60,17 @@ public class ImportDto {
     private Date expectResponseDate;
 
     public Byte getNumberOfAttachments() {
-        return (byte)this.images.size();
+        return (byte) this.images.size();
     }
-    public List<String> getPaths() {
-        List<String> path = new ArrayList<>();
-        for (Image im : this.images) {
-            path.add(im.getImagePath());
+
+    public List<Img> getPaths() {
+        List<Img> imgs = new ArrayList<>();
+        for (Image image : this.images) {
+            Img img = new Img(image.getId(), image.getImagePath());
+            imgs.add(img);
         }
-        return path;
+        return imgs;
+
     }
 }
 
