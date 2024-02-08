@@ -1,4 +1,4 @@
-package com.spring.model.dto;
+package com.spring.model.dto.images;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
