@@ -32,7 +32,7 @@ public class ImportDto {
 
     @JsonIgnore
     private List<Image> images;
-    private List<Img> paths;
+    private List<String> paths;
     private String sender; //الجهة الوارد منها الخطاب
     private Short incomingLetterNumber; //رقم الخطاب الوارد
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -63,14 +63,12 @@ public class ImportDto {
         return (byte) this.images.size();
     }
 
-    public List<Img> getPaths() {
-        List<Img> imgs = new ArrayList<>();
-        for (Image image : this.images) {
-            Img img = new Img(image.getId(), image.getImagePath());
-            imgs.add(img);
+    public List<String> getPaths() {
+        List<String> path = new ArrayList<>();
+        for (Image im : this.images) {
+            path.add(im.getImagePath());
         }
-        return imgs;
-
+        return path;
     }
 }
 

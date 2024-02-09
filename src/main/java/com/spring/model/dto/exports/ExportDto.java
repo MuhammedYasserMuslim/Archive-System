@@ -32,7 +32,7 @@ public class ExportDto {
     private Byte numberOfAttachments; //عدد الموافقات
     @JsonIgnore
     private List<Image> images;
-    private List<Img> paths;
+    private List<String> paths;
     private String receiver; //الجهة الصادر منها الخطاب
     private String summary;//ملخص الخطاب
     private String recipientName;// المستلم
@@ -60,12 +60,11 @@ public class ExportDto {
         return (byte)this.images.size();
     }
 
-    public List<Img> getPaths() {
-        List<Img> imgs = new ArrayList<>();
-        for (Image image : this.images) {
-            Img img = new Img(image.getId(), image.getImagePath());
-            imgs.add(img);
+    public List<String> getPaths() {
+        List<String> path = new ArrayList<>();
+        for (Image im : this.images) {
+            path.add(im.getImagePath());
         }
-        return imgs;
+        return path;
     }
 }
