@@ -33,7 +33,7 @@ public class SpecialServices {
 
     public SpecialDto findById(Long id) {
         return specialMapper.mapToDto(specialRepository.findById(id)
-                .orElseThrow(() -> new RecordNotFountException("")));
+                .orElseThrow(() -> new RecordNotFountException("Not Found")));
     }
 
     public List<SpecialDto> findBySubject(String summary) {

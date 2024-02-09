@@ -29,11 +29,16 @@ public class Image extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "export_id")
     @JsonIgnore
-    private Export export ;
+    private Export export;
 
     @ManyToOne
     @JoinColumn(name = "import_id")
     @JsonIgnore
-    private Import anImport ;
+    private Import anImport;
+
+    @ManyToOne
+    @JoinColumn(name = "specail_id")
+    @JsonIgnore
+    private Special special;
 }
 

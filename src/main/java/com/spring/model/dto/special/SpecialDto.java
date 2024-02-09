@@ -2,7 +2,9 @@ package com.spring.model.dto.special;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spring.model.dto.archivefile.ArchiveFileDto;
+import com.spring.model.entity.Image;
 import com.spring.model.entity.Subject;
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
@@ -25,7 +27,10 @@ public class SpecialDto {
     private Long id;
     private String name;
     private String summary;
-
+    private Byte numberOfAttachments;
+    @JsonBackReference
+    private List<Image> images;
+    private List<String> paths;
     @JsonFormat(pattern = "yyyy-MM-dd")
     @CreationTimestamp
     private Date incomeDate;
@@ -53,5 +58,17 @@ public class SpecialDto {
             dtos.add(dto);
         }
         return dtos;
+    }
+
+    public Byte getNumberOfAttachments() {
+        return (byte)this.images.size();
+    }
+
+    public List<String> getPaths() {
+        List<String> path = new ArrayList<>();
+        for (Image im : this.images) {
+            path.add(im.getImagePath());
+        }
+        return path;
     }
 }

@@ -139,7 +139,6 @@ public class ExportServices {
                         export.getArchiveFile().getNum())));
         export.setDate(exportRepository.findById(dto.getId()).get().getDate());
         export.setAimport(exportRepository.findById(dto.getId()).get().getAimport());
-        export.setNumberOfAttachments(exportRepository.findById(dto.getId()).get().getNumberOfAttachments());
         export.setCreatedBy(exportRepository.findById(dto.getId()).get().getCreatedBy());
         export.setCreatedDate(exportRepository.findById(dto.getId()).get().getCreatedDate());
 
@@ -159,7 +158,6 @@ public class ExportServices {
                         export.getArchiveFile().getNum())));
         export.setDate(exportRepository.findById(dto.getId()).get().getDate());
         export.setAimport(exportRepository.findById(dto.getId()).get().getAimport());
-        export.setNumberOfAttachments(exportRepository.findById(dto.getId()).get().getNumberOfAttachments());
         export.setCreatedBy(exportRepository.findById(dto.getId()).get().getCreatedBy());
         export.setCreatedDate(exportRepository.findById(dto.getId()).get().getCreatedDate());
 

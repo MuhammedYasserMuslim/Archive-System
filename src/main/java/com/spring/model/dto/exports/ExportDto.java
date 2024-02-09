@@ -30,9 +30,11 @@ public class ExportDto {
     @CreationTimestamp
     private Date date; //تاريخ
     private Byte numberOfAttachments; //عدد الموافقات
-    @JsonIgnore
+
+    @JsonBackReference
     private List<Image> images;
     private List<String> paths;
+
     private String receiver; //الجهة الصادر منها الخطاب
     private String summary;//ملخص الخطاب
     private String recipientName;// المستلم
@@ -57,7 +59,7 @@ public class ExportDto {
     private Long num;
 
     public Byte getNumberOfAttachments() {
-        return (byte)this.images.size();
+        return (byte)this.images.size() ;
     }
 
     public List<String> getPaths() {

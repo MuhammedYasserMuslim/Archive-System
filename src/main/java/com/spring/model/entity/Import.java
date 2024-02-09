@@ -25,8 +25,7 @@ public class Import extends BaseEntity {
     @CreationTimestamp
     private Date incomeDate; //تاريخ الورود
 
-    @Column(name = "number_of_attachments")
-    private Short numberOfAttachments; //عدد الموافقات
+
 
     @OneToMany(mappedBy = "anImport")
     private List<Image> images ;

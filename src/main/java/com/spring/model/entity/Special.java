@@ -31,6 +31,9 @@ public class Special extends BaseEntity{
     @Column(name = "sender")
     private String sender;
 
+    @OneToMany(mappedBy = "special")
+    private List<Image> images ;
+
     @OneToMany(mappedBy = "special" , cascade = {CascadeType.PERSIST , CascadeType.MERGE , CascadeType.DETACH} ,fetch = FetchType.EAGER)
     private List<Subject> subject;
 

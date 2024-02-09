@@ -204,7 +204,6 @@ public class ImportServices {
                         importa.getArchiveFile().getNum())));
         importa.setIncomeDate(importRepository.findById(dto.getId()).get().getIncomeDate());
         importa.setExport(importRepository.findById(dto.getId()).get().getExport());
-        importa.setNumberOfAttachments(importRepository.findById(dto.getId()).get().getNumberOfAttachments());
         importa.setCreatedBy(importRepository.findById(dto.getId()).get().getCreatedBy());
         importa.setCreatedDate(importRepository.findById(dto.getId()).get().getCreatedDate());
 
@@ -227,7 +226,7 @@ public class ImportServices {
                         importa.getArchiveFile().getNum())));
         importa.setIncomeDate(importRepository.findById(dto.getId()).get().getIncomeDate());
         importa.setExport(importRepository.findById(dto.getId()).get().getExport());
-        importa.setNumberOfAttachments(importRepository.findById(dto.getId()).get().getNumberOfAttachments());
+
         importa.setCreatedBy(importRepository.findById(dto.getId()).get().getCreatedBy());
         importa.setCreatedDate(importRepository.findById(dto.getId()).get().getCreatedDate());
 

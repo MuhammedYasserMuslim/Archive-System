@@ -25,8 +25,7 @@ public class Export extends BaseEntity {
     @CreationTimestamp
     private Date date; //تاريخ
 
-    @Column(name = "number_of_attachments")
-    private Byte numberOfAttachments; //عدد الموافقات
+
 
     @OneToMany(mappedBy = "export")
     private List<Image> images ;
