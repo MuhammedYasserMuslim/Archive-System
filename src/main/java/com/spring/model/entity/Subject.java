@@ -13,7 +13,7 @@ import lombok.Setter;
 @Table(name = "subjects")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Subject {
+public class Subject extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
@@ -23,7 +23,7 @@ public class Subject {
     private String summary;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST , CascadeType.MERGE , CascadeType.DETACH})
     @JoinColumn(name = "specail_id")
     @JsonIgnore
     private Special special;

@@ -42,5 +42,9 @@ public class ArchiveFile extends BaseEntity {
     @JsonIgnore
     private Set<Import> imports;
 
+    @OneToMany(mappedBy = "archiveFile")
+    @JsonIgnore
+    private Set<Special> specials;
+
 
 }

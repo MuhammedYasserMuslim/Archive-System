@@ -14,7 +14,7 @@ import java.util.List;
 @Table(name = "special")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Special {
+public class Special extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
@@ -22,7 +22,12 @@ public class Special {
     private String name;
     private String summary;
 
-    @OneToMany(mappedBy = "special")
-    private List<Subject> Subject;
+    @OneToMany(mappedBy = "special" , cascade = {CascadeType.PERSIST , CascadeType.MERGE , CascadeType.DETACH} ,fetch = FetchType.EAGER)
+    private List<Subject> subject;
+
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "archive_file_id")
+    private ArchiveFile archiveFile;
+
 
 }

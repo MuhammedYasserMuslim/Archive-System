@@ -14,12 +14,18 @@ public class SubjectServices {
 
     private final SubjectRepository subjectRepository;
 
-    public List<Subject> findAll(){
+    public List<Subject> findAll() {
         return subjectRepository.findAll();
     }
 
-  public   List<Subject> findBySummaryContaining(String summary){
+    public List<Subject> findBySummaryContaining(String summary) {
         return subjectRepository.findBySummaryContaining(summary);
     }
+
+    public void insert(Subject subject) {
+        subjectRepository.save(subject);
+    }
+
+
 
 }
