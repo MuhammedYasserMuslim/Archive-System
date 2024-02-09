@@ -28,7 +28,7 @@ public class StartUp implements CommandLineRunner {
 
         List<Authority> authorities = authorityService.findAll();
         if (userServices.findAll().isEmpty()) {
-            AppUser user = new AppUser("admin", ("123"), 1);
+            AppUser user = new AppUser("admin", ("1234"), 1);
             user.getAuthorities().add(authorities.get(0));
             user.getAuthorities().add(authorities.get(1));
             user.getAuthorities().add(authorities.get(2));

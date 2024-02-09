@@ -62,12 +62,10 @@ public class ExportDto {
 
     public List<Img> getPaths() {
         List<Img> imgs = new ArrayList<>();
-
         for (Image image : this.images) {
             Img img = new Img(image.getId(), image.getImagePath());
             imgs.add(img);
         }
         return imgs;
-
     }
 }

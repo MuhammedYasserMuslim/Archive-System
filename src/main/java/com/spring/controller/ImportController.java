@@ -25,7 +25,7 @@ public class ImportController {
 
     @GetMapping("/count")
     @Operation(summary = "Get Import Count")
-    @PreAuthorize("hasRole('MANGER') or hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('MANGER')")
     public ResponseEntity<Long> count() {
         return ResponseEntity.ok(importServices.count());
     }
@@ -37,7 +37,7 @@ public class ImportController {
     }
 
     @GetMapping("/count-important")
-    @PreAuthorize(" hasRole('ADMIN') ")
+//    @PreAuthorize(" hasRole('ADMIN') ")
     @Operation(summary = "Get count Important Imports  (عدد الخطابات الهامة )")
     public ResponseEntity<Long> countImportantFile() {
         return ResponseEntity.ok(importServices.countImportantFile());

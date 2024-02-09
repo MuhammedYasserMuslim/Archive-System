@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.util.Date;
 import java.util.List;
 
 @Setter
@@ -21,6 +23,13 @@ public class Special extends BaseEntity{
     private Long id;
     private String name;
     private String summary;
+
+    @Column(name = "income_date")
+    @CreationTimestamp
+    private Date incomeDate;
+
+    @Column(name = "sender")
+    private String sender;
 
     @OneToMany(mappedBy = "special" , cascade = {CascadeType.PERSIST , CascadeType.MERGE , CascadeType.DETACH} ,fetch = FetchType.EAGER)
     private List<Subject> subject;

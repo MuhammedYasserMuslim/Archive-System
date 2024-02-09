@@ -26,6 +26,9 @@ public class SubjectServices {
         subjectRepository.save(subject);
     }
 
+    public void insertAll(List<Subject> subject) {
+        subjectRepository.saveAll(subject);
+    }
 
 
 }
