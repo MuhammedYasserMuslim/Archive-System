@@ -71,7 +71,7 @@ public class FileUploadService {
 
     private void updateImagePath(Long id, String pathType, String imagePath, File file) {
 
-        if (pathType.contains("imports") || pathType.contains("exports")) {
+        if (pathType.contains("imports") || pathType.contains("exports") || pathType.contains("specials") ) {
             Image image = new Image();
             image.setImagePath("assets\\".concat(imagePath));
             image.setName(file.getName());
