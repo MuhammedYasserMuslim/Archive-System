@@ -16,9 +16,9 @@ import java.util.Date;
 public class ImportDtoPost {
 
 
-    private Short id;
+    private Long id;
     private String sender; //الجهة الوارد منها الخطاب
-    private Short incomingLetterNumber; //رقم الخطاب الوارد
+    private Long incomingLetterNumber; //رقم الخطاب الوارد
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date incomingLetterDate;//تاريخ الخطاب الوارد
     private String summary;//ملخص الخطاب
@@ -28,7 +28,7 @@ public class ImportDtoPost {
     // ArchiveFileDto
     private ArchiveFileDto archiveFile;
     private Byte typeNumber;
-    private Long num;
+    private Short num;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date expectResponseDate;
 }

@@ -42,5 +42,7 @@ public class Special extends BaseEntity{
     @JoinColumn(name = "archive_file_id")
     private ArchiveFile archiveFile;
 
-
+    public Special(Long id) {
+        this.id = id;
+    }
 }

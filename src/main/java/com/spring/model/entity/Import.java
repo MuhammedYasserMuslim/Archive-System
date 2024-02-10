@@ -19,7 +19,7 @@ public class Import extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Short id; // رقم الملف
+    private Long id; // رقم الملف
 
     @Column(name = "income_date")
     @CreationTimestamp
@@ -34,7 +34,7 @@ public class Import extends BaseEntity {
     private String sender; //الجهة الوارد منها الخطاب
 
     @Column(name = "incoming_letter_number")
-    private Short incomingLetterNumber; //رقم الخطاب الوارد
+    private Long incomingLetterNumber; //رقم الخطاب الوارد
 
     @Column(name = "incoming_letter_date")
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -63,7 +63,7 @@ public class Import extends BaseEntity {
     @Column(name = "expect_response_date")
     private Date expectResponseDate;
 
-    public Import(Short id) {
+    public Import(Long id) {
         this.id = id;
     }
 }

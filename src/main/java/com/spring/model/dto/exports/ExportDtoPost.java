@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ExportDtoPost {
 
-    private Short id;
+    private Long id;
     private String receiver; //الجهة الصادر منها الخطاب
     private String summary;//ملخص الخطاب
     private String recipientName;// المستلم
@@ -20,5 +20,5 @@ public class ExportDtoPost {
     // ArchiveFileDto
     private ArchiveFileDto archiveFile;
     private Byte typeNumber;
-    private Long num;
+    private Short num;
 }

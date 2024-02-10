@@ -48,7 +48,7 @@ public class ExportController {
 
     @GetMapping("/export-id")
     @Operation(summary = "Get Exports By Id")
-    public ResponseEntity<ExportDto> findById(@RequestParam Short id) {
+    public ResponseEntity<ExportDto> findById(@RequestParam Long id) {
         return ResponseEntity.ok(exportServices.findById(id));
     }
 
@@ -66,7 +66,7 @@ public class ExportController {
 
     @GetMapping("/export-archive")
     @Operation(summary = "Get Export By Archive File Id")
-    public ResponseEntity<List<ExportDto>> findByArchiveFile(@RequestParam short id) {
+    public ResponseEntity<List<ExportDto>> findByArchiveFile(@RequestParam Long id) {
         return ResponseEntity.ok(exportServices.findByArchiveFile(id));
     }
 
@@ -84,20 +84,20 @@ public class ExportController {
 
     @PutMapping("/export-id")
     @Operation(summary = "Update Export By Id ")
-    public void update(@RequestBody ExportDtoPost dto, @RequestParam short id) {
+    public void update(@RequestBody ExportDtoPost dto, @RequestParam Long id) {
         exportServices.update(dto, id);
     }
 
     @PutMapping("/export-add-urgent")
     @Operation(summary = "Add  Urgent ")
-    public ResponseEntity<ExportDtoPost> addUrgent(@RequestBody ExportDtoPost dto, @RequestParam short id) {
+    public ResponseEntity<ExportDtoPost> addUrgent(@RequestBody ExportDtoPost dto, @RequestParam Long id) {
         exportServices.addUrgent(dto, id);
         return ResponseEntity.ok(dto);
     }
 
     @PutMapping("/export-add-response")
     @Operation(summary = "Add  Response ")
-    public ResponseEntity<ImportDtoPost> addResponse(@RequestBody ImportDtoPost dto, @RequestParam short id) {
+    public ResponseEntity<ImportDtoPost> addResponse(@RequestBody ImportDtoPost dto, @RequestParam Long id) {
         exportServices.addResponse(dto, id);
         return ResponseEntity.ok(dto);
     }

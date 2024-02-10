@@ -18,7 +18,7 @@ import java.util.List;
 public class Export extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Short id;//رقم
+    private Long id;//رقم
 
     @Column(name = "date")
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -57,7 +57,7 @@ public class Export extends BaseEntity {
     private ArchiveFile archiveFile;
 
 
-    public Export(Short id) {
+    public Export(Long id) {
         this.id = id;
     }
 

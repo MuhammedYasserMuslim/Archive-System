@@ -24,7 +24,7 @@ import java.util.List;
 public class ExportDto {
 
 
-    private Short id;   //رقم
+    private Long id;   //رقم
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     @CreationTimestamp
@@ -56,7 +56,7 @@ public class ExportDto {
 
     private Short archiveId;
     private Byte typeNumber;
-    private Long num;
+    private Short num;
 
     public Byte getNumberOfAttachments() {
         return (byte)this.images.size() ;

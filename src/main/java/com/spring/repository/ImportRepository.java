@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ImportRepository extends JpaRepository<Import,Short> {
+public interface ImportRepository extends JpaRepository<Import,Long> {
     List<Import> findAllByOrderByIdDesc();
     List<Import> findBySummaryContaining(String summary);
     List<Import> findByArchiveFile(ArchiveFile archiveFile);

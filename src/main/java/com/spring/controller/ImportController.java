@@ -74,7 +74,7 @@ public class ImportController {
 
     @GetMapping("/import-id")
     @Operation(summary = "Get Imports By Id")
-    public ResponseEntity<ImportDto> findById(@RequestParam Short id) {
+    public ResponseEntity<ImportDto> findById(@RequestParam Long id) {
         return ResponseEntity.ok(importServices.findById(id));
     }
 
@@ -92,7 +92,7 @@ public class ImportController {
 
     @GetMapping("/import-archive")
     @Operation(summary = "Get Import By Archive File Id")
-    public ResponseEntity<List<ImportDto>> findByArchiveFile(@RequestParam short id) {
+    public ResponseEntity<List<ImportDto>> findByArchiveFile(@RequestParam Long id) {
         return ResponseEntity.ok(importServices.findByArchiveFile(id));
     }
 
@@ -135,13 +135,13 @@ public class ImportController {
 
     @PutMapping("/import-id")
     @Operation(summary = "Update Import By Id")
-    public void update(@RequestBody ImportDtoPost dto ,@RequestParam Short id) {
+    public void update(@RequestBody ImportDtoPost dto ,@RequestParam Long id) {
         importServices.update(dto,id);
     }
 
     @PutMapping("/import-add-response")
     @Operation(summary = "Update Import")
-    public void addResponse(@RequestBody ExportDtoPost dto, @RequestParam short id) {
+    public void addResponse(@RequestBody ExportDtoPost dto, @RequestParam Long id) {
         importServices.addResponse(dto,id);
     }
 

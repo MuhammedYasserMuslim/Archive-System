@@ -48,7 +48,7 @@ public class SpecialDto {
 
     private Short archiveId;
     private Byte typeNumber;
-    private Long num;
+    private Short num;
 
 
     public List<SubjectDto> getSubjects() {

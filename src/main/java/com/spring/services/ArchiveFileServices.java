@@ -34,7 +34,7 @@ public class ArchiveFileServices {
     }
 
 
-    public ArchiveFileDto findById(Short id) {
+    public ArchiveFileDto findById(Long id) {
         if (archiveFileRepository.findById(id).isPresent()) {
             ArchiveFile archiveFile = archiveFileRepository.findById(id).get();
             return archiveFileMapper.mapToDto(archiveFile);
@@ -119,7 +119,7 @@ public class ArchiveFileServices {
         archiveFileRepository.saveAll(archiveFiles);
     }
 
-    public void deleteById(Short id) {
+    public void deleteById(Long id) {
         archiveFileRepository.deleteById(id);
     }
 }

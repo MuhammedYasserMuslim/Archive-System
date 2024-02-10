@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ArchiveFileRepository extends JpaRepository<ArchiveFile,Short> {
+public interface ArchiveFileRepository extends JpaRepository<ArchiveFile,Long> {
     List<ArchiveFile> findByTypeNumber(Byte typeNumber);
     List<ArchiveFile> findByNameContaining(String name);
     Optional<ArchiveFile> findByTypeNumberAndNum(Byte typeNumber, Short num);

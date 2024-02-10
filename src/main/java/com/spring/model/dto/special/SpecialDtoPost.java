@@ -25,5 +25,5 @@ public class SpecialDtoPost {
     // ArchiveFileDto
     private ArchiveFileDto archiveFile;
     private Byte typeNumber;
-    private Long num;
+    private Short num;
 }

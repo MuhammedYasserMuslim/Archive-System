@@ -5,6 +5,7 @@ import com.spring.exception.FileStorageException;
 import com.spring.model.entity.Export;
 import com.spring.model.entity.Image;
 import com.spring.model.entity.Import;
+import com.spring.model.entity.Special;
 import com.spring.repository.ImageRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +32,7 @@ public class FileUploadService {
     private final ImageRepository imageRepository;
     private final String basePath = "E:\\ArchiveSystem\\Front_End\\Archive\\src\\assets\\";
 
-    public String storeFile(File file, Short id, String pathType) {
+    public String storeFile(File file, Long id, String pathType) {
 
         // create uploaded path
         this.fileStorageLocation = Paths.get(basePath + pathType).toAbsolutePath().normalize();
@@ -68,7 +69,7 @@ public class FileUploadService {
         return file;
     }
 
-    private void updateImagePath(Short id, String pathType, String imagePath, File file) {
+    private void updateImagePath(Long id, String pathType, String imagePath, File file) {
 
         if (pathType.contains("imports") || pathType.contains("exports")) {
             Image image = new Image();
@@ -78,6 +79,8 @@ public class FileUploadService {
                 image.setAnImport(new Import(id));
             if (pathType.equals("exports"))
                 image.setExport(new Export(id));
+            if (pathType.equals("specials"))
+                image.setSpecial(new Special(id));
             imageRepository.save(image);
 
         }
