@@ -17,7 +17,7 @@ public class SpecialDtoPost {
 
 
 
-    private String name;
+    private Long importNum;
     private String summary;
     private String sender;
     private List<Subject> subjects;

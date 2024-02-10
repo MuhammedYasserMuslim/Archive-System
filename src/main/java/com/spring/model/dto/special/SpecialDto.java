@@ -25,7 +25,7 @@ public class SpecialDto {
 
 
     private Long id;
-    private String name;
+    private Long importNum;
     private String summary;
     private Byte numberOfAttachments;
     @JsonBackReference

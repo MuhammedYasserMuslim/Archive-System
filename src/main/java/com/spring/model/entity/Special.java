@@ -21,7 +21,8 @@ public class Special extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     private Long id;
-    private String name;
+    @Column(name = "import_num")
+    private Long importNum;
     private String summary;
 
     @Column(name = "income_date")
