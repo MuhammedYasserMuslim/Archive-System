@@ -16,8 +16,6 @@ import java.util.List;
 public class SpecialDtoPost {
 
 
-
-    private Long importNum;
     private String summary;
     private String sender;
     private List<Subject> subjects;
