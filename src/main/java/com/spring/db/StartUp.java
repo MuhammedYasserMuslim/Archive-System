@@ -23,28 +23,29 @@ public class StartUp implements CommandLineRunner {
     private final AuthorityService authorityService;
 
     private final ArchiveFileServices archiveFileServices;
+
     @Override
     public void run(String... args) throws Exception {
 
         List<Authority> authorities = authorityService.findAll();
         if (userServices.findAll().isEmpty()) {
-            AppUser user = new AppUser("admin", ("1234"), 1);
+            AppUser user = new AppUser("admin", ("1234"), 1, "admin", "admin");
             user.getAuthorities().add(authorities.get(0));
             user.getAuthorities().add(authorities.get(1));
             user.getAuthorities().add(authorities.get(2));
             userServices.save(user);
-            AppUser user0 = new AppUser("manager", ("456"), 1);
+            AppUser user0 = new AppUser("manager", ("456"), 1, "manager", "manager");
             user0.getAuthorities().add(authorities.get(1));
             user0.getAuthorities().add(authorities.get(2));
             userServices.save(user0);
-            AppUser user1 = new AppUser("user", ("789"), 1);
+            AppUser user1 = new AppUser("user", ("789"), 1, "user", "user");
             user1.getAuthorities().add(authorities.get(2));
             userServices.save(user1);
         }
         if (authorityService.findAll().isEmpty()) {
-            authorityService.insert(new Authority(1L, "ROLE_ADMIN"));
-            authorityService.insert(new Authority(2L, "ROLE_MANGER"));
-            authorityService.insert(new Authority(3L, "ROLE_USER"));
+            authorityService.insert(new Authority((byte) 1, "ROLE_ADMIN"));
+            authorityService.insert(new Authority((byte) 2, "ROLE_MANGER"));
+            authorityService.insert(new Authority((byte) 3, "ROLE_USER"));
         }
 
         if (archiveFileServices.count() == 0) {

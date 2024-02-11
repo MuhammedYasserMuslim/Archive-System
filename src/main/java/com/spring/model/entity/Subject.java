@@ -17,7 +17,7 @@ public class Subject extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
-    private Long id;
+    private Integer id;
 
     private String summary;
 

@@ -23,7 +23,7 @@ public class FileUploadController {
     private final FileUploadService fileUploadService;
 
     @PostMapping("/upload")
-    public ResponseEntity<Object> uploadFile(@RequestParam Long id, @RequestParam String pathType
+    public ResponseEntity<Object> uploadFile(@RequestParam int id, @RequestParam String pathType
             , @RequestParam MultipartFile file) {
         String fileName = fileUploadService.storeFile(fileUploadService.convertMultiPartFileToFile(file), id, pathType);
         return ResponseEntity.ok(fileName);
@@ -31,7 +31,7 @@ public class FileUploadController {
 
     @PostMapping("/multipleFiles")
     public ResponseEntity<?> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files,
-                                                 @RequestParam("id") Long id, @RequestParam String pathType) {
+                                                 @RequestParam("id") int id, @RequestParam String pathType) {
         Arrays.asList(files).stream().map(file -> uploadFile(id, pathType, file)).collect(Collectors.toList());
         return ResponseEntity.ok(files);
     }

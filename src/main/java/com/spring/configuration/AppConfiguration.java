@@ -9,5 +9,4 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @EnableCaching
 public class AppConfiguration {
 
-
 }

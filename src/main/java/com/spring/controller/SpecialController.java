@@ -30,7 +30,7 @@ public class SpecialController {
     }
 
     @GetMapping("/special")
-    public ResponseEntity<SpecialDto> findById(@RequestParam Long id) {
+    public ResponseEntity<SpecialDto> findById(@RequestParam int id) {
         return new ResponseEntity<>(specialServices.findById(id), HttpStatus.OK);
     }
 

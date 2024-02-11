@@ -20,9 +20,9 @@ public class Authority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Byte id;
 
-    @Column(name = "name")
+    @Column(name = "name" ,unique = true,nullable = false)
     private String name;
 
     @ManyToMany(mappedBy = "authorities")
@@ -30,7 +30,7 @@ public class Authority {
     private Set<AppUser> users = new HashSet<>();
 
 
-    public Authority(Long id, String name) {
+    public Authority(Byte id, String name) {
         this.id = id;
         this.name = name;
     }

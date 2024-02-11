@@ -24,7 +24,7 @@ import java.util.List;
 @NoArgsConstructor
 public class ImportDto {
 
-    private Long id; // رقم الملف
+    private Integer id; // رقم الملف
     @JsonFormat(pattern = "yyyy-MM-dd")
     @CreationTimestamp
     private Date incomeDate; //تاريخ الورود
@@ -45,7 +45,7 @@ public class ImportDto {
     //Export
     @JsonBackReference
     private ExportDto export;
-    private Long responseNumber; // رقم الرد
+    private Integer responseNumber; // رقم الرد
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date responseDate; //تاريخ الرد
     private String responseSide; //الجهة الصادر اليها الخطاب

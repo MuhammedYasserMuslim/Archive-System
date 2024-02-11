@@ -24,7 +24,7 @@ import java.util.List;
 public class ExportDto {
 
 
-    private Long id;   //رقم
+    private Integer id;   //رقم
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     @CreationTimestamp
@@ -46,7 +46,7 @@ public class ExportDto {
     // Import
     @JsonBackReference
     private ImportDto aimport;
-    private Short responseNumber; // رقم الرد
+    private Integer responseNumber; // رقم الرد
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date responseDate; //تاريخ الرد
 

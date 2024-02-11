@@ -25,7 +25,7 @@ public class ExportController {
 
     @GetMapping("/count")
     @Operation(summary = "Get Exports Count")
-    public ResponseEntity<Long> count() {
+    public ResponseEntity<Integer> count() {
         return ResponseEntity.ok(exportServices.count());
     }
 
@@ -48,7 +48,7 @@ public class ExportController {
 
     @GetMapping("/export-id")
     @Operation(summary = "Get Exports By Id")
-    public ResponseEntity<ExportDto> findById(@RequestParam Long id) {
+    public ResponseEntity<ExportDto> findById(@RequestParam int id) {
         return ResponseEntity.ok(exportServices.findById(id));
     }
 
@@ -66,7 +66,7 @@ public class ExportController {
 
     @GetMapping("/export-archive")
     @Operation(summary = "Get Export By Archive File Id")
-    public ResponseEntity<List<ExportDto>> findByArchiveFile(@RequestParam Long id) {
+    public ResponseEntity<List<ExportDto>> findByArchiveFile(@RequestParam byte id) {
         return ResponseEntity.ok(exportServices.findByArchiveFile(id));
     }
 
@@ -84,20 +84,20 @@ public class ExportController {
 
     @PutMapping("/export-id")
     @Operation(summary = "Update Export By Id ")
-    public void update(@RequestBody ExportDtoPost dto, @RequestParam Long id) {
+    public void update(@RequestBody ExportDtoPost dto, @RequestParam int id) {
         exportServices.update(dto, id);
     }
 
     @PutMapping("/export-add-urgent")
     @Operation(summary = "Add  Urgent ")
-    public ResponseEntity<ExportDtoPost> addUrgent(@RequestBody ExportDtoPost dto, @RequestParam Long id) {
+    public ResponseEntity<ExportDtoPost> addUrgent(@RequestBody ExportDtoPost dto, @RequestParam int id) {
         exportServices.addUrgent(dto, id);
         return ResponseEntity.ok(dto);
     }
 
     @PutMapping("/export-add-response")
     @Operation(summary = "Add  Response ")
-    public ResponseEntity<ImportDtoPost> addResponse(@RequestBody ImportDtoPost dto, @RequestParam Long id) {
+    public ResponseEntity<ImportDtoPost> addResponse(@RequestBody ImportDtoPost dto, @RequestParam int id) {
         exportServices.addResponse(dto, id);
         return ResponseEntity.ok(dto);
     }

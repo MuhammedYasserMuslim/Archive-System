@@ -40,8 +40,8 @@ public class ImportServices {
         this.exportServices = exportServices;
     }
 
-    public long count() {
-        return importRepository.count();
+    public int count() {
+        return (int) importRepository.count();
     }
 
     public Long countCurrent() {
@@ -84,7 +84,7 @@ public class ImportServices {
         }
         return dtos;
     }
-    public ImportDto findById(Long id) {
+    public ImportDto findById(int id) {
         if (importRepository.findById(id).isPresent()) {
             Import importa = importRepository.findById(id).get();
             return importMapper.mapToDto(importa);
@@ -170,7 +170,7 @@ public class ImportServices {
 
     }
 
-    public List<ImportDto> findByArchiveFile(Long id) {
+    public List<ImportDto> findByArchiveFile(short id) {
         ArchiveFileDto dto = archiveFileServices.findById(id);
         List<Import> imports = importRepository.findByArchiveFile(archiveFileMapper.mapToEntity(dto));
         List<ImportDto> dtos = new ArrayList<>();
@@ -210,7 +210,7 @@ public class ImportServices {
         importRepository.save(importa);
     }
 
-    public void update(ImportDtoPost dto, Long id) {
+    public void update(ImportDtoPost dto, int id) {
         dto.setId(id);
         Import importa = importMapper.mapToEntity(dto);
         dto.setTypeNumber((byte) 1);
@@ -233,7 +233,7 @@ public class ImportServices {
         importRepository.save(importa);
     }
 
-    public void addResponse(ExportDtoPost dto, Long id) {
+    public void addResponse(ExportDtoPost dto, int id) {
         Import aImport = importRepository.findById(id).get();
         if (aImport.getExport() == null) {
             exportServices.insert(dto);

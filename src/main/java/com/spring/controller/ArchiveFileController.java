@@ -33,7 +33,7 @@ public class ArchiveFileController {
 
     @GetMapping("/archive-id")
     @Operation(summary = "Get Archive File By Id")
-    public ArchiveFileDto findById(@RequestParam Long id) {
+    public ArchiveFileDto findById(@RequestParam short id) {
         return archiveFileServices.findById(id);
     }
 
@@ -68,9 +68,5 @@ public class ArchiveFileController {
         archiveFileServices.update(archiveFile);
     }
 
-    @DeleteMapping("/archive")
-    @Operation(summary = "Delete Archive Files By Id")
-    public void deleteById(Long id) {
-        archiveFileServices.deleteById(id);
-    }
+
 }

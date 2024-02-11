@@ -1,6 +1,7 @@
 package com.spring.security.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
 import java.util.HashSet;
@@ -17,18 +18,23 @@ public class AppUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(name = "username")
+    private Byte id;
+    @Column(name = "username", nullable = false , unique = true)
+    @NotEmpty
     private String username;
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
+    @NotEmpty
     private String password;
-    @Column(name = "is_active")
+    @Column(name = "is_active", nullable = false)
     private int isActive;
 
-
+    @Column(name = "first_name", nullable = false)
+    @NotEmpty
     private String firstName;
+    @Column(name = "last_name", nullable = false)
+    @NotEmpty
     private String lastName;
-
+    @Column(name = "image_path", nullable = true)
     private String imagePath;
 
 
@@ -46,4 +52,9 @@ public class AppUser {
         this.isActive = isActive;
     }
 
+    public AppUser(String username, String password, int isActive, String firstName, String lastName) {
+        this(username, password, isActive);
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 }

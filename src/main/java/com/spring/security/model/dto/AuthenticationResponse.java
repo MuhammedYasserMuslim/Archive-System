@@ -11,7 +11,7 @@ import lombok.Setter;
 @Builder
 public class AuthenticationResponse {
 
-    private Long id;
+    private Byte id;
     private String username;
     private String Token;
     private String name;

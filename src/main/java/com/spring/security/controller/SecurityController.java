@@ -7,11 +7,13 @@ import com.spring.security.model.mapper.UserMapper;
 import com.spring.security.services.AuthenticationService;
 import com.spring.security.services.UserServices;
 import com.spring.services.FileUploadService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,6 +23,7 @@ import java.util.List;
 @RequestMapping("/")
 @RequiredArgsConstructor
 @CrossOrigin("http://localhost:4200")
+@Validated
 public class SecurityController {
 
     private final AuthenticationService authenticationService;
@@ -36,7 +39,7 @@ public class SecurityController {
     }
 
     @GetMapping("user/user")
-    public ResponseEntity<UserResponse> findById(@RequestParam Long id) {
+    public ResponseEntity<UserResponse> findById(@RequestParam byte id) {
         if (userServices.findById(id).isPresent())
             return new ResponseEntity<>(userMapper.mapToDto(userServices.findById(id).get()), HttpStatus.OK);
         else
@@ -50,7 +53,7 @@ public class SecurityController {
 
 
     @PostMapping("register")
-    public ResponseEntity<?> register(@RequestBody UserRequest dto) {
+    public ResponseEntity<?> register(@RequestBody @Valid UserRequest dto) {
         for (AppUser users : userServices.findAll()) {
             if (users.getUsername().equals(dto.getUsername())) {
                 throw new UserExistedException("This username ( " + dto.getUsername() + " ) is exist");
@@ -61,14 +64,14 @@ public class SecurityController {
     }
 
     @PutMapping("user/user")
-    public ResponseEntity<?> update(@RequestBody UserUpdate dto, @RequestParam Long id) {
+    public ResponseEntity<?> update(@RequestBody UserUpdate dto, @RequestParam byte id) {
         userServices.update(dto, id);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
 
     @PostMapping("register/add-image")
-    public ResponseEntity<?> addUserImage(@RequestParam String username, @RequestParam Long id, @RequestParam String pathType
+    public ResponseEntity<?> addUserImage(@RequestParam String username, @RequestParam int id, @RequestParam String pathType
             , @RequestParam MultipartFile file) {
         AppUser user = userServices.findByUserName(username);
         String fileName = fileUploadService.storeFile(fileUploadService.convertMultiPartFileToFile(file), id, pathType);

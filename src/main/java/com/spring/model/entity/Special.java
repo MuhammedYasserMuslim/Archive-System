@@ -20,9 +20,9 @@ public class Special extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
-    private Long id;
+    private Integer id;
     @Column(name = "import_num")
-    private Long importNum;
+    private Integer importNum;
     private String summary;
 
     @Column(name = "income_date")
@@ -42,7 +42,7 @@ public class Special extends BaseEntity{
     @JoinColumn(name = "archive_file_id")
     private ArchiveFile archiveFile;
 
-    public Special(Long id) {
+    public Special(int id) {
         this.id = id;
     }
 }

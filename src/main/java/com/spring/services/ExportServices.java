@@ -40,8 +40,8 @@ public class ExportServices {
         this.importServices = importServices;
     }
 
-    public long count() {
-        return exportRepository.count();
+    public int count() {
+       return (int) exportRepository.count();
     }
 
     public Long countCurrent() {
@@ -70,7 +70,7 @@ public class ExportServices {
 
 
     //@Cacheable(value = "findAllExports", key = "#root.methodName")
-    public ExportDto findById(Long id) {
+    public ExportDto findById(int id) {
 
         if (exportRepository.findById(id).isPresent()) {
             Export export = exportRepository.findById(id).get();
@@ -104,7 +104,7 @@ public class ExportServices {
         } else throw new RecordNotFountException("There are no new files today.");
     }
 
-    public List<ExportDto> findByArchiveFile(Long id) {
+    public List<ExportDto> findByArchiveFile(short id) {
         ArchiveFileDto dto = archiveFileServices.findById(id);
         List<Export> exports = exportRepository.findByArchiveFile(archiveFileMapper.mapToEntity(dto));
         List<ExportDto> dtos = new ArrayList<>();
@@ -145,7 +145,7 @@ public class ExportServices {
     }
 
     // @CacheEvict(value = "findAllExports", key = "#root.methodName", allEntries = true)
-    public void update(ExportDtoPost dto, Long id) {
+    public void update(ExportDtoPost dto, int id) {
         dto.setId(id);
         Export export = exportMapper.mapToEntity(dto);
         dto.setTypeNumber((byte) 2);
@@ -165,11 +165,11 @@ public class ExportServices {
     }
 
     //@CacheEvict(value = "findAllExports", key = "#root.methodName", allEntries = true)
-    public void addUrgent(ExportDtoPost dto, Long id) {
+    public void addUrgent(ExportDtoPost dto, int id) {
         Export export = exportRepository.findById(id).get();
         if (export.getUrgentNum() == null) {
             insert(dto);
-            export.setUrgentNum((short) exportRepository.count());
+            export.setUrgentNum( this.count());
             export.setUrgentDate(new Date());
             exportRepository.save(export);
         } else
@@ -177,7 +177,7 @@ public class ExportServices {
     }
 
     // @CacheEvict(value = "findAllExports", key = "#root.methodName", allEntries = true)
-    public void addResponse(ImportDtoPost dto, Long id) {
+    public void addResponse(ImportDtoPost dto, int id) {
         Export export = exportRepository.findById(id).get();
         if (export.getAimport() == null) {
             importServices.insert(dto);

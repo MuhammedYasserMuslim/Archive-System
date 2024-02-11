@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,7 +25,7 @@ public class ImportController {
     @GetMapping("/count")
     @Operation(summary = "Get Import Count")
 //    @PreAuthorize("hasRole('MANGER')")
-    public ResponseEntity<Long> count() {
+    public ResponseEntity<Integer> count() {
         return ResponseEntity.ok(importServices.count());
     }
 
@@ -67,14 +66,15 @@ public class ImportController {
     public ResponseEntity<List<ImportDto>> findAll() {
         return ResponseEntity.ok(importServices.findAll());
     }
+
     @GetMapping("/imports-pagination")
     public ResponseEntity<List<ImportDto>> findAllPagination(@RequestParam int page) {
-        return new ResponseEntity<>(importServices.findAllPagination(page-1), HttpStatus.OK);
+        return new ResponseEntity<>(importServices.findAllPagination(page - 1), HttpStatus.OK);
     }
 
     @GetMapping("/import-id")
     @Operation(summary = "Get Imports By Id")
-    public ResponseEntity<ImportDto> findById(@RequestParam Long id) {
+    public ResponseEntity<ImportDto> findById(@RequestParam int id) {
         return ResponseEntity.ok(importServices.findById(id));
     }
 
@@ -87,12 +87,12 @@ public class ImportController {
     @GetMapping("/import-date")
     @Operation(summary = "Get Today Imports")
     private ResponseEntity<List<ImportDto>> findByIncomeDate() {
-        return new ResponseEntity<>(importServices.findByIncomeDate(),HttpStatus.OK);
+        return new ResponseEntity<>(importServices.findByIncomeDate(), HttpStatus.OK);
     }
 
     @GetMapping("/import-archive")
     @Operation(summary = "Get Import By Archive File Id")
-    public ResponseEntity<List<ImportDto>> findByArchiveFile(@RequestParam Long id) {
+    public ResponseEntity<List<ImportDto>> findByArchiveFile(@RequestParam short id) {
         return ResponseEntity.ok(importServices.findByArchiveFile(id));
     }
 
@@ -135,14 +135,14 @@ public class ImportController {
 
     @PutMapping("/import-id")
     @Operation(summary = "Update Import By Id")
-    public void update(@RequestBody ImportDtoPost dto ,@RequestParam Long id) {
-        importServices.update(dto,id);
+    public void update(@RequestBody ImportDtoPost dto, @RequestParam int id) {
+        importServices.update(dto, id);
     }
 
     @PutMapping("/import-add-response")
     @Operation(summary = "Update Import")
-    public void addResponse(@RequestBody ExportDtoPost dto, @RequestParam Long id) {
-        importServices.addResponse(dto,id);
+    public void addResponse(@RequestBody ExportDtoPost dto, @RequestParam int id) {
+        importServices.addResponse(dto, id);
     }
 
 

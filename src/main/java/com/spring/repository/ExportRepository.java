@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ExportRepository extends JpaRepository<Export, Long> {
+public interface ExportRepository extends JpaRepository<Export, Integer> {
 
     List<Export> findAllByOrderByIdDesc();
 

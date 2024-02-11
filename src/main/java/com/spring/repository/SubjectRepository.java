@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface SubjectRepository extends JpaRepository<Subject, Long> {
+public interface SubjectRepository extends JpaRepository<Subject, Integer> {
 
 
     List<Subject> findBySummaryContaining(String summary);

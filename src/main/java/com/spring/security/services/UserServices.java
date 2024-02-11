@@ -52,7 +52,7 @@ public class UserServices {
         return userRepository.findAll();
     }
 
-    public Optional<AppUser> findById(Long id) {
+    public Optional<AppUser> findById(byte id) {
         return userRepository.findById(id);
     }
 
@@ -78,7 +78,7 @@ public class UserServices {
         this.userRepository.save(user);
     }
 
-    public void update(UserUpdate dto, Long id) {
+    public void update(UserUpdate dto, byte id) {
         AppUser user = userMapper.mapToEntity(dto);
         user.setId(id);
         user.setFirstName(dto.getFirstName());

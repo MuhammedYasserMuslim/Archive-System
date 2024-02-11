@@ -32,7 +32,7 @@ public class FileUploadService {
     private final ImageRepository imageRepository;
     private final String basePath = "E:\\ArchiveSystem\\Front_End\\Archive\\src\\assets\\";
 
-    public String storeFile(File file, Long id, String pathType) {
+    public String storeFile(File file, int id, String pathType) {
 
         // create uploaded path
         this.fileStorageLocation = Paths.get(basePath + pathType).toAbsolutePath().normalize();
@@ -69,7 +69,7 @@ public class FileUploadService {
         return file;
     }
 
-    private void updateImagePath(Long id, String pathType, String imagePath, File file) {
+    private void updateImagePath(int id, String pathType, String imagePath, File file) {
 
         if (pathType.contains("imports") || pathType.contains("exports") || pathType.contains("specials") ) {
             Image image = new Image();

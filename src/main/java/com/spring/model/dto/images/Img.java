@@ -13,6 +13,6 @@ import lombok.Setter;
 public class Img {
 
     @JsonBackReference
-    private Long id;
+    private Integer id;
     private String path;
 }

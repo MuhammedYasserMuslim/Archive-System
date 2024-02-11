@@ -24,8 +24,8 @@ import java.util.List;
 public class SpecialDto {
 
 
-    private Long id;
-    private Long importNum;
+    private Integer id;
+    private Integer importNum;
     private String summary;
     private Byte numberOfAttachments;
     @JsonBackReference

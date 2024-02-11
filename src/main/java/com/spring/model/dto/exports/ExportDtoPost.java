@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ExportDtoPost {
 
-    private Long id;
+    private Integer id;
     private String receiver; //الجهة الصادر منها الخطاب
     private String summary;//ملخص الخطاب
     private String recipientName;// المستلم
