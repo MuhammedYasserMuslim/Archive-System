@@ -66,7 +66,7 @@ public class ExportController {
 
     @GetMapping("/export-archive")
     @Operation(summary = "Get Export By Archive File Id")
-    public ResponseEntity<List<ExportDto>> findByArchiveFile(@RequestParam byte id) {
+    public ResponseEntity<List<ExportDto>> findByArchiveFile(@RequestParam short id) {
         return ResponseEntity.ok(exportServices.findByArchiveFile(id));
     }
 

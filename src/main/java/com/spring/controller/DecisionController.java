@@ -1,16 +1,14 @@
 package com.spring.controller;
 
 
+import com.spring.model.dto.special.DecisionDto;
 import com.spring.model.entity.Decision;
 import com.spring.services.DecisionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,5 +28,10 @@ public class DecisionController {
     @GetMapping("/decision-summary")
     public ResponseEntity<List<Decision>> findBySummary(String summary) {
         return new ResponseEntity<>(decisionService.findBySummary(summary), HttpStatus.OK);
+    }
+
+    @PostMapping("/decision")
+    public void insert(@RequestBody DecisionDto dto){
+        decisionService.insert(dto);
     }
 }

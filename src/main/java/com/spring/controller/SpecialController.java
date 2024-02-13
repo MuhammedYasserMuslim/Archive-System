@@ -19,16 +19,26 @@ public class SpecialController {
 
     private final SpecialServices specialServices;
 
+
+    @GetMapping("/count")
+    public ResponseEntity<Integer> count(){
+        return new ResponseEntity<>(specialServices.count(),HttpStatus.OK);
+    }
+
     @GetMapping("/specials")
     public ResponseEntity<List<SpecialDto>> findAll() {
         return new ResponseEntity<>(specialServices.findAll(), HttpStatus.OK);
     }
 
-//    @GetMapping("/special-summary")
-//    public ResponseEntity<List<SpecialDto>> findBySubject(@RequestParam String summary) {
-//        return new ResponseEntity<>(specialServices.findBySubject(summary), HttpStatus.OK);
-//    }
-//
+    @GetMapping("/special-summary")
+    public ResponseEntity<List<SpecialDto>> findBySubject(@RequestParam String summary) {
+        return new ResponseEntity<>(specialServices.findBySubject(summary), HttpStatus.OK);
+    }
+    @GetMapping("/special-archive")
+    public ResponseEntity<List<SpecialDto>> findByArchiveFile(@RequestParam short id){
+        return new ResponseEntity<>(specialServices.findByArchiveFile(id), HttpStatus.OK);
+    }
+
     @GetMapping("/special")
     public ResponseEntity<SpecialDto> findById(@RequestParam int id) {
         return new ResponseEntity<>(specialServices.findById(id), HttpStatus.OK);

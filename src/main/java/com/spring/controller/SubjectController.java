@@ -23,15 +23,15 @@ public class SubjectController {
         return new ResponseEntity<>(subjectServices.findAll(), HttpStatus.OK);
     }
 
-//    @GetMapping("/subject")
-//    public ResponseEntity<List<Subject>> findBySummary(@RequestParam String summary) {
-//        return new ResponseEntity<>(subjectServices.findBySummaryContaining(summary), HttpStatus.OK);
-//    }
-
-
-    @PostMapping("/subject")
-    public ResponseEntity<?> insert(@RequestBody Subject subject) {
-        subjectServices.insert(subject);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    @GetMapping("/subject")
+    public ResponseEntity<List<Subject>> findByDecision(@RequestParam String summary) {
+        return new ResponseEntity<>(subjectServices.findByDecision(summary), HttpStatus.OK);
     }
+
+
+//    @PostMapping("/subject")
+//    public ResponseEntity<?> insert(@RequestBody Subject subject) {
+//        subjectServices.insert(subject);
+//        return new ResponseEntity<>(HttpStatus.CREATED);
+//    }
 }
