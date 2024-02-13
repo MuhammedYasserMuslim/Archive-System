@@ -71,4 +71,24 @@ public class SpecialDto {
         }
         return path;
     }
+
+    @Override
+    public String toString() {
+        return "SpecialDto{" +
+                "id=" + id +
+                ", importNum=" + importNum +
+                ", summary='" + summary + '\'' +
+                ", numberOfAttachments=" + numberOfAttachments +
+                ", images=" + images +
+                ", paths=" + paths +
+                ", incomeDate=" + incomeDate +
+                ", sender='" + sender + '\'' +
+                ", subject=" + subject +
+                ", subjects=" + subjects +
+                ", archiveFile=" + archiveFile +
+                ", archiveId=" + archiveId +
+                ", typeNumber=" + typeNumber +
+                ", num=" + num +
+                '}';
+    }
 }

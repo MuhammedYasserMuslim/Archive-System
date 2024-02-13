@@ -22,9 +22,17 @@ public class Subject extends BaseEntity{
     private String summary;
 
 
-    @ManyToOne(cascade = {CascadeType.PERSIST , CascadeType.MERGE , CascadeType.DETACH})
+    @ManyToOne(cascade = {CascadeType.PERSIST , CascadeType.MERGE  ,CascadeType.REFRESH})
     @JoinColumn(name = "specail_id")
     @JsonIgnore
     private Special special;
 
+    @Override
+    public String toString() {
+        return "Subject{" +
+                "id=" + id +
+                ", summary='" + summary + '\'' +
+                ", special=" + special +
+                '}';
+    }
 }

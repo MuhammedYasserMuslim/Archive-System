@@ -1,6 +1,7 @@
 package com.spring.db;
 
 import com.spring.model.dto.archivefile.ArchiveFileDto;
+import com.spring.security.model.dto.ChangePassword;
 import com.spring.security.model.entity.AppUser;
 import com.spring.security.model.entity.Authority;
 import com.spring.security.services.AuthorityService;
@@ -26,6 +27,9 @@ public class StartUp implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
+
+
 
         List<Authority> authorities = authorityService.findAll();
         if (userServices.findAll().isEmpty()) {

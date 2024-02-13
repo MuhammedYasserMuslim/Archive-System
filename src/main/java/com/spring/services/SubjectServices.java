@@ -30,5 +30,9 @@ public class SubjectServices {
         subjectRepository.saveAll(subject);
     }
 
+    public void removeAll(List<Subject> subjects){
+        subjectRepository.deleteAll(subjects);
+    }
+
 
 }

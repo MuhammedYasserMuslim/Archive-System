@@ -44,23 +44,19 @@ public class SpecialServices {
             if (specialRepository.findById(subject.getSpecial().getId()).isPresent())
                 specials.add(subject.getSpecial());
         }
-        for (Special special : specials) {
+        for (Special special :abstractList( specials)) {
             dtos.add(specialMapper.mapToDto(special));
         }
-        for (SpecialDto dto : abstractList(dtos)) {
-            System.out.println( dto.toString());
-
-        }
-        return abstractList(dtos);
+        return (dtos);
 
     }
 
 
-    private List<SpecialDto> abstractList(List<SpecialDto> list) {
-        Set<SpecialDto> set = new HashSet<>(list);
+    private List<Special> abstractList(List<Special> list) {
+        Set<Special> set = new HashSet<>(list);
         list.clear();
         list.addAll(set);
-        list.sort(Comparator.comparing(SpecialDto::getId));
+        list.sort(Comparator.comparing(Special::getId));
         return list;
     }
 
@@ -70,6 +66,25 @@ public class SpecialServices {
         special.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
                 (special.getArchiveFile().getTypeNumber(),
                         special.getArchiveFile().getNum())));
+        List<Subject> subjects = dto.getSubjects();
+        for (Subject subject : subjects) {
+            subject.setSpecial(special);
+        }
+        subjectServices.insertAll(subjects);
+        specialRepository.save(special);
+    }
+
+    public void update(SpecialDtoPost dto , int id){
+        dto.setTypeNumber((byte) 3);
+        Special special = specialMapper.mapToEntity(dto);
+        special.setId(id);
+        special.setIncomeDate(specialRepository.findById(id).get().getIncomeDate());
+        special.setCreatedBy(specialRepository.findById(id).get().getCreatedBy());
+        special.setCreatedDate(specialRepository.findById(id).get().getCreatedDate());
+        special.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
+                (special.getArchiveFile().getTypeNumber(),
+                        special.getArchiveFile().getNum())));
+        subjectServices.removeAll(special.getSubject());
         List<Subject> subjects = dto.getSubjects();
         for (Subject subject : subjects) {
             subject.setSpecial(special);

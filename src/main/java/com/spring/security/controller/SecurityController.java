@@ -23,7 +23,6 @@ import java.util.List;
 @RequestMapping("/")
 @RequiredArgsConstructor
 @CrossOrigin("http://localhost:4200")
-@Validated
 public class SecurityController {
 
     private final AuthenticationService authenticationService;
@@ -89,6 +88,7 @@ public class SecurityController {
     // @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("user/changePassword-admin")
     private ResponseEntity<?> changePassword(@RequestParam String username, @RequestParam String password) {
+
         for (AppUser users : userServices.findAll()) {
             if (users.getUsername().equals(username)) {
                 userServices.changePassword(username, password);
