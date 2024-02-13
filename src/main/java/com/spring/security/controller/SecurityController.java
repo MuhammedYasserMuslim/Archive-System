@@ -52,7 +52,7 @@ public class SecurityController {
 
 
     @PostMapping("register")
-    public ResponseEntity<?> register(@RequestBody @Valid UserRequest dto) {
+    public ResponseEntity<?> register(@RequestBody UserRequest dto) {
         for (AppUser users : userServices.findAll()) {
             if (users.getUsername().equals(dto.getUsername())) {
                 throw new UserExistedException("This username ( " + dto.getUsername() + " ) is exist");

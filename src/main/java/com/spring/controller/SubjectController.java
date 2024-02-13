@@ -1,6 +1,7 @@
 package com.spring.controller;
 
 
+import com.spring.model.dto.special.SubjectDto;
 import com.spring.model.entity.Subject;
 import com.spring.services.SubjectServices;
 import lombok.RequiredArgsConstructor;
@@ -18,14 +19,14 @@ public class SubjectController {
     private final SubjectServices subjectServices;
 
     @GetMapping("/subjects")
-    public ResponseEntity<List<Subject>> findAll() {
+    public ResponseEntity<List<SubjectDto>> findAll() {
         return new ResponseEntity<>(subjectServices.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/subject")
-    public ResponseEntity<List<Subject>> findBySummary(@RequestParam String summary) {
-        return new ResponseEntity<>(subjectServices.findBySummaryContaining(summary), HttpStatus.OK);
-    }
+//    @GetMapping("/subject")
+//    public ResponseEntity<List<Subject>> findBySummary(@RequestParam String summary) {
+//        return new ResponseEntity<>(subjectServices.findBySummaryContaining(summary), HttpStatus.OK);
+//    }
 
 
     @PostMapping("/subject")

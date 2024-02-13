@@ -7,30 +7,27 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Setter
 @Getter
 @Entity
-@Table(name = "subjects")
+@Table(name = "decisions")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Subject {
+public class Decision {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
     private Integer id;
-    private Integer num;
-    private String  head;
 
-    @OneToMany(mappedBy = "subject", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.DETACH}, fetch = FetchType.EAGER)
-    private List<Decision> decision;
+    private Integer num;
+
+
+    @Column(name = "summary")
+    private String summary;
 
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
-    @JoinColumn(name = "special_id")
+    @JoinColumn(name = "subject_id")
     @JsonIgnore
-    private Special special;
-
-
+    private Subject subject;
 }

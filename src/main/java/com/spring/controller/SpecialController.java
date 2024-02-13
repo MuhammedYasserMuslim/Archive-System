@@ -1,12 +1,15 @@
 package com.spring.controller;
 
 import com.spring.model.dto.special.SpecialDto;
-import com.spring.model.dto.special.SpecialDtoPost;
+import com.spring.model.entity.Special;
 import com.spring.services.SpecialServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -24,27 +27,27 @@ public class SpecialController {
         return new ResponseEntity<>(specialServices.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/special-summary")
-    public ResponseEntity<List<SpecialDto>> findBySubject(@RequestParam String summary) {
-        return new ResponseEntity<>(specialServices.findBySubject(summary), HttpStatus.OK);
-    }
-
-    @GetMapping("/special")
-    public ResponseEntity<SpecialDto> findById(@RequestParam int id) {
-        return new ResponseEntity<>(specialServices.findById(id), HttpStatus.OK);
-    }
-
-    @PostMapping("/special")
-    public ResponseEntity<?> insert(@RequestBody SpecialDtoPost special) {
-        specialServices.insert(special);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-
-    @PutMapping("/special")
-    public ResponseEntity<?> update(@RequestBody SpecialDtoPost special , int id) {
-        specialServices.update(special , id);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
+//    @GetMapping("/special-summary")
+//    public ResponseEntity<List<SpecialDto>> findBySubject(@RequestParam String summary) {
+//        return new ResponseEntity<>(specialServices.findBySubject(summary), HttpStatus.OK);
+//    }
+//
+//    @GetMapping("/special")
+//    public ResponseEntity<SpecialDto> findById(@RequestParam int id) {
+//        return new ResponseEntity<>(specialServices.findById(id), HttpStatus.OK);
+//    }
+//
+//    @PostMapping("/special")
+//    public ResponseEntity<?> insert(@RequestBody SpecialDtoPost special) {
+//        specialServices.insert(special);
+//        return new ResponseEntity<>(HttpStatus.CREATED);
+//    }
+//
+//    @PutMapping("/special")
+//    public ResponseEntity<?> update(@RequestBody SpecialDtoPost special , int id) {
+//        specialServices.update(special , id);
+//        return new ResponseEntity<>(HttpStatus.CREATED);
+//    }
 
 }
 

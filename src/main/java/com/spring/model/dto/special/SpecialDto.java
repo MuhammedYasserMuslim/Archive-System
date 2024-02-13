@@ -27,19 +27,18 @@ public class SpecialDto {
     private Integer id;
     private Integer importNum;
     private String summary;
-    private Byte numberOfAttachments;
-    @JsonBackReference
-    private List<Image> images;
-    private List<String> paths;
     @JsonFormat(pattern = "yyyy-MM-dd")
     @CreationTimestamp
     private Date incomeDate;
     private String sender;
 
     @JsonBackReference
+    private List<Image> images;
+    private List<String> paths;
+    private Byte numberOfAttachments;
+
+    @JsonBackReference
     private List<Subject> subject;
-
-
     private List<SubjectDto> subjects;
 
 
@@ -53,15 +52,15 @@ public class SpecialDto {
 
     public List<SubjectDto> getSubjects() {
         List<SubjectDto> dtos = new ArrayList<>();
-        for (Subject subject1 :this.subject) {
-            SubjectDto dto = new SubjectDto(subject1.getSummary());
+        for (Subject subject1 : this.subject) {
+            SubjectDto dto = new SubjectDto(subject1.getNum(), subject1.getHead(), subject1.getDecision());
             dtos.add(dto);
         }
         return dtos;
     }
 
     public Byte getNumberOfAttachments() {
-        return (byte)this.images.size();
+        return (byte) this.images.size();
     }
 
     public List<String> getPaths() {
@@ -72,23 +71,5 @@ public class SpecialDto {
         return path;
     }
 
-    @Override
-    public String toString() {
-        return "SpecialDto{" +
-                "id=" + id +
-                ", importNum=" + importNum +
-                ", summary='" + summary + '\'' +
-                ", numberOfAttachments=" + numberOfAttachments +
-                ", images=" + images +
-                ", paths=" + paths +
-                ", incomeDate=" + incomeDate +
-                ", sender='" + sender + '\'' +
-                ", subject=" + subject +
-                ", subjects=" + subjects +
-                ", archiveFile=" + archiveFile +
-                ", archiveId=" + archiveId +
-                ", typeNumber=" + typeNumber +
-                ", num=" + num +
-                '}';
-    }
+
 }
