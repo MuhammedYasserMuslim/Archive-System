@@ -1,5 +1,6 @@
 package com.spring.services;
 
+import com.spring.exception.RecordNotFountException;
 import com.spring.model.dto.special.SpecialDto;
 import com.spring.model.entity.Special;
 import com.spring.model.mapper.ArchiveFileMapper;
@@ -31,10 +32,10 @@ public class SpecialServices {
         return dtos;
     }
 //
-//    public SpecialDto findById(int id) {
-//        return specialMapper.mapToDto(specialRepository.findById(id)
-//                .orElseThrow(() -> new RecordNotFountException("Not Found")));
-//    }
+    public SpecialDto findById(int id) {
+        return specialMapper.mapToDto(specialRepository.findById(id)
+                .orElseThrow(() -> new RecordNotFountException("Not Found")));
+    }
 //
 //    public List<SpecialDto> findBySubject(String summary) {
 //        List<Subject> subjects = subjectServices.findBySummaryContaining(summary);
