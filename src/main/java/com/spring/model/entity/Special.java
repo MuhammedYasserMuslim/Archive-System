@@ -35,7 +35,7 @@ public class Special extends BaseEntity{
     @OneToMany(mappedBy = "special")
     private List<Image> images ;
 
-    @OneToMany(mappedBy = "special" , cascade = {CascadeType.PERSIST , CascadeType.MERGE , CascadeType.DETACH ,CascadeType.DETACH} ,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "special" , cascade = {CascadeType.PERSIST , CascadeType.MERGE , CascadeType.DETACH } ,fetch = FetchType.EAGER)
     private List<Subject> subject;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})

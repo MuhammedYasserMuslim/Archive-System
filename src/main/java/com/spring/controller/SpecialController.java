@@ -1,6 +1,7 @@
 package com.spring.controller;
 
 import com.spring.model.dto.special.SpecialDto;
+import com.spring.model.dto.special.SpecialDtoPost;
 import com.spring.model.entity.Special;
 import com.spring.services.SpecialServices;
 import lombok.RequiredArgsConstructor;
@@ -43,12 +44,12 @@ public class SpecialController {
     public ResponseEntity<SpecialDto> findById(@RequestParam int id) {
         return new ResponseEntity<>(specialServices.findById(id), HttpStatus.OK);
     }
-//
-//    @PostMapping("/special")
-//    public ResponseEntity<?> insert(@RequestBody SpecialDtoPost special) {
-//        specialServices.insert(special);
-//        return new ResponseEntity<>(HttpStatus.CREATED);
-//    }
+
+    @PostMapping("/special")
+    public ResponseEntity<?> insert(@RequestBody SpecialDtoPost special) {
+        specialServices.insert(special);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 //
 //    @PutMapping("/special")
 //    public ResponseEntity<?> update(@RequestBody SpecialDtoPost special , int id) {

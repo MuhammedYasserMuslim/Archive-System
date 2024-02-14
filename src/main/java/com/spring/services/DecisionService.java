@@ -7,6 +7,7 @@ import com.spring.repository.DecisionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,17 +18,20 @@ public class DecisionService {
     private final DecisionMapper decisionMapper;
 
 
-    public List<Decision> findAll(){
+    public List<Decision> findAll() {
         return decisionRepository.findAll();
     }
 
 
-    public List<Decision> findBySummary(String summary){
+    public List<Decision> findBySummary(String summary) {
         return decisionRepository.findBySummaryContaining(summary);
     }
 
-    public void insert(DecisionDto dto){
+    public void insert(DecisionDto dto) {
         decisionRepository.save(decisionMapper.mapToEntity(dto));
     }
 
+    public void insertAll(List<Decision> dtos) {
+        decisionRepository.saveAll(dtos);
+    }
 }

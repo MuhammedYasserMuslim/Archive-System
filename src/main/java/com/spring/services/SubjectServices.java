@@ -19,6 +19,7 @@ public class SubjectServices {
     private final DecisionService decisionService;
     private final SubjectMapper subjectMapper;
 
+
     public List<SubjectDto> findAll() {
         List<SubjectDto> dtos = new ArrayList<>();
         for (Subject subject : subjectRepository.findAll()) {
@@ -46,6 +47,10 @@ public class SubjectServices {
     }
 
     public void insert(Subject subject) {
+        List<Decision> decisions = subject.getDecision();
+        for (Decision decision : decisions) {
+            decision.setSubject(subject);
+        }
         subjectRepository.save(subject);
     }
 
@@ -53,9 +58,6 @@ public class SubjectServices {
         subjectRepository.saveAll(subject);
     }
 
-    public void removeAll(List<Subject> subjects) {
-        subjectRepository.deleteAll(subjects);
-    }
 
 
 }

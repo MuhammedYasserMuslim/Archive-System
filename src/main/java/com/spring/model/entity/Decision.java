@@ -21,12 +21,11 @@ public class Decision {
 
     private Integer num;
 
-
     @Column(name = "summary")
     private String summary;
 
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
     @JoinColumn(name = "subject_id")
     @JsonIgnore
     private Subject subject;

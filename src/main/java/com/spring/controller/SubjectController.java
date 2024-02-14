@@ -29,9 +29,9 @@ public class SubjectController {
     }
 
 
-//    @PostMapping("/subject")
-//    public ResponseEntity<?> insert(@RequestBody Subject subject) {
-//        subjectServices.insert(subject);
-//        return new ResponseEntity<>(HttpStatus.CREATED);
-//    }
+    @PostMapping("/subject")
+    public ResponseEntity<?> insert(@RequestBody Subject subject) {
+        subjectServices.insert(subject);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 }

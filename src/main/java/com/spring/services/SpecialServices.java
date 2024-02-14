@@ -3,6 +3,7 @@ package com.spring.services;
 import com.spring.exception.RecordNotFountException;
 import com.spring.model.dto.archivefile.ArchiveFileDto;
 import com.spring.model.dto.special.SpecialDto;
+import com.spring.model.dto.special.SpecialDtoPost;
 import com.spring.model.entity.Special;
 import com.spring.model.entity.Subject;
 import com.spring.model.mapper.ArchiveFileMapper;
@@ -78,21 +79,24 @@ public class SpecialServices {
     }
 
 
-//
-//    public void insert(SpecialDtoPost dto) {
-//        dto.setTypeNumber((byte) 3);
-//        Special special = specialMapper.mapToEntity(dto);
-//        special.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
-//                (special.getArchiveFile().getTypeNumber(),
-//                        special.getArchiveFile().getNum())));
-//        List<Subject> subjects = dto.getSubjects();
-//        for (Subject subject : subjects) {
-//            subject.setSpecial(special);
-//        }
+
+    public void insert(SpecialDtoPost dto) {
+        dto.setTypeNumber((byte) 3);
+        Special special = specialMapper.mapToEntity(dto);
+        special.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
+                (special.getArchiveFile().getTypeNumber(),
+                        special.getArchiveFile().getNum())));
+
+        specialRepository.save(special);
+        List<Subject> subjects = dto.getSubjects();
+        for (Subject subject : subjects) {
+            subject.setSpecial(special);
+            subjectServices.insert(subject);
+        }
 //        subjectServices.insertAll(subjects);
-//        specialRepository.save(special);
-//    }
-//
+
+    }
+
 //    public void update(SpecialDtoPost dto , int id){
 //        dto.setTypeNumber((byte) 3);
 //        Special special = specialMapper.mapToEntity(dto);
