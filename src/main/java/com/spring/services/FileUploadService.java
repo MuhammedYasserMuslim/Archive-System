@@ -89,8 +89,7 @@ public class FileUploadService {
     public byte[] getFileFromFileSystem(String name) throws IOException {
         Optional<Image> image = imageRepository.findByName(name);
         String filePath = basePath + image.get().getImagePath();
-        byte[] images = Files.readAllBytes(new File(filePath).toPath());
-        return images;
+        return Files.readAllBytes(new File(filePath).toPath());
     }
 
 }

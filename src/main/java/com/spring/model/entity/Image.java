@@ -23,7 +23,7 @@ public class Image extends BaseEntity {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "image_path")
+    @Column(name = "image_path" , nullable = false)
     private String imagePath;
 
     @ManyToOne
