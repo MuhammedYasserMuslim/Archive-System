@@ -1,17 +1,19 @@
 package com.spring.security.controller;
 
 import com.spring.exception.UserExistedException;
-import com.spring.security.model.dto.*;
+import com.spring.security.model.dto.AuthenticationRequest;
+import com.spring.security.model.dto.AuthenticationResponse;
+import com.spring.security.model.dto.UserRequest;
+import com.spring.security.model.dto.UserResponse;
 import com.spring.security.model.entity.AppUser;
-import com.spring.security.model.mapper.UserMapper;
 import com.spring.security.services.AuthenticationService;
 import com.spring.security.services.UserServices;
-import com.spring.services.FileUploadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/")
@@ -22,6 +24,11 @@ public class SecurityController {
     private final AuthenticationService authenticationService;
     private final UserServices userServices;
 
+
+    @GetMapping("/users")
+    public ResponseEntity<List<UserResponse>> findALlUsers() {
+        return new ResponseEntity<>(userServices.findALlUsers(), HttpStatus.OK);
+    }
 
 
     @PostMapping("login")
@@ -42,23 +49,16 @@ public class SecurityController {
     }
 
 
-
-
-
-    // @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("user/changePassword-admin")
     private ResponseEntity<?> changePassword(@RequestParam String username, @RequestParam String password) {
-
         for (AppUser users : userServices.findAll()) {
             if (users.getUsername().equals(username)) {
                 userServices.changePassword(username, password);
                 return new ResponseEntity<>(HttpStatus.CREATED);
             }
         }
-        throw new UserExistedException("This username ( " + username + " ) is exist");
+        throw new UserExistedException("This username ( " + username + " ) is Not exist");
     }
-
-
 
 
 }

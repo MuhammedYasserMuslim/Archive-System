@@ -37,6 +37,10 @@ public class SecurityConfiguration {
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((authz) -> authz
                         .requestMatchers("/login").permitAll()
+                        .requestMatchers("/user/changePassword-admin").hasRole("ADMIN")
+                        .requestMatchers("/user/activated").hasRole("ADMIN")
+                        .requestMatchers("/user/unactivated").hasRole("ADMIN")
+                       // .requestMatchers(HttpMethod.PUT , "/user/changePassword-admin").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.OPTIONS).permitAll()
                         .anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider())
