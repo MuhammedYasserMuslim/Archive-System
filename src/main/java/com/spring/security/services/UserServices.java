@@ -2,10 +2,7 @@ package com.spring.security.services;
 
 import com.spring.exception.InvalidPasswordException;
 import com.spring.exception.RecordNotFountException;
-import com.spring.security.model.dto.ChangePassword;
-import com.spring.security.model.dto.UserRequest;
-import com.spring.security.model.dto.UserResponse;
-import com.spring.security.model.dto.UserUpdate;
+import com.spring.security.model.dto.*;
 import com.spring.security.model.entity.AppUser;
 import com.spring.security.model.entity.Authority;
 import com.spring.security.model.mapper.UserMapper;
@@ -38,18 +35,18 @@ public class UserServices {
     }
 
     private String getAuthority(Set<Authority> authorities) {
-
-        for (Authority authority : authorities) {
+        List<Authority> list = new ArrayList<>(authorities);
+        list.sort(Comparator.comparing(Authority::getId));
+        for (Authority authority : list) {
             if (authority.getName().equals("ROLE_ADMIN"))
                 return "Admin";
-            if (authority.getName().equals("ROLE_MANAGER"))
+            if (authority.getName().equals("ROLE_MANGER"))
                 return "Manager";
             if (authority.getName().equals("ROLE_USER"))
                 return "User";
         }
 
-return null;
-
+        return null;
 
 
     }

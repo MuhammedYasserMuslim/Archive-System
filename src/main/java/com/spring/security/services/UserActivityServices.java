@@ -43,7 +43,7 @@ public class UserActivityServices {
             activities.add(userActivity);
         }
 
-        activities.sort(Comparator.comparing(UserActivity::getCreatedDate));
+        activities.sort(Comparator.comparing(UserActivity::getLastModifiedDate));
 
         return activities;
     }
