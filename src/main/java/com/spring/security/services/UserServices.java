@@ -39,12 +39,17 @@ public class UserServices {
 
     private String getAuthority(Set<Authority> authorities) {
 
-        if (authorities.size() == 3)
-            return "Admin";
-        else if (authorities.size() == 2)
-            return "Manager";
-        else
-            return "User";
+        for (Authority authority : authorities) {
+            if (authority.getName().equals("ROLE_ADMIN"))
+                return "Admin";
+            if (authority.getName().equals("ROLE_MANAGER"))
+                return "Manager";
+            if (authority.getName().equals("ROLE_USER"))
+                return "User";
+        }
+
+return null;
+
 
 
     }

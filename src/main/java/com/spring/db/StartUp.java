@@ -28,7 +28,7 @@ public class StartUp implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-/*
+
 
 
         List<Authority> authorities = authorityService.findAll();
@@ -193,7 +193,7 @@ public class StartUp implements CommandLineRunner {
 
         }
 
-*/
+
     }
 
 
