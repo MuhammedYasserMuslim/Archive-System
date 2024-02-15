@@ -19,7 +19,7 @@ public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Byte id;
-    @Column(name = "username", nullable = false , unique = true)
+    @Column(name = "username", nullable = false, unique = true)
     @NotEmpty
     private String username;
     @Column(name = "password", nullable = false)
@@ -34,7 +34,7 @@ public class AppUser {
     @Column(name = "last_name", nullable = false)
     @NotEmpty
     private String lastName;
-    @Column(name = "image_path", nullable = true)
+    @Column(name = "image_path")
     private String imagePath;
 
 

@@ -8,9 +8,11 @@ public class FileStorageException extends BaseException {
     public FileStorageException(String massage) {
         super(massage);
     }
+
     public FileStorageException(String massage, Throwable cause) {
         super(massage);
     }
+
     @Override
     public HttpStatus getStatus() {
         return HttpStatus.NOT_FOUND;

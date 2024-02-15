@@ -2,12 +2,14 @@ package com.spring.exception.error;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Setter
 @Getter
+@NoArgsConstructor
 public class ErrorResponse {
 
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -16,11 +18,9 @@ public class ErrorResponse {
     private String status;
     private boolean success;
 
-    public ErrorResponse() {
 
-    }
 
-    public ErrorResponse(String message ,String status) {
+    public ErrorResponse(String message, String status) {
         this.status = status;
         this.message = message;
         this.success = Boolean.FALSE;

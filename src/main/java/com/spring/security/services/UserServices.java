@@ -1,6 +1,7 @@
 package com.spring.security.services;
 
 import com.spring.exception.InvalidPasswordException;
+import com.spring.exception.RecordNotFountException;
 import com.spring.security.model.dto.ChangePassword;
 import com.spring.security.model.dto.UserRequest;
 import com.spring.security.model.dto.UserResponse;
@@ -52,8 +53,13 @@ public class UserServices {
         return userRepository.findAll();
     }
 
-    public Optional<AppUser> findById(byte id) {
-        return userRepository.findById(id);
+    public UserResponse findById(byte id) {
+        if (userRepository.findById(id).isPresent()) {
+            UserResponse dto = userMapper.mapToDto(userRepository.findById(id).get());
+            dto.setRoles(getAuthority(userRepository.findById(id).get().getAuthorities()));
+            return dto;
+        } else
+            throw new RecordNotFountException("This Record with id " + id + " Not Found");
     }
 
     public void save(UserRequest dto) {

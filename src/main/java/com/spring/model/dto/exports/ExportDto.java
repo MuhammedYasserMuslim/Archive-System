@@ -2,8 +2,6 @@ package com.spring.model.dto.exports;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spring.model.dto.images.Img;
 import com.spring.model.dto.archivefile.ArchiveFileDto;
 import com.spring.model.dto.imports.ImportDto;
 import com.spring.model.entity.Image;
@@ -59,7 +57,7 @@ public class ExportDto {
     private Short num;
 
     public Byte getNumberOfAttachments() {
-        return (byte)this.images.size() ;
+        return (byte) this.images.size();
     }
 
     public List<String> getPaths() {

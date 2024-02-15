@@ -2,7 +2,6 @@ package com.spring.controller;
 
 import com.spring.model.dto.special.SpecialDto;
 import com.spring.model.dto.special.SpecialDtoPost;
-import com.spring.model.entity.Special;
 import com.spring.services.SpecialServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,8 +21,8 @@ public class SpecialController {
 
 
     @GetMapping("/count")
-    public ResponseEntity<Integer> count(){
-        return new ResponseEntity<>(specialServices.count(),HttpStatus.OK);
+    public ResponseEntity<Integer> count() {
+        return new ResponseEntity<>(specialServices.count(), HttpStatus.OK);
     }
 
     @GetMapping("/specials")
@@ -35,8 +34,9 @@ public class SpecialController {
     public ResponseEntity<List<SpecialDto>> findBySubject(@RequestParam String summary) {
         return new ResponseEntity<>(specialServices.findBySubject(summary), HttpStatus.OK);
     }
+
     @GetMapping("/special-archive")
-    public ResponseEntity<List<SpecialDto>> findByArchiveFile(@RequestParam short id){
+    public ResponseEntity<List<SpecialDto>> findByArchiveFile(@RequestParam short id) {
         return new ResponseEntity<>(specialServices.findByArchiveFile(id), HttpStatus.OK);
     }
 

@@ -22,7 +22,7 @@ public class Authority {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Byte id;
 
-    @Column(name = "name" ,unique = true,nullable = false)
+    @Column(name = "name", unique = true, nullable = false)
     private String name;
 
     @ManyToMany(mappedBy = "authorities")
@@ -30,8 +30,5 @@ public class Authority {
     private Set<AppUser> users = new HashSet<>();
 
 
-    public Authority(Byte id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+
 }

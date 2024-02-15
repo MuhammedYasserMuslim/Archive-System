@@ -2,6 +2,7 @@ package com.spring.exception.error;
 
 
 import com.spring.exception.base.BaseException;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -27,7 +28,7 @@ public class globalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, @NotNull HttpHeaders headers,@NotNull HttpStatusCode status, WebRequest request) {
         ValidationError validationError = new ValidationError();
         validationError.setUrl(request.getDescription(false));
         List<FieldError> fieldError = ex.getBindingResult().getFieldErrors();

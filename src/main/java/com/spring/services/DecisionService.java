@@ -7,7 +7,6 @@ import com.spring.repository.DecisionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,7 +30,5 @@ public class DecisionService {
         decisionRepository.save(decisionMapper.mapToEntity(dto));
     }
 
-    public void insertAll(List<Decision> dtos) {
-        decisionRepository.saveAll(dtos);
-    }
+
 }

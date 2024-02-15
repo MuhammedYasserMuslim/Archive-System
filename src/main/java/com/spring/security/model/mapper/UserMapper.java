@@ -11,6 +11,5 @@ public interface UserMapper {
 
     UserResponse mapToDto(AppUser user);
     AppUser mapToEntity(UserRequest dto);
-
     AppUser mapToEntity(UserUpdate dto);
 }

@@ -119,7 +119,5 @@ public class ArchiveFileServices {
         archiveFileRepository.saveAll(archiveFiles);
     }
 
-    public void deleteById(short id) {
-        archiveFileRepository.deleteById(id);
-    }
+
 }

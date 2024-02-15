@@ -33,11 +33,9 @@ public class UserController {
 
     @GetMapping("/user")
     public ResponseEntity<UserResponse> findById(@RequestParam byte id) {
-        if (userServices.findById(id).isPresent())
-            return new ResponseEntity<>(userMapper.mapToDto(userServices.findById(id).get()), HttpStatus.OK);
-        else
-            throw new UsernameNotFoundException("invalid User Id  :" + id);
+        return new ResponseEntity<>(userServices.findById(id), HttpStatus.OK);
     }
+
     @PutMapping("/user")
     public ResponseEntity<?> update(@RequestBody UserUpdate dto, @RequestParam byte id) {
         userServices.update(dto, id);

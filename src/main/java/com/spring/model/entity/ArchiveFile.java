@@ -13,7 +13,7 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "archivefile")
+@Table(name = "archive_file")
 public class ArchiveFile extends BaseEntity {
 
     @Id
@@ -23,7 +23,7 @@ public class ArchiveFile extends BaseEntity {
     @Column(name = "num", nullable = false)
     private Short num;//   رقم الملف
 
-    @Column(name = "name", unique = true, nullable = false, length = 255)
+    @Column(name = "name", unique = true, nullable = false)
     private String name;// اسم الملف
 
     @Enumerated(EnumType.STRING)

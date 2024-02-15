@@ -1,6 +1,5 @@
 package com.spring.model.dto.exports;
 
-import com.spring.model.dto.archivefile.ArchiveFileDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

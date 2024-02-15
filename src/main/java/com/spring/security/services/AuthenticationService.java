@@ -1,11 +1,11 @@
 package com.spring.security.services;
 
+import com.spring.security.jwt.JwtServices;
+import com.spring.security.model.AppUserDetail;
 import com.spring.security.model.dto.AuthenticationRequest;
 import com.spring.security.model.dto.AuthenticationResponse;
 import com.spring.security.model.entity.AppUser;
-import com.spring.security.jwt.JwtServices;
 import com.spring.security.repository.UserRepository;
-import com.spring.security.model.AppUserDetail;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,7 +18,7 @@ public class AuthenticationService {
     private final UserRepository repository;
     private final JwtServices jwtService;
     private final AuthenticationManager authenticationManager;
-    private final UserServices userServices;
+
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
@@ -35,7 +35,7 @@ public class AuthenticationService {
                 .username(user.getUsername())
                 .id(user.getId())
                 .Token(jwtToken)
-                .name(user.getFirstName().concat(" ") .concat(user.getLastName()))
+                .name(user.getFirstName().concat(" ").concat(user.getLastName()))
                 .imagePath(user.getImagePath())
                 .build();
     }

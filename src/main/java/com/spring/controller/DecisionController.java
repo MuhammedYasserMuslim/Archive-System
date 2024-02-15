@@ -6,7 +6,6 @@ import com.spring.model.entity.Decision;
 import com.spring.services.DecisionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +30,7 @@ public class DecisionController {
     }
 
     @PostMapping("/decision")
-    public void insert(@RequestBody DecisionDto dto){
+    public void insert(@RequestBody DecisionDto dto) {
         decisionService.insert(dto);
     }
 }

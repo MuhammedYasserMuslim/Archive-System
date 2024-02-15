@@ -2,11 +2,9 @@ package com.spring.model.dto.special;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spring.model.dto.archivefile.ArchiveFileDto;
 import com.spring.model.entity.Image;
 import com.spring.model.entity.Subject;
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
