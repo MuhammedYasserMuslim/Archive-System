@@ -41,6 +41,8 @@ public class SecurityConfiguration {
                         .requestMatchers("/user/activated").hasRole("ADMIN")
                         .requestMatchers("/user/unactivated").hasRole("ADMIN")
                         .requestMatchers("/user/users").hasRole("ADMIN")
+                        .requestMatchers("/register").hasRole("ADMIN")
+                        .requestMatchers("/user/user-activity").hasRole("ADMIN")
                        // .requestMatchers(HttpMethod.PUT , "/user/changePassword-admin").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.OPTIONS).permitAll()
                         .anyRequest().authenticated())
