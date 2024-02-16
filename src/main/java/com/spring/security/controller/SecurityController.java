@@ -30,12 +30,10 @@ public class SecurityController {
         return new ResponseEntity<>(userServices.findALlUsers(), HttpStatus.OK);
     }
 
-
     @PostMapping("login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest request) throws Exception {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
-
 
     @PostMapping("register")
     public ResponseEntity<?> register(@RequestBody UserRequest dto) {
@@ -48,7 +46,6 @@ public class SecurityController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-
     @PutMapping("user/changePassword-admin")
     private ResponseEntity<?> changePassword(@RequestParam String username, @RequestParam String password) {
         for (AppUser users : userServices.findAll()) {
@@ -59,7 +56,5 @@ public class SecurityController {
         }
         throw new UserExistedException("This username ( " + username + " ) is Not exist");
     }
-
-
 }
 

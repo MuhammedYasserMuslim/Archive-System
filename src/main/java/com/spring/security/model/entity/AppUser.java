@@ -20,24 +20,17 @@ public class AppUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Byte id;
     @Column(name = "username", nullable = false, unique = true)
-    @NotEmpty
     private String username;
     @Column(name = "password", nullable = false)
-    @NotEmpty
     private String password;
     @Column(name = "is_active", nullable = false)
     private int isActive;
-
     @Column(name = "first_name", nullable = false)
-    @NotEmpty
     private String firstName;
     @Column(name = "last_name", nullable = false)
-    @NotEmpty
     private String lastName;
     @Column(name = "image_path")
     private String imagePath;
-
-
     @JoinTable(
             name = "user_authority",
             joinColumns = @JoinColumn(name = "user_id"),

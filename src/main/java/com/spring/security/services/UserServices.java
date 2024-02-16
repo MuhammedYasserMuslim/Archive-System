@@ -39,16 +39,13 @@ public class UserServices {
         list.sort(Comparator.comparing(Authority::getId));
         for (Authority authority : list) {
             if (authority.getName().equals("ROLE_ADMIN"))
-                return "Admin";
+                return "admin";
             if (authority.getName().equals("ROLE_MANGER"))
-                return "Manager";
+                return "manager";
             if (authority.getName().equals("ROLE_USER"))
-                return "User";
+                return "user";
         }
-
         return null;
-
-
     }
 
     public List<AppUser> findAll() {
@@ -100,7 +97,7 @@ public class UserServices {
     }
 
     public void changePassword(String username, ChangePassword password) {
-        AppUser user = userRepository.findByUsername(username).get();
+        AppUser user = this.findByUserName(username);
         if (passwordEncoder.matches(password.getOldPassword(), user.getPassword())) {
             user.setPassword(passwordEncoder.encode(password.getNewPassword()));
             userRepository.save(user);
@@ -120,7 +117,7 @@ public class UserServices {
         if (userRepository.findByUsername(username).isPresent())
             return userRepository.findByUsername(username).get();
         else
-            throw new UsernameNotFoundException("This user id Not Exist");
+            throw new UsernameNotFoundException("This User " + username + " NotFound");
     }
 
 
