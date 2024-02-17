@@ -47,14 +47,14 @@ public class SecurityController {
     }
 
     @PutMapping("user/changePassword-admin")
-    private ResponseEntity<?> changePassword(@RequestParam String username, @RequestParam String password) {
+    private ResponseEntity<?> changePassword(@RequestParam byte id, @RequestParam String password) {
         for (AppUser users : userServices.findAll()) {
-            if (users.getUsername().equals(username)) {
-                userServices.changePassword(username, password);
+            if (users.getId() == id) {
+                userServices.changePassword(id, password);
                 return new ResponseEntity<>(HttpStatus.CREATED);
             }
         }
-        throw new UserExistedException("This username ( " + username + " ) is Not exist");
+        throw new UserExistedException("This username with id ( " + id + " ) is Not exist");
     }
 }
 

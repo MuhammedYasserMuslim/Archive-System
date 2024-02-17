@@ -93,7 +93,6 @@ public class SpecialServices {
             subject.setSpecial(special);
             subjectServices.insert(subject);
         }
-//        subjectServices.insertAll(subjects);
 
     }
 

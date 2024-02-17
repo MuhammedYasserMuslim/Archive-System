@@ -43,7 +43,6 @@ public class SecurityConfiguration {
                         .requestMatchers("/user/users").hasRole("ADMIN")
                         .requestMatchers("/register").hasRole("ADMIN")
                         .requestMatchers("/user/user-activity").hasRole("ADMIN")
-                       // .requestMatchers(HttpMethod.PUT , "/user/changePassword-admin").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.OPTIONS).permitAll()
                         .anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider())
