@@ -106,9 +106,9 @@ public class UserServices {
     }
 
 
-    public void changePassword(byte id, String password) {
+    public void changePassword(byte id, Pass password) {
         AppUser user = userRepository.findById(id).get();
-        user.setPassword(passwordEncoder.encode(password));
+        user.setPassword(passwordEncoder.encode(password.getPassword()));
         userRepository.save(user);
     }
 

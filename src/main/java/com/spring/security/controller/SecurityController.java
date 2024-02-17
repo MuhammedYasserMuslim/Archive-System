@@ -1,10 +1,7 @@
 package com.spring.security.controller;
 
 import com.spring.exception.UserExistedException;
-import com.spring.security.model.dto.AuthenticationRequest;
-import com.spring.security.model.dto.AuthenticationResponse;
-import com.spring.security.model.dto.UserRequest;
-import com.spring.security.model.dto.UserResponse;
+import com.spring.security.model.dto.*;
 import com.spring.security.model.entity.AppUser;
 import com.spring.security.services.AuthenticationService;
 import com.spring.security.services.UserServices;
@@ -47,7 +44,7 @@ public class SecurityController {
     }
 
     @PutMapping("user/changePassword-admin")
-    private ResponseEntity<?> changePassword(@RequestParam byte id, @RequestParam String password) {
+    private ResponseEntity<?> changePassword(@RequestParam byte id, @RequestBody Pass password) {
         for (AppUser users : userServices.findAll()) {
             if (users.getId() == id) {
                 userServices.changePassword(id, password);
