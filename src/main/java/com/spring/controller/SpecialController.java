@@ -50,12 +50,12 @@ public class SpecialController {
         specialServices.insert(special);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-//
-//    @PutMapping("/special")
-//    public ResponseEntity<?> update(@RequestBody SpecialDtoPost special , int id) {
-//        specialServices.update(special , id);
-//        return new ResponseEntity<>(HttpStatus.CREATED);
-//    }
+
+    @PutMapping("/special")
+    public ResponseEntity<?> update(@RequestBody SpecialDtoPost special ,@RequestParam int id) {
+        specialServices.update(special , id);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 
 }
 

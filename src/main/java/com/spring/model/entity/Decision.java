@@ -25,7 +25,7 @@ public class Decision {
     private String summary;
 
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
+    @ManyToOne(cascade = CascadeType.MERGE ,fetch = FetchType.LAZY)
     @JoinColumn(name = "subject_id")
     @JsonIgnore
     private Subject subject;

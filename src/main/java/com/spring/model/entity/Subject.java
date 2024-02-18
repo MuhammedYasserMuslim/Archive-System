@@ -23,14 +23,23 @@ public class Subject {
     private Integer num;
     private String  head;
 
-    @OneToMany(mappedBy = "subject", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "subject", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.EAGER)
     private List<Decision> decision;
 
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH})
+    @ManyToOne
     @JoinColumn(name = "special_id")
     @JsonIgnore
     private Special special;
 
-
+    @Override
+    public String toString() {
+        return "Subject{" +
+                "id=" + id +
+                ", num=" + num +
+                ", head='" + head + '\'' +
+                ", decision=" + decision +
+                ", special=" + special +
+                '}';
+    }
 }

@@ -133,10 +133,11 @@ public class ExportServices {
         export.setReceiver(dto.getReceiver());
         export.setSummary(dto.getSummary());
         export.setRecipientName(dto.getRecipientName());
+        export.setDate(dto.getDate());
         export.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
                 ((byte) 2,
                         export.getArchiveFile().getNum())));
-        export.setDate(exportRepository.findById(dto.getId()).get().getDate());
+
         export.setAimport(exportRepository.findById(dto.getId()).get().getAimport());
         export.setCreatedBy(exportRepository.findById(dto.getId()).get().getCreatedBy());
         export.setCreatedDate(exportRepository.findById(dto.getId()).get().getCreatedDate());
@@ -152,11 +153,11 @@ public class ExportServices {
         export.setId(dto.getId());
         export.setReceiver(dto.getReceiver());
         export.setSummary(dto.getSummary());
+        export.setDate(dto.getDate());
         export.setRecipientName(dto.getRecipientName());
         export.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
                 ((byte) 2,
                         export.getArchiveFile().getNum())));
-        export.setDate(exportRepository.findById(dto.getId()).get().getDate());
         export.setAimport(exportRepository.findById(dto.getId()).get().getAimport());
         export.setCreatedBy(exportRepository.findById(dto.getId()).get().getCreatedBy());
         export.setCreatedDate(exportRepository.findById(dto.getId()).get().getCreatedDate());

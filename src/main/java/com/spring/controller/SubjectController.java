@@ -34,4 +34,9 @@ public class SubjectController {
         subjectServices.insert(subject);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+    @DeleteMapping("/subject")
+    public ResponseEntity<?> removeById(@RequestParam int id){
+        subjectServices.removeById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

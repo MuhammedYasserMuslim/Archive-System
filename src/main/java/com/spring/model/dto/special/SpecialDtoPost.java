@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @Setter
@@ -14,9 +15,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SpecialDtoPost {
-
+    private Integer id;
 
     private String summary;
+    private Date incomeDate;
     private String sender;
     private List<Subject> subjects;
 

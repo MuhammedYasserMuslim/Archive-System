@@ -19,6 +19,7 @@ public class ImportDtoPost {
     private Integer id;
     private String sender; //الجهة الوارد منها الخطاب
     private Integer incomingLetterNumber; //رقم الخطاب الوارد
+    private Date incomeDate;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date incomingLetterDate;//تاريخ الخطاب الوارد
     private String summary;//ملخص الخطاب

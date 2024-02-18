@@ -16,10 +16,10 @@ import java.util.List;
 @Table(name = "special")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Special extends BaseEntity{
+public class Special extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name = "import_num")
     private Integer importNum;
@@ -33,12 +33,12 @@ public class Special extends BaseEntity{
     private String sender;
 
     @OneToMany(mappedBy = "special")
-    private List<Image> images ;
+    private List<Image> images;
 
-    @OneToMany(mappedBy = "special" , cascade = {CascadeType.PERSIST , CascadeType.MERGE , CascadeType.DETACH } ,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "special", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH , CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private List<Subject> subject;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE})
     @JoinColumn(name = "archive_file_id")
     private ArchiveFile archiveFile;
 

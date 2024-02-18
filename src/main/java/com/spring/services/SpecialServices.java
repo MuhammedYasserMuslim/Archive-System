@@ -4,6 +4,7 @@ import com.spring.exception.RecordNotFountException;
 import com.spring.model.dto.archivefile.ArchiveFileDto;
 import com.spring.model.dto.special.SpecialDto;
 import com.spring.model.dto.special.SpecialDtoPost;
+import com.spring.model.entity.Export;
 import com.spring.model.entity.Special;
 import com.spring.model.entity.Subject;
 import com.spring.model.mapper.ArchiveFileMapper;
@@ -79,14 +80,12 @@ public class SpecialServices {
     }
 
 
-
     public void insert(SpecialDtoPost dto) {
         dto.setTypeNumber((byte) 3);
         Special special = specialMapper.mapToEntity(dto);
         special.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
                 (special.getArchiveFile().getTypeNumber(),
                         special.getArchiveFile().getNum())));
-
         specialRepository.save(special);
         List<Subject> subjects = dto.getSubjects();
         for (Subject subject : subjects) {
@@ -96,24 +95,37 @@ public class SpecialServices {
 
     }
 
-//    public void update(SpecialDtoPost dto , int id){
-//        dto.setTypeNumber((byte) 3);
-//        Special special = specialMapper.mapToEntity(dto);
-//        special.setId(id);
-//        special.setIncomeDate(specialRepository.findById(id).get().getIncomeDate());
-//        special.setCreatedBy(specialRepository.findById(id).get().getCreatedBy());
-//        special.setCreatedDate(specialRepository.findById(id).get().getCreatedDate());
-//        special.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
-//                (special.getArchiveFile().getTypeNumber(),
-//                        special.getArchiveFile().getNum())));
-//        subjectServices.removeAll(special.getSubject());
-//        List<Subject> subjects = dto.getSubjects();
-//        for (Subject subject : subjects) {
-//            subject.setSpecial(special);
-//        }
-//        subjectServices.insertAll(subjects);
-//        specialRepository.save(special);
-//    }
+    public void update(SpecialDtoPost dto, int id) {
+        dto.setId(id);
+        dto.setTypeNumber((byte) 3);
+        Special special = specialMapper.mapToEntity(dto);
+        special.setSender(dto.getSender());
+        special.setSummary(dto.getSummary());
+        special.setIncomeDate(dto.getIncomeDate());
+        special.setCreatedBy(specialRepository.findById(id).get().getCreatedBy());
+        special.setCreatedDate(specialRepository.findById(id).get().getCreatedDate());
+        special.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum((byte) 3, special.getArchiveFile().getNum())));
 
 
+        List<Subject> subjectList = specialRepository.findById(id).get().getSubject();
+
+        for (int i = 0; i < subjectList.size(); i++) {
+            specialRepository.findById(id).get().getSubject().get(i).setSpecial(null);
+        }
+
+
+
+        specialRepository.save(special);
+        List<Subject> subjects = dto.getSubjects();
+        for (Subject subject : subjects) {
+            subject.setSpecial(special);
+            subjectServices.insert(subject);
+        }
+
+        for (Subject subject : subjectList) {
+            subjectServices.removeById(subject.getId());
+            System.out.println(subject.getId());
+        }
+
+    }
 }

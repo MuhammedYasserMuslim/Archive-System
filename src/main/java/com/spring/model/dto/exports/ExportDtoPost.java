@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Setter
 @Getter
 @AllArgsConstructor
@@ -14,6 +16,7 @@ public class ExportDtoPost {
 
     private Integer id;
     private String receiver; //الجهة الصادر منها الخطاب
+    private Date date;
     private String summary;//ملخص الخطاب
     private String recipientName;// المستلم
 

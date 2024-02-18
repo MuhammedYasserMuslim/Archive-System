@@ -75,8 +75,8 @@ public class ImportServices {
         return dtos;
     }
 
-    public  List<ImportDto> findAllPagination(int page) {
-        Pageable pageable = PageRequest.of(page,1);
+    public List<ImportDto> findAllPagination(int page) {
+        Pageable pageable = PageRequest.of(page, 1);
         List<Import> imports = importRepository.findAll(pageable).getContent();
         List<ImportDto> dtos = new ArrayList<>();
         for (Import importa : imports) {
@@ -84,6 +84,7 @@ public class ImportServices {
         }
         return dtos;
     }
+
     public ImportDto findById(int id) {
         if (importRepository.findById(id).isPresent()) {
             Import importa = importRepository.findById(id).get();
@@ -197,12 +198,12 @@ public class ImportServices {
         importa.setIncomingLetterNumber(dto.getIncomingLetterNumber());
         importa.setIncomingLetterDate(dto.getIncomingLetterDate());
         importa.setSummary(dto.getSummary());
+        importa.setIncomeDate(dto.getIncomeDate());
         importa.setRecipientName(dto.getRecipientName());
         importa.setRecipientDate(dto.getRecipientDate());
         importa.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
                 ((byte) 1,
                         importa.getArchiveFile().getNum())));
-        importa.setIncomeDate(importRepository.findById(dto.getId()).get().getIncomeDate());
         importa.setExport(importRepository.findById(dto.getId()).get().getExport());
         importa.setCreatedBy(importRepository.findById(dto.getId()).get().getCreatedBy());
         importa.setCreatedDate(importRepository.findById(dto.getId()).get().getCreatedDate());
@@ -219,12 +220,12 @@ public class ImportServices {
         importa.setIncomingLetterNumber(dto.getIncomingLetterNumber());
         importa.setIncomingLetterDate(dto.getIncomingLetterDate());
         importa.setSummary(dto.getSummary());
+        importa.setIncomeDate(dto.getIncomeDate());
         importa.setRecipientName(dto.getRecipientName());
         importa.setRecipientDate(dto.getRecipientDate());
         importa.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
                 ((byte) 1,
                         importa.getArchiveFile().getNum())));
-        importa.setIncomeDate(importRepository.findById(dto.getId()).get().getIncomeDate());
         importa.setExport(importRepository.findById(dto.getId()).get().getExport());
 
         importa.setCreatedBy(importRepository.findById(dto.getId()).get().getCreatedBy());
@@ -239,13 +240,12 @@ public class ImportServices {
             exportServices.insert(dto);
 
             aImport.setExport(
-                    new Export( exportServices.count())
+                    new Export(exportServices.count())
             );
             importRepository.save(aImport);
         } else
             throw new ConflictException("This File has Response Number is " + aImport.getExport().getId());
     }
-
 
 
 }
