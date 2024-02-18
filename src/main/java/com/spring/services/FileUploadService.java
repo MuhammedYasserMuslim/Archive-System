@@ -2,6 +2,7 @@ package com.spring.services;
 
 
 import com.spring.exception.FileStorageException;
+import com.spring.exception.RecordNotFountException;
 import com.spring.model.entity.Export;
 import com.spring.model.entity.Image;
 import com.spring.model.entity.Import;
@@ -71,7 +72,7 @@ public class FileUploadService {
 
     private void updateImagePath(int id, String pathType, String imagePath, File file) {
 
-        if (pathType.contains("imports") || pathType.contains("exports") || pathType.contains("specials") ) {
+        if (pathType.contains("imports") || pathType.contains("exports") || pathType.contains("specials")) {
             Image image = new Image();
             image.setImagePath("assets\\".concat(imagePath));
             image.setName(file.getName());
@@ -90,6 +91,21 @@ public class FileUploadService {
         Optional<Image> image = imageRepository.findByName(name);
         String filePath = basePath + image.get().getImagePath();
         return Files.readAllBytes(new File(filePath).toPath());
+    }
+
+
+    public void deleteByImagePath(String imagePath) {
+        if (imageRepository.findByImagePath(imagePath).isPresent())
+            imageRepository.deleteByImagePath(imagePath);
+        else
+            throw new RecordNotFountException("invalid path");
+    }
+
+    public Image findByImagePath(String imagePath) {
+        if (imageRepository.findByImagePath(imagePath).isPresent())
+            return imageRepository.findByImagePath(imagePath).get();
+        else
+            throw new RecordNotFountException("invalid path");
     }
 
 }

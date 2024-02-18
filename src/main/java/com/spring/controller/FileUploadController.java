@@ -1,5 +1,7 @@
 package com.spring.controller;
 
+import com.spring.model.entity.Image;
+import com.spring.model.entity.Import;
 import com.spring.services.FileUploadService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -42,6 +44,14 @@ public class FileUploadController {
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.valueOf("image/png"))
                 .body(imageData);
-
+    }
+    @GetMapping("/image")
+    public ResponseEntity<Image> findByImagePath(@RequestParam String imagePath){
+        return new ResponseEntity<>(fileUploadService.findByImagePath(imagePath) , HttpStatus.OK);
+    }
+    @DeleteMapping("/image")
+    public ResponseEntity<?> deleteByImagePath(@RequestParam String imagePath){
+        fileUploadService.deleteByImagePath(imagePath);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

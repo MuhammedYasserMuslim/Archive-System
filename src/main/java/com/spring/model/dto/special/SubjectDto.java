@@ -31,7 +31,7 @@ public class SubjectDto {
     public List<DecisionDto> getDecisions() {
         List<DecisionDto> dtos = new ArrayList<>();
         for (Decision d : this.decision) {
-            DecisionDto dto = new DecisionDto(d.getNum(), d.getSummary());
+            DecisionDto dto = new DecisionDto(d.getNum(), d.getSummary() , d.getQarar());
             dtos.add(dto);
         }
         return dtos;
