@@ -32,7 +32,7 @@ public class SpecialServices {
 
     public List<SpecialDto> findAll() {
         List<SpecialDto> dtos = new ArrayList<>();
-        for (Special special : specialRepository.findAll()) {
+        for (Special special : specialRepository.findAllByOrderByIdDesc()) {
             dtos.add(specialMapper.mapToDto(special));
         }
         return dtos;
@@ -92,7 +92,6 @@ public class SpecialServices {
             subject.setSpecial(special);
             subjectServices.insert(subject);
         }
-
     }
 
     public void update(SpecialDtoPost dto, int id) {
