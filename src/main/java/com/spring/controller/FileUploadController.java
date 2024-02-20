@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/image")
 @RequiredArgsConstructor
-@CrossOrigin("http://localhost:4200")
 @Tag(name = "Image Apis")
 public class FileUploadController {
 

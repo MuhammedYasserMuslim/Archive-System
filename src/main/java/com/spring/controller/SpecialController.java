@@ -13,7 +13,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/special")
 @RequiredArgsConstructor
-@CrossOrigin("http://localhost:4200")
 public class SpecialController {
 
 

@@ -14,7 +14,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
-@CrossOrigin("http://localhost:4200")
 public class UserActivityController {
 
     private final UserActivityServices userActivityServices;

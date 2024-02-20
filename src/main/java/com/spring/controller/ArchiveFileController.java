@@ -13,7 +13,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/archive")
-@CrossOrigin("http://localhost:4200")
 public class ArchiveFileController {
 
     private final ArchiveFileServices archiveFileServices;

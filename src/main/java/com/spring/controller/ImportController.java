@@ -17,7 +17,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/import")
 @RequiredArgsConstructor
-@CrossOrigin("http://localhost:4200")
 public class ImportController {
 
     private final ImportServices importServices;

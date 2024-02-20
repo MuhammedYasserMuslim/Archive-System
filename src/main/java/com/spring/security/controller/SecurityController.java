@@ -15,7 +15,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/")
 @RequiredArgsConstructor
-@CrossOrigin("http://localhost:4200")
 public class SecurityController {
 
     private final AuthenticationService authenticationService;

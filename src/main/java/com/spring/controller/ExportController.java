@@ -17,7 +17,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/export")
 @RequiredArgsConstructor
-@CrossOrigin("http://localhost:4200")
 public class ExportController {
 
     private final ExportServices exportServices;

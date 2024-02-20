@@ -14,7 +14,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/decision")
-@CrossOrigin("http://localhost:4200")
 public class DecisionController {
 
     private final DecisionService decisionService;
