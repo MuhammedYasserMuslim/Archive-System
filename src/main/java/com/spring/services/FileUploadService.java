@@ -32,13 +32,11 @@ public class FileUploadService {
     private Path fileStorageLocation;
 
     private final ImageRepository imageRepository;
-   private final String basePath = "E:\\ArchiveSystem\\Front_End\\Archive\\src\\assets\\";
-   // private final String basePath = "D:\\archive_system\\Archive-main\\src\\assets\\";
+
+    private final BaseDataServices baseDataServices;
 
     public String storeFile(File file, int id, String pathType) {
-
-        // create uploaded path
-        this.fileStorageLocation = Paths.get(basePath + pathType).toAbsolutePath().normalize();
+        this.fileStorageLocation = Paths.get(baseDataServices.findBaseData() + pathType).toAbsolutePath().normalize();
 
         try {
             Files.createDirectories(this.fileStorageLocation);
@@ -91,7 +89,7 @@ public class FileUploadService {
 
     public byte[] getFileFromFileSystem(String name) throws IOException {
         Optional<Image> image = imageRepository.findByName(name);
-        String filePath = basePath + image.get().getImagePath();
+        String filePath = baseDataServices.findBaseData() + image.get().getImagePath();
         return Files.readAllBytes(new File(filePath).toPath());
     }
 
@@ -110,5 +108,7 @@ public class FileUploadService {
         else
             throw new RecordNotFountException("invalid path");
     }
+
+
 
 }
