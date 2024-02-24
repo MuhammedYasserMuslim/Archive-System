@@ -82,7 +82,10 @@ public class FileUploadService {
                 image.setExport(new Export(id));
             if (pathType.equals("specials"))
                 image.setSpecial(new Special(id));
-            imageRepository.save(image);
+            if (imageRepository.findByImagePath(image.getImagePath()).isPresent())
+                throw new FileStorageException("This file is already exist");
+            else
+                imageRepository.save(image);
 
         }
     }
@@ -108,7 +111,6 @@ public class FileUploadService {
         else
             throw new RecordNotFountException("invalid path");
     }
-
 
 
 }

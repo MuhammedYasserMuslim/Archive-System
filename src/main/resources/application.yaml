@@ -21,3 +21,6 @@ spring:
       mode: always
   main:
     allow-circular-references: true
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
