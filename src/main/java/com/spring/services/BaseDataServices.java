@@ -2,7 +2,6 @@ package com.spring.services;
 
 import com.spring.repository.BaseDataRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,7 +10,7 @@ public class BaseDataServices {
 
     private final BaseDataRepository baseDataRepository;
 
-    public String findBaseData(){
+    public String findBaseData() {
         return baseDataRepository.findBaseData();
     }
 }

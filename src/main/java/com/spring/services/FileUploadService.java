@@ -37,7 +37,6 @@ public class FileUploadService {
 
     public String storeFile(File file, int id, String pathType) {
         this.fileStorageLocation = Paths.get(baseDataServices.findBaseData() + pathType).toAbsolutePath().normalize();
-
         try {
             Files.createDirectories(this.fileStorageLocation);
         } catch (Exception ex) {

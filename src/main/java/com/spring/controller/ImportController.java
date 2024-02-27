@@ -122,26 +122,30 @@ public class ImportController {
 
     @PostMapping("/import")
     @Operation(summary = "Add Import ")
-    public void insert(@RequestBody ImportDtoPost dto) {
+    public ResponseEntity<?> insert(@RequestBody ImportDtoPost dto) {
         importServices.insert(dto);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/import")
     @Operation(summary = "Update Import")
-    public void update(@RequestBody ImportDtoPost dto) {
+    public ResponseEntity<?> update(@RequestBody ImportDtoPost dto) {
         importServices.update(dto);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/import-id")
     @Operation(summary = "Update Import By Id")
-    public void update(@RequestBody ImportDtoPost dto, @RequestParam int id) {
+    public ResponseEntity<?> update(@RequestBody ImportDtoPost dto, @RequestParam int id) {
         importServices.update(dto, id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/import-add-response")
     @Operation(summary = "Update Import")
-    public void addResponse(@RequestBody ExportDtoPost dto, @RequestParam int id) {
+    public ResponseEntity<?> addResponse(@RequestBody ExportDtoPost dto, @RequestParam int id) {
         importServices.addResponse(dto, id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

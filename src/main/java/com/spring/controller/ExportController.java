@@ -71,20 +71,23 @@ public class ExportController {
 
     @PostMapping("/export")
     @Operation(summary = "Add Export ")
-    public void insert(@RequestBody ExportDtoPost dto) {
+    public ResponseEntity<?> insert(@RequestBody ExportDtoPost dto) {
         exportServices.insert(dto);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/export")
     @Operation(summary = "Update Export ")
-    public void update(@RequestBody ExportDtoPost dto) {
+    public ResponseEntity<?> update(@RequestBody ExportDtoPost dto) {
         exportServices.update(dto);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/export-id")
     @Operation(summary = "Update Export By Id ")
-    public void update(@RequestBody ExportDtoPost dto, @RequestParam int id) {
+    public ResponseEntity<?> update(@RequestBody ExportDtoPost dto, @RequestParam int id) {
         exportServices.update(dto, id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/export-add-urgent")

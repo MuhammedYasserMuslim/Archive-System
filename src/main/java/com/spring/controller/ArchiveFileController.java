@@ -5,6 +5,8 @@ import com.spring.services.ArchiveFileServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,52 +21,55 @@ public class ArchiveFileController {
 
     @GetMapping("/count")
     @Operation(summary = "Get Archive Files Count ")
-   // @PreAuthorize("hasRole('MANGER') or hasRole('ADMIN') or hasRole('USER')")
-    public Long count() {
-        return archiveFileServices.count();
+    // @PreAuthorize("hasRole('MANGER') or hasRole('ADMIN') or hasRole('USER')")
+    public ResponseEntity<Long> count() {
+        return new ResponseEntity<>(archiveFileServices.count(), HttpStatus.OK);
     }
 
     @GetMapping("/archives")
     @Operation(summary = "Get All Archive Files")
-    public List<ArchiveFileDto> findAll() {
-        return archiveFileServices.findAll();
+    public ResponseEntity<List<ArchiveFileDto>> findAll() {
+        return new ResponseEntity<>(archiveFileServices.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/archive-id")
     @Operation(summary = "Get Archive File By Id")
-    public ArchiveFileDto findById(@RequestParam short id) {
-        return archiveFileServices.findById(id);
+    public ResponseEntity<ArchiveFileDto> findById(@RequestParam short id) {
+        return new ResponseEntity<>(archiveFileServices.findById(id), HttpStatus.OK);
     }
 
     @GetMapping("/archive-name")
     @Operation(summary = "Get Archive File By Name")
-    public List<ArchiveFileDto> findByNameLike(String name) {
-        return archiveFileServices.findByNameContaining(name);
+    public ResponseEntity<List<ArchiveFileDto>> findByNameLike(String name) {
+        return new ResponseEntity<>(archiveFileServices.findByNameContaining(name), HttpStatus.OK);
     }
 
     @GetMapping("/archive-num")
     @Operation(summary = "Get Archive File By Number and Num")
-    public ArchiveFileDto findByTypeNumberAndNum(@RequestParam Byte typeNumber, @RequestParam Short num) {
+    public ResponseEntity<ArchiveFileDto> findByTypeNumberAndNum(@RequestParam Byte typeNumber, @RequestParam Short num) {
 
-        return archiveFileServices.findByTypeNumberAndNum(typeNumber, num);
+        return new ResponseEntity<>(archiveFileServices.findByTypeNumberAndNum(typeNumber, num), HttpStatus.OK);
     }
 
     @PostMapping("/archive")
     @Operation(summary = "Add Archive File")
-    public void insert(@RequestBody ArchiveFileDto archiveFile) {
+    public ResponseEntity<?> insert(@RequestBody ArchiveFileDto archiveFile) {
         archiveFileServices.insert(archiveFile);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/archives")
     @Operation(summary = "Add List Of  Archive Files")
-    public void saveAll(@RequestBody List<ArchiveFileDto> archiveFiles) {
+    public ResponseEntity<?> saveAll(@RequestBody List<ArchiveFileDto> archiveFiles) {
         archiveFileServices.saveAll(archiveFiles);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/archive")
     @Operation(summary = "Update Archive Files")
-    public void update(@RequestBody ArchiveFileDto archiveFile) {
+    public ResponseEntity<?> update(@RequestBody ArchiveFileDto archiveFile) {
         archiveFileServices.update(archiveFile);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
