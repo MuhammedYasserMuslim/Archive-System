@@ -1,7 +1,6 @@
 package com.spring.db;
 
 import com.spring.model.dto.archivefile.ArchiveFileDto;
-import com.spring.security.model.dto.ChangePassword;
 import com.spring.security.model.entity.AppUser;
 import com.spring.security.model.entity.Authority;
 import com.spring.security.services.AuthorityService;
@@ -9,6 +8,8 @@ import com.spring.security.services.UserServices;
 import com.spring.services.ArchiveFileServices;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +19,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 @Log4j2
-public class StartUp implements CommandLineRunner {
+public class StartUp implements CommandLineRunner, ApplicationRunner {
 
     private final UserServices userServices;
     private final AuthorityService authorityService;
@@ -29,29 +30,21 @@ public class StartUp implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
 
-
-
         List<Authority> authorities = authorityService.findAll();
         if (userServices.findAll().isEmpty()) {
             AppUser user = new AppUser("admin", ("1234"), 1, "admin", "admin");
             user.getAuthorities().add(authorities.get(0));
             user.getAuthorities().add(authorities.get(1));
             user.getAuthorities().add(authorities.get(2));
-            userServices.save(user);
+            userServices.save(user , 1);
             AppUser user0 = new AppUser("manager", ("456"), 1, "manager", "manager");
             user0.getAuthorities().add(authorities.get(1));
             user0.getAuthorities().add(authorities.get(2));
-            userServices.save(user0);
+            userServices.save(user0 , 1 );
             AppUser user1 = new AppUser("user", ("789"), 1, "user", "user");
             user1.getAuthorities().add(authorities.get(2));
-            userServices.save(user1);
+            userServices.save(user1 ,1 );
         }
-        if (authorityService.findAll().isEmpty()) {
-            authorityService.insert(new Authority((byte) 1, "ROLE_ADMIN"));
-            authorityService.insert(new Authority((byte) 2, "ROLE_MANGER"));
-            authorityService.insert(new Authority((byte) 3, "ROLE_USER"));
-        }
-
         if (archiveFileServices.count() == 0) {
 
             ArchiveFileDto archiveFile1 = new ArchiveFileDto((short) 1, "وارد مكتب رئيس الجامعة", (byte) 1);
@@ -197,4 +190,12 @@ public class StartUp implements CommandLineRunner {
     }
 
 
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        if (authorityService.findAll().isEmpty()) {
+            authorityService.insert(new Authority((byte) 1, "ROLE_ADMIN"));
+            authorityService.insert(new Authority((byte) 2, "ROLE_MANGER"));
+            authorityService.insert(new Authority((byte) 3, "ROLE_USER"));
+        }
+    }
 }

@@ -20,11 +20,13 @@ public class Export extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;//رقم
 
+    @Column(name = "no" , nullable = false )
+    private Integer no;
+
     @Column(name = "date")
     @JsonFormat(pattern = "yyyy-MM-dd")
     @CreationTimestamp
     private Date date; //تاريخ
-
 
 
     @OneToMany(mappedBy = "export")

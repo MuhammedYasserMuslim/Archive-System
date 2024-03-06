@@ -74,6 +74,12 @@ public class UserServices {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         this.userRepository.save(user);
     }
+    public void save(AppUser user , int id) {
+        user.setIsActive(1);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        this.userRepository.save(user);
+    }
+
 
     public void update(AppUser user) {
 

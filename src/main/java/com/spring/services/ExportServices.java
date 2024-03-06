@@ -41,7 +41,7 @@ public class ExportServices {
     }
 
     public int count() {
-       return (int) exportRepository.count();
+        return (int) exportRepository.count();
     }
 
     public Long countCurrent() {
@@ -119,6 +119,8 @@ public class ExportServices {
     public void insert(ExportDtoPost dto) {
         dto.setTypeNumber((byte) 2);
         Export export = exportMapper.mapToEntity(dto);
+        List<Export> exports = exportRepository.findAll();
+        export.setNo(exports.get(exports.size() - 1).getNo() + 1);
         export.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
                 (export.getArchiveFile().getTypeNumber(),
                         export.getArchiveFile().getNum())));
@@ -130,6 +132,7 @@ public class ExportServices {
         Export export = exportMapper.mapToEntity(dto);
         dto.setTypeNumber((byte) 2);
         export.setId(dto.getId());
+        export.setNo(dto.getNo());
         export.setReceiver(dto.getReceiver());
         export.setSummary(dto.getSummary());
         export.setRecipientName(dto.getRecipientName());
@@ -137,7 +140,6 @@ public class ExportServices {
         export.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
                 ((byte) 2,
                         export.getArchiveFile().getNum())));
-
         export.setAimport(exportRepository.findById(dto.getId()).get().getAimport());
         export.setCreatedBy(exportRepository.findById(dto.getId()).get().getCreatedBy());
         export.setCreatedDate(exportRepository.findById(dto.getId()).get().getCreatedDate());
@@ -149,8 +151,10 @@ public class ExportServices {
     public void update(ExportDtoPost dto, int id) {
         dto.setId(id);
         Export export = exportMapper.mapToEntity(dto);
+        Export ex = exportRepository.findById(id).get();
         dto.setTypeNumber((byte) 2);
         export.setId(dto.getId());
+        export.setNo(ex.getNo());
         export.setReceiver(dto.getReceiver());
         export.setSummary(dto.getSummary());
         export.setDate(dto.getDate());
@@ -169,8 +173,9 @@ public class ExportServices {
     public void addUrgent(ExportDtoPost dto, int id) {
         Export export = exportRepository.findById(id).get();
         if (export.getUrgentNum() == null) {
+            List<Export> exports = exportRepository.findAll();
             insert(dto);
-            export.setUrgentNum( this.count());
+            export.setUrgentNum(exports.get(exports.size() - 1).getNo()+1);
             export.setUrgentDate(new Date());
             exportRepository.save(export);
         } else

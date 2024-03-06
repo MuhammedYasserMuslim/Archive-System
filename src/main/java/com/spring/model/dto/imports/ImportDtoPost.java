@@ -17,6 +17,8 @@ public class ImportDtoPost {
 
 
     private Integer id;
+
+    private Integer no;
     private String sender; //الجهة الوارد منها الخطاب
     private Integer incomingLetterNumber; //رقم الخطاب الوارد
     private Date incomeDate;

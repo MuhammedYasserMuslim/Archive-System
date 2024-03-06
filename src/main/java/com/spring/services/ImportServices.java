@@ -183,8 +183,10 @@ public class ImportServices {
 
 
     public void insert(ImportDtoPost dto) {
+        List<Import> imports = importRepository.findAll();
         dto.setTypeNumber((byte) 1);
         Import importa = importMapper.mapToEntity(dto);
+        importa.setNo(imports.get(imports.size()-1).getNo()+1);
         importa.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum(importa.getArchiveFile().getTypeNumber(), importa.getArchiveFile().getNum())));
 
         importRepository.save(importa);
@@ -194,6 +196,7 @@ public class ImportServices {
         Import importa = importMapper.mapToEntity(dto);
         dto.setTypeNumber((byte) 1);
         importa.setId(dto.getId());
+
         importa.setSender(dto.getSender());
         importa.setIncomingLetterNumber(dto.getIncomingLetterNumber());
         importa.setIncomingLetterDate(dto.getIncomingLetterDate());
@@ -213,9 +216,11 @@ public class ImportServices {
 
     public void update(ImportDtoPost dto, int id) {
         dto.setId(id);
+        Import im = importRepository.findById(id).get();
         Import importa = importMapper.mapToEntity(dto);
         dto.setTypeNumber((byte) 1);
         importa.setId(dto.getId());
+        importa.setNo(im.getNo());
         importa.setSender(dto.getSender());
         importa.setIncomingLetterNumber(dto.getIncomingLetterNumber());
         importa.setIncomingLetterDate(dto.getIncomingLetterDate());

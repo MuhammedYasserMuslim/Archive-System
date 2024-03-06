@@ -24,6 +24,8 @@ import java.util.List;
 public class ImportDto {
 
     private Integer id; // رقم الملف
+
+    private Integer no;
     @JsonFormat(pattern = "yyyy-MM-dd")
     @CreationTimestamp
     private Date incomeDate; //تاريخ الورود

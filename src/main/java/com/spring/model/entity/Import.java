@@ -21,6 +21,9 @@ public class Import extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id; // رقم الملف
 
+    @Column(name = "no" , nullable = false )
+    private Integer no;
+
     @Column(name = "income_date")
     @CreationTimestamp
     private Date incomeDate; //تاريخ الورود

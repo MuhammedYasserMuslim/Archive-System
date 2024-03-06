@@ -55,10 +55,6 @@ public class SubjectServices {
     }
 
 
-    public void removeAll(List<Subject> subjects){
-        subjectRepository.deleteAll(subjects);
-    }
-
     public void removeById(int id){
         subjectRepository.deleteById(id);
     }

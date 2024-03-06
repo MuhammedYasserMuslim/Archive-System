@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 public class SpecialDtoPost {
     private Integer id;
-
+    private Integer no;
     private String summary;
     private Date incomeDate;
     private String sender;

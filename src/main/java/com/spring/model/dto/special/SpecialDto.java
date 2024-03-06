@@ -23,6 +23,8 @@ public class SpecialDto {
 
 
     private Integer id;
+
+    private Integer no;
     private Integer importNum;
     private String summary;
     @JsonFormat(pattern = "yyyy-MM-dd")

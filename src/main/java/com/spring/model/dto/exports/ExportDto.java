@@ -24,6 +24,7 @@ public class ExportDto {
 
     private Integer id;   //رقم
 
+    private Integer no;
     @JsonFormat(pattern = "yyyy-MM-dd")
     @CreationTimestamp
     private Date date; //تاريخ

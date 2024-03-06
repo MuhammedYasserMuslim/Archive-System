@@ -21,8 +21,13 @@ public class Special extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(name = "no" , nullable = false )
+    private Integer no;
+
     @Column(name = "import_num")
     private Integer importNum;
+
     private String summary;
 
     @Column(name = "income_date")

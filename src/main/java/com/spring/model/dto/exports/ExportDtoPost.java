@@ -15,6 +15,7 @@ import java.util.Date;
 public class ExportDtoPost {
 
     private Integer id;
+    private Integer no;
     private String receiver; //الجهة الصادر منها الخطاب
     private Date date;
     private String summary;//ملخص الخطاب
