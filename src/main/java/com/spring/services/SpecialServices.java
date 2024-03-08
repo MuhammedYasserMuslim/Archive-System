@@ -79,10 +79,11 @@ public class SpecialServices {
         return dtos;
     }
 
-
     public void insert(SpecialDtoPost dto) {
+        List<Special> specials = specialRepository.findAll();
         dto.setTypeNumber((byte) 3);
         Special special = specialMapper.mapToEntity(dto);
+        special.setNo(specials.get(specials.size()-1).getNo()+1);
         special.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
                 (special.getArchiveFile().getTypeNumber(),
                         special.getArchiveFile().getNum())));
@@ -95,9 +96,11 @@ public class SpecialServices {
     }
 
     public void update(SpecialDtoPost dto, int id) {
+        Special sp= specialRepository.findById(id).get();
         dto.setId(id);
         dto.setTypeNumber((byte) 3);
         Special special = specialMapper.mapToEntity(dto);
+        special.setNo(sp.getNo());
         special.setSender(dto.getSender());
         special.setSummary(dto.getSummary());
         special.setIncomeDate(dto.getIncomeDate());
