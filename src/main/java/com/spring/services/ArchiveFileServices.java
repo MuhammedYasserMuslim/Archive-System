@@ -80,7 +80,6 @@ public class ArchiveFileServices {
     // @CacheEvict(value = "findAllArchive", key = "#root.methodName", allEntries = true)
     //refresh cache when in method in value
     public void insert(ArchiveFileDto dto) {
-
         ArchiveFile archiveFile = archiveFileMapper.mapToEntity(dto);
         switch (archiveFile.getTypeNumber()) {
             case 1 -> archiveFile.setFileType(FileType.imports);
@@ -101,11 +100,8 @@ public class ArchiveFileServices {
 
     public void saveAll(List<ArchiveFileDto> dtos) {
         List<ArchiveFile> archiveFiles = new ArrayList<>();
-
         for (ArchiveFileDto dto : dtos) {
-
             ArchiveFile archiveFile = archiveFileMapper.mapToEntity(dto);
-
             switch (archiveFile.getTypeNumber()) {
                 case 1 -> archiveFile.setFileType(FileType.exports);
                 case 2 -> archiveFile.setFileType(FileType.imports);
@@ -114,10 +110,7 @@ public class ArchiveFileServices {
             }
             archiveFiles.add(archiveFile);
         }
-
-
         archiveFileRepository.saveAll(archiveFiles);
     }
-
 
 }

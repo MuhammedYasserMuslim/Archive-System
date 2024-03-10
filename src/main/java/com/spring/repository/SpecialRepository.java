@@ -10,7 +10,6 @@ import java.util.List;
 
 @Repository
 public interface SpecialRepository extends JpaRepository<Special, Integer> {
-
     List<Special> findByArchiveFile(ArchiveFile archiveFile);
     List<Special> findAllByOrderByIdDesc();
 

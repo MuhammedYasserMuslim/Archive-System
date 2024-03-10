@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BaseDataRepository extends JpaRepository<BaseData, Byte> {
-
     @Query("SELECT base.imagesPath FROM BaseData base")
     String findBaseData();
 }

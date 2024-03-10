@@ -12,8 +12,4 @@ public interface ArchiveFileRepository extends JpaRepository<ArchiveFile,Short> 
     List<ArchiveFile> findByTypeNumber(Byte typeNumber);
     List<ArchiveFile> findByNameContaining(String name);
     Optional<ArchiveFile> findByTypeNumberAndNum(Byte typeNumber, Short num);
-
-
-
-
 }

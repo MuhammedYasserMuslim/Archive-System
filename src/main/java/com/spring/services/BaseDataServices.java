@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 public class BaseDataServices {
 
     private final BaseDataRepository baseDataRepository;
-
     public String findBaseData() {
         return baseDataRepository.findBaseData();
     }

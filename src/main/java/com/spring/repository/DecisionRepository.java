@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface DecisionRepository extends JpaRepository<Decision, Integer> {
-
     List<Decision> findBySummaryContaining(String summary);
 }
