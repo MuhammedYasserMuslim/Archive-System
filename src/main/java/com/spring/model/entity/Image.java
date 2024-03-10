@@ -26,17 +26,17 @@ public class Image extends BaseEntity {
     private String imagePath;
 
     @ManyToOne
-    @JoinColumn(name = "export_id")
+    @JoinColumn(name = "export_id",referencedColumnName = "id")
     @JsonIgnore
     private Export export;
 
     @ManyToOne
-    @JoinColumn(name = "import_id")
+    @JoinColumn(name = "import_id" ,referencedColumnName = "id")
     @JsonIgnore
     private Import anImport;
 
     @ManyToOne
-    @JoinColumn(name = "special_id")
+    @JoinColumn(name = "special_id" ,referencedColumnName = "id")
     @JsonIgnore
     private Special special;
 }

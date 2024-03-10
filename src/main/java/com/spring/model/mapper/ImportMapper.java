@@ -14,7 +14,7 @@ public interface ImportMapper {
     @Mapping(target = "num",source = "archiveFile.num")
     @Mapping(target = "archiveId" ,source = "archiveFile.id")
     @Mapping(target = "export",ignore = true)
-    @Mapping(target = "responseNumber",source = "export.id")
+    @Mapping(target = "responseNumber",source = "export.no")
     @Mapping(target = "responseDate",source = "export.date")
     @Mapping(target = "responseSide",source = "export.receiver")
     ImportDto mapToDto(Import entity);

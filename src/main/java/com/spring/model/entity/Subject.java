@@ -28,7 +28,7 @@ public class Subject {
 
 
     @ManyToOne
-    @JoinColumn(name = "special_id")
+    @JoinColumn(name = "special_id",referencedColumnName = "id")
     @JsonIgnore
     private Special special;
 

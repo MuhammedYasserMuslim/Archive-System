@@ -44,7 +44,7 @@ public class Special extends BaseEntity {
     private List<Subject> subject;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE})
-    @JoinColumn(name = "archive_file_id")
+    @JoinColumn(name = "archive_file_id",referencedColumnName = "id")
     private ArchiveFile archiveFile;
 
     public Special(int id) {

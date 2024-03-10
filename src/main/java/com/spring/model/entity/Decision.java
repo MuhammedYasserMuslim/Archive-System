@@ -25,7 +25,7 @@ public class Decision {
     private String qarar;
 
     @ManyToOne(cascade = CascadeType.MERGE ,fetch = FetchType.LAZY)
-    @JoinColumn(name = "subject_id")
+    @JoinColumn(name = "subject_id" ,referencedColumnName = "id")
     @JsonIgnore
     private Subject subject;
 }

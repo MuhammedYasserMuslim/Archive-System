@@ -14,7 +14,7 @@ public interface ExportMapper {
     @Mapping(target = "num", source = "archiveFile.num")
     @Mapping(target = "archiveId", source = "archiveFile.id")
     @Mapping(target = "aimport", ignore = true)
-    @Mapping(target = "responseNumber", source = "aimport.id")
+    @Mapping(target = "responseNumber", source = "aimport.no")
     @Mapping(target = "responseDate", source = "aimport.incomeDate")
     ExportDto mapToDto(Export entity);
 

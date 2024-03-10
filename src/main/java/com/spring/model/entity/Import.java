@@ -54,7 +54,7 @@ public class Import extends BaseEntity {
 
 
     @OneToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "response_id")
+    @JoinColumn(name = "response_id",referencedColumnName = "id")
     private Export export;
 
 
