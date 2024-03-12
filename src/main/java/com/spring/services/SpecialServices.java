@@ -38,6 +38,14 @@ public class SpecialServices {
         return dtos;
     }
 
+    public List<SpecialDto> findByYear() {
+        List<SpecialDto> dtos = new ArrayList<>();
+        for (Special special : specialRepository.findByYear()) {
+            dtos.add(specialMapper.mapToDto(special));
+        }
+        return dtos;
+    }
+
 
     public SpecialDto findById(int id) {
         return specialMapper.mapToDto(specialRepository.findById(id)
@@ -80,10 +88,10 @@ public class SpecialServices {
     }
 
     public void insert(SpecialDtoPost dto) {
-        List<Special> specials = specialRepository.findAll();
+        List<Special> specials = specialRepository.findByYear();
         dto.setTypeNumber((byte) 3);
         Special special = specialMapper.mapToEntity(dto);
-        special.setNo(specials.get(specials.size()-1).getNo()+1);
+        special.setNo(specials.isEmpty() ? 1 : specials.get(specials.size() - 1).getNo() + 1);
         special.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
                 (special.getArchiveFile().getTypeNumber(),
                         special.getArchiveFile().getNum())));
@@ -96,7 +104,7 @@ public class SpecialServices {
     }
 
     public void update(SpecialDtoPost dto, int id) {
-        Special sp= specialRepository.findById(id).get();
+        Special sp = specialRepository.findById(id).get();
         dto.setId(id);
         dto.setTypeNumber((byte) 3);
         Special special = specialMapper.mapToEntity(dto);
@@ -114,7 +122,6 @@ public class SpecialServices {
         for (int i = 0; i < subjectList.size(); i++) {
             specialRepository.findById(id).get().getSubject().get(i).setSpecial(null);
         }
-
 
 
         specialRepository.save(special);

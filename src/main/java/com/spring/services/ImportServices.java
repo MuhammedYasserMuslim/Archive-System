@@ -3,7 +3,6 @@ package com.spring.services;
 import com.spring.exception.ConflictException;
 import com.spring.exception.RecordNotFountException;
 import com.spring.model.dto.archivefile.ArchiveFileDto;
-import com.spring.model.dto.exports.ExportDto;
 import com.spring.model.dto.exports.ExportDtoPost;
 import com.spring.model.dto.imports.ImportDto;
 import com.spring.model.dto.imports.ImportDtoPost;
@@ -13,7 +12,6 @@ import com.spring.model.mapper.ArchiveFileMapper;
 import com.spring.model.mapper.ImportMapper;
 import com.spring.repository.ImportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -72,6 +70,14 @@ public class ImportServices {
         for (Import anImport : imports) {
             dtos.add(importMapper.mapToDto(anImport));
         }
+        return dtos;
+    }
+
+    public List<ImportDto> findByYear() {
+        List<Import> imports = importRepository.findByYear();
+        List<ImportDto> dtos = new ArrayList<>();
+        for (Import anImport : imports)
+            dtos.add(importMapper.mapToDto(anImport));
         return dtos;
     }
 
@@ -183,10 +189,10 @@ public class ImportServices {
 
 
     public void insert(ImportDtoPost dto) {
-        List<Import> imports = importRepository.findAll();
+        List<Import> imports = importRepository.findByYear();
         dto.setTypeNumber((byte) 1);
         Import importa = importMapper.mapToEntity(dto);
-        importa.setNo(imports.get(imports.size()-1).getNo()+1);
+        importa.setNo(imports.isEmpty() ? 1 : imports.get(imports.size() - 1).getNo() + 1);
         importa.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum(importa.getArchiveFile().getTypeNumber(), importa.getArchiveFile().getNum())));
 
         importRepository.save(importa);

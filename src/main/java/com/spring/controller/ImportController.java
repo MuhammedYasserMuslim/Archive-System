@@ -60,10 +60,16 @@ public class ImportController {
     }
 
 
-    @GetMapping("/imports")
+    @GetMapping("/all-imports")
     @Operation(summary = "Get All Imports")
     public ResponseEntity<List<ImportDto>> findAll() {
         return ResponseEntity.ok(importServices.findAll());
+    }
+
+    @GetMapping("/imports")
+    @Operation(summary = "Get All Imports")
+    public ResponseEntity<List<ImportDto>> findByYear() {
+        return ResponseEntity.ok(importServices.findByYear());
     }
 
     @GetMapping("/imports-pagination")

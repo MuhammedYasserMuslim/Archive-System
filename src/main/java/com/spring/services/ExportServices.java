@@ -58,6 +58,15 @@ public class ExportServices {
         return dtos;
     }
 
+    public List<ExportDto> findByYear(){
+        List<Export> exports = exportRepository.findByYear();
+        List<ExportDto> dtos = new ArrayList<>();
+        for (Export export : exports) {
+            dtos.add(exportMapper.mapToDto(export));
+        }
+        return dtos;
+    }
+
     public List<ExportDto> findAllPagination(int page) {
         Pageable pageable = PageRequest.of(page, 1);
         List<Export> exports = exportRepository.findAll(pageable).getContent();
@@ -119,8 +128,8 @@ public class ExportServices {
     public void insert(ExportDtoPost dto) {
         dto.setTypeNumber((byte) 2);
         Export export = exportMapper.mapToEntity(dto);
-        List<Export> exports = exportRepository.findAll();
-        export.setNo(exports.get(exports.size() - 1).getNo() + 1);
+        List<Export> exports = exportRepository.findByYear();
+        export.setNo(exports.isEmpty() ? 1 : exports.get(exports.size() - 1).getNo() + 1);
         export.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
                 (export.getArchiveFile().getTypeNumber(),
                         export.getArchiveFile().getNum())));
@@ -175,7 +184,7 @@ public class ExportServices {
         if (export.getUrgentNum() == null) {
             List<Export> exports = exportRepository.findAll();
             insert(dto);
-            export.setUrgentNum(exports.get(exports.size() - 1).getNo()+1);
+            export.setUrgentNum(exports.get(exports.size() - 1).getNo() + 1);
             export.setUrgentDate(new Date());
             exportRepository.save(export);
         } else

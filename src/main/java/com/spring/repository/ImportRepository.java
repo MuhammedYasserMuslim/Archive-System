@@ -10,7 +10,8 @@ import java.util.List;
 
 @Repository
 public interface ImportRepository extends JpaRepository<Import, Integer> {
-
+    @Query(value = "SELECT * FROM imports WHERE income_date >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 YEAR), '%Y-07-01')   AND income_date<= DATE_FORMAT(NOW(), '%Y-06-30')", nativeQuery = true)
+    List<Import> findByYear();
     List<Import> findAllByOrderByIdDesc();
     List<Import> findBySummaryContaining(String summary);
     List<Import> findByArchiveFile(ArchiveFile archiveFile);

@@ -31,13 +31,18 @@ public class ExportController {
     @GetMapping("/count-current")
     @Operation(summary = "Get Exports today Count")
     public ResponseEntity<Long> countCurrent() {
-        return ResponseEntity.ok(exportServices.countCurrent());
+        return new ResponseEntity<>(exportServices.countCurrent(),HttpStatus.OK);
     }
 
     @GetMapping("/exports")
     @Operation(summary = "Get All Exports")
+    public ResponseEntity<List<ExportDto>> findByYear() {
+        return new ResponseEntity<>(exportServices.findByYear() , HttpStatus.OK);
+    }
+
+    @GetMapping("/all-exports")
     public ResponseEntity<List<ExportDto>> findAll() {
-        return ResponseEntity.ok(exportServices.findAll());
+        return new ResponseEntity<>(exportServices.findAll() , HttpStatus.OK);
     }
 
     @GetMapping("/exports-pagination")

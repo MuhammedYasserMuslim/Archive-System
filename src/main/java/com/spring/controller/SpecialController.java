@@ -24,9 +24,14 @@ public class SpecialController {
         return new ResponseEntity<>(specialServices.count(), HttpStatus.OK);
     }
 
-    @GetMapping("/specials")
+    @GetMapping("/all-specials")
     public ResponseEntity<List<SpecialDto>> findAll() {
         return new ResponseEntity<>(specialServices.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/specials")
+    public ResponseEntity<List<SpecialDto>> findBYYear() {
+        return new ResponseEntity<>(specialServices.findByYear(), HttpStatus.OK);
     }
 
     @GetMapping("/special-summary")
@@ -51,8 +56,8 @@ public class SpecialController {
     }
 
     @PutMapping("/special")
-    public ResponseEntity<?> update(@RequestBody SpecialDtoPost special ,@RequestParam int id) {
-        specialServices.update(special , id);
+    public ResponseEntity<?> update(@RequestBody SpecialDtoPost special, @RequestParam int id) {
+        specialServices.update(special, id);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
