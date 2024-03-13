@@ -3,6 +3,7 @@ package com.spring.controller;
 import com.spring.model.dto.exports.ExportDto;
 import com.spring.model.dto.exports.ExportDtoPost;
 import com.spring.model.dto.imports.ImportDtoPost;
+import com.spring.model.entity.Export;
 import com.spring.services.ExportServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Tag(name = "Export Apis")
@@ -31,23 +33,23 @@ public class ExportController {
     @GetMapping("/count-current")
     @Operation(summary = "Get Exports today Count")
     public ResponseEntity<Integer> countCurrent() {
-        return new ResponseEntity<>(exportServices.countCurrent(),HttpStatus.OK);
+        return new ResponseEntity<>(exportServices.countCurrent(), HttpStatus.OK);
     }
 
     @GetMapping("/exports")
     @Operation(summary = "Get All Exports")
     public ResponseEntity<List<ExportDto>> findByYear() {
-        return new ResponseEntity<>(exportServices.findByYear() , HttpStatus.OK);
+        return new ResponseEntity<>(exportServices.findByYear(), HttpStatus.OK);
     }
 
     @GetMapping("/all-exports")
     public ResponseEntity<List<ExportDto>> findAll() {
-        return new ResponseEntity<>(exportServices.findAll() , HttpStatus.OK);
+        return new ResponseEntity<>(exportServices.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/exports-pagination")
     public ResponseEntity<List<ExportDto>> findAllPagination(@RequestParam int page) {
-        return new ResponseEntity<>(exportServices.findAllPaginationByYear(page-1), HttpStatus.OK);
+        return new ResponseEntity<>(exportServices.findAllPaginationByYear(page - 1), HttpStatus.OK);
     }
 
     @GetMapping("/export-id")
@@ -96,6 +98,11 @@ public class ExportController {
     public ResponseEntity<ImportDtoPost> addResponse(@RequestBody ImportDtoPost dto, @RequestParam int id) {
         exportServices.addResponse(dto, id);
         return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/count-export-by-year")
+    public ResponseEntity<Integer> findByYearDate(@RequestParam String year) {
+        return new ResponseEntity<>(exportServices.findByYearDate(year), HttpStatus.OK);
     }
 
 

@@ -11,7 +11,8 @@ public class BaseDataServices {
     private final BaseDataRepository baseDataRepository;
 
     /**
-     * used to save image folder path
+     * @return imagesPath
+     * used to find image folder path
      */
     public String findBaseData() {
         return baseDataRepository.findBaseData();

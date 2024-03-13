@@ -33,32 +33,34 @@ public interface ImportRepository extends JpaRepository<Import, Integer> {
     /**
      *  @return  important imports file
      */
-    @Query(value = "SELECT * FROM archive.imports where   expect_response_date  is not null ;", nativeQuery = true)
+    @Query(value = "SELECT * FROM archive.imports where   expect_response_date  is not null and income_date >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 YEAR), '%Y-07-01')   AND income_date<= DATE_FORMAT(NOW(), '%Y-06-30')", nativeQuery = true)
     List<Import> findImportantFile();
 
     /**
      *  @return  imports time has come
      */
-    @Query(value = "SELECT * FROM archive.imports WHERE expect_response_date >= CURRENT_DATE() and  expect_response_date <CURRENT_DATE()+ INTERVAL 3 DAY  AND response_id IS NULL", nativeQuery = true)
+    @Query(value = "SELECT * FROM archive.imports WHERE expect_response_date >= CURRENT_DATE() and  expect_response_date <CURRENT_DATE()+ INTERVAL 3 DAY  AND response_id IS NULL and income_date >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 YEAR), '%Y-07-01')   AND income_date<= DATE_FORMAT(NOW(), '%Y-06-30')", nativeQuery = true)
     List<Import> findItIsTime();
 
     /**
      *  @return  imports time has not come
      */
-    @Query(value = "SELECT * FROM archive.imports WHERE expect_response_date >= (CURRENT_DATE() + INTERVAL 3 DAY) AND response_id IS NULL", nativeQuery = true)
+    @Query(value = "SELECT * FROM archive.imports WHERE expect_response_date >= (CURRENT_DATE() + INTERVAL 3 DAY) AND response_id IS NULL and income_date >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 YEAR), '%Y-07-01')   AND income_date<= DATE_FORMAT(NOW(), '%Y-06-30')", nativeQuery = true)
     List<Import> findItIsNotTime();
 
     /**
      *  @return  imports time has passed
      */
-    @Query(value = "SELECT * FROM archive.imports where expect_response_date < current_date() and response_id is null", nativeQuery = true)
+    @Query(value = "SELECT * FROM archive.imports where expect_response_date < current_date() and response_id is null and income_date >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 YEAR), '%Y-07-01')   AND income_date<= DATE_FORMAT(NOW(), '%Y-06-30')", nativeQuery = true)
     List<Import> findPassedDate();
 
     /**
      *  @return  today imports
      */
-    @Query(value = "SELECT  * FROM archive.imports WHERE income_date >= CURRENT_DATE() AND income_date < CURRENT_DATE() + INTERVAL 1 DAY", nativeQuery = true)
+    @Query(value = "SELECT  * FROM archive.imports WHERE income_date >= CURRENT_DATE() AND income_date < CURRENT_DATE() + INTERVAL 1 DAY income_date >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 YEAR), '%Y-07-01')   AND income_date<= DATE_FORMAT(NOW(), '%Y-06-30')", nativeQuery = true)
     List<Import> findByIncomeDate();
+
+
 
 
 }

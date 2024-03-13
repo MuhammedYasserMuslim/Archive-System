@@ -140,8 +140,7 @@ public class ExportServices {
     }
 
     /**
-     * @param dto
-     * add new export file
+     * @param dto add new export file
      */
     // @CacheEvict(value = "findAllExports", key = "#root.methodName", allEntries = true)
     public void insert(ExportDtoPost dto) {
@@ -180,8 +179,7 @@ public class ExportServices {
     }
 
     /**
-     * @param id,dto
-     * add urgent to export file
+     * @param id,dto add urgent to export file
      */
     //@CacheEvict(value = "findAllExports", key = "#root.methodName", allEntries = true)
     public void addUrgent(ExportDtoPost dto, int id) {
@@ -197,8 +195,7 @@ public class ExportServices {
     }
 
     /**
-     * @param id,dto
-     * add response to export file
+     * @param id,dto add response to export file
      */
     // @CacheEvict(value = "findAllExports", key = "#root.methodName", allEntries = true)
     public void addResponse(ImportDtoPost dto, int id) {
@@ -212,6 +209,11 @@ public class ExportServices {
             exportRepository.save(export);
         } else
             throw new ConflictException("This File has Response Number is " + export.getAimport().getId());
+    }
+
+
+    public int findByYearDate(String year) {
+        return  exportRepository.findByYearDate(year).size();
     }
 
 
