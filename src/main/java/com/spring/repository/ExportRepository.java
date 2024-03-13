@@ -40,7 +40,7 @@ public interface ExportRepository extends JpaRepository<Export, Integer> {
     /**
      * @return exports by year
      */
-    @Query(value = "SELECT * FROM exports WHERE date >= DATE_FORMAT('2023-07-01', '%Y-07-01') - INTERVAL 1 YEAR AND date <= DATE_FORMAT('2023-06-30', '%Y-06-30')", nativeQuery = true)
+    @Query(value = "SELECT * FROM exports WHERE date >= DATE_FORMAT(CONCAT(:year, '-07-01'), '%Y-07-01') - INTERVAL 1 YEAR AND date <= DATE_FORMAT(CONCAT(:year, '-06-30'), '%Y-06-30')", nativeQuery = true)
     List<Export> findByYearDate(String year);
 
 }

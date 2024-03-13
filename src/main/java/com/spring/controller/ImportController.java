@@ -142,5 +142,10 @@ public class ImportController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("/count-import-by-year")
+    public ResponseEntity<Integer> findByYearDate(@RequestParam String year) {
+        return new ResponseEntity<>(importServices.findByYearDate(year), HttpStatus.OK);
+    }
+
 
 }

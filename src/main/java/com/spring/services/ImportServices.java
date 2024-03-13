@@ -288,5 +288,7 @@ public class ImportServices {
             throw new ConflictException("This File has Response Number is " + aImport.getExport().getId());
     }
 
-
+    public int findByYearDate(String year) {
+        return  importRepository.findByYearDate(year).size();
+    }
 }
