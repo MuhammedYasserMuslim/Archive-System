@@ -8,8 +8,20 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ArchiveFileRepository extends JpaRepository<ArchiveFile,Short> {
+public interface ArchiveFileRepository extends JpaRepository<ArchiveFile, Short> {
+    /**
+     * @return archiveFile by TypeNumber
+     * select * from archive_file where type_number = :typeNumber
+     */
     List<ArchiveFile> findByTypeNumber(Byte typeNumber);
+    /**
+     *  @return  archiveFile by name
+     * select * from archive_file where name like %:name%
+     */
     List<ArchiveFile> findByNameContaining(String name);
+    /**
+     *  @return  archiveFile by TypeNumber and num
+     * select * from archive_file where typeNumber = :typeNumber and num = :num
+     */
     Optional<ArchiveFile> findByTypeNumberAndNum(Byte typeNumber, Short num);
 }

@@ -30,32 +30,32 @@ public class ImportController {
 
     @GetMapping("/count-current")
     @Operation(summary = "Get Import today Count")
-    public ResponseEntity<Long> countCurrent() {
+    public ResponseEntity<Integer> countCurrent() {
         return ResponseEntity.ok(importServices.countCurrent());
     }
 
     @GetMapping("/count-important")
 //    @PreAuthorize(" hasRole('ADMIN') ")
     @Operation(summary = "Get count Important Imports  (عدد الخطابات الهامة )")
-    public ResponseEntity<Long> countImportantFile() {
+    public ResponseEntity<Integer> countImportantFile() {
         return ResponseEntity.ok(importServices.countImportantFile());
     }
 
     @GetMapping("/count-response-date-is-time")
     @Operation(summary = "Get count Import time has come (عدد خطابات حان موعدها)")
-    public ResponseEntity<Long> countItIsTime() {
+    public ResponseEntity<Integer> countItIsTime() {
         return ResponseEntity.ok(importServices.countItIsTime());
     }
 
     @GetMapping("/count-response-date-passed")
     @Operation(summary = "Get count Import time has passed (عدد خطابات ذهب موعدها)")
-    public ResponseEntity<Long> countPassedDate() {
+    public ResponseEntity<Integer> countPassedDate() {
         return ResponseEntity.ok(importServices.countPassedDate());
     }
 
     @GetMapping("/count-response-date-not-time")
     @Operation(summary = "Get count Import time has not come (عدد خطابات لم يحن  موعدها)")
-    public ResponseEntity<Long> countItIsNotTime() {
+    public ResponseEntity<Integer> countItIsNotTime() {
         return ResponseEntity.ok(importServices.countItIsNotTime());
     }
 
@@ -83,11 +83,6 @@ public class ImportController {
         return ResponseEntity.ok(importServices.findById(id));
     }
 
-    @GetMapping("/import-summary")
-    @Operation(summary = "Get Imports By Summary")
-    public ResponseEntity<List<ImportDto>> findBySummary(@RequestParam String summary) {
-        return ResponseEntity.ok(importServices.findBySummary(summary));
-    }
 
     @GetMapping("/import-date")
     @Operation(summary = "Get Today Imports")
@@ -130,13 +125,6 @@ public class ImportController {
     @Operation(summary = "Add Import ")
     public ResponseEntity<?> insert(@RequestBody ImportDtoPost dto) {
         importServices.insert(dto);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @PutMapping("/import")
-    @Operation(summary = "Update Import")
-    public ResponseEntity<?> update(@RequestBody ImportDtoPost dto) {
-        importServices.update(dto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

@@ -40,17 +40,26 @@ public class ExportServices {
         this.importServices = importServices;
     }
 
+    /**
+     * @return count exports in current year
+     */
     public int count() {
-        return (int) exportRepository.count();
+        return exportRepository.findByYear().size();
     }
 
-    public Long countCurrent() {
-        return exportRepository.countCurrent();
+    /**
+     * @return count today  exports
+     */
+    public int countCurrent() {
+        return exportRepository.findByDate().size();
     }
 
+    /**
+     * @return all exports in all years
+     */
     //  @Cacheable(value = "findAllExports", key = "#root.methodName")
     public List<ExportDto> findAll() {
-        List<Export> exports = exportRepository.findAllByOrderByIdDesc();
+        List<Export> exports = exportRepository.findAll();
         List<ExportDto> dtos = new ArrayList<>();
         for (Export export : exports) {
             dtos.add(exportMapper.mapToDto(export));
@@ -58,7 +67,10 @@ public class ExportServices {
         return dtos;
     }
 
-    public List<ExportDto> findByYear(){
+    /**
+     * @return exports in current year
+     */
+    public List<ExportDto> findByYear() {
         List<Export> exports = exportRepository.findByYear();
         List<ExportDto> dtos = new ArrayList<>();
         for (Export export : exports) {
@@ -67,9 +79,13 @@ public class ExportServices {
         return dtos;
     }
 
-    public List<ExportDto> findAllPagination(int page) {
+    /**
+     * @param page
+     * @return exports in current year for pagination
+     */
+    public List<ExportDto> findAllPaginationByYear(int page) {
         Pageable pageable = PageRequest.of(page, 1);
-        List<Export> exports = exportRepository.findAll(pageable).getContent();
+        List<Export> exports = exportRepository.findByYear(pageable).getContent();
         List<ExportDto> dtos = new ArrayList<>();
         for (Export export : exports) {
             dtos.add(exportMapper.mapToDto(export));
@@ -77,7 +93,10 @@ public class ExportServices {
         return dtos;
     }
 
-
+    /**
+     * @param id
+     * @return exports by id
+     */
     //@Cacheable(value = "findAllExports", key = "#root.methodName")
     public ExportDto findById(int id) {
 
@@ -90,17 +109,9 @@ public class ExportServices {
 
     }
 
-    public List<ExportDto> findBySummary(String summary) {
-        if (!exportRepository.findBySummaryContainingOrderByIdDesc(summary).isEmpty()) {
-            List<Export> exports = exportRepository.findBySummaryContainingOrderByIdDesc(summary);
-            List<ExportDto> dtos = new ArrayList<>();
-            for (Export export : exports) {
-                dtos.add(exportMapper.mapToDto(export));
-            }
-            return dtos;
-        } else throw new RecordNotFountException("Your search -" + summary + " - did not match any documents.");
-    }
-
+    /**
+     * @return today exports
+     */
     public List<ExportDto> findByDate() {
         if (!exportRepository.findByDate().isEmpty()) {
 
@@ -113,6 +124,10 @@ public class ExportServices {
         } else throw new RecordNotFountException("There are no new files today.");
     }
 
+    /**
+     * @param id
+     * @return exports in archive file
+     */
     public List<ExportDto> findByArchiveFile(short id) {
         ArchiveFileDto dto = archiveFileServices.findById(id);
         List<Export> exports = exportRepository.findByArchiveFile(archiveFileMapper.mapToEntity(dto));
@@ -124,6 +139,10 @@ public class ExportServices {
         return dtos;
     }
 
+    /**
+     * @param dto
+     * add new export file
+     */
     // @CacheEvict(value = "findAllExports", key = "#root.methodName", allEntries = true)
     public void insert(ExportDtoPost dto) {
         dto.setTypeNumber((byte) 2);
@@ -136,26 +155,11 @@ public class ExportServices {
         exportRepository.save(export);
     }
 
-    // @CacheEvict(value = "findAllExports", key = "#root.methodName", allEntries = true)
-    public void update(ExportDtoPost dto) {
-        Export export = exportMapper.mapToEntity(dto);
-        dto.setTypeNumber((byte) 2);
-        export.setId(dto.getId());
-        export.setNo(dto.getNo());
-        export.setReceiver(dto.getReceiver());
-        export.setSummary(dto.getSummary());
-        export.setRecipientName(dto.getRecipientName());
-        export.setDate(dto.getDate());
-        export.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
-                ((byte) 2,
-                        export.getArchiveFile().getNum())));
-        export.setAimport(exportRepository.findById(dto.getId()).get().getAimport());
-        export.setCreatedBy(exportRepository.findById(dto.getId()).get().getCreatedBy());
-        export.setCreatedDate(exportRepository.findById(dto.getId()).get().getCreatedDate());
 
-        exportRepository.save(export);
-    }
-
+    /**
+     * @param dto,id
+     * @return export file by id
+     */
     // @CacheEvict(value = "findAllExports", key = "#root.methodName", allEntries = true)
     public void update(ExportDtoPost dto, int id) {
         dto.setId(id);
@@ -168,16 +172,17 @@ public class ExportServices {
         export.setSummary(dto.getSummary());
         export.setDate(dto.getDate());
         export.setRecipientName(dto.getRecipientName());
-        export.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
-                ((byte) 2,
-                        export.getArchiveFile().getNum())));
+        export.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum((byte) 2, export.getArchiveFile().getNum())));
         export.setAimport(exportRepository.findById(dto.getId()).get().getAimport());
         export.setCreatedBy(exportRepository.findById(dto.getId()).get().getCreatedBy());
         export.setCreatedDate(exportRepository.findById(dto.getId()).get().getCreatedDate());
-
         exportRepository.save(export);
     }
 
+    /**
+     * @param id,dto
+     * add urgent to export file
+     */
     //@CacheEvict(value = "findAllExports", key = "#root.methodName", allEntries = true)
     public void addUrgent(ExportDtoPost dto, int id) {
         Export export = exportRepository.findById(id).get();
@@ -191,6 +196,10 @@ public class ExportServices {
             throw new ConflictException("This File has Urgent Number is " + export.getUrgentNum());
     }
 
+    /**
+     * @param id,dto
+     * add response to export file
+     */
     // @CacheEvict(value = "findAllExports", key = "#root.methodName", allEntries = true)
     public void addResponse(ImportDtoPost dto, int id) {
         Export export = exportRepository.findById(id).get();

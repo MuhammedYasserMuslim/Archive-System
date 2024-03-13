@@ -13,10 +13,18 @@ public class AuthorityService {
 
     private final AuthorityRepository authorityRepository;
 
-    public void insert(Authority authority){
+    /**
+     * used to add new authority
+     *
+     * @param authority
+     */
+    public void insert(Authority authority) {
         authorityRepository.save(authority);
     }
 
+    /**
+     * @return all authorities
+     */
     public List<Authority> findAll() {
         return authorityRepository.findAll();
     }

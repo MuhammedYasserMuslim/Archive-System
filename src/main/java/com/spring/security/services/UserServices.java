@@ -23,6 +23,9 @@ public class UserServices {
     private final UserMapper userMapper;
     private final AuthorityService authorityService;
 
+    /**
+     * @return all users
+     */
     public List<UserResponse> findALlUsers() {
         List<AppUser> users = userRepository.findAll();
         List<UserResponse> dtos = new ArrayList<>();
@@ -34,6 +37,9 @@ public class UserServices {
         return dtos;
     }
 
+    /**
+     * @return user authorities
+     */
     private String getAuthority(Set<Authority> authorities) {
         List<Authority> list = new ArrayList<>(authorities);
         list.sort(Comparator.comparing(Authority::getId));
@@ -48,10 +54,17 @@ public class UserServices {
         return null;
     }
 
+    /**
+     * @return All users
+     */
     public List<AppUser> findAll() {
         return userRepository.findAll();
     }
 
+    /**
+     * @param id
+     * @return user by id
+     */
     public UserResponse findById(byte id) {
         if (userRepository.findById(id).isPresent()) {
             UserResponse dto = userMapper.mapToDto(userRepository.findById(id).get());
@@ -61,10 +74,16 @@ public class UserServices {
             throw new RecordNotFountException("This Record with id " + id + " Not Found");
     }
 
+    /**
+     * @param dto add new user
+     */
     public void save(UserRequest dto) {
         this.save(userMapper.mapToEntity(dto));
     }
 
+    /**
+     * @param user add new user
+     */
     public void save(AppUser user) {
         List<Authority> authorities = authorityService.findAll();
         Set<Authority> set = new HashSet<>();
@@ -74,13 +93,19 @@ public class UserServices {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         this.userRepository.save(user);
     }
-    public void save(AppUser user , int id) {
+
+    /**
+     * @param user,id add new user
+     */
+    public void save(AppUser user, int id) {
         user.setIsActive(1);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         this.userRepository.save(user);
     }
 
-
+    /**
+     * @param user update user
+     */
     public void update(AppUser user) {
 
         user.setAuthorities(userRepository.findById(user.getId()).get().getAuthorities());
@@ -89,6 +114,9 @@ public class UserServices {
         this.userRepository.save(user);
     }
 
+    /**
+     * @param dto,id update user by id
+     */
     public void update(UserUpdate dto, byte id) {
         AppUser user = userMapper.mapToEntity(dto);
         user.setId(id);
@@ -102,6 +130,9 @@ public class UserServices {
         this.userRepository.save(user);
     }
 
+    /**
+     * @param username,password used to change password by user and check username and password
+     */
     public void changePassword(String username, ChangePassword password) {
         AppUser user = this.findByUserName(username);
         if (passwordEncoder.matches(password.getOldPassword(), user.getPassword())) {
@@ -111,14 +142,19 @@ public class UserServices {
             throw new InvalidPasswordException("invalid password");
     }
 
-
+    /**
+     * @param id,password used to change password by admin
+     */
     public void changePassword(byte id, Pass password) {
         AppUser user = userRepository.findById(id).get();
         user.setPassword(passwordEncoder.encode(password.getNewPassword()));
         userRepository.save(user);
     }
 
-
+    /**
+     * @param username
+     * @return user by username
+     */
     public AppUser findByUserName(String username) {
         if (userRepository.findByUsername(username).isPresent())
             return userRepository.findByUsername(username).get();
@@ -126,7 +162,9 @@ public class UserServices {
             throw new UsernameNotFoundException("This User " + username + " NotFound");
     }
 
-
+    /**
+     * @param username used to activated user
+     */
     public void activeUser(String username) {
         if (userRepository.findByUsername(username).isPresent()) {
             AppUser user = findByUserName(username);
@@ -136,6 +174,9 @@ public class UserServices {
             throw new UsernameNotFoundException("This user id Not Exist");
     }
 
+    /**
+     * @param username used to unActivated user
+     */
     public void unActiveUser(String username) {
         if (userRepository.findByUsername(username).isPresent()) {
             AppUser user = findByUserName(username);

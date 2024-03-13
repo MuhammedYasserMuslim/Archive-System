@@ -35,6 +35,11 @@ public class FileUploadService {
 
     private final BaseDataServices baseDataServices;
 
+    /**
+     * @param id,file,pathType
+     * @return file name
+     * used to store file in Image Entity
+     */
     public String storeFile(File file, int id, String pathType) {
         this.fileStorageLocation = Paths.get(baseDataServices.findBaseData() + pathType).toAbsolutePath().normalize();
         try {
@@ -59,6 +64,11 @@ public class FileUploadService {
         }
     }
 
+    /**
+     * @param multipartFile
+     * @return File
+     * used to convert MultipartFile to File
+     */
     public File convertMultiPartFileToFile(final MultipartFile multipartFile) {
         final File file = new File(multipartFile.getOriginalFilename());
         try (final FileOutputStream outputStream = new FileOutputStream(file)) {
@@ -69,6 +79,9 @@ public class FileUploadService {
         return file;
     }
 
+    /**
+     * @param id,pathType,imagePath,file used to save file in folders in file system
+     */
     private void updateImagePath(int id, String pathType, String imagePath, File file) {
 
         if (pathType.contains("imports") || pathType.contains("exports") || pathType.contains("specials")) {
@@ -89,6 +102,11 @@ public class FileUploadService {
         }
     }
 
+    /**
+     * @param name
+     * @throws IOException used to get file from file system
+     */
+
     public byte[] getFileFromFileSystem(String name) throws IOException {
         Optional<Image> image = imageRepository.findByName(name);
         String filePath = baseDataServices.findBaseData() + image.get().getImagePath();
@@ -96,6 +114,9 @@ public class FileUploadService {
     }
 
 
+    /**
+     * @param imagePath used to delete image by imagePath
+     */
     @Transactional
     public void deleteByImagePath(String imagePath) {
         if (imageRepository.findByImagePath(imagePath).isPresent())
@@ -104,6 +125,10 @@ public class FileUploadService {
             throw new RecordNotFountException("invalid path");
     }
 
+    /**
+     * @param imagePath used to find image by imagePath
+     * @return Image
+     */
     public Image findByImagePath(String imagePath) {
         if (imageRepository.findByImagePath(imagePath).isPresent())
             return imageRepository.findByImagePath(imagePath).get();

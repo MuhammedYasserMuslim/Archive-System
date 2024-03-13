@@ -26,6 +26,10 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
 
+    /**
+     * @param request used tp authenticate user
+     * @return Authentication
+     */
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -47,6 +51,11 @@ public class AuthenticationService {
                 .build();
     }
 
+    /**
+     * @param authorities
+     * @return userRole
+     * used to find user role
+     */
     private String getAuthority(Set<Authority> authorities) {
         List<Authority> list = new ArrayList<>(authorities);
         list.sort(Comparator.comparing(Authority::getId));

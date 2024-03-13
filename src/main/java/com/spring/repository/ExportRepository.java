@@ -2,6 +2,8 @@ package com.spring.repository;
 
 import com.spring.model.entity.ArchiveFile;
 import com.spring.model.entity.Export;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -11,19 +13,27 @@ import java.util.List;
 @Repository
 public interface ExportRepository extends JpaRepository<Export, Integer> {
 
-
-    @Query(value = "SELECT * FROM exports WHERE date >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 YEAR), '%Y-07-01')   AND date<= DATE_FORMAT(NOW(), '%Y-06-30')", nativeQuery = true)
+    /**
+     *  @return  exports in current year
+     */
+    @Query(value = "SELECT * FROM exports WHERE date >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 YEAR), '%Y-07-01')   AND date<= DATE_FORMAT(NOW(), '%Y-06-30') order by  no desc", nativeQuery = true)
     List<Export> findByYear();
 
-    List<Export> findAllByOrderByIdDesc();
+    /**
+     *  @return  exports in current year for pagination
+     */
+    @Query(value = "SELECT * FROM exports WHERE date >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 YEAR), '%Y-07-01')   AND date<= DATE_FORMAT(NOW(), '%Y-06-30') ", nativeQuery = true)
+    Page<Export> findByYear(Pageable pageable);
 
-    List<Export> findBySummaryContainingOrderByIdDesc(String summary);
-
+    /**
+     *  @return  exports in archive file
+     */
     List<Export> findByArchiveFile(ArchiveFile archiveFile);
 
-    @Query(value = "SELECT export FROM Export export WHERE FUNCTION('DATE', export.date) = CURRENT_DATE")
+    /**
+     *  @return  today exports
+     */
+    @Query(value = "SELECT  * FROM archive.exports WHERE date >= CURRENT_DATE() AND date < CURRENT_DATE() + INTERVAL 1 DAY order by id desc", nativeQuery = true)
     List<Export> findByDate();
 
-    @Query(value = "SELECT count(export) FROM Export export WHERE FUNCTION('DATE', export.date) = CURRENT_DATE")
-    Long countCurrent();
 }

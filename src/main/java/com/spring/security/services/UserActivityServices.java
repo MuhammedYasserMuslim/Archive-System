@@ -25,20 +25,23 @@ public class UserActivityServices {
     private final UserActivityMapper userActivityMapper;
 
 
+    /**
+     * @return userActivity
+     */
     public List<UserActivity> findUsersActivity() {
         List<UserActivity> activities = new ArrayList<>();
         for (Export export : exportRepository.findAll()) {
-            UserActivity userActivity= userActivityMapper.mapToUserActivity(export);
+            UserActivity userActivity = userActivityMapper.mapToUserActivity(export);
             userActivity.setType("صادر");
             activities.add(userActivity);
         }
         for (Import imports : importRepository.findAll()) {
-            UserActivity userActivity=userActivityMapper.mapToUserActivity(imports);
+            UserActivity userActivity = userActivityMapper.mapToUserActivity(imports);
             userActivity.setType("وارد");
             activities.add(userActivity);
         }
         for (Special special : specialRepository.findAll()) {
-            UserActivity userActivity=userActivityMapper.mapToUserActivity(special);
+            UserActivity userActivity = userActivityMapper.mapToUserActivity(special);
             userActivity.setType("خاص");
             activities.add(userActivity);
         }

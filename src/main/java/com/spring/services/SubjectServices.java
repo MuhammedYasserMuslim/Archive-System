@@ -20,6 +20,9 @@ public class SubjectServices {
     private final SubjectMapper subjectMapper;
 
 
+    /**
+     * @return all subjects
+     */
     public List<SubjectDto> findAll() {
         List<SubjectDto> dtos = new ArrayList<>();
         for (Subject subject : subjectRepository.findAll()) {
@@ -28,6 +31,10 @@ public class SubjectServices {
         return dtos;
     }
 
+    /**
+     * @param summary
+     * @return subjects by decision summary
+     */
     public List<Subject> findByDecision(String summary) {
         List<Decision> decisions = decisionService.findBySummary(summary);
         List<Subject> subjects = new ArrayList<>();
@@ -38,6 +45,10 @@ public class SubjectServices {
         return abstractList(subjects);
     }
 
+    /**
+     * used to sort subjects and abstract list
+     * @param list
+     */
     private List<Subject> abstractList(List<Subject> list) {
         Set<Subject> set = new HashSet<>(list);
         list.clear();
@@ -46,6 +57,10 @@ public class SubjectServices {
         return list;
     }
 
+    /**
+     * add new subject
+     * @param subject
+     */
     public void insert(Subject subject) {
         List<Decision> decisions = subject.getDecision();
         for (Decision decision : decisions) {
@@ -54,11 +69,13 @@ public class SubjectServices {
         subjectRepository.save(subject);
     }
 
-
-    public void removeById(int id){
+    /**
+     * delete subject by id
+     * @param id
+     */
+    public void removeById(int id) {
         subjectRepository.deleteById(id);
     }
-
 
 
 }

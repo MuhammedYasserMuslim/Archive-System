@@ -8,6 +8,10 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<AppUser,Byte> {
+    /**
+     * @return User by username
+     * select * from users where name = :name
+     */
     Optional<AppUser> findByUsername(String userName);
 
 }

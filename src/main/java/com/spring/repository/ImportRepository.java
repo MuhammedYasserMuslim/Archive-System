@@ -2,6 +2,8 @@ package com.spring.repository;
 
 import com.spring.model.entity.ArchiveFile;
 import com.spring.model.entity.Import;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -10,31 +12,53 @@ import java.util.List;
 
 @Repository
 public interface ImportRepository extends JpaRepository<Import, Integer> {
-    @Query(value = "SELECT * FROM imports WHERE income_date >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 YEAR), '%Y-07-01')   AND income_date<= DATE_FORMAT(NOW(), '%Y-06-30')", nativeQuery = true)
+
+    /**
+     *  @return  imports in current year
+     */
+    @Query(value = "SELECT * FROM imports WHERE income_date >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 YEAR), '%Y-07-01')   AND income_date<= DATE_FORMAT(NOW(), '%Y-06-30') order by  no desc", nativeQuery = true)
     List<Import> findByYear();
-    List<Import> findAllByOrderByIdDesc();
-    List<Import> findBySummaryContaining(String summary);
+
+    /**
+     *  @return  imports in current year for pagination
+     */
+    @Query(value = "SELECT * FROM imports WHERE income_date >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 YEAR), '%Y-07-01')   AND income_date<= DATE_FORMAT(NOW(), '%Y-06-30') ", nativeQuery = true)
+    Page<Import> findByYear(Pageable pageable);
+
+    /**
+     *  @return  imports in archive file
+     */
     List<Import> findByArchiveFile(ArchiveFile archiveFile);
-    @Query(value = "SELECT * FROM archive.imports WHERE expect_response_date >= CURRENT_DATE() and  expect_response_date <CURRENT_DATE()+ INTERVAL 3 DAY  AND response_id IS NULL" , nativeQuery = true)
+
+    /**
+     *  @return  important imports file
+     */
+    @Query(value = "SELECT * FROM archive.imports where   expect_response_date  is not null ;", nativeQuery = true)
+    List<Import> findImportantFile();
+
+    /**
+     *  @return  imports time has come
+     */
+    @Query(value = "SELECT * FROM archive.imports WHERE expect_response_date >= CURRENT_DATE() and  expect_response_date <CURRENT_DATE()+ INTERVAL 3 DAY  AND response_id IS NULL", nativeQuery = true)
     List<Import> findItIsTime();
-    @Query(value = "SELECT count(*)  FROM archive.imports WHERE expect_response_date >= CURRENT_DATE() and  expect_response_date <CURRENT_DATE()+ INTERVAL 3 DAY  AND response_id IS NULL", nativeQuery = true)
-    Long countItIsTime();
+
+    /**
+     *  @return  imports time has not come
+     */
     @Query(value = "SELECT * FROM archive.imports WHERE expect_response_date >= (CURRENT_DATE() + INTERVAL 3 DAY) AND response_id IS NULL", nativeQuery = true)
     List<Import> findItIsNotTime();
-    @Query(value = "SELECT count(*)  FROM archive.imports WHERE expect_response_date >= (CURRENT_DATE() + INTERVAL 3 DAY) AND response_id IS NULL", nativeQuery = true)
-    Long countItIsNotTime();
-    @Query(value = "SELECT import FROM Import import where import.expectResponseDate < current_date() and import.export is null")
+
+    /**
+     *  @return  imports time has passed
+     */
+    @Query(value = "SELECT * FROM archive.imports where expect_response_date < current_date() and response_id is null", nativeQuery = true)
     List<Import> findPassedDate();
-    @Query(value = "SELECT count(import) FROM Import import where import.expectResponseDate < current_date() and import.export is null")
-    Long countPassedDate();
-    @Query(value = "SELECT import FROM Import import WHERE FUNCTION('DATE', import.incomeDate) = CURRENT_DATE ")
+
+    /**
+     *  @return  today imports
+     */
+    @Query(value = "SELECT  * FROM archive.imports WHERE income_date >= CURRENT_DATE() AND income_date < CURRENT_DATE() + INTERVAL 1 DAY", nativeQuery = true)
     List<Import> findByIncomeDate();
-    @Query(value = "SELECT count(import) FROM Import import WHERE FUNCTION('DATE', import.incomeDate) = CURRENT_DATE")
-    Long countCurrent();
-    @Query(value = "SELECT import FROM Import import WHERE import.expectResponseDate IS NOT NULL ")
-    List<Import> findImportantFile();
-    @Query(value = "SELECT count(import) FROM Import import WHERE import.expectResponseDate IS NOT NULL")
-    Long countImportantFile();
 
 
 }

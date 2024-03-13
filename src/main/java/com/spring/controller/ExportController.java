@@ -30,7 +30,7 @@ public class ExportController {
 
     @GetMapping("/count-current")
     @Operation(summary = "Get Exports today Count")
-    public ResponseEntity<Long> countCurrent() {
+    public ResponseEntity<Integer> countCurrent() {
         return new ResponseEntity<>(exportServices.countCurrent(),HttpStatus.OK);
     }
 
@@ -47,7 +47,7 @@ public class ExportController {
 
     @GetMapping("/exports-pagination")
     public ResponseEntity<List<ExportDto>> findAllPagination(@RequestParam int page) {
-        return new ResponseEntity<>(exportServices.findAllPagination(page-1), HttpStatus.OK);
+        return new ResponseEntity<>(exportServices.findAllPaginationByYear(page-1), HttpStatus.OK);
     }
 
     @GetMapping("/export-id")
@@ -56,11 +56,6 @@ public class ExportController {
         return ResponseEntity.ok(exportServices.findById(id));
     }
 
-    @GetMapping("/export-summary")
-    @Operation(summary = "Get Export By Summary")
-    public ResponseEntity<List<ExportDto>> findBySummary(@RequestParam String summary) {
-        return ResponseEntity.ok(exportServices.findBySummary(summary));
-    }
 
     @GetMapping("/export-date")
     @Operation(summary = "Get Today Export")
@@ -81,12 +76,6 @@ public class ExportController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("/export")
-    @Operation(summary = "Update Export ")
-    public ResponseEntity<?> update(@RequestBody ExportDtoPost dto) {
-        exportServices.update(dto);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 
     @PutMapping("/export-id")
     @Operation(summary = "Update Export By Id ")

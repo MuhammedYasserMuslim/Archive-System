@@ -19,9 +19,16 @@ public class ArchiveFileServices {
     private final ArchiveFileRepository archiveFileRepository;
     private final ArchiveFileMapper archiveFileMapper;
 
+    /**
+     * @return count  archiveFile
+     */
     public Long count() {
         return archiveFileRepository.count();
     }
+
+    /**
+     * @return all archiveFiles
+     */
 
     //@Cacheable(value = "findAllArchive", key = "#root.methodName")//saved in cache
     public List<ArchiveFileDto> findAll() {
@@ -33,7 +40,10 @@ public class ArchiveFileServices {
         return dtos;
     }
 
-
+    /**
+     * @param id
+     * @return archiveFile by id
+     */
     public ArchiveFileDto findById(short id) {
         if (archiveFileRepository.findById(id).isPresent()) {
             ArchiveFile archiveFile = archiveFileRepository.findById(id).get();
@@ -41,7 +51,10 @@ public class ArchiveFileServices {
         } else throw new RecordNotFountException("This Record With id " + id + " Not Found");
     }
 
-
+    /**
+     * @param typeNumber
+     * @return archiveFile by TypeNumber
+     */
     public List<ArchiveFileDto> findByTypeNumber(Byte typeNumber) {
         if (typeNumber == 1 || typeNumber == 2 || typeNumber == 3) {
             List<ArchiveFile> archiveFiles = archiveFileRepository.findByTypeNumber(typeNumber);
@@ -55,6 +68,10 @@ public class ArchiveFileServices {
 
     }
 
+    /**
+     * @param name
+     * @return archiveFile by name
+     */
     public List<ArchiveFileDto> findByNameContaining(String name) {
         if (!archiveFileRepository.findByNameContaining(name).isEmpty()) {
             List<ArchiveFile> archiveFiles = archiveFileRepository.findByNameContaining(name);
@@ -69,6 +86,10 @@ public class ArchiveFileServices {
 
     }
 
+    /**
+     * @param typeNumber,num
+     * @return archiveFile by typeNumber and num
+     */
     public ArchiveFileDto findByTypeNumberAndNum(Byte typeNumber, Short num) {
         if (archiveFileRepository.findByTypeNumberAndNum(typeNumber, num).isPresent()) {
             ArchiveFile archiveFile = archiveFileRepository.findByTypeNumberAndNum(typeNumber, num).get();
@@ -77,6 +98,9 @@ public class ArchiveFileServices {
     }
 
 
+    /**
+     * @param dto add new archiveFile
+     */
     // @CacheEvict(value = "findAllArchive", key = "#root.methodName", allEntries = true)
     //refresh cache when in method in value
     public void insert(ArchiveFileDto dto) {
@@ -90,6 +114,9 @@ public class ArchiveFileServices {
         archiveFileRepository.save(archiveFile);
     }
 
+    /**
+     * @param dto update archiveFile file by id
+     */
     //@CacheEvict(value = "findAllArchive", key = "#root.methodName", allEntries = true)
     //refresh cache when in method in value
     public void update(ArchiveFileDto dto) {

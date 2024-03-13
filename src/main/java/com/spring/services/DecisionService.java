@@ -16,16 +16,25 @@ public class DecisionService {
     private final DecisionRepository decisionRepository;
     private final DecisionMapper decisionMapper;
 
-
+    /**
+     * @return all decisions
+     */
     public List<Decision> findAll() {
         return decisionRepository.findAll();
     }
 
-
+    /**
+     * @param summary
+     * @return decisions by summary
+     */
     public List<Decision> findBySummary(String summary) {
         return decisionRepository.findBySummaryContaining(summary);
     }
 
+    /**
+     * @param dto
+     * add new decision
+     */
     public void insert(DecisionDto dto) {
         decisionRepository.save(decisionMapper.mapToEntity(dto));
     }

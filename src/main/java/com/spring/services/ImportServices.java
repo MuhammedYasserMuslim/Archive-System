@@ -38,33 +38,54 @@ public class ImportServices {
         this.exportServices = exportServices;
     }
 
+    /**
+     * @return count imports in current year
+     */
     public int count() {
-        return (int) importRepository.count();
+        return importRepository.findByYear().size();
     }
 
-    public Long countCurrent() {
-        return importRepository.countCurrent();
+    /**
+     * @return count today imports
+     */
+    public int countCurrent() {
+        return importRepository.findByIncomeDate().size();
     }
 
-    public Long countItIsTime() {
-        return importRepository.countItIsTime();
+    /**
+     * @return count imports time has come
+     */
+    public int countItIsTime() {
+        return importRepository.findItIsTime().size();
     }
 
-    public Long countPassedDate() {
-        return importRepository.countPassedDate();
+    /**
+     * @return count imports time has passed
+     */
+    public int countPassedDate() {
+        return importRepository.findPassedDate().size();
     }
 
-    public Long countImportantFile() {
-        return importRepository.countImportantFile();
+    /**
+     * @return count today imports
+     */
+    public int countImportantFile() {
+        return importRepository.findImportantFile().size();
     }
 
-    public Long countItIsNotTime() {
-        return importRepository.countItIsNotTime();
+    /**
+     * @return count imports time has not come
+     */
+    public int countItIsNotTime() {
+        return importRepository.findItIsNotTime().size();
     }
 
+    /**
+     * @return all imports in all years
+     */
     //@Cacheable(value = "findAllImports", key = "#root.methodName")
     public List<ImportDto> findAll() {
-        List<Import> imports = importRepository.findAllByOrderByIdDesc();
+        List<Import> imports = importRepository.findAll();
         List<ImportDto> dtos = new ArrayList<>();
 
         for (Import anImport : imports) {
@@ -73,6 +94,9 @@ public class ImportServices {
         return dtos;
     }
 
+    /**
+     * @return imports in current year
+     */
     public List<ImportDto> findByYear() {
         List<Import> imports = importRepository.findByYear();
         List<ImportDto> dtos = new ArrayList<>();
@@ -81,9 +105,13 @@ public class ImportServices {
         return dtos;
     }
 
+    /**
+     * @param page
+     * @return imports in current year for pagination
+     */
     public List<ImportDto> findAllPagination(int page) {
         Pageable pageable = PageRequest.of(page, 1);
-        List<Import> imports = importRepository.findAll(pageable).getContent();
+        List<Import> imports = importRepository.findByYear(pageable).getContent();
         List<ImportDto> dtos = new ArrayList<>();
         for (Import importa : imports) {
             dtos.add(importMapper.mapToDto(importa));
@@ -91,6 +119,10 @@ public class ImportServices {
         return dtos;
     }
 
+    /**
+     * @param id
+     * @return imports by id
+     */
     public ImportDto findById(int id) {
         if (importRepository.findById(id).isPresent()) {
             Import importa = importRepository.findById(id).get();
@@ -99,18 +131,9 @@ public class ImportServices {
     }
 
 
-    public List<ImportDto> findBySummary(String summary) {
-        if (!importRepository.findBySummaryContaining(summary).isEmpty()) {
-            List<Import> imports = importRepository.findBySummaryContaining(summary);
-            List<ImportDto> dtos = new ArrayList<>();
-
-            for (Import anImport : imports) {
-                dtos.add(importMapper.mapToDto(anImport));
-            }
-            return dtos;
-        } else throw new RecordNotFountException("Your search -" + summary + " - did not match any documents.");
-    }
-
+    /**
+     * @return today imports
+     */
     public List<ImportDto> findByIncomeDate() {
         if (!importRepository.findByIncomeDate().isEmpty()) {
             List<Import> imports = importRepository.findByIncomeDate();
@@ -124,6 +147,9 @@ public class ImportServices {
             throw new RecordNotFountException("There are no new files today.");
     }
 
+    /**
+     * @return imports time has come
+     */
     public List<ImportDto> findItIsTime() {
         if (!importRepository.findItIsTime().isEmpty()) {
             List<Import> imports = importRepository.findItIsTime();
@@ -137,6 +163,9 @@ public class ImportServices {
 
     }
 
+    /**
+     * @return imports time has not come
+     */
     public List<ImportDto> findItIsNotTime() {
         if (!importRepository.findItIsNotTime().isEmpty()) {
             List<Import> imports = importRepository.findItIsNotTime();
@@ -150,6 +179,9 @@ public class ImportServices {
         } else throw new RecordNotFountException("There are no  files time has not come");
     }
 
+    /**
+     * @return imports time has passed
+     */
     public List<ImportDto> findPassedDate() {
         if (!importRepository.findPassedDate().isEmpty()) {
             List<Import> imports = importRepository.findPassedDate();
@@ -163,6 +195,9 @@ public class ImportServices {
         } else throw new RecordNotFountException("There are no  files time has passed");
     }
 
+    /**
+     * @return important imports file
+     */
     public List<ImportDto> findImportantFile() {
         if (!importRepository.findImportantFile().isEmpty()) {
             List<Import> imports = importRepository.findImportantFile();
@@ -177,6 +212,10 @@ public class ImportServices {
 
     }
 
+    /**
+     * @param id
+     * @return imports in archive file
+     */
     public List<ImportDto> findByArchiveFile(short id) {
         ArchiveFileDto dto = archiveFileServices.findById(id);
         List<Import> imports = importRepository.findByArchiveFile(archiveFileMapper.mapToEntity(dto));
@@ -187,7 +226,11 @@ public class ImportServices {
         return dtos;
     }
 
-
+    /**
+     * add new export file
+     *
+     * @param dto
+     */
     public void insert(ImportDtoPost dto) {
         List<Import> imports = importRepository.findByYear();
         dto.setTypeNumber((byte) 1);
@@ -198,28 +241,10 @@ public class ImportServices {
         importRepository.save(importa);
     }
 
-    public void update(ImportDtoPost dto) {
-        Import importa = importMapper.mapToEntity(dto);
-        dto.setTypeNumber((byte) 1);
-        importa.setId(dto.getId());
-
-        importa.setSender(dto.getSender());
-        importa.setIncomingLetterNumber(dto.getIncomingLetterNumber());
-        importa.setIncomingLetterDate(dto.getIncomingLetterDate());
-        importa.setSummary(dto.getSummary());
-        importa.setIncomeDate(dto.getIncomeDate());
-        importa.setRecipientName(dto.getRecipientName());
-        importa.setRecipientDate(dto.getRecipientDate());
-        importa.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
-                ((byte) 1,
-                        importa.getArchiveFile().getNum())));
-        importa.setExport(importRepository.findById(dto.getId()).get().getExport());
-        importa.setCreatedBy(importRepository.findById(dto.getId()).get().getCreatedBy());
-        importa.setCreatedDate(importRepository.findById(dto.getId()).get().getCreatedDate());
-
-        importRepository.save(importa);
-    }
-
+    /**
+     * @param id,dto
+     * @return export file by id
+     */
     public void update(ImportDtoPost dto, int id) {
         dto.setId(id);
         Import im = importRepository.findById(id).get();
@@ -245,6 +270,11 @@ public class ImportServices {
         importRepository.save(importa);
     }
 
+    /**
+     * add response to export file
+     *
+     * @param dto,id
+     */
     public void addResponse(ExportDtoPost dto, int id) {
         Import aImport = importRepository.findById(id).get();
         if (aImport.getExport() == null) {

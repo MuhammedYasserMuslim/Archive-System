@@ -1,8 +1,10 @@
 package com.spring.controller;
 
+import com.spring.model.dto.exports.ExportDto;
 import com.spring.model.dto.special.SpecialDto;
 import com.spring.model.dto.special.SpecialDtoPost;
 import com.spring.services.SpecialServices;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/special")
 @RequiredArgsConstructor
+@Tag(name = "Special Apis")
 public class SpecialController {
 
 
@@ -28,9 +31,14 @@ public class SpecialController {
     public ResponseEntity<List<SpecialDto>> findAll() {
         return new ResponseEntity<>(specialServices.findAll(), HttpStatus.OK);
     }
+    @GetMapping("/specials-pagination")
+    public ResponseEntity<List<SpecialDto>> findAllPagination(@RequestParam int page) {
+        return new ResponseEntity<>(specialServices.findAllPagination(page-1), HttpStatus.OK);
+    }
+
 
     @GetMapping("/specials")
-    public ResponseEntity<List<SpecialDto>> findBYYear() {
+    public ResponseEntity<List<SpecialDto>> findByYear() {
         return new ResponseEntity<>(specialServices.findByYear(), HttpStatus.OK);
     }
 
