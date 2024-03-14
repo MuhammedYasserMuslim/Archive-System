@@ -212,8 +212,12 @@ public class ExportServices {
     }
 
 
+    /**
+     * @param year
+     * @return number of exports in year
+     */
     public int findByYearDate(String year) {
-        return  exportRepository.findByYearDate(year).size();
+        return exportRepository.findByYearDate(year).size();
     }
 
 

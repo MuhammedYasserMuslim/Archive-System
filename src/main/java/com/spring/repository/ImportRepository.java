@@ -60,6 +60,9 @@ public interface ImportRepository extends JpaRepository<Import, Integer> {
     @Query(value = "SELECT  * FROM archive.imports WHERE income_date >= CURRENT_DATE() AND income_date < CURRENT_DATE() + INTERVAL 1 DAY income_date >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 YEAR), '%Y-07-01')   AND income_date<= DATE_FORMAT(NOW(), '%Y-06-30')", nativeQuery = true)
     List<Import> findByIncomeDate();
 
+    /**
+     * @return imports by year
+     */
     @Query(value = "SELECT * FROM imports WHERE income_date >= DATE_FORMAT(CONCAT(:year, '-07-01'), '%Y-07-01') - INTERVAL 1 YEAR AND income_date <= DATE_FORMAT(CONCAT(:year, '-06-30'), '%Y-06-30')", nativeQuery = true)
     List<Import> findByYearDate(String year);
 

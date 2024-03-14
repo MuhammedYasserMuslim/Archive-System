@@ -1,6 +1,6 @@
 package com.spring.controller;
 
-import com.spring.services.GeneralServices;
+import com.spring.services.BaseDataServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +15,11 @@ import java.util.List;
 @RequestMapping("/general")
 public class GeneralController {
 
-    private final GeneralServices generalServices;
+    private final BaseDataServices baseDataServices;
 
     @GetMapping("/years")
     public ResponseEntity<List<String>> findYears() {
-        return new ResponseEntity<>(generalServices.findYears(), HttpStatus.OK);
+        return new ResponseEntity<>(baseDataServices.findYears(), HttpStatus.OK);
 
     }
 
