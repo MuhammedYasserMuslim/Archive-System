@@ -15,7 +15,7 @@ public interface SpecialRepository extends JpaRepository<Special, Integer> {
     /**
      *  @return  specials in current year
      */
-    @Query(value = "SELECT * FROM special WHERE income_date >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 YEAR), '%Y-07-01')   AND income_date<= DATE_FORMAT(NOW(), '%Y-06-30') order by  no desc", nativeQuery = true)
+    @Query(value = "SELECT * FROM special WHERE income_date >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 YEAR), '%Y-07-01')   AND income_date<= DATE_FORMAT(NOW(), '%Y-06-30') ", nativeQuery = true)
     List<Special> findByYear();
 
     /**

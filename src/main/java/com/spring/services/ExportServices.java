@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -73,9 +74,9 @@ public class ExportServices {
     public List<ExportDto> findByYear() {
         List<Export> exports = exportRepository.findByYear();
         List<ExportDto> dtos = new ArrayList<>();
-        for (Export export : exports) {
+        for (Export export : exports)
             dtos.add(exportMapper.mapToDto(export));
-        }
+        Collections.reverse(dtos);
         return dtos;
     }
 
@@ -152,6 +153,7 @@ public class ExportServices {
                 (export.getArchiveFile().getTypeNumber(),
                         export.getArchiveFile().getNum())));
         exportRepository.save(export);
+        System.out.println( exports.get(exports.size() - 1).getNo());
     }
 
 

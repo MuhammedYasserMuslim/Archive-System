@@ -16,7 +16,7 @@ public interface ExportRepository extends JpaRepository<Export, Integer> {
     /**
      * @return exports in current year
      */
-    @Query(value = "SELECT * FROM exports WHERE date >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 YEAR), '%Y-07-01')   AND date<= DATE_FORMAT(NOW(), '%Y-06-30') order by  no desc", nativeQuery = true)
+    @Query(value = "SELECT * FROM exports WHERE date >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 YEAR), '%Y-07-01')   AND date<= DATE_FORMAT(NOW(), '%Y-06-30') ", nativeQuery = true)
     List<Export> findByYear();
 
     /**

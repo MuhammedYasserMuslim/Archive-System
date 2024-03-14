@@ -67,9 +67,9 @@ public class SpecialServices {
      */
     public List<SpecialDto> findByYear() {
         List<SpecialDto> dtos = new ArrayList<>();
-        for (Special special : specialRepository.findByYear()) {
+        for (Special special : specialRepository.findByYear())
             dtos.add(specialMapper.mapToDto(special));
-        }
+        Collections.reverse(dtos);
         return dtos;
     }
 
