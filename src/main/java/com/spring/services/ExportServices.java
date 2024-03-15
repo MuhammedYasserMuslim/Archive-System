@@ -22,6 +22,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+
+
 @Service
 public class ExportServices {
 
@@ -81,7 +83,7 @@ public class ExportServices {
     }
 
     /**
-     * @param page
+     * @param page number of page in pagination
      * @return exports in current year for pagination
      */
     public List<ExportDto> findAllPaginationByYear(int page) {
@@ -95,7 +97,7 @@ public class ExportServices {
     }
 
     /**
-     * @param id
+     * @param id to find export by
      * @return exports by id
      */
     //@Cacheable(value = "findAllExports", key = "#root.methodName")
@@ -114,7 +116,6 @@ public class ExportServices {
      * @return today exports
      */
     public List<ExportDto> findByDate() {
-        if (!exportRepository.findByDate().isEmpty()) {
 
             List<Export> exports = exportRepository.findByDate();
             List<ExportDto> dtos = new ArrayList<>();
@@ -122,11 +123,11 @@ public class ExportServices {
                 dtos.add(exportMapper.mapToDto(export));
             }
             return dtos;
-        } else throw new RecordNotFountException("There are no new files today.");
+
     }
 
     /**
-     * @param id
+     * @param id to find archive file by id
      * @return exports in archive file
      */
     public List<ExportDto> findByArchiveFile(short id) {
@@ -153,13 +154,13 @@ public class ExportServices {
                 (export.getArchiveFile().getTypeNumber(),
                         export.getArchiveFile().getNum())));
         exportRepository.save(export);
-        System.out.println( exports.get(exports.size() - 1).getNo());
+        System.out.println(exports.get(exports.size() - 1).getNo());
     }
 
 
     /**
-     * @param dto,id
-     * @return export file by id
+     * @param dto take new values
+     * @param id  chose export file to update
      */
     // @CacheEvict(value = "findAllExports", key = "#root.methodName", allEntries = true)
     public void update(ExportDtoPost dto, int id) {
@@ -181,7 +182,8 @@ public class ExportServices {
     }
 
     /**
-     * @param id,dto add urgent to export file
+     * @param id  chose export file to add urgent
+     * @param dto take new export file
      */
     //@CacheEvict(value = "findAllExports", key = "#root.methodName", allEntries = true)
     public void addUrgent(ExportDtoPost dto, int id) {
@@ -197,14 +199,14 @@ public class ExportServices {
     }
 
     /**
-     * @param id,dto add response to export file
+     * @param id  chose export file to add response
+     * @param dto take new import file
      */
     // @CacheEvict(value = "findAllExports", key = "#root.methodName", allEntries = true)
     public void addResponse(ImportDtoPost dto, int id) {
         Export export = exportRepository.findById(id).get();
         if (export.getAimport() == null) {
             importServices.insert(dto);
-
             export.setAimport(
                     new Import(importServices.count())
             );
@@ -215,7 +217,7 @@ public class ExportServices {
 
 
     /**
-     * @param year
+     * @param year chose year
      * @return number of exports in year
      */
     public int findByYearDate(String year) {

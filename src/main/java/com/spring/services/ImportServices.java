@@ -109,7 +109,7 @@ public class ImportServices {
     }
 
     /**
-     * @param page
+     * @param page number of page in pagination
      * @return imports in current year for pagination
      */
     public List<ImportDto> findAllPagination(int page) {
@@ -138,23 +138,20 @@ public class ImportServices {
      * @return today imports
      */
     public List<ImportDto> findByIncomeDate() {
-        if (!importRepository.findByIncomeDate().isEmpty()) {
-            List<Import> imports = importRepository.findByIncomeDate();
-            List<ImportDto> dtos = new ArrayList<>();
-            for (Import anImport : imports) {
-                dtos.add(importMapper.mapToDto(anImport));
-            }
-            return dtos;
-        } else
+        List<Import> imports = importRepository.findByIncomeDate();
+        List<ImportDto> dtos = new ArrayList<>();
+        for (Import anImport : imports) {
+            dtos.add(importMapper.mapToDto(anImport));
+        }
+        return dtos;
 
-            throw new RecordNotFountException("There are no new files today.");
     }
 
     /**
      * @return imports time has come
      */
     public List<ImportDto> findItIsTime() {
-        if (!importRepository.findItIsTime().isEmpty()) {
+
             List<Import> imports = importRepository.findItIsTime();
             List<ImportDto> dtos = new ArrayList<>();
 
@@ -162,7 +159,7 @@ public class ImportServices {
                 dtos.add(importMapper.mapToDto(anImport));
             }
             return dtos;
-        } else throw new RecordNotFountException("There are no new files time has come");
+
 
     }
 
@@ -170,7 +167,7 @@ public class ImportServices {
      * @return imports time has not come
      */
     public List<ImportDto> findItIsNotTime() {
-        if (!importRepository.findItIsNotTime().isEmpty()) {
+
             List<Import> imports = importRepository.findItIsNotTime();
             List<ImportDto> dtos = new ArrayList<>();
 
@@ -179,14 +176,14 @@ public class ImportServices {
             }
 
             return dtos;
-        } else throw new RecordNotFountException("There are no  files time has not come");
+
     }
 
     /**
      * @return imports time has passed
      */
     public List<ImportDto> findPassedDate() {
-        if (!importRepository.findPassedDate().isEmpty()) {
+
             List<Import> imports = importRepository.findPassedDate();
             List<ImportDto> dtos = new ArrayList<>();
 
@@ -195,14 +192,14 @@ public class ImportServices {
             }
 
             return dtos;
-        } else throw new RecordNotFountException("There are no  files time has passed");
+
     }
 
     /**
      * @return important imports file
      */
     public List<ImportDto> findImportantFile() {
-        if (!importRepository.findImportantFile().isEmpty()) {
+
             List<Import> imports = importRepository.findImportantFile();
             List<ImportDto> dtos = new ArrayList<>();
 
@@ -211,7 +208,6 @@ public class ImportServices {
             }
 
             return dtos;
-        } else throw new RecordNotFountException("There are no Important files ");
 
     }
 

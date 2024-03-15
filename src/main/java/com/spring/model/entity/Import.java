@@ -69,4 +69,6 @@ public class Import extends BaseEntity {
     public Import(int id) {
         this.id = id;
     }
+
+
 }

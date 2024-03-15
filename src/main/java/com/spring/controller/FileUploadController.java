@@ -1,7 +1,6 @@
 package com.spring.controller;
 
 import com.spring.model.entity.Image;
-import com.spring.model.entity.Import;
 import com.spring.services.FileUploadService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +23,7 @@ public class FileUploadController {
     private final FileUploadService fileUploadService;
 
     @PostMapping("/upload")
-    public ResponseEntity<Object> uploadFile(@RequestParam int id, @RequestParam String pathType
+    public ResponseEntity<?> uploadFile(@RequestParam int id, @RequestParam String pathType
             , @RequestParam MultipartFile file) {
         String fileName = fileUploadService.storeFile(fileUploadService.convertMultiPartFileToFile(file), id, pathType);
         return ResponseEntity.ok(fileName);
@@ -44,12 +43,14 @@ public class FileUploadController {
                 .contentType(MediaType.valueOf("image/png"))
                 .body(imageData);
     }
+
     @GetMapping("/image")
-    public ResponseEntity<Image> findByImagePath(@RequestParam String imagePath){
-        return new ResponseEntity<>(fileUploadService.findByImagePath(imagePath) , HttpStatus.OK);
+    public ResponseEntity<Image> findByImagePath(@RequestParam String imagePath) {
+        return new ResponseEntity<>(fileUploadService.findByImagePath(imagePath), HttpStatus.OK);
     }
+
     @DeleteMapping("/image")
-    public ResponseEntity<?> deleteByImagePath(@RequestParam String imagePath){
+    public ResponseEntity<?> deleteByImagePath(@RequestParam String imagePath) {
         fileUploadService.deleteByImagePath(imagePath);
         return new ResponseEntity<>(HttpStatus.OK);
     }

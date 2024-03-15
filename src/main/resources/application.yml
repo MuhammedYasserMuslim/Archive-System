@@ -6,7 +6,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/archive?allowPublicKeyRetrieval=true&useSSL=false&useLegacyDatetimeCode=false
+    url: jdbc:mysql://localhost:3306/archive
     username: root
     password:
   jpa:
@@ -16,7 +16,7 @@ spring:
         format_sql: true
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
   sql:
     init:
       mode: always
