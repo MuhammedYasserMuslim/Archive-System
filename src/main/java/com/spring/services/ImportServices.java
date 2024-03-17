@@ -111,13 +111,13 @@ public class ImportServices {
      * @param page number of page in pagination
      * @return imports in current year for pagination
      */
-    public List<ImportDto> findAllPagination(int page) {
+    public ImportDto findAllPagination(int page) {
         Pageable pageable = PageRequest.of(page, 1);
         List<Import> imports = importRepository.findByYear(pageable).getContent();
         List<ImportDto> dtos = new ArrayList<>();
         for (Import importa : imports)
             dtos.add(importMapper.mapToDto(importa));
-        return dtos;
+        return dtos.get(0);
     }
 
     /**

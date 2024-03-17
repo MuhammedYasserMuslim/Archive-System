@@ -23,7 +23,7 @@ public class Export extends BaseEntity {
     @Column(name = "no", nullable = false)
     private Integer no;
 
-    @Column(name = "date")
+    @Column(name = "date" ,nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date; //تاريخ
 

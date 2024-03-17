@@ -73,7 +73,7 @@ public class ImportController {
     }
 
     @GetMapping("/imports-pagination")
-    public ResponseEntity<List<ImportDto>> findAllPagination(@RequestParam int page) {
+    public ResponseEntity<ImportDto> findAllPagination(@RequestParam int page) {
         return new ResponseEntity<>(importServices.findAllPagination(page - 1), HttpStatus.OK);
     }
 

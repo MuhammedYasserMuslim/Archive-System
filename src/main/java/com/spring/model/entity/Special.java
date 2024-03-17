@@ -30,7 +30,7 @@ public class Special extends BaseEntity {
 
     private String summary;
 
-    @Column(name = "income_date")
+    @Column(name = "income_date" , nullable = false)
     private Date incomeDate;
 
     @Column(name = "number_of_attachments", nullable = false)

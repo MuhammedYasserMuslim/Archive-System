@@ -32,7 +32,7 @@ public class SpecialController {
         return new ResponseEntity<>(specialServices.findAll(), HttpStatus.OK);
     }
     @GetMapping("/specials-pagination")
-    public ResponseEntity<List<SpecialDto>> findAllPagination(@RequestParam int page) {
+    public ResponseEntity<SpecialDto> findAllPagination(@RequestParam int page) {
         return new ResponseEntity<>(specialServices.findAllPagination(page-1), HttpStatus.OK);
     }
 

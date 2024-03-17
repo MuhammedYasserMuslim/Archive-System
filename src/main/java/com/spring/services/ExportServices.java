@@ -84,14 +84,14 @@ public class ExportServices {
      * @param page number of page in pagination
      * @return exports in current year for pagination
      */
-    public List<ExportDto> findAllPaginationByYear(int page) {
+    public ExportDto findAllPaginationByYear(int page) {
         Pageable pageable = PageRequest.of(page, 1);
         List<Export> exports = exportRepository.findByYear(pageable).getContent();
         List<ExportDto> dtos = new ArrayList<>();
         for (Export export : exports) {
             dtos.add(exportMapper.mapToDto(export));
         }
-        return dtos;
+        return dtos.get(0);
     }
 
     /**

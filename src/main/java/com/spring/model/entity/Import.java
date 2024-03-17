@@ -24,7 +24,7 @@ public class Import extends BaseEntity {
     @Column(name = "no" , nullable = false )
     private Integer no;
 
-    @Column(name = "income_date")
+    @Column(name = "income_date" , nullable = false)
     private Date incomeDate; //تاريخ الورود
 
 
