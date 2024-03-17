@@ -24,7 +24,7 @@ public class DecisionService {
     }
 
     /**
-     * @param summary
+     * @param summary find decision by
      * @return decisions by summary
      */
     public List<Decision> findBySummary(String summary) {
@@ -32,8 +32,8 @@ public class DecisionService {
     }
 
     /**
-     * @param dto
-     * add new decision
+     * @param dto add new decision
+     *            add new decision
      */
     public void insert(DecisionDto dto) {
         decisionRepository.save(decisionMapper.mapToEntity(dto));

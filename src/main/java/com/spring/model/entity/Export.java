@@ -20,7 +20,7 @@ public class Export extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;//رقم
 
-    @Column(name = "no" , nullable = false )
+    @Column(name = "no", nullable = false)
     private Integer no;
 
     @Column(name = "date")
@@ -28,9 +28,11 @@ public class Export extends BaseEntity {
     @CreationTimestamp
     private Date date; //تاريخ
 
+    @Column(name = "number_of_attachments", nullable = false)
+    private Byte numberOfAttachments;
 
     @OneToMany(mappedBy = "export")
-    private List<Image> images ;
+    private List<Image> images;
 
     @Column(name = "receiver")
     private String receiver; //الجهة الصادر منها الخطاب
@@ -49,13 +51,13 @@ public class Export extends BaseEntity {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date urgentDate; //تاريخ الاستعجالات
 
-    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH} )
-    @JoinColumn(name = "response_id" ,referencedColumnName = "id")
+    @OneToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "response_id", referencedColumnName = "id")
     private Import aimport; //رقم الرد / تاريخ الرد
 
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "archive_file_id",referencedColumnName = "id")
+    @JoinColumn(name = "archive_file_id", referencedColumnName = "id")
     private ArchiveFile archiveFile;
 
 

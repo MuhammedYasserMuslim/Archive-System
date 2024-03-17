@@ -52,6 +52,8 @@ public class Import extends BaseEntity {
     @Column(name = "recipient_date")
     private Date recipientDate; // تاريخ الاستلام
 
+    @Column(name = "number_of_attachments" , nullable = false)
+    private Byte numberOfAttachments; //عدد الموافقات
 
     @OneToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "response_id",referencedColumnName = "id")

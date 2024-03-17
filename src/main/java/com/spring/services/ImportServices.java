@@ -11,7 +11,6 @@ import com.spring.model.entity.Import;
 import com.spring.model.mapper.ArchiveFileMapper;
 import com.spring.model.mapper.ImportMapper;
 import com.spring.repository.ImportRepository;
-import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.PageRequest;
@@ -89,10 +88,8 @@ public class ImportServices {
     public List<ImportDto> findAll() {
         List<Import> imports = importRepository.findAll();
         List<ImportDto> dtos = new ArrayList<>();
-
-        for (Import anImport : imports) {
+        for (Import anImport : imports)
             dtos.add(importMapper.mapToDto(anImport));
-        }
         return dtos;
     }
 
@@ -116,14 +113,13 @@ public class ImportServices {
         Pageable pageable = PageRequest.of(page, 1);
         List<Import> imports = importRepository.findByYear(pageable).getContent();
         List<ImportDto> dtos = new ArrayList<>();
-        for (Import importa : imports) {
+        for (Import importa : imports)
             dtos.add(importMapper.mapToDto(importa));
-        }
         return dtos;
     }
 
     /**
-     * @param id
+     * @param id to find import by
      * @return imports by id
      */
     public ImportDto findById(int id) {
@@ -140,95 +136,70 @@ public class ImportServices {
     public List<ImportDto> findByIncomeDate() {
         List<Import> imports = importRepository.findByIncomeDate();
         List<ImportDto> dtos = new ArrayList<>();
-        for (Import anImport : imports) {
+        for (Import anImport : imports)
             dtos.add(importMapper.mapToDto(anImport));
-        }
         return dtos;
-
     }
 
     /**
      * @return imports time has come
      */
     public List<ImportDto> findItIsTime() {
-
-            List<Import> imports = importRepository.findItIsTime();
-            List<ImportDto> dtos = new ArrayList<>();
-
-            for (Import anImport : imports) {
-                dtos.add(importMapper.mapToDto(anImport));
-            }
-            return dtos;
-
-
+        List<Import> imports = importRepository.findItIsTime();
+        List<ImportDto> dtos = new ArrayList<>();
+        for (Import anImport : imports)
+            dtos.add(importMapper.mapToDto(anImport));
+        return dtos;
     }
 
     /**
      * @return imports time has not come
      */
     public List<ImportDto> findItIsNotTime() {
-
-            List<Import> imports = importRepository.findItIsNotTime();
-            List<ImportDto> dtos = new ArrayList<>();
-
-            for (Import anImport : imports) {
-                dtos.add(importMapper.mapToDto(anImport));
-            }
-
-            return dtos;
-
+        List<Import> imports = importRepository.findItIsNotTime();
+        List<ImportDto> dtos = new ArrayList<>();
+        for (Import anImport : imports)
+            dtos.add(importMapper.mapToDto(anImport));
+        return dtos;
     }
 
     /**
      * @return imports time has passed
      */
     public List<ImportDto> findPassedDate() {
-
-            List<Import> imports = importRepository.findPassedDate();
-            List<ImportDto> dtos = new ArrayList<>();
-
-            for (Import anImport : imports) {
-                dtos.add(importMapper.mapToDto(anImport));
-            }
-
-            return dtos;
-
+        List<Import> imports = importRepository.findPassedDate();
+        List<ImportDto> dtos = new ArrayList<>();
+        for (Import anImport : imports)
+            dtos.add(importMapper.mapToDto(anImport));
+        return dtos;
     }
 
     /**
      * @return important imports file
      */
     public List<ImportDto> findImportantFile() {
-
-            List<Import> imports = importRepository.findImportantFile();
-            List<ImportDto> dtos = new ArrayList<>();
-
-            for (Import anImport : imports) {
-                dtos.add(importMapper.mapToDto(anImport));
-            }
-
-            return dtos;
-
+        List<Import> imports = importRepository.findImportantFile();
+        List<ImportDto> dtos = new ArrayList<>();
+        for (Import anImport : imports)
+            dtos.add(importMapper.mapToDto(anImport));
+        return dtos;
     }
 
     /**
-     * @param id
+     * @param id to find archive file by id
      * @return imports in archive file
      */
     public List<ImportDto> findByArchiveFile(short id) {
         ArchiveFileDto dto = archiveFileServices.findById(id);
         List<Import> imports = importRepository.findByArchiveFile(archiveFileMapper.mapToEntity(dto));
         List<ImportDto> dtos = new ArrayList<>();
-        for (Import anImport : imports) {
+        for (Import anImport : imports)
             dtos.add(importMapper.mapToDto(anImport));
-        }
         return dtos;
     }
 
     /**
-     * add new export file
-     *
-     * @param dto
+     * @param dto add new import file
      */
     public void insert(ImportDtoPost dto) {
         List<Import> imports = importRepository.findByYear();
@@ -236,17 +207,16 @@ public class ImportServices {
         Import importa = importMapper.mapToEntity(dto);
         importa.setNo(imports.isEmpty() ? 1 : imports.get(imports.size() - 1).getNo() + 1);
         importa.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum(importa.getArchiveFile().getTypeNumber(), importa.getArchiveFile().getNum())));
-
         importRepository.save(importa);
     }
 
     /**
-     * @param id,dto
-     * @return export file by id
+     * @param dto take new values
+     * @param id  chose import file to update
      */
     public void update(ImportDtoPost dto, int id) {
         dto.setId(id);
-        Import im = importRepository.findById(id).get();
+        Import im = getById(id);
         Import importa = importMapper.mapToEntity(dto);
         dto.setTypeNumber((byte) 1);
         importa.setId(dto.getId());
@@ -263,19 +233,18 @@ public class ImportServices {
                         importa.getArchiveFile().getNum())));
         importa.setExport(importRepository.findById(dto.getId()).get().getExport());
 
-        importa.setCreatedBy(importRepository.findById(dto.getId()).get().getCreatedBy());
-        importa.setCreatedDate(importRepository.findById(dto.getId()).get().getCreatedDate());
+        importa.setCreatedBy(getById(id).getCreatedBy());
+        importa.setCreatedDate(getById(id).getCreatedDate());
 
         importRepository.save(importa);
     }
 
     /**
-     * add response to export file
-     *
-     * @param dto,id
+     * @param id  chose import file to add response
+     * @param dto take new export file
      */
     public void addResponse(ExportDtoPost dto, int id) {
-        Import aImport = importRepository.findById(id).get();
+        Import aImport = getById(id);
         if (aImport.getExport() == null) {
             exportServices.insert(dto);
 
@@ -288,10 +257,14 @@ public class ImportServices {
     }
 
     /**
-     * @param year
-     * @return number of imports in year
+     * @param year chose year
+     * @return count of import in year
      */
     public int findByYearDate(String year) {
         return importRepository.findByYearDate(year).size();
+    }
+
+    private Import getById(int id) {
+        return importRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
     }
 }

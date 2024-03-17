@@ -57,9 +57,6 @@ public class ExportDto {
     private Byte typeNumber;
     private Short num;
 
-    public Byte getNumberOfAttachments() {
-        return (byte) this.images.size();
-    }
 
     public List<String> getPaths() {
         List<String> path = new ArrayList<>();

@@ -32,7 +32,7 @@ public class SubjectServices {
     }
 
     /**
-     * @param summary
+     * @param summary find subject by decision summary
      * @return subjects by decision summary
      */
     public List<Subject> findByDecision(String summary) {
@@ -46,8 +46,7 @@ public class SubjectServices {
     }
 
     /**
-     * used to sort subjects and abstract list
-     * @param list
+     * @param list sort subjects and abstract list
      */
     private List<Subject> abstractList(List<Subject> list) {
         Set<Subject> set = new HashSet<>(list);
@@ -58,8 +57,7 @@ public class SubjectServices {
     }
 
     /**
-     * add new subject
-     * @param subject
+     * @param subject add new subject
      */
     public void insert(Subject subject) {
         List<Decision> decisions = subject.getDecision();
@@ -70,8 +68,7 @@ public class SubjectServices {
     }
 
     /**
-     * delete subject by id
-     * @param id
+     * @param id delete subject by
      */
     public void removeById(int id) {
         subjectRepository.deleteById(id);

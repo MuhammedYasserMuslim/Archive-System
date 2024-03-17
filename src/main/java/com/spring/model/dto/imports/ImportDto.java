@@ -60,9 +60,6 @@ public class ImportDto {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date expectResponseDate;
 
-    public Byte getNumberOfAttachments() {
-        return (byte) this.images.size();
-    }
 
     public List<String> getPaths() {
         List<String> path = new ArrayList<>();

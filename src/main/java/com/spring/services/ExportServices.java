@@ -23,7 +23,6 @@ import java.util.Date;
 import java.util.List;
 
 
-
 @Service
 public class ExportServices {
 
@@ -117,12 +116,12 @@ public class ExportServices {
      */
     public List<ExportDto> findByDate() {
 
-            List<Export> exports = exportRepository.findByDate();
-            List<ExportDto> dtos = new ArrayList<>();
-            for (Export export : exports) {
-                dtos.add(exportMapper.mapToDto(export));
-            }
-            return dtos;
+        List<Export> exports = exportRepository.findByDate();
+        List<ExportDto> dtos = new ArrayList<>();
+        for (Export export : exports) {
+            dtos.add(exportMapper.mapToDto(export));
+        }
+        return dtos;
 
     }
 
@@ -218,7 +217,7 @@ public class ExportServices {
 
     /**
      * @param year chose year
-     * @return number of exports in year
+     * @return count of exports in year
      */
     public int findByYearDate(String year) {
         return exportRepository.findByYearDate(year).size();

@@ -34,6 +34,9 @@ public class Special extends BaseEntity {
     @CreationTimestamp
     private Date incomeDate;
 
+    @Column(name = "number_of_attachments", nullable = false)
+    private Byte numberOfAttachments;
+
     @Column(name = "sender")
     private String sender;
 

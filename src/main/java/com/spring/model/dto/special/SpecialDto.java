@@ -30,6 +30,7 @@ public class SpecialDto {
     @JsonFormat(pattern = "yyyy-MM-dd")
     @CreationTimestamp
     private Date incomeDate;
+
     private String sender;
 
     @JsonBackReference
@@ -59,17 +60,7 @@ public class SpecialDto {
         return dtos;
     }
 
-    public Byte getNumberOfAttachments() {
-        return (byte) this.images.size();
-    }
 
-    public List<String> getPaths() {
-        List<String> path = new ArrayList<>();
-        for (Image im : this.images) {
-            path.add(im.getImagePath());
-        }
-        return path;
-    }
 
 
 }

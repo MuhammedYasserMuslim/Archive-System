@@ -24,6 +24,7 @@ public class ImportDtoPost {
     private Date incomeDate;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date incomingLetterDate;//تاريخ الخطاب الوارد
+    private Byte numberOfAttachments; //عدد الموافقات
     private String summary;//ملخص الخطاب
     private String recipientName;//توقيع المستلم
     @JsonFormat(pattern = "yyyy-MM-dd")

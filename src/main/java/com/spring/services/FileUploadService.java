@@ -37,9 +37,8 @@ public class FileUploadService {
     private final BaseDataServices baseDataServices;
 
     /**
-     * @param id,file,pathType
+     * @param id,file,pathType store file in Image Entity
      * @return file name
-     * used to store file in Image Entity
      */
     public String storeFile(File file, int id, String pathType) {
         this.fileStorageLocation = Paths.get(baseDataServices.findBaseData() + pathType).toAbsolutePath().normalize();
@@ -66,10 +65,8 @@ public class FileUploadService {
     }
 
     /**
-     * @param multipartFile
+     * @param multipartFile convert to file
      * @return File
-     * used to convert MultipartFile to File
-     * @author mohamed yasser
      */
     public File convertMultiPartFileToFile(final MultipartFile multipartFile) {
         final File file = new File(multipartFile.getOriginalFilename());
@@ -105,7 +102,7 @@ public class FileUploadService {
     }
 
     /**
-     * @param name
+     * @param name find file from file system by
      * @throws IOException used to get file from file system
      */
 
@@ -128,7 +125,7 @@ public class FileUploadService {
     }
 
     /**
-     * @param imagePath used to find image by imagePath
+     * @param imagePath find image by imagePath
      * @return Image
      */
     public Image findByImagePath(String imagePath) {

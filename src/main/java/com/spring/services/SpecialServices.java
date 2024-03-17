@@ -2,11 +2,8 @@ package com.spring.services;
 
 import com.spring.exception.RecordNotFountException;
 import com.spring.model.dto.archivefile.ArchiveFileDto;
-import com.spring.model.dto.imports.ImportDto;
 import com.spring.model.dto.special.SpecialDto;
 import com.spring.model.dto.special.SpecialDtoPost;
-import com.spring.model.entity.Export;
-import com.spring.model.entity.Import;
 import com.spring.model.entity.Special;
 import com.spring.model.entity.Subject;
 import com.spring.model.mapper.ArchiveFileMapper;
@@ -48,7 +45,7 @@ public class SpecialServices {
     }
 
     /**
-     * @param page
+     * @param page number of page in pagination
      * @return specials in current year for pagination
      */
     public List<SpecialDto> findAllPagination(int page) {
@@ -74,7 +71,7 @@ public class SpecialServices {
     }
 
     /**
-     * @param id
+     * @param id to find special by
      * @return specials by id
      */
     public SpecialDto findById(int id) {
@@ -83,7 +80,7 @@ public class SpecialServices {
     }
 
     /**
-     * @param summary
+     * @param summary find special by subject summary
      * @return specials by subject
      */
     public List<SpecialDto> findBySubject(String summary) {
@@ -102,9 +99,7 @@ public class SpecialServices {
     }
 
     /**
-     * used to sort specials and abstract list
-     *
-     * @param list
+     * @param list sort specials and abstract list
      */
     private List<Special> abstractList(List<Special> list) {
         Set<Special> set = new HashSet<>(list);
@@ -115,7 +110,7 @@ public class SpecialServices {
     }
 
     /**
-     * @param id
+     * @param id to find archive file by id
      * @return specials in archive file
      */
     public List<SpecialDto> findByArchiveFile(short id) {
@@ -132,7 +127,7 @@ public class SpecialServices {
     /**
      * add new export file
      *
-     * @param dto
+     * @param dto add new special file
      */
     public void insert(SpecialDtoPost dto) {
         List<Special> specials = specialRepository.findByYear();
@@ -151,12 +146,11 @@ public class SpecialServices {
     }
 
     /**
-     * update special file by id
-     *
-     * @param dto,id
+     * @param dto take new values
+     * @param id  chose special file to update
      */
     public void update(SpecialDtoPost dto, int id) {
-        Special sp = specialRepository.findById(id).get();
+        Special sp = getById(id);
         dto.setId(id);
         dto.setTypeNumber((byte) 3);
         Special special = specialMapper.mapToEntity(dto);
@@ -164,13 +158,13 @@ public class SpecialServices {
         special.setSender(dto.getSender());
         special.setSummary(dto.getSummary());
         special.setIncomeDate(dto.getIncomeDate());
-        special.setCreatedBy(specialRepository.findById(id).get().getCreatedBy());
-        special.setCreatedDate(specialRepository.findById(id).get().getCreatedDate());
+        special.setCreatedBy(getById(id).getCreatedBy());
+        special.setCreatedDate(getById(id).getCreatedDate());
         special.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum((byte) 3, special.getArchiveFile().getNum())));
 
-        List<Subject> subjectList = specialRepository.findById(id).get().getSubject();
+        List<Subject> subjectList = getById(id).getSubject();
         for (int i = 0; i < subjectList.size(); i++) {
-            specialRepository.findById(id).get().getSubject().get(i).setSpecial(null);
+            getById(id).getSubject().get(i).setSpecial(null);
         }
         specialRepository.save(special);
         List<Subject> subjects = dto.getSubjects();
@@ -183,5 +177,9 @@ public class SpecialServices {
             System.out.println(subject.getId());
         }
 
+    }
+
+    private Special getById(int id) {
+        return specialRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
     }
 }
