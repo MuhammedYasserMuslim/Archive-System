@@ -5,6 +5,7 @@ import com.spring.model.dto.special.DecisionDto;
 import com.spring.model.entity.Decision;
 import org.mapstruct.Mapper;
 
+
 @Mapper
 public interface DecisionMapper {
 

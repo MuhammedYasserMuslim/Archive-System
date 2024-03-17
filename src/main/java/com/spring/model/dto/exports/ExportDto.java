@@ -26,7 +26,6 @@ public class ExportDto {
 
     private Integer no;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @CreationTimestamp
     private Date date; //تاريخ
     private Byte numberOfAttachments; //عدد الموافقات
 

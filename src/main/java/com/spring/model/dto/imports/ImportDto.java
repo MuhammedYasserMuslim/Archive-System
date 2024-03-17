@@ -11,7 +11,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,7 +26,6 @@ public class ImportDto {
 
     private Integer no;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @CreationTimestamp
     private Date incomeDate; //تاريخ الورود
     private Byte numberOfAttachments; //عدد الموافقات
 

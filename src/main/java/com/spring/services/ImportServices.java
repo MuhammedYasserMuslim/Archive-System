@@ -11,7 +11,6 @@ import com.spring.model.entity.Import;
 import com.spring.model.mapper.ArchiveFileMapper;
 import com.spring.model.mapper.ImportMapper;
 import com.spring.repository.ImportRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -21,22 +20,25 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+
 @Service
 public class ImportServices {
 
-    @Autowired
-    private ImportRepository importRepository;
-    @Autowired
-    private ArchiveFileServices archiveFileServices;
-    @Autowired
-    private ArchiveFileMapper archiveFileMapper;
-    @Autowired
-    private ImportMapper importMapper;
+    private final ImportRepository importRepository;
+    private final ArchiveFileServices archiveFileServices;
+    private final ArchiveFileMapper archiveFileMapper;
+    private final ImportMapper importMapper;
     private final ExportServices exportServices;
 
+
+
     @Lazy
-    public ImportServices(ExportServices exportServices) {
+    public ImportServices(ExportServices exportServices, ImportRepository importRepository, ArchiveFileServices archiveFileServices, ArchiveFileMapper archiveFileMapper, ImportMapper importMapper) {
         this.exportServices = exportServices;
+        this.importRepository = importRepository;
+        this.archiveFileServices = archiveFileServices;
+        this.archiveFileMapper = archiveFileMapper;
+        this.importMapper = importMapper;
     }
 
     /**
@@ -228,11 +230,8 @@ public class ImportServices {
         importa.setIncomeDate(dto.getIncomeDate());
         importa.setRecipientName(dto.getRecipientName());
         importa.setRecipientDate(dto.getRecipientDate());
-        importa.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
-                ((byte) 1,
-                        importa.getArchiveFile().getNum())));
-        importa.setExport(importRepository.findById(dto.getId()).get().getExport());
-
+        importa.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum((byte) 1, importa.getArchiveFile().getNum())));
+        importa.setExport(getById(dto.getId()).getExport());
         importa.setCreatedBy(getById(id).getCreatedBy());
         importa.setCreatedDate(getById(id).getCreatedDate());
 

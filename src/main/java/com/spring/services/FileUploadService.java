@@ -2,6 +2,7 @@ package com.spring.services;
 
 
 import com.spring.exception.FileStorageException;
+import com.spring.exception.IOEException;
 import com.spring.exception.RecordNotFountException;
 import com.spring.model.entity.Export;
 import com.spring.model.entity.Image;
@@ -21,6 +22,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -69,11 +71,11 @@ public class FileUploadService {
      * @return File
      */
     public File convertMultiPartFileToFile(final MultipartFile multipartFile) {
-        final File file = new File(multipartFile.getOriginalFilename());
+        final File file = new File(Objects.requireNonNull(multipartFile.getOriginalFilename()));
         try (final FileOutputStream outputStream = new FileOutputStream(file)) {
             outputStream.write(multipartFile.getBytes());
         } catch (final IOException ex) {
-            log.error("Error converting the multi-part file to file= ", ex.getMessage());
+            throw new IOEException("Error converting the multi-part file to file ");
         }
         return file;
     }

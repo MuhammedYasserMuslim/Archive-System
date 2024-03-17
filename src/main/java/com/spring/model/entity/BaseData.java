@@ -17,6 +17,5 @@ public class BaseData {
 
     @Id
     private Byte id;
-
     private String imagesPath;
 }

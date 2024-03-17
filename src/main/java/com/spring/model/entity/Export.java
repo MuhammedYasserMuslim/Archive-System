@@ -25,7 +25,6 @@ public class Export extends BaseEntity {
 
     @Column(name = "date")
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @CreationTimestamp
     private Date date; //تاريخ
 
     @Column(name = "number_of_attachments", nullable = false)

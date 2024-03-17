@@ -11,7 +11,6 @@ import com.spring.model.entity.Import;
 import com.spring.model.mapper.ArchiveFileMapper;
 import com.spring.model.mapper.ExportMapper;
 import com.spring.repository.ExportRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,20 +25,20 @@ import java.util.List;
 @Service
 public class ExportServices {
 
-    @Autowired
-    private ExportRepository exportRepository;
-    @Autowired
-    private ArchiveFileServices archiveFileServices;
-    @Autowired
-    private ArchiveFileMapper archiveFileMapper;
-    @Autowired
-    private ExportMapper exportMapper;
+    private final ExportRepository exportRepository;
+    private final ArchiveFileServices archiveFileServices;
+    private final ArchiveFileMapper archiveFileMapper;
+    private final ExportMapper exportMapper;
     private final ImportServices importServices;
 
 
     @Lazy
-    public ExportServices(ImportServices importServices) {
+    public ExportServices(ImportServices importServices, ExportMapper exportMapper, ArchiveFileMapper archiveFileMapper, ArchiveFileServices archiveFileServices, ExportRepository exportRepository) {
         this.importServices = importServices;
+        this.exportMapper = exportMapper;
+        this.archiveFileMapper = archiveFileMapper;
+        this.archiveFileServices = archiveFileServices;
+        this.exportRepository = exportRepository;
     }
 
     /**
@@ -165,7 +164,7 @@ public class ExportServices {
     public void update(ExportDtoPost dto, int id) {
         dto.setId(id);
         Export export = exportMapper.mapToEntity(dto);
-        Export ex = exportRepository.findById(id).get();
+        Export ex = getById(id);
         dto.setTypeNumber((byte) 2);
         export.setId(dto.getId());
         export.setNo(ex.getNo());
@@ -174,9 +173,9 @@ public class ExportServices {
         export.setDate(dto.getDate());
         export.setRecipientName(dto.getRecipientName());
         export.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum((byte) 2, export.getArchiveFile().getNum())));
-        export.setAimport(exportRepository.findById(dto.getId()).get().getAimport());
-        export.setCreatedBy(exportRepository.findById(dto.getId()).get().getCreatedBy());
-        export.setCreatedDate(exportRepository.findById(dto.getId()).get().getCreatedDate());
+        export.setAimport(getById(dto.getId()).getAimport());
+        export.setCreatedBy(getById(dto.getId()).getCreatedBy());
+        export.setCreatedDate(getById(dto.getId()).getCreatedDate());
         exportRepository.save(export);
     }
 
@@ -186,7 +185,7 @@ public class ExportServices {
      */
     //@CacheEvict(value = "findAllExports", key = "#root.methodName", allEntries = true)
     public void addUrgent(ExportDtoPost dto, int id) {
-        Export export = exportRepository.findById(id).get();
+        Export export =getById(id);
         if (export.getUrgentNum() == null) {
             List<Export> exports = exportRepository.findAll();
             insert(dto);
@@ -203,7 +202,7 @@ public class ExportServices {
      */
     // @CacheEvict(value = "findAllExports", key = "#root.methodName", allEntries = true)
     public void addResponse(ImportDtoPost dto, int id) {
-        Export export = exportRepository.findById(id).get();
+        Export export = getById(id);
         if (export.getAimport() == null) {
             importServices.insert(dto);
             export.setAimport(
@@ -223,5 +222,7 @@ public class ExportServices {
         return exportRepository.findByYearDate(year).size();
     }
 
-
+    private Export getById(int id) {
+        return exportRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
+    }
 }

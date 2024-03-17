@@ -9,7 +9,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,7 +27,6 @@ public class SpecialDto {
     private Integer importNum;
     private String summary;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @CreationTimestamp
     private Date incomeDate;
 
     private String sender;
@@ -59,8 +57,6 @@ public class SpecialDto {
         }
         return dtos;
     }
-
-
 
 
 }

@@ -25,7 +25,6 @@ public class Import extends BaseEntity {
     private Integer no;
 
     @Column(name = "income_date")
-    @CreationTimestamp
     private Date incomeDate; //تاريخ الورود
 
 
