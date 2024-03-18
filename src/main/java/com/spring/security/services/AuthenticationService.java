@@ -52,9 +52,8 @@ public class AuthenticationService {
     }
 
     /**
-     * @param authorities
+     * @param authorities find user role
      * @return userRole
-     * used to find user role
      */
     private String getAuthority(Set<Authority> authorities) {
         List<Authority> list = new ArrayList<>(authorities);
@@ -62,7 +61,7 @@ public class AuthenticationService {
         for (Authority authority : list) {
             if (authority.getName().equals("ROLE_ADMIN"))
                 return "admin";
-            if (authority.getName().equals("ROLE_MANGER"))
+            if (authority.getName().equals("ROLE_MANAGER"))
                 return "manager";
             if (authority.getName().equals("ROLE_USER"))
                 return "user";

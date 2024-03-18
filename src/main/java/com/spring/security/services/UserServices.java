@@ -62,7 +62,7 @@ public class UserServices {
     }
 
     /**
-     * @param id
+     * @param id find user by
      * @return user by id
      */
     public UserResponse findById(byte id) {
@@ -95,8 +95,10 @@ public class UserServices {
     }
 
     /**
+     * @deprecated
      * @param user,id add new user
      */
+    @Deprecated
     public void save(AppUser user, int id) {
         user.setIsActive(1);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -108,7 +110,7 @@ public class UserServices {
      */
     public void update(AppUser user) {
 
-        user.setAuthorities(userRepository.findById(user.getId()).get().getAuthorities());
+        user.setAuthorities(getById(user.getId()).getAuthorities());
         user.setIsActive(1);
         user.setPassword((user.getPassword()));
         this.userRepository.save(user);
@@ -123,10 +125,10 @@ public class UserServices {
         user.setFirstName(dto.getFirstName());
         user.setLastName(dto.getLastName());
         user.setUsername(dto.getUsername());
-        user.setAuthorities(userRepository.findById(id).get().getAuthorities());
-        user.setIsActive(userRepository.findById(id).get().getIsActive());
-        user.setImagePath(userRepository.findById(id).get().getImagePath());
-        user.setPassword(userRepository.findById(id).get().getPassword());
+        user.setAuthorities(getById(id).getAuthorities());
+        user.setIsActive(getById(id).getIsActive());
+        user.setImagePath(getById(id).getImagePath());
+        user.setPassword(getById(id).getPassword());
         this.userRepository.save(user);
     }
 
@@ -146,14 +148,14 @@ public class UserServices {
      * @param id,password used to change password by admin
      */
     public void changePassword(byte id, Pass password) {
-        AppUser user = userRepository.findById(id).get();
+        AppUser user = getById(id);
         user.setPassword(passwordEncoder.encode(password.getNewPassword()));
         userRepository.save(user);
     }
 
     /**
-     * @param username
-     * @return user by username
+     * @param username find user by
+     * @return user
      */
     public AppUser findByUserName(String username) {
         if (userRepository.findByUsername(username).isPresent())
@@ -184,6 +186,10 @@ public class UserServices {
             userRepository.save(user);
         } else
             throw new UsernameNotFoundException("This user id Not Exist");
+    }
+
+    private AppUser getById(Byte id) {
+        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
     }
 
 

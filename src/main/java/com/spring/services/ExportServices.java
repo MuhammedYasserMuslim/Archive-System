@@ -60,26 +60,15 @@ public class ExportServices {
      */
     //  @Cacheable(value = "findAllExports", key = "#root.methodName")
     public List<ExportDto> findAll() {
-        List<Export> exports = exportRepository.findAll();
-        List<ExportDto> dtos = new ArrayList<>();
-        for (Export export : exports) {
-            dtos.add(exportMapper.mapToDto(export));
-        }
-        return dtos;
+      return mapListToDto(exportRepository.findAll());
     }
 
     /**
      * @return exports in current year
      */
     public List<ExportDto> findByYear() {
-        List<Export> exports = exportRepository.findByYear();
-        List<ExportDto> dtos = new ArrayList<>();
-        for (Export export : exports)
-            dtos.add(exportMapper.mapToDto(export));
-        Collections.reverse(dtos);
-        return dtos;
+        return reverseList(mapListToDto(exportRepository.findByYear()));
     }
-
     /**
      * @param page number of page in pagination
      * @return exports in current year for pagination
@@ -89,35 +78,24 @@ public class ExportServices {
         List<Export> exports = exportRepository.findByYear(pageable).getContent();
         return exportMapper.mapToDto(exports.get(0));
     }
-
     /**
      * @param id to find export by
      * @return exports by id
      */
     //@Cacheable(value = "findAllExports", key = "#root.methodName")
     public ExportDto findById(int id) {
-
         if (exportRepository.findById(id).isPresent()) {
             Export export = exportRepository.findById(id).get();
             return exportMapper.mapToDto(export);
         } else
             throw new RecordNotFountException("Your search -" + id + " - did not match any documents.");
-
-
     }
 
     /**
      * @return today exports
      */
     public List<ExportDto> findByDate() {
-
-        List<Export> exports = exportRepository.findByDate();
-        List<ExportDto> dtos = new ArrayList<>();
-        for (Export export : exports) {
-            dtos.add(exportMapper.mapToDto(export));
-        }
-        return dtos;
-
+        return mapListToDto(exportRepository.findByDate());
     }
 
     /**
@@ -134,7 +112,6 @@ public class ExportServices {
 
         return dtos;
     }
-
     /**
      * @param dto add new export file
      */
@@ -150,7 +127,6 @@ public class ExportServices {
         exportRepository.save(export);
         System.out.println(exports.get(exports.size() - 1).getNo());
     }
-
 
     /**
      * @param dto take new values
@@ -220,5 +196,17 @@ public class ExportServices {
 
     private Export getById(int id) {
         return exportRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
+    }
+
+    private List<ExportDto> mapListToDto(List<Export>exports){
+        List<ExportDto> dtos = new ArrayList<>();
+        for (Export export : exports)
+            dtos.add(exportMapper.mapToDto(export));
+        return dtos;
+    }
+
+    private List<ExportDto> reverseList(List<ExportDto> dtos) {
+        Collections.reverse(dtos);
+        return dtos;
     }
 }

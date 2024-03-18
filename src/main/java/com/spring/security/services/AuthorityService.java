@@ -14,9 +14,7 @@ public class AuthorityService {
     private final AuthorityRepository authorityRepository;
 
     /**
-     * used to add new authority
-     *
-     * @param authority
+     * @param authority add new authority
      */
     public void insert(Authority authority) {
         authorityRepository.save(authority);

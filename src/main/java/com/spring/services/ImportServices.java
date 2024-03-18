@@ -31,7 +31,6 @@ public class ImportServices {
     private final ExportServices exportServices;
 
 
-
     @Lazy
     public ImportServices(ExportServices exportServices, ImportRepository importRepository, ArchiveFileServices archiveFileServices, ArchiveFileMapper archiveFileMapper, ImportMapper importMapper) {
         this.exportServices = exportServices;
@@ -88,23 +87,14 @@ public class ImportServices {
      */
     //@Cacheable(value = "findAllImports", key = "#root.methodName")
     public List<ImportDto> findAll() {
-        List<Import> imports = importRepository.findAll();
-        List<ImportDto> dtos = new ArrayList<>();
-        for (Import anImport : imports)
-            dtos.add(importMapper.mapToDto(anImport));
-        return dtos;
+        return mapListToDto(importRepository.findAll());
     }
 
     /**
      * @return imports in current year
      */
     public List<ImportDto> findByYear() {
-        List<Import> imports = importRepository.findByYear();
-        List<ImportDto> dtos = new ArrayList<>();
-        for (Import anImport : imports)
-            dtos.add(importMapper.mapToDto(anImport));
-        Collections.reverse(dtos);
-        return dtos;
+        return reverseList(mapListToDto(importRepository.findByYear()));
     }
 
     /**
@@ -133,55 +123,35 @@ public class ImportServices {
      * @return today imports
      */
     public List<ImportDto> findByIncomeDate() {
-        List<Import> imports = importRepository.findByIncomeDate();
-        List<ImportDto> dtos = new ArrayList<>();
-        for (Import anImport : imports)
-            dtos.add(importMapper.mapToDto(anImport));
-        return dtos;
+        return mapListToDto(importRepository.findByIncomeDate());
     }
 
     /**
      * @return imports time has come
      */
     public List<ImportDto> findItIsTime() {
-        List<Import> imports = importRepository.findItIsTime();
-        List<ImportDto> dtos = new ArrayList<>();
-        for (Import anImport : imports)
-            dtos.add(importMapper.mapToDto(anImport));
-        return dtos;
+        return mapListToDto(importRepository.findItIsTime());
     }
 
     /**
      * @return imports time has not come
      */
     public List<ImportDto> findItIsNotTime() {
-        List<Import> imports = importRepository.findItIsNotTime();
-        List<ImportDto> dtos = new ArrayList<>();
-        for (Import anImport : imports)
-            dtos.add(importMapper.mapToDto(anImport));
-        return dtos;
+        return mapListToDto(importRepository.findItIsNotTime());
     }
 
     /**
      * @return imports time has passed
      */
     public List<ImportDto> findPassedDate() {
-        List<Import> imports = importRepository.findPassedDate();
-        List<ImportDto> dtos = new ArrayList<>();
-        for (Import anImport : imports)
-            dtos.add(importMapper.mapToDto(anImport));
-        return dtos;
+        return mapListToDto(importRepository.findPassedDate());
     }
 
     /**
      * @return important imports file
      */
     public List<ImportDto> findImportantFile() {
-        List<Import> imports = importRepository.findImportantFile();
-        List<ImportDto> dtos = new ArrayList<>();
-        for (Import anImport : imports)
-            dtos.add(importMapper.mapToDto(anImport));
-        return dtos;
+        return mapListToDto(importRepository.findImportantFile());
     }
 
     /**
@@ -262,5 +232,17 @@ public class ImportServices {
 
     private Import getById(int id) {
         return importRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
+    }
+
+    private List<ImportDto> mapListToDto(List<Import> imports) {
+        List<ImportDto> dtos = new ArrayList<>();
+        for (Import importa : imports)
+            dtos.add(importMapper.mapToDto(importa));
+        return dtos;
+    }
+
+    private List<ImportDto> reverseList(List<ImportDto> dtos) {
+        Collections.reverse(dtos);
+        return dtos;
     }
 }
