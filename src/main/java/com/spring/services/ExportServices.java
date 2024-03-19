@@ -16,10 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 @Service
@@ -60,7 +57,7 @@ public class ExportServices {
      */
     //  @Cacheable(value = "findAllExports", key = "#root.methodName")
     public List<ExportDto> findAll() {
-      return mapListToDto(exportRepository.findAll());
+        return mapListToDto(exportRepository.findAll());
     }
 
     /**
@@ -69,14 +66,23 @@ public class ExportServices {
     public List<ExportDto> findByYear() {
         return reverseList(mapListToDto(exportRepository.findByYear()));
     }
+
+    public Export findByNo(int no) {
+        if (no <= findByYear().size())
+            return exportRepository.findByYear().get(no - 1);
+        else
+            throw new RecordNotFountException("This record with no :" + no + " Not Found");
+    }
+
     /**
      * @param page number of page in pagination
      * @return exports in current year for pagination
      */
-    public List<ExportDto> findAllPaginationByYear(int page) {
+    public ExportDto findAllPaginationByYear(int page) {
         Pageable pageable = PageRequest.of(page, 1);
-        return mapListToDto(exportRepository.findByYear(pageable).getContent());
+        return exportMapper.mapToDto(exportRepository.findByYear(pageable).getContent().get(0));
     }
+
     /**
      * @param id to find export by
      * @return exports by id
@@ -111,6 +117,7 @@ public class ExportServices {
 
         return dtos;
     }
+
     /**
      * @param dto add new export file
      */
@@ -156,15 +163,15 @@ public class ExportServices {
      */
     //@CacheEvict(value = "findAllExports", key = "#root.methodName", allEntries = true)
     public void addUrgent(ExportDtoPost dto, int id) {
-        Export export =getById(id);
+        Export export = findByNo(id);
         if (export.getUrgentNum() == null) {
-            List<Export> exports = exportRepository.findAll();
+            List<Export> exports = exportRepository.findByYear();
             insert(dto);
             export.setUrgentNum(exports.get(exports.size() - 1).getNo() + 1);
-            export.setUrgentDate(new Date());
+            export.setUrgentDate(dto.getDate());
             exportRepository.save(export);
         } else
-            throw new ConflictException("This File has Urgent Number is " + export.getUrgentNum());
+            throw new ConflictException("This File has Urgent Number : " + export.getUrgentNum());
     }
 
     /**
@@ -197,7 +204,7 @@ public class ExportServices {
         return exportRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
     }
 
-    private List<ExportDto> mapListToDto(List<Export>exports){
+    private List<ExportDto> mapListToDto(List<Export> exports) {
         List<ExportDto> dtos = new ArrayList<>();
         for (Export export : exports)
             dtos.add(exportMapper.mapToDto(export));

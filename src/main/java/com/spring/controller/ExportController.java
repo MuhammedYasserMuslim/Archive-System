@@ -46,7 +46,7 @@ public class ExportController {
     }
 
     @GetMapping("/exports-pagination")
-    public ResponseEntity<List<ExportDto>> findAllPagination(@RequestParam int page) {
+    public ResponseEntity<ExportDto> findAllPagination(@RequestParam int page) {
         return new ResponseEntity<>(exportServices.findAllPaginationByYear(page - 1), HttpStatus.OK);
     }
 

@@ -32,8 +32,8 @@ public class SpecialController {
     }
 
     @GetMapping("/specials-pagination")
-    public ResponseEntity<List<SpecialDto>> findAllPagination(@RequestParam int page) {
-        return new ResponseEntity<>(specialServices.findAllPaginationByYear(page - 1), HttpStatus.OK);
+    public ResponseEntity<SpecialDto> findAllPagination(@RequestParam int page) {
+        return new ResponseEntity<>(specialServices.findAllPagination(page - 1), HttpStatus.OK);
     }
 
 
