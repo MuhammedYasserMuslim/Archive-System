@@ -3,7 +3,6 @@ package com.spring.controller;
 import com.spring.model.dto.exports.ExportDto;
 import com.spring.model.dto.exports.ExportDtoPost;
 import com.spring.model.dto.imports.ImportDtoPost;
-import com.spring.model.entity.Export;
 import com.spring.services.ExportServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -12,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Tag(name = "Export Apis")
@@ -48,7 +46,7 @@ public class ExportController {
     }
 
     @GetMapping("/exports-pagination")
-    public ResponseEntity<ExportDto> findAllPagination(@RequestParam int page) {
+    public ResponseEntity<List<ExportDto>> findAllPagination(@RequestParam int page) {
         return new ResponseEntity<>(exportServices.findAllPaginationByYear(page - 1), HttpStatus.OK);
     }
 

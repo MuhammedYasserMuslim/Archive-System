@@ -44,10 +44,9 @@ public class SpecialServices {
      * @param page number of page in pagination
      * @return specials in current year for pagination
      */
-    public SpecialDto findAllPagination(int page) {
+    public List<SpecialDto> findAllPaginationByYear(int page) {
         Pageable pageable = PageRequest.of(page, 1);
-        List<Special> specials = specialRepository.findByYear(pageable).getContent();
-        return specialMapper.mapToDto(specials.get(0));
+        return mapListToDto(specialRepository.findByYear(pageable).getContent());
     }
 
 

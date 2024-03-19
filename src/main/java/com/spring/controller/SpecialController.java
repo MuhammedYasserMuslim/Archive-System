@@ -1,6 +1,5 @@
 package com.spring.controller;
 
-import com.spring.model.dto.exports.ExportDto;
 import com.spring.model.dto.special.SpecialDto;
 import com.spring.model.dto.special.SpecialDtoPost;
 import com.spring.services.SpecialServices;
@@ -31,9 +30,10 @@ public class SpecialController {
     public ResponseEntity<List<SpecialDto>> findAll() {
         return new ResponseEntity<>(specialServices.findAll(), HttpStatus.OK);
     }
+
     @GetMapping("/specials-pagination")
-    public ResponseEntity<SpecialDto> findAllPagination(@RequestParam int page) {
-        return new ResponseEntity<>(specialServices.findAllPagination(page-1), HttpStatus.OK);
+    public ResponseEntity<List<SpecialDto>> findAllPagination(@RequestParam int page) {
+        return new ResponseEntity<>(specialServices.findAllPaginationByYear(page - 1), HttpStatus.OK);
     }
 
 
