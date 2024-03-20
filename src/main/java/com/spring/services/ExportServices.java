@@ -67,12 +67,6 @@ public class ExportServices {
         return reverseList(mapListToDto(exportRepository.findByYear()));
     }
 
-    public Export findByNo(int no) {
-        if (no <= findByYear().size())
-            return exportRepository.findByYear().get(no - 1);
-        else
-            throw new RecordNotFountException("This record with no :" + no + " Not Found");
-    }
 
     /**
      * @param page number of page in pagination
@@ -131,7 +125,6 @@ public class ExportServices {
                 (export.getArchiveFile().getTypeNumber(),
                         export.getArchiveFile().getNum())));
         exportRepository.save(export);
-        System.out.println(exports.get(exports.size() - 1).getNo());
     }
 
     /**
@@ -163,9 +156,9 @@ public class ExportServices {
      */
     //@CacheEvict(value = "findAllExports", key = "#root.methodName", allEntries = true)
     public void addUrgent(ExportDtoPost dto, int id) {
-        Export export = findByNo(id);
+        Export export = getById(id);
         if (export.getUrgentNum() == null) {
-            List<Export> exports = exportRepository.findByYear();
+            List<Export> exports = exportRepository.findAll();
             insert(dto);
             export.setUrgentNum(exports.get(exports.size() - 1).getNo() + 1);
             export.setUrgentDate(dto.getDate());
