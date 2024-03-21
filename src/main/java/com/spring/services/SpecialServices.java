@@ -37,7 +37,7 @@ public class SpecialServices {
      * @return all specials in all years
      */
     public List<SpecialDto> findAll() {
-        return mapListToDto(specialRepository.findAll());
+        return specialMapper.mapListToDto(specialRepository.findAll());
     }
 
     /**
@@ -54,7 +54,7 @@ public class SpecialServices {
      * @return specials in current year
      */
     public List<SpecialDto> findByYear() {
-        return reverseList(mapListToDto(specialRepository.findByYear()));
+        return reverseList(specialMapper.mapListToDto(specialRepository.findByYear()));
     }
 
     /**
@@ -167,15 +167,10 @@ public class SpecialServices {
     }
 
     private Special getById(int id) {
-        return specialRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
+        return specialRepository.findById(id).orElseThrow(() -> new RecordNotFountException("Not Found"));
     }
 
-    private List<SpecialDto> mapListToDto(List<Special> specials) {
-        List<SpecialDto> dtos = new ArrayList<>();
-        for (Special special : specials)
-            dtos.add(specialMapper.mapToDto(special));
-        return dtos;
-    }
+
 
     private List<SpecialDto> reverseList(List<SpecialDto> dtos) {
         Collections.reverse(dtos);

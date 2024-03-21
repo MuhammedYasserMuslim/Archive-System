@@ -3,7 +3,6 @@ package com.spring.model.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 import java.util.List;
@@ -21,16 +20,14 @@ public class Import extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id; // رقم الملف
 
-    @Column(name = "no" , nullable = false )
+    @Column(name = "no", nullable = false)
     private Integer no;
 
-    @Column(name = "income_date" , nullable = false)
+    @Column(name = "income_date", nullable = false)
     private Date incomeDate; //تاريخ الورود
 
-
-
     @OneToMany(mappedBy = "anImport")
-    private List<Image> images ;
+    private List<Image> images;
 
     @Column(name = "sender")
     private String sender; //الجهة الوارد منها الخطاب
@@ -42,7 +39,7 @@ public class Import extends BaseEntity {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date incomingLetterDate;//تاريخ الخطاب الوارد
 
-    @Column(name = "summary")
+    @Column(name = "summary", nullable = false)
     private String summary;//ملخص الخطاب
 
     @Column(name = "recipient_name")
@@ -51,14 +48,12 @@ public class Import extends BaseEntity {
     @Column(name = "recipient_date")
     private Date recipientDate; // تاريخ الاستلام
 
-    @Column(name = "number_of_attachments" , nullable = false)
+    @Column(name = "number_of_attachments", nullable = false)
     private Byte numberOfAttachments; //عدد الموافقات
 
     @OneToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "response_id",referencedColumnName = "id")
+    @JoinColumn(name = "response_id", referencedColumnName = "id")
     private Export export;
-
-
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "archive_file_id")

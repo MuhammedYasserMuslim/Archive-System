@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.util.Date;
 import java.util.List;
 
+
 @Setter
 @Getter
 @Entity
@@ -36,7 +37,7 @@ public class Export extends BaseEntity {
     @Column(name = "receiver")
     private String receiver; //الجهة الصادر منها الخطاب
 
-    @Column(name = "summary")
+    @Column(name = "summary" ,nullable = false)
     private String summary;//ملخص الخطاب
 
     @Column(name = "recipient_name")

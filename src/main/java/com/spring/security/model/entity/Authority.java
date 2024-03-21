@@ -30,8 +30,4 @@ public class Authority {
     private Set<AppUser> users = new HashSet<>();
 
 
-    public Authority(Byte id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 }

@@ -28,6 +28,7 @@ public class Special extends BaseEntity {
     @Column(name = "import_num")
     private Integer importNum;
 
+    @Column(name = "summary",nullable = false)
     private String summary;
 
     @Column(name = "income_date" , nullable = false)

@@ -87,14 +87,14 @@ public class ImportServices {
      */
     //@Cacheable(value = "findAllImports", key = "#root.methodName")
     public List<ImportDto> findAll() {
-        return mapListToDto(importRepository.findAll());
+        return importMapper.mapListToDto(importRepository.findAll());
     }
 
     /**
      * @return imports in current year
      */
     public List<ImportDto> findByYear() {
-        return reverseList(mapListToDto(importRepository.findByYear()));
+        return reverseList(importMapper.mapListToDto(importRepository.findByYear()));
     }
 
     /**
@@ -121,35 +121,35 @@ public class ImportServices {
      * @return today imports
      */
     public List<ImportDto> findByIncomeDate() {
-        return mapListToDto(importRepository.findByIncomeDate());
+        return importMapper.mapListToDto(importRepository.findByIncomeDate());
     }
 
     /**
      * @return imports time has come
      */
     public List<ImportDto> findItIsTime() {
-        return mapListToDto(importRepository.findItIsTime());
+        return importMapper.mapListToDto(importRepository.findItIsTime());
     }
 
     /**
      * @return imports time has not come
      */
     public List<ImportDto> findItIsNotTime() {
-        return mapListToDto(importRepository.findItIsNotTime());
+        return importMapper.mapListToDto(importRepository.findItIsNotTime());
     }
 
     /**
      * @return imports time has passed
      */
     public List<ImportDto> findPassedDate() {
-        return mapListToDto(importRepository.findPassedDate());
+        return importMapper.mapListToDto(importRepository.findPassedDate());
     }
 
     /**
      * @return important imports file
      */
     public List<ImportDto> findImportantFile() {
-        return mapListToDto(importRepository.findImportantFile());
+        return importMapper.mapListToDto(importRepository.findImportantFile());
     }
 
     /**
@@ -232,12 +232,6 @@ public class ImportServices {
         return importRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
     }
 
-    private List<ImportDto> mapListToDto(List<Import> imports) {
-        List<ImportDto> dtos = new ArrayList<>();
-        for (Import importa : imports)
-            dtos.add(importMapper.mapToDto(importa));
-        return dtos;
-    }
 
     private List<ImportDto> reverseList(List<ImportDto> dtos) {
         Collections.reverse(dtos);

@@ -32,12 +32,7 @@ public class ArchiveFileServices {
 
     //@Cacheable(value = "findAllArchive", key = "#root.methodName")//saved in cache
     public List<ArchiveFileDto> findAll() {
-        List<ArchiveFile> archiveFiles = archiveFileRepository.findAll();
-        List<ArchiveFileDto> dtos = new ArrayList<>();
-        for (ArchiveFile archiveFile : archiveFiles) {
-            dtos.add(archiveFileMapper.mapToDto(archiveFile));
-        }
-        return dtos;
+        return archiveFileMapper.mapListToDto(archiveFileRepository.findAll());
     }
 
     /**
@@ -57,12 +52,7 @@ public class ArchiveFileServices {
      */
     public List<ArchiveFileDto> findByTypeNumber(Byte typeNumber) {
         if (typeNumber == 1 || typeNumber == 2 || typeNumber == 3) {
-            List<ArchiveFile> archiveFiles = archiveFileRepository.findByTypeNumber(typeNumber);
-            List<ArchiveFileDto> dtos = new ArrayList<>();
-            for (ArchiveFile archiveFile : archiveFiles) {
-                dtos.add(archiveFileMapper.mapToDto(archiveFile));
-            }
-            return dtos;
+            return archiveFileMapper.mapListToDto(archiveFileRepository.findByTypeNumber(typeNumber));
         } else
             throw new RecordNotFountException("This Record With Type Number " + typeNumber + " Not Found");
 
@@ -73,15 +63,9 @@ public class ArchiveFileServices {
      * @return archiveFile by name
      */
     public List<ArchiveFileDto> findByNameContaining(String name) {
-        if (!archiveFileRepository.findByNameContaining(name).isEmpty()) {
-            List<ArchiveFile> archiveFiles = archiveFileRepository.findByNameContaining(name);
-            List<ArchiveFileDto> dtos = new ArrayList<>();
-            for (ArchiveFile archiveFile : archiveFiles) {
-                dtos.add(archiveFileMapper.mapToDto(archiveFile));
-            }
-            return dtos;
-
-        } else
+        if (!archiveFileRepository.findByNameContaining(name).isEmpty())
+            return archiveFileMapper.mapListToDto(archiveFileRepository.findByNameContaining(name));
+        else
             throw new RecordNotFountException("This Record With name " + name + " Not Found");
 
     }

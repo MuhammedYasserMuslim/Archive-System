@@ -25,36 +25,54 @@ public class ImportDto {
     private Integer id; // رقم الملف
 
     private Integer no;
+
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date incomeDate; //تاريخ الورود
+
     private Byte numberOfAttachments; //عدد الموافقات
+
+    private String createdBy;
 
     @JsonIgnore
     private List<Image> images;
+
     private List<String> paths;
+
     private String sender; //الجهة الوارد منها الخطاب
+
     private Short incomingLetterNumber; //رقم الخطاب الوارد
+
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date incomingLetterDate;//تاريخ الخطاب الوارد
+
     private String summary;//ملخص الخطاب
+
     private String recipientName;//توقيع المستلم
+
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date recipientDate; // تاريخ الاستلام
 
     //Export
     @JsonBackReference
     private ExportDto export;
+
     private Integer responseNumber; // رقم الرد
+
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date responseDate; //تاريخ الرد
+
     private String responseSide; //الجهة الصادر اليها الخطاب
 
     // ArchiveFileDto
     @JsonBackReference
     private ArchiveFileDto archiveFile;
+
     private Short archiveId;
+
     private Byte typeNumber;
+
     private Short num;
+
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date expectResponseDate;
 

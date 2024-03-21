@@ -18,11 +18,16 @@ import java.util.Set;
 public class ArchiveFileDto {
 
     private Short id;
+
     private Short num;
+
     private String name;
+
     private Byte typeNumber;
+
     @JsonIgnore
     private Set<Import> imports;
+
     @JsonIgnore
     private Set<Export> exports;
 

@@ -24,8 +24,11 @@ public class SpecialDto {
     private Integer id;
 
     private Integer no;
+
     private Integer importNum;
+
     private String summary;
+
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date incomeDate;
 
@@ -33,19 +36,25 @@ public class SpecialDto {
 
     @JsonBackReference
     private List<Image> images;
+
     private List<String> paths;
+
     private Byte numberOfAttachments;
 
     @JsonBackReference
     private List<Subject> subject;
+
     private List<SubjectDto> subjects;
 
+    private String createdBy;
 
     @JsonBackReference
     private ArchiveFileDto archiveFile;
 
     private Short archiveId;
+
     private Byte typeNumber;
+
     private Short num;
 
 

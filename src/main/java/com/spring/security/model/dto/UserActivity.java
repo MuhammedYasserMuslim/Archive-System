@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class UserActivity {
 
     private int id;
-
+    private int no ;
     private String summary;
 
     private String createdBy;

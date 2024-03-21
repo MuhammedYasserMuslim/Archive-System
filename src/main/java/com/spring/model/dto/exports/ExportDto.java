@@ -29,6 +29,8 @@ public class ExportDto {
     private Date date; //تاريخ
     private Byte numberOfAttachments; //عدد الموافقات
 
+    private String createdBy;
+
     @JsonBackReference
     private List<Image> images;
     private List<String> paths;
@@ -64,4 +66,6 @@ public class ExportDto {
         }
         return path;
     }
+
+
 }

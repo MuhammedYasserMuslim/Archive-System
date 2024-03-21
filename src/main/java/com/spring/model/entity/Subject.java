@@ -20,14 +20,15 @@ public class Subject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Column(name = "num")
     private Integer num;
+
     @Column(name = "head")
     private String head;
 
     @OneToMany(mappedBy = "subject", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.EAGER)
     private List<Decision> decision;
-
 
     @ManyToOne
     @JoinColumn(name = "special_id", referencedColumnName = "id")

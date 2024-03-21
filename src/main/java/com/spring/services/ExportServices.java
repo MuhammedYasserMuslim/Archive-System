@@ -57,14 +57,14 @@ public class ExportServices {
      */
     //  @Cacheable(value = "findAllExports", key = "#root.methodName")
     public List<ExportDto> findAll() {
-        return mapListToDto(exportRepository.findAll());
+        return exportMapper.mapListToDto(exportRepository.findAll());
     }
 
     /**
      * @return exports in current year
      */
     public List<ExportDto> findByYear() {
-        return reverseList(mapListToDto(exportRepository.findByYear()));
+        return reverseList(exportMapper.mapListToDto(exportRepository.findByYear()));
     }
 
     public Export findByNo(int no) {
@@ -100,7 +100,7 @@ public class ExportServices {
      * @return today exports
      */
     public List<ExportDto> findByDate() {
-        return mapListToDto(exportRepository.findByDate());
+        return exportMapper.mapListToDto(exportRepository.findByDate());
     }
 
     /**
@@ -109,13 +109,7 @@ public class ExportServices {
      */
     public List<ExportDto> findByArchiveFile(short id) {
         ArchiveFileDto dto = archiveFileServices.findById(id);
-        List<Export> exports = exportRepository.findByArchiveFile(archiveFileMapper.mapToEntity(dto));
-        List<ExportDto> dtos = new ArrayList<>();
-        for (Export export : exports) {
-            dtos.add(exportMapper.mapToDto(export));
-        }
-
-        return dtos;
+        return exportMapper.mapListToDto( exportRepository.findByArchiveFile(archiveFileMapper.mapToEntity(dto)));
     }
 
     /**
@@ -201,13 +195,6 @@ public class ExportServices {
 
     private Export getById(int id) {
         return exportRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
-    }
-
-    private List<ExportDto> mapListToDto(List<Export> exports) {
-        List<ExportDto> dtos = new ArrayList<>();
-        for (Export export : exports)
-            dtos.add(exportMapper.mapToDto(export));
-        return dtos;
     }
 
     private List<ExportDto> reverseList(List<ExportDto> dtos) {
