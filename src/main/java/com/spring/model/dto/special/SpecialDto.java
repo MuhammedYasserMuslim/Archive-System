@@ -67,5 +67,12 @@ public class SpecialDto {
         return dtos;
     }
 
+    public List<String> getPaths() {
+        List<String> path = new ArrayList<>();
+        for (Image im : this.images)
+            path.add(im.getImagePath());
+        return path;
+    }
+
 
 }

@@ -29,5 +29,8 @@ public class Authority {
     @JsonBackReference
     private Set<AppUser> users = new HashSet<>();
 
-
+    public Authority(Byte id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

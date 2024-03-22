@@ -1,5 +1,6 @@
 package com.spring.services;
 
+import com.spring.model.entity.BaseData;
 import com.spring.repository.BaseDataRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ public class BaseDataServices {
      * @return imagesPath
      * used to find image folder path
      */
+
     public String findBaseData() {
         return baseDataRepository.findBaseData();
     }
