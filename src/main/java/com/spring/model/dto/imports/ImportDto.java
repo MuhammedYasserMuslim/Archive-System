@@ -76,13 +76,20 @@ public class ImportDto {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date expectResponseDate;
 
+    private boolean isHasResponse;
+
 
     public List<String> getPaths() {
         List<String> path = new ArrayList<>();
-        for (Image im : this.images) {
+        for (Image im : this.images)
             path.add(im.getImagePath());
-        }
         return path;
     }
+
+    public boolean isHasResponse() {
+        return this.expectResponseDate != null && this.responseNumber == null;
+    }
+
+
 }
 

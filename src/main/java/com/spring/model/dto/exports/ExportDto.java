@@ -35,6 +35,9 @@ public class ExportDto {
     private List<Image> images;
     private List<String> paths;
 
+    private boolean isHasResponse;
+    private boolean isHasUrgent;
+
     private String receiver; //الجهة الصادر منها الخطاب
     private String summary;//ملخص الخطاب
     private String recipientName;// المستلم
@@ -61,11 +64,16 @@ public class ExportDto {
 
     public List<String> getPaths() {
         List<String> path = new ArrayList<>();
-        for (Image im : this.images) {
+        for (Image im : this.images)
             path.add(im.getImagePath());
-        }
         return path;
     }
 
+    public boolean isHasResponse() {
+        return this.responseNumber == null;
+    }
 
+    public boolean isHasUrgent() {
+        return this.urgentNum == null;
+    }
 }

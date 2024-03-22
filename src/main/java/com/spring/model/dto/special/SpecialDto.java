@@ -60,10 +60,8 @@ public class SpecialDto {
 
     public List<SubjectDto> getSubjects() {
         List<SubjectDto> dtos = new ArrayList<>();
-        for (Subject subject1 : this.subject) {
-            SubjectDto dto = new SubjectDto(subject1.getNum(), subject1.getHead(), subject1.getDecision());
-            dtos.add(dto);
-        }
+        for (Subject subject1 : this.subject)
+            dtos.add(new SubjectDto(subject1.getNum(), subject1.getHead(), subject1.getDecision()));
         return dtos;
     }
 
@@ -73,6 +71,8 @@ public class SpecialDto {
             path.add(im.getImagePath());
         return path;
     }
+
+
 
 
 }
