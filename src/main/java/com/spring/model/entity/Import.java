@@ -48,7 +48,7 @@ public class Import extends BaseEntity {
     @Column(name = "recipient_date")
     private Date recipientDate; // تاريخ الاستلام
 
-    @Column(name = "number_of_attachments", nullable = false)
+    @Column(name = "number_of_attachments", nullable = false )
     private Byte numberOfAttachments; //عدد الموافقات
 
     @OneToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
@@ -56,7 +56,7 @@ public class Import extends BaseEntity {
     private Export export;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "archive_file_id")
+    @JoinColumn(name = "archive_file_id", referencedColumnName = "id", nullable = false)
     private ArchiveFile archiveFile;
 
     @Column(name = "expect_response_date")

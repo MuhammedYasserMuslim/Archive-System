@@ -57,7 +57,7 @@ public class Export extends BaseEntity {
 
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "archive_file_id", referencedColumnName = "id")
+    @JoinColumn(name = "archive_file_id", referencedColumnName = "id" , nullable = false)
     private ArchiveFile archiveFile;
 
 
