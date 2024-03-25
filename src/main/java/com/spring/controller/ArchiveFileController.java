@@ -20,32 +20,31 @@ public class ArchiveFileController {
     private final ArchiveFileServices archiveFileServices;
 
     @GetMapping("/count")
-    @Operation(summary = "Get Archive Files Count ")
-    // @PreAuthorize("hasRole('MANGER') or hasRole('ADMIN') or hasRole('USER')")
+    @Operation(summary = "Show Archive Files Count ")
     public ResponseEntity<Long> count() {
         return new ResponseEntity<>(archiveFileServices.count(), HttpStatus.OK);
     }
 
     @GetMapping("/archives")
-    @Operation(summary = "Get All Archive Files")
+    @Operation(summary = "Show All Archive Files")
     public ResponseEntity<List<ArchiveFileDto>> findAll() {
         return new ResponseEntity<>(archiveFileServices.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/archive-id")
-    @Operation(summary = "Get Archive File By Id")
+    @Operation(summary = "Show Archive File By Id")
     public ResponseEntity<ArchiveFileDto> findById(@RequestParam short id) {
         return new ResponseEntity<>(archiveFileServices.findById(id), HttpStatus.OK);
     }
 
     @GetMapping("/archive-name")
-    @Operation(summary = "Get Archive File By Name")
+    @Operation(summary = "Show Archive File By Name")
     public ResponseEntity<List<ArchiveFileDto>> findByNameLike(String name) {
         return new ResponseEntity<>(archiveFileServices.findByNameContaining(name), HttpStatus.OK);
     }
 
     @GetMapping("/archive-num")
-    @Operation(summary = "Get Archive File By Number and Num")
+    @Operation(summary = "Show Archive File By Number and Num")
     public ResponseEntity<ArchiveFileDto> findByTypeNumberAndNum(@RequestParam Byte typeNumber, @RequestParam Short num) {
 
         return new ResponseEntity<>(archiveFileServices.findByTypeNumberAndNum(typeNumber, num), HttpStatus.OK);

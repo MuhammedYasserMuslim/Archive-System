@@ -45,6 +45,10 @@ public class ExportServices {
         return exportRepository.findByYear().size();
     }
 
+    public int countALl() {
+        return (int) exportRepository.count();
+    }
+
     /**
      * @return count today  exports
      */
@@ -177,7 +181,7 @@ public class ExportServices {
         if (export.getAimport() == null) {
             importServices.insert(dto);
             export.setAimport(
-                    new Import(importServices.count())
+                    new Import(importServices.countAll())
             );
             exportRepository.save(export);
         } else
@@ -201,4 +205,6 @@ public class ExportServices {
         Collections.reverse(dtos);
         return dtos;
     }
+
+
 }
