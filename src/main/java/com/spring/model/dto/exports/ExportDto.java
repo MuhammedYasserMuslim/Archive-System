@@ -41,7 +41,8 @@ public class ExportDto {
     private String receiver; //الجهة الصادر منها الخطاب
     private String summary;//ملخص الخطاب
     private String recipientName;// المستلم
-
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date recipientDate;//تاريخ الاستلام
     private Short urgentNum;// رقم الاستعجلات
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date urgentDate; //تاريخ الاستعجالات

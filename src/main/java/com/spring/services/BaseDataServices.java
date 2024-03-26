@@ -1,10 +1,10 @@
 package com.spring.services;
 
-import com.spring.model.entity.BaseData;
 import com.spring.repository.BaseDataRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,7 +22,15 @@ public class BaseDataServices {
         return baseDataRepository.findBaseData();
     }
 
+//    public List<String> findYears() {
+//        return baseDataRepository.findYears();
+//    }
+
+
     public List<String> findYears() {
-        return baseDataRepository.findYears();
+        List<String> years = new ArrayList<>();
+        for (String srt : baseDataRepository.findYears())
+            years.add(srt.concat("/").concat(String.valueOf(Integer.parseInt(srt) - 1)));
+        return years;
     }
 }

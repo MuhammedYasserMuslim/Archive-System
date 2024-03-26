@@ -21,6 +21,7 @@ public class ExportDtoPost {
     private Date date;
     private String summary;//ملخص الخطاب
     private String recipientName;// المستلم
+    private Date recipientDate;//تاريخ الاستلام
 
     // ArchiveFileDto
     private ArchiveFileDto archiveFile;

@@ -43,6 +43,8 @@ public class Export extends BaseEntity {
     @Column(name = "recipient_name")
     private String recipientName;// المستلم
 
+    @Column(name = "recipient_date")
+    private Date recipientDate;
 
     @Column(name = "urgent_num")
     private Integer urgentNum;// رقم الاستعجلات

@@ -100,9 +100,10 @@ public class ExportController {
         return ResponseEntity.ok(dto);
     }
 
+    // year = 2024/2025 you should take 2024 only
     @GetMapping("/count-export-by-year")
     public ResponseEntity<Integer> findByYearDate(@RequestParam String year) {
-        return new ResponseEntity<>(exportServices.findByYearDate(year), HttpStatus.OK);
+        return new ResponseEntity<>(exportServices.findByYearDate(year.substring(0,5)), HttpStatus.OK);
     }
 
 
