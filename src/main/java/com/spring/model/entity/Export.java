@@ -3,7 +3,6 @@ package com.spring.model.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 import java.util.List;
@@ -17,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "exports")
 public class Export extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;//رقم
@@ -24,7 +24,7 @@ public class Export extends BaseEntity {
     @Column(name = "no", nullable = false)
     private Integer no;
 
-    @Column(name = "date" ,nullable = false)
+    @Column(name = "date", nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date; //تاريخ
 
@@ -37,7 +37,7 @@ public class Export extends BaseEntity {
     @Column(name = "receiver")
     private String receiver; //الجهة الصادر منها الخطاب
 
-    @Column(name = "summary" ,nullable = false)
+    @Column(name = "summary", nullable = false)
     private String summary;//ملخص الخطاب
 
     @Column(name = "recipient_name")
@@ -57,9 +57,8 @@ public class Export extends BaseEntity {
     @JoinColumn(name = "response_id", referencedColumnName = "id")
     private Import aimport; //رقم الرد / تاريخ الرد
 
-
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "archive_file_id", referencedColumnName = "id" , nullable = false)
+    @JoinColumn(name = "archive_file_id", referencedColumnName = "id", nullable = false)
     private ArchiveFile archiveFile;
 
 
