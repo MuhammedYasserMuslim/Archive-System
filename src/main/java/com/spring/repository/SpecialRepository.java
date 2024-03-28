@@ -15,7 +15,7 @@ public interface SpecialRepository extends JpaRepository<Special, Integer> {
     /**
      *  @return  specials in current year
      */
-    @Query(value = "SELECT * FROM special WHERE income_date >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 YEAR), '%Y-07-01')   AND income_date<= DATE_FORMAT(NOW(), '%Y-06-30') ", nativeQuery = true)
+    @Query(value = "select * from special where income_date between( SELECT from_date FROM archive.financial_year where financial_year = (SELECT CASE WHEN MONTH(CURRENT_DATE()) >= 1 AND MONTH(CURRENT_DATE()) <= 3 THEN CONCAT(YEAR(CURRENT_DATE()) - 1, '-', YEAR(CURRENT_DATE())) ELSE CONCAT(YEAR(CURRENT_DATE()), '-', YEAR(CURRENT_DATE()) + 1) END AS financial_year)) and ( SELECT to_date FROM archive.financial_year where financial_year = (SELECT CASE WHEN MONTH(CURRENT_DATE()) >= 1 AND MONTH(CURRENT_DATE()) <= 3 THEN CONCAT(YEAR(CURRENT_DATE()) - 1, '-', YEAR(CURRENT_DATE())) ELSE CONCAT(YEAR(CURRENT_DATE()), '-', YEAR(CURRENT_DATE()) + 1) END AS financial_year))", nativeQuery = true)
     List<Special> findByYear();
 
     /**

@@ -30,7 +30,7 @@ public class BaseDataServices {
     public List<String> findYears() {
         List<String> years = new ArrayList<>();
         for (String srt : baseDataRepository.findYears())
-            years.add(srt.concat("/").concat(String.valueOf(Integer.parseInt(srt) - 1)));
+            years.add(srt.concat("-").concat(String.valueOf(Integer.parseInt(srt) - 1)));
         return years;
     }
 }

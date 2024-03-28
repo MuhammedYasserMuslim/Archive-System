@@ -16,13 +16,13 @@ public interface ExportRepository extends JpaRepository<Export, Integer> {
     /**
      * @return exports in current year
      */
-    @Query(value = "SELECT * FROM exports WHERE date >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 YEAR), '%Y-07-01')   AND date<= DATE_FORMAT(NOW(), '%Y-06-30') ", nativeQuery = true)
+    @Query(value = "select * from exports where date between( SELECT from_date FROM archive.financial_year where financial_year = (SELECT CASE WHEN MONTH(CURRENT_DATE()) >= 1 AND MONTH(CURRENT_DATE()) <= 3 THEN CONCAT(YEAR(CURRENT_DATE()) - 1, '-', YEAR(CURRENT_DATE())) ELSE CONCAT(YEAR(CURRENT_DATE()), '-', YEAR(CURRENT_DATE()) + 1) END AS financial_year)) and ( SELECT to_date FROM archive.financial_year where financial_year = (SELECT CASE WHEN MONTH(CURRENT_DATE()) >= 1 AND MONTH(CURRENT_DATE()) <= 3 THEN CONCAT(YEAR(CURRENT_DATE()) - 1, '-', YEAR(CURRENT_DATE())) ELSE CONCAT(YEAR(CURRENT_DATE()), '-', YEAR(CURRENT_DATE()) + 1) END AS financial_year))", nativeQuery = true)
     List<Export> findByYear();
 
     /**
      * @return exports in current year for pagination
      */
-    @Query(value = "SELECT * FROM exports WHERE date >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 YEAR), '%Y-07-01')   AND date<= DATE_FORMAT(NOW(), '%Y-06-30') ", nativeQuery = true)
+    @Query(value = "SELECT * FROM exports WHERE date >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 YEAR), '%Y-07-01')   AND date<= DATE_FORMAT(NOW(), '%Y-06-30') order by id desc", nativeQuery = true)
     Page<Export> findByYear(Pageable pageable);
 
     /**
