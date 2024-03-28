@@ -19,7 +19,7 @@ public interface BaseDataRepository extends JpaRepository<BaseData, Byte> {
     /**
      * @return years
      */
-    @Query(value = "SELECT DISTINCT CASE WHEN date >= DATE_FORMAT(NOW(), '%Y-07-01') - INTERVAL 1 YEAR AND date <= DATE_FORMAT(NOW(), '%Y-06-30') THEN YEAR(NOW()) ELSE YEAR(date)END AS extracted_years FROM exports ", nativeQuery = true)
+    @Query(value = "SELECT distinct CASE WHEN MONTH(date) >= 7 THEN CONCAT(YEAR(date), '-', YEAR(date) + 1) ELSE CONCAT(YEAR(date) - 1, '-', YEAR(date)) END  FROM exports; ", nativeQuery = true)
     List<String> findYears();
 
 }

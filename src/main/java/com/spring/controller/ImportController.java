@@ -145,7 +145,7 @@ public class ImportController {
     // year = 2024/2025 you should take 2024 only
     @GetMapping("/count-import-by-year")
     public ResponseEntity<Integer> findByYearDate(@RequestParam String year) {
-        return new ResponseEntity<>(importServices.findByYearDate(year.substring(0,4)), HttpStatus.OK);
+        return new ResponseEntity<>(importServices.findByYearDate(year.substring(5,9)), HttpStatus.OK);
     }
 
 
