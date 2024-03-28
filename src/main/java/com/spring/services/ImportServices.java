@@ -160,12 +160,8 @@ public class ImportServices {
      * @return imports in archive file
      */
     public List<ImportDto> findByArchiveFile(short id) {
-        ArchiveFileDto dto = archiveFileServices.findById(id);
-        List<Import> imports = importRepository.findByArchiveFile(archiveFileMapper.mapToEntity(dto));
-        List<ImportDto> dtos = new ArrayList<>();
-        for (Import anImport : imports)
-            dtos.add(importMapper.mapToDto(anImport));
-        return dtos;
+        List<Import> imports = importRepository.findByArchiveFile(id);
+        return importMapper.mapListToDto(imports);
     }
 
     /**

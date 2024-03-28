@@ -112,8 +112,8 @@ public class ExportServices {
      * @return exports in archive file
      */
     public List<ExportDto> findByArchiveFile(short id) {
-        ArchiveFileDto dto = archiveFileServices.findById(id);
-        return exportMapper.mapListToDto( exportRepository.findByArchiveFile(archiveFileMapper.mapToEntity(dto)));
+        List<Export> exports = exportRepository.findByArchiveFile(id);
+        return exportMapper.mapListToDto(exports);
     }
 
     /**

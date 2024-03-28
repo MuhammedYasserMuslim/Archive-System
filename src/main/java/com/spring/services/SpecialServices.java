@@ -101,14 +101,8 @@ public class SpecialServices {
      * @return specials in archive file
      */
     public List<SpecialDto> findByArchiveFile(short id) {
-        ArchiveFileDto dto = archiveFileServices.findById(id);
-        List<Special> specials = specialRepository.findByArchiveFile(archiveFileMapper.mapToEntity(dto));
-        List<SpecialDto> dtos = new ArrayList<>();
-        for (Special special : specials) {
-            dtos.add(specialMapper.mapToDto(special));
-        }
-
-        return dtos;
+        List<Special> specials = specialRepository.findByArchiveFile(id);
+        return specialMapper.mapListToDto(specials);
     }
 
     /**
