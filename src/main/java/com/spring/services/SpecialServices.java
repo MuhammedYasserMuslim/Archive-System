@@ -1,7 +1,6 @@
 package com.spring.services;
 
 import com.spring.exception.RecordNotFountException;
-import com.spring.model.dto.archivefile.ArchiveFileDto;
 import com.spring.model.dto.special.SpecialDto;
 import com.spring.model.dto.special.SpecialDtoPost;
 import com.spring.model.entity.Special;
@@ -101,8 +100,7 @@ public class SpecialServices {
      * @return specials in archive file
      */
     public List<SpecialDto> findByArchiveFile(short id) {
-        List<Special> specials = specialRepository.findByArchiveFile(id);
-        return specialMapper.mapListToDto(specials);
+        return specialMapper.mapListToDto( specialRepository.findByArchiveFile(id));
     }
 
     /**

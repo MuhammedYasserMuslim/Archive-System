@@ -2,7 +2,6 @@ package com.spring.services;
 
 import com.spring.exception.ConflictException;
 import com.spring.exception.RecordNotFountException;
-import com.spring.model.dto.archivefile.ArchiveFileDto;
 import com.spring.model.dto.exports.ExportDto;
 import com.spring.model.dto.exports.ExportDtoPost;
 import com.spring.model.dto.imports.ImportDtoPost;
@@ -16,7 +15,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
 
 
 @Service
@@ -112,8 +112,7 @@ public class ExportServices {
      * @return exports in archive file
      */
     public List<ExportDto> findByArchiveFile(short id) {
-        List<Export> exports = exportRepository.findByArchiveFile(id);
-        return exportMapper.mapListToDto(exports);
+        return exportMapper.mapListToDto(exportRepository.findByArchiveFile(id));
     }
 
     /**

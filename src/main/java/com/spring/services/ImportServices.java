@@ -2,7 +2,6 @@ package com.spring.services;
 
 import com.spring.exception.ConflictException;
 import com.spring.exception.RecordNotFountException;
-import com.spring.model.dto.archivefile.ArchiveFileDto;
 import com.spring.model.dto.exports.ExportDtoPost;
 import com.spring.model.dto.imports.ImportDto;
 import com.spring.model.dto.imports.ImportDtoPost;
@@ -16,7 +15,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -46,7 +44,8 @@ public class ImportServices {
     public int count() {
         return importRepository.findByYear().size();
     }
-    public int countAll(){
+
+    public int countAll() {
         return (int) importRepository.count();
     }
 
@@ -108,6 +107,7 @@ public class ImportServices {
         Pageable pageable = PageRequest.of(page, 1);
         return importMapper.mapToDto(importRepository.findByYear(pageable).getContent().get(0));
     }
+
     /**
      * @param id to find import by
      * @return imports by id
@@ -160,8 +160,7 @@ public class ImportServices {
      * @return imports in archive file
      */
     public List<ImportDto> findByArchiveFile(short id) {
-        List<Import> imports = importRepository.findByArchiveFile(id);
-        return importMapper.mapListToDto(imports);
+        return importMapper.mapListToDto(importRepository.findByArchiveFile(id));
     }
 
     /**
