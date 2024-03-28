@@ -24,6 +24,7 @@ public class SpecialServices {
     private final SpecialMapper specialMapper;
     private final ArchiveFileMapper archiveFileMapper;
     private final ArchiveFileServices archiveFileServices;
+    private final BaseDataServices baseDataServices;
 
     /**
      * @return count specials in current year
@@ -116,12 +117,14 @@ public class SpecialServices {
         special.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
                 (special.getArchiveFile().getTypeNumber(),
                         special.getArchiveFile().getNum())));
+        baseDataServices.editAutoIncrementSpecial();
         specialRepository.save(special);
         List<Subject> subjects = dto.getSubjects();
         for (Subject subject : subjects) {
             subject.setSpecial(special);
             subjectServices.insert(subject);
         }
+
     }
 
     /**
@@ -140,7 +143,7 @@ public class SpecialServices {
         special.setCreatedBy(getById(id).getCreatedBy());
         special.setCreatedDate(getById(id).getCreatedDate());
         special.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum((byte) 3, special.getArchiveFile().getNum())));
-
+        baseDataServices.editAutoIncrementSpecial();
         List<Subject> subjectList = getById(id).getSubject();
         for (int i = 0; i < subjectList.size(); i++) {
             getById(id).getSubject().get(i).setSpecial(null);
@@ -155,6 +158,7 @@ public class SpecialServices {
             subjectServices.removeById(subject.getId());
             System.out.println(subject.getId());
         }
+
 
     }
 

@@ -2,13 +2,14 @@ package com.spring.services;
 
 import com.spring.repository.BaseDataRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Log4j2
 public class BaseDataServices {
 
     private final BaseDataRepository baseDataRepository;
@@ -22,12 +23,26 @@ public class BaseDataServices {
         return baseDataRepository.findBaseData();
     }
 
-//    public List<String> findYears() {
-//        return baseDataRepository.findYears();
-//    }
-
 
     public List<String> findYears() {
         return baseDataRepository.findYears();
     }
+
+    public void editAutoIncrementExport() {
+        baseDataRepository.editAutoIncrementExport();
+        log.info("Execution Edit Auto Increment");
+
+    }
+
+    public void editAutoIncrementImport() {
+        baseDataRepository.editAutoIncrementImport();
+        log.info("Execution Edit Auto Increment");
+    }
+
+    public void editAutoIncrementSpecial() {
+        baseDataRepository.editAutoIncrementSpecial();
+        log.info("Execution Edit Auto Increment");
+    }
+
+
 }

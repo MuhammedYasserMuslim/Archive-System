@@ -28,14 +28,17 @@ public class ExportServices {
     private final ExportMapper exportMapper;
     private final ImportServices importServices;
 
+    private final BaseDataServices baseDataServices;
+
 
     @Lazy
-    public ExportServices(ImportServices importServices, ExportMapper exportMapper, ArchiveFileMapper archiveFileMapper, ArchiveFileServices archiveFileServices, ExportRepository exportRepository) {
+    public ExportServices(ImportServices importServices, ExportMapper exportMapper, ArchiveFileMapper archiveFileMapper, ArchiveFileServices archiveFileServices, ExportRepository exportRepository, BaseDataServices baseDataServices) {
         this.importServices = importServices;
         this.exportMapper = exportMapper;
         this.archiveFileMapper = archiveFileMapper;
         this.archiveFileServices = archiveFileServices;
         this.exportRepository = exportRepository;
+        this.baseDataServices = baseDataServices;
     }
 
     /**
@@ -127,7 +130,9 @@ public class ExportServices {
         export.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
                 (export.getArchiveFile().getTypeNumber(),
                         export.getArchiveFile().getNum())));
+        baseDataServices.editAutoIncrementExport();
         exportRepository.save(export);
+
     }
 
     /**
@@ -150,7 +155,9 @@ public class ExportServices {
         export.setAimport(getById(dto.getId()).getAimport());
         export.setCreatedBy(getById(dto.getId()).getCreatedBy());
         export.setCreatedDate(getById(dto.getId()).getCreatedDate());
+        baseDataServices.editAutoIncrementExport();
         exportRepository.save(export);
+
     }
 
     /**
@@ -165,7 +172,9 @@ public class ExportServices {
             insert(dto);
             export.setUrgentNum(exports.get(exports.size() - 1).getNo() + 1);
             export.setUrgentDate(dto.getDate());
+            baseDataServices.editAutoIncrementExport();
             exportRepository.save(export);
+
         } else
             throw new ConflictException("This File has Urgent Number : " + export.getUrgentNum());
     }
@@ -180,9 +189,11 @@ public class ExportServices {
         if (export.getAimport() == null) {
             importServices.insert(dto);
             export.setAimport(
-                    new Import(importServices.countAll())
+                    new Import(importServices.findAll().get(importServices.findAll().size()-1).getId())
             );
+            baseDataServices.editAutoIncrementExport();
             exportRepository.save(export);
+
         } else
             throw new ConflictException("This File has Response Number is " + export.getAimport().getId());
     }

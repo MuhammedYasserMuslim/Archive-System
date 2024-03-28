@@ -28,14 +28,17 @@ public class ImportServices {
     private final ImportMapper importMapper;
     private final ExportServices exportServices;
 
+    private final BaseDataServices baseDataServices;
+
 
     @Lazy
-    public ImportServices(ExportServices exportServices, ImportRepository importRepository, ArchiveFileServices archiveFileServices, ArchiveFileMapper archiveFileMapper, ImportMapper importMapper) {
+    public ImportServices(ExportServices exportServices, ImportRepository importRepository, ArchiveFileServices archiveFileServices, ArchiveFileMapper archiveFileMapper, ImportMapper importMapper, BaseDataServices baseDataServices) {
         this.exportServices = exportServices;
         this.importRepository = importRepository;
         this.archiveFileServices = archiveFileServices;
         this.archiveFileMapper = archiveFileMapper;
         this.importMapper = importMapper;
+        this.baseDataServices = baseDataServices;
     }
 
     /**
@@ -172,7 +175,9 @@ public class ImportServices {
         Import importa = importMapper.mapToEntity(dto);
         importa.setNo(imports.isEmpty() ? 1 : imports.get(imports.size() - 1).getNo() + 1);
         importa.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum(importa.getArchiveFile().getTypeNumber(), importa.getArchiveFile().getNum())));
+        baseDataServices.editAutoIncrementImport();
         importRepository.save(importa);
+
     }
 
     /**
@@ -197,8 +202,9 @@ public class ImportServices {
         importa.setExport(getById(dto.getId()).getExport());
         importa.setCreatedBy(getById(id).getCreatedBy());
         importa.setCreatedDate(getById(id).getCreatedDate());
-
+        baseDataServices.editAutoIncrementImport();
         importRepository.save(importa);
+
     }
 
     /**
@@ -211,9 +217,11 @@ public class ImportServices {
             exportServices.insert(dto);
 
             aImport.setExport(
-                    new Export(exportServices.countALl())
+                    new Export(exportServices.findAll().get(exportServices.findAll().size()-1).getId())
             );
+            baseDataServices.editAutoIncrementImport();
             importRepository.save(aImport);
+
         } else
             throw new ConflictException("This File has Response Number is " + aImport.getExport().getId());
     }
