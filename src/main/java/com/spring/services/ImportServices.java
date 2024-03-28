@@ -48,9 +48,6 @@ public class ImportServices {
         return importRepository.findByYear().size();
     }
 
-    public int countAll() {
-        return (int) importRepository.count();
-    }
 
     /**
      * @return count today imports
@@ -217,7 +214,7 @@ public class ImportServices {
             exportServices.insert(dto);
 
             aImport.setExport(
-                    new Export(exportServices.findAll().get(exportServices.findAll().size()-1).getId())
+                    new Export(exportServices.findAll().get(exportServices.findAll().size() - 1).getId())
             );
             baseDataServices.editAutoIncrementImport();
             importRepository.save(aImport);

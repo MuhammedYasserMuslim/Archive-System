@@ -36,7 +36,7 @@ public class ArchiveFileServices {
     }
 
     /**
-     * @param id
+     * @param id find archive file by
      * @return archiveFile by id
      */
     public ArchiveFileDto findById(short id) {
@@ -46,20 +46,9 @@ public class ArchiveFileServices {
         } else throw new RecordNotFountException("This Record With id " + id + " Not Found");
     }
 
-    /**
-     * @param typeNumber
-     * @return archiveFile by TypeNumber
-     */
-    public List<ArchiveFileDto> findByTypeNumber(Byte typeNumber) {
-        if (typeNumber == 1 || typeNumber == 2 || typeNumber == 3) {
-            return archiveFileMapper.mapListToDto(archiveFileRepository.findByTypeNumber(typeNumber));
-        } else
-            throw new RecordNotFountException("This Record With Type Number " + typeNumber + " Not Found");
-
-    }
 
     /**
-     * @param name
+     * @param name find archive g=file by
      * @return archiveFile by name
      */
     public List<ArchiveFileDto> findByNameContaining(String name) {
@@ -71,7 +60,7 @@ public class ArchiveFileServices {
     }
 
     /**
-     * @param typeNumber,num
+     * @param typeNumber,num find archive file by
      * @return archiveFile by typeNumber and num
      */
     public ArchiveFileDto findByTypeNumberAndNum(Byte typeNumber, Short num) {
