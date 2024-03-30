@@ -128,6 +128,13 @@ public class ImportController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PostMapping("/imports")
+    @Operation(summary = "Add Import ")
+    public ResponseEntity<?> insert(@RequestBody List<ImportDtoPost> dtos) {
+        importServices.insertAll(dtos);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @PutMapping("/import-id")
     @Operation(summary = "Update Import By Id")
     public ResponseEntity<?> update(@RequestBody ImportDtoPost dto, @RequestParam int id) {
@@ -145,7 +152,7 @@ public class ImportController {
     // year = 2024/2025 you should take 2024 only
     @GetMapping("/count-import-by-year")
     public ResponseEntity<Integer> findByYearDate(@RequestParam String year) {
-        return new ResponseEntity<>(importServices.findByYearDate(year.substring(5,9)), HttpStatus.OK);
+        return new ResponseEntity<>(importServices.findByYearDate(year.substring(5, 9)), HttpStatus.OK);
     }
 
 

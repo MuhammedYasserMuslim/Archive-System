@@ -132,6 +132,12 @@ public class ExportServices {
 
     }
 
+    public void insertAll(List<ExportDtoPost> dtos) {
+        for (ExportDtoPost dto: dtos) {
+            this.insert(dto);
+        }
+
+    }
     /**
      * @param dto take new values
      * @param id  chose export file to update

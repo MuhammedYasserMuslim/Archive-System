@@ -240,4 +240,10 @@ public class ImportServices {
         Collections.reverse(dtos);
         return dtos;
     }
+
+    public void insertAll(List<ImportDtoPost> dtos) {
+        for (ImportDtoPost dto:dtos) {
+            this.insert(dto);
+        }
+    }
 }

@@ -78,6 +78,13 @@ public class ExportController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PostMapping("/exports")
+    @Operation(summary = "Add Export File ")
+    public ResponseEntity<?> insertAll(@RequestBody List<ExportDtoPost> dtos) {
+        exportServices.insertAll(dtos);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
     @PutMapping("/export-id")
     @Operation(summary = "Update Export By Id ")
@@ -102,7 +109,7 @@ public class ExportController {
 
     // year = 2024/2025 you should take 2024 only
     @GetMapping("/count-export-by-year")
-    public ResponseEntity<Integer> findByYearDate(@RequestParam String year) throws StringIndexOutOfBoundsException{
+    public ResponseEntity<Integer> findByYearDate(@RequestParam String year) throws StringIndexOutOfBoundsException {
         return new ResponseEntity<>(exportServices.findByYearDate(year.substring(5, 9)), HttpStatus.OK);
     }
 
