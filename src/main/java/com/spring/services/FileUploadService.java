@@ -4,10 +4,7 @@ package com.spring.services;
 import com.spring.exception.FileStorageException;
 import com.spring.exception.IOEException;
 import com.spring.exception.RecordNotFountException;
-import com.spring.model.entity.Export;
-import com.spring.model.entity.Image;
-import com.spring.model.entity.Import;
-import com.spring.model.entity.Special;
+import com.spring.model.entity.*;
 import com.spring.repository.ImageRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -85,7 +82,7 @@ public class FileUploadService {
      */
     private void updateImagePath(int id, String pathType, String imagePath, File file) {
 
-        if (pathType.contains("imports") || pathType.contains("exports") || pathType.contains("specials")) {
+        if (pathType.contains("imports") || pathType.contains("exports") || pathType.contains("specials") || pathType.contains("decisions")) {
             Image image = new Image();
             image.setImagePath("assets\\".concat(imagePath));
             image.setName(file.getName());
@@ -95,6 +92,8 @@ public class FileUploadService {
                 image.setExport(new Export(id));
             if (pathType.equals("specials"))
                 image.setSpecial(new Special(id));
+            if (pathType.equals("decisions"))
+                image.setDeanDecisions(new DeanDecisions(id));
             if (imageRepository.findByImagePath(image.getImagePath()).isPresent())
                 throw new FileStorageException("This file is already exist");
             else

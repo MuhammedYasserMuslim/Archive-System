@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Setter
 @Getter
@@ -33,4 +34,10 @@ public class DeanDecisions extends BaseEntity{
     @JoinColumn(name = "archive_file_id", referencedColumnName = "id", nullable = false)
     private ArchiveFile archiveFile;
 
+    @OneToMany(mappedBy = "deanDecisions")
+    private List<Image> images;
+
+    public DeanDecisions(Integer id) {
+        this.id = id;
+    }
 }
