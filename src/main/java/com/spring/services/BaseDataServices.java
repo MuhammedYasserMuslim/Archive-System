@@ -45,4 +45,8 @@ public class BaseDataServices {
     }
 
 
+    public void editAutoIncrementDeanDecisions() {
+        baseDataRepository.editAutoIncrementDeanDecisions();
+        log.info("Execution Edit Auto Increment");
+    }
 }

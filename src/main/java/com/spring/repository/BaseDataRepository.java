@@ -40,4 +40,10 @@ public interface BaseDataRepository extends JpaRepository<BaseData, Byte> {
     @Query(value = " alter table special auto_increment 1", nativeQuery = true)
     void editAutoIncrementSpecial();
 
+    @Modifying
+    @Transactional
+    @Query(value = " alter table dean_decisions auto_increment 1", nativeQuery = true)
+    void editAutoIncrementDeanDecisions();
+
+
 }

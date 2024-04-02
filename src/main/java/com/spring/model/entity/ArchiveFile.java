@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spring.model.enums.FileType;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Formula;
 
 import java.util.Set;
 
@@ -45,6 +44,10 @@ public class ArchiveFile extends BaseEntity {
     @OneToMany(mappedBy = "archiveFile")
     @JsonIgnore
     private Set<Special> specials;
+
+    @OneToMany(mappedBy = "archiveFile")
+    @JsonIgnore
+    private Set<DeanDecisions> deanDecisions;
 
 
 }
