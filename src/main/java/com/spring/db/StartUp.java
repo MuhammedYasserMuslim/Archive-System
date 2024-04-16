@@ -196,7 +196,7 @@ public class StartUp implements CommandLineRunner, ApplicationRunner {
 
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args)  {
         if (authorityService.findAll().isEmpty()) {
             authorityService.insert(new Authority((byte) 1, "ROLE_ADMIN"));
             authorityService.insert(new Authority((byte) 2, "ROLE_MANGER"));
@@ -214,7 +214,7 @@ public class StartUp implements CommandLineRunner, ApplicationRunner {
                             dateFormat.parse(to));
                     financialYearRepository.save(financialYear);
                 } catch (ParseException e) {
-                    e.printStackTrace();
+                e.printStackTrace();
                 }
             }
         }

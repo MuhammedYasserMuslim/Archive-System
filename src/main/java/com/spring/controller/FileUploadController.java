@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/image")
@@ -31,9 +31,14 @@ public class FileUploadController {
 
     @PostMapping("/multipleFiles")
     public ResponseEntity<?> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files,
-                                                 @RequestParam("id") int id, @RequestParam String pathType) {
-        Arrays.asList(files).stream().map(file -> uploadFile(id, pathType, file)).collect(Collectors.toList());
-        return ResponseEntity.ok(files);
+                                                 @RequestParam("id") int id,
+                                                 @RequestParam String pathType) {
+        List<String> multipartFiles = new ArrayList<>();
+        for (MultipartFile file : files){
+            uploadFile(id, pathType, file);
+            multipartFiles.add(file.getOriginalFilename());
+        }
+        return ResponseEntity.ok(multipartFiles);
     }
 
     @GetMapping("/fileSystem/{fileName}")

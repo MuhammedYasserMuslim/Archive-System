@@ -82,7 +82,11 @@ public class FileUploadService {
      */
     private void updateImagePath(int id, String pathType, String imagePath, File file) {
 
-        if (pathType.contains("imports") || pathType.contains("exports") || pathType.contains("specials") || pathType.contains("decisions")) {
+        if (pathType.contains("imports") ||
+            pathType.contains("exports") ||
+            pathType.contains("specials") ||
+             pathType.contains("decisions")) {
+
             Image image = new Image();
             image.setImagePath("assets\\".concat(imagePath));
             image.setName(file.getName());
@@ -94,9 +98,7 @@ public class FileUploadService {
                 image.setSpecial(new Special(id));
             if (pathType.equals("decisions"))
                 image.setDeanDecisions(new DeanDecisions(id));
-            if (imageRepository.findByImagePath(image.getImagePath()).isPresent())
-                throw new FileStorageException("This file is already exist");
-            else
+            if (!imageRepository.findByImagePath(image.getImagePath()).isPresent())
                 imageRepository.save(image);
 
         }
