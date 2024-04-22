@@ -19,7 +19,7 @@ public class Image extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "name")
+    @Column(name = "name" , nullable = false , unique = true)
     private String name;
 
     @Column(name = "image_path", nullable = false, unique = true)

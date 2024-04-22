@@ -77,4 +77,6 @@ public class ExportDto {
     public boolean isHasUrgent() {
         return this.urgentNum == null;
     }
+
+    public boolean isHasSpecial(){return this.typeNumber != 3;}
 }

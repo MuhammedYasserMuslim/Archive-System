@@ -155,5 +155,11 @@ public class ImportController {
         return new ResponseEntity<>(importServices.findByYearDate(year.substring(5, 9)), HttpStatus.OK);
     }
 
+    @PutMapping("/change-achive-file")
+    public ResponseEntity<?> changeArchiveFile(@RequestParam int id, @RequestParam short num) {
+        importServices.convertToSpecial(id, num);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
 }

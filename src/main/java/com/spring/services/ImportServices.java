@@ -5,6 +5,7 @@ import com.spring.exception.RecordNotFountException;
 import com.spring.model.dto.exports.ExportDtoPost;
 import com.spring.model.dto.imports.ImportDto;
 import com.spring.model.dto.imports.ImportDtoPost;
+import com.spring.model.dto.special.SpecialDtoPost;
 import com.spring.model.entity.Export;
 import com.spring.model.entity.Import;
 import com.spring.model.mapper.ArchiveFileMapper;
@@ -27,17 +28,18 @@ public class ImportServices {
     private final ArchiveFileMapper archiveFileMapper;
     private final ImportMapper importMapper;
     private final ExportServices exportServices;
-
+    private final SpecialServices specialServices;
     private final BaseDataServices baseDataServices;
 
 
     @Lazy
-    public ImportServices(ExportServices exportServices, ImportRepository importRepository, ArchiveFileServices archiveFileServices, ArchiveFileMapper archiveFileMapper, ImportMapper importMapper, BaseDataServices baseDataServices) {
+    public ImportServices(ExportServices exportServices, ImportRepository importRepository, ArchiveFileServices archiveFileServices, ArchiveFileMapper archiveFileMapper, ImportMapper importMapper, SpecialServices specialServices, BaseDataServices baseDataServices) {
         this.exportServices = exportServices;
         this.importRepository = importRepository;
         this.archiveFileServices = archiveFileServices;
         this.archiveFileMapper = archiveFileMapper;
         this.importMapper = importMapper;
+        this.specialServices = specialServices;
         this.baseDataServices = baseDataServices;
     }
 
@@ -242,8 +244,27 @@ public class ImportServices {
     }
 
     public void insertAll(List<ImportDtoPost> dtos) {
-        for (ImportDtoPost dto:dtos) {
+        for (ImportDtoPost dto : dtos) {
             this.insert(dto);
         }
+    }
+
+    private void changeArchiveFile(Import importa, short num) {
+        importa.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum((byte) 3, num)));
+        importRepository.save(importa);
+    }
+
+    public void convertToSpecial(int id, short num) {
+        Import importa = getById(id);
+        changeArchiveFile(importa, num);
+        SpecialDtoPost special = SpecialDtoPost.builder()
+                .importNum(importa.getNo())
+                .summary(importa.getSummary())
+                .numberOfAttachments(importa.getNumberOfAttachments())
+                .num(num)
+                .incomeDate(importa.getIncomeDate())
+                .sender(importa.getSender())
+                .build();
+        specialServices.insert(special);
     }
 }

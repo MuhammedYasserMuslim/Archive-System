@@ -89,6 +89,7 @@ public class ImportDto {
     public boolean isHasResponse() {
         return this.expectResponseDate != null && this.responseNumber == null;
     }
+    public boolean isHasSpecial(){return this.typeNumber != 3 && this.expectResponseDate ==null;}
 
 
 }

@@ -101,11 +101,11 @@ public class SpecialServices {
      * @return specials in archive file
      */
     public List<SpecialDto> findByArchiveFile(short id) {
-        return specialMapper.mapListToDto( specialRepository.findByArchiveFile(id));
+        return specialMapper.mapListToDto(specialRepository.findByArchiveFile(id));
     }
 
     /**
-     * add new export file
+     * add new special file
      *
      * @param dto add new special file
      */
@@ -119,10 +119,13 @@ public class SpecialServices {
                         special.getArchiveFile().getNum())));
         baseDataServices.editAutoIncrementSpecial();
         specialRepository.save(special);
-        List<Subject> subjects = dto.getSubjects();
-        for (Subject subject : subjects) {
-            subject.setSpecial(special);
-            subjectServices.insert(subject);
+        if (!(dto.getSubjects() == null)) {
+            List<Subject> subjects = dto.getSubjects();
+
+            for (Subject subject : subjects) {
+                subject.setSpecial(special);
+                subjectServices.insert(subject);
+            }
         }
 
     }
@@ -165,7 +168,6 @@ public class SpecialServices {
     private Special getById(int id) {
         return specialRepository.findById(id).orElseThrow(() -> new RecordNotFountException("Not Found"));
     }
-
 
 
     private List<SpecialDto> reverseList(List<SpecialDto> dtos) {

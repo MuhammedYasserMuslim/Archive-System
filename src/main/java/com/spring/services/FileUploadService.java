@@ -20,7 +20,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Objects;
-import java.util.Optional;
 
 
 @Service
@@ -47,6 +46,7 @@ public class FileUploadService {
             throw new FileStorageException("Could not create the directory where the uploaded files will be stored.",
                     ex);
         }
+
         String fileName = StringUtils.cleanPath(id + "-" + file.getName());
         try {
             if (fileName.contains("..")) {
@@ -85,11 +85,11 @@ public class FileUploadService {
         if (pathType.contains("imports") ||
             pathType.contains("exports") ||
             pathType.contains("specials") ||
-             pathType.contains("decisions")) {
+            pathType.contains("decisions")) {
 
             Image image = new Image();
             image.setImagePath("assets\\".concat(imagePath));
-            image.setName(file.getName());
+            image.setName(id + "-" + pathType + "-" + file.getName());
             if (pathType.equals("imports"))
                 image.setAnImport(new Import(id));
             if (pathType.equals("exports"))
@@ -98,7 +98,7 @@ public class FileUploadService {
                 image.setSpecial(new Special(id));
             if (pathType.equals("decisions"))
                 image.setDeanDecisions(new DeanDecisions(id));
-            if (!imageRepository.findByImagePath(image.getImagePath()).isPresent())
+            if (imageRepository.findByImagePath(image.getImagePath()).isEmpty())
                 imageRepository.save(image);
 
         }
@@ -110,8 +110,8 @@ public class FileUploadService {
      */
 
     public byte[] getFileFromFileSystem(String name) throws IOException {
-        Optional<Image> image = imageRepository.findByName(name);
-        String filePath = baseDataServices.findBaseData() + image.get().getImagePath();
+        Image image = imageRepository.findByName(name).orElseThrow();
+        String filePath = baseDataServices.findBaseData() + image.getImagePath();
         return Files.readAllBytes(new File(filePath).toPath());
     }
 

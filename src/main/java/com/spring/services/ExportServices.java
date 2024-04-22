@@ -5,11 +5,13 @@ import com.spring.exception.RecordNotFountException;
 import com.spring.model.dto.exports.ExportDto;
 import com.spring.model.dto.exports.ExportDtoPost;
 import com.spring.model.dto.imports.ImportDtoPost;
+import com.spring.model.dto.special.SpecialDtoPost;
 import com.spring.model.entity.Export;
 import com.spring.model.entity.Import;
 import com.spring.model.mapper.ArchiveFileMapper;
 import com.spring.model.mapper.ExportMapper;
 import com.spring.repository.ExportRepository;
+import lombok.Builder;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,16 +29,18 @@ public class ExportServices {
     private final ArchiveFileMapper archiveFileMapper;
     private final ExportMapper exportMapper;
     private final ImportServices importServices;
+    private final SpecialServices specialServices;
     private final BaseDataServices baseDataServices;
 
 
     @Lazy
-    public ExportServices(ImportServices importServices, ExportMapper exportMapper, ArchiveFileMapper archiveFileMapper, ArchiveFileServices archiveFileServices, ExportRepository exportRepository, BaseDataServices baseDataServices) {
+    public ExportServices(ImportServices importServices, ExportMapper exportMapper, ArchiveFileMapper archiveFileMapper, ArchiveFileServices archiveFileServices, ExportRepository exportRepository, SpecialServices specialServices, BaseDataServices baseDataServices) {
         this.importServices = importServices;
         this.exportMapper = exportMapper;
         this.archiveFileMapper = archiveFileMapper;
         this.archiveFileServices = archiveFileServices;
         this.exportRepository = exportRepository;
+        this.specialServices = specialServices;
         this.baseDataServices = baseDataServices;
     }
 
@@ -132,11 +136,12 @@ public class ExportServices {
     }
 
     public void insertAll(List<ExportDtoPost> dtos) {
-        for (ExportDtoPost dto: dtos) {
+        for (ExportDtoPost dto : dtos) {
             this.insert(dto);
         }
 
     }
+
     /**
      * @param dto take new values
      * @param id  chose export file to update
@@ -216,6 +221,26 @@ public class ExportServices {
     private List<ExportDto> reverseList(List<ExportDto> dtos) {
         Collections.reverse(dtos);
         return dtos;
+    }
+
+
+    private void changeArchiveFile( Export export , short num) {
+        export.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum((byte) 3, num)));
+        exportRepository.save(export);
+    }
+
+    public void convertToSpecial(int id , short num){
+        Export export = getById(id);
+        changeArchiveFile(export, num);
+        SpecialDtoPost special = SpecialDtoPost.builder()
+                .importNum(export.getNo())
+                .summary(export.getSummary())
+                .numberOfAttachments(export.getNumberOfAttachments())
+                .num(num)
+                .incomeDate(export.getDate())
+                .sender(export.getReceiver())
+                .build();
+        specialServices.insert(special);
     }
 
 

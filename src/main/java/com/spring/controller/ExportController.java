@@ -3,6 +3,7 @@ package com.spring.controller;
 import com.spring.model.dto.exports.ExportDto;
 import com.spring.model.dto.exports.ExportDtoPost;
 import com.spring.model.dto.imports.ImportDtoPost;
+import com.spring.model.entity.Export;
 import com.spring.services.ExportServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -111,6 +112,12 @@ public class ExportController {
     @GetMapping("/count-export-by-year")
     public ResponseEntity<Integer> findByYearDate(@RequestParam String year) throws StringIndexOutOfBoundsException {
         return new ResponseEntity<>(exportServices.findByYearDate(year.substring(5, 9)), HttpStatus.OK);
+    }
+
+    @PutMapping("/change-achive-file")
+    public ResponseEntity<?> changeArchiveFile(@RequestParam int id,@RequestParam short num) {
+        exportServices.convertToSpecial(id, num);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
