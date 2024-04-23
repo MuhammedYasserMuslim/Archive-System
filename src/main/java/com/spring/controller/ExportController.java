@@ -3,7 +3,6 @@ package com.spring.controller;
 import com.spring.model.dto.exports.ExportDto;
 import com.spring.model.dto.exports.ExportDtoPost;
 import com.spring.model.dto.imports.ImportDtoPost;
-import com.spring.model.entity.Export;
 import com.spring.services.ExportServices;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -115,10 +114,11 @@ public class ExportController {
     }
 
     @PutMapping("/convert-to-special")
-    public ResponseEntity<?> changeArchiveFile(@RequestParam int id,@RequestParam short num) {
-        exportServices.convertToSpecial(id, num);
+    public ResponseEntity<?> changeArchiveFile(@RequestParam int id, @RequestBody Body body) {
+        exportServices.convertToSpecial(id, body.num());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    private record Body(short num) {}
 
 }

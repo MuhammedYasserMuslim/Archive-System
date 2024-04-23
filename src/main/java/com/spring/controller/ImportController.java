@@ -156,10 +156,10 @@ public class ImportController {
     }
 
     @PutMapping("/convert-to-special")
-    public ResponseEntity<?> changeArchiveFile(@RequestParam int id, @RequestParam short num) {
-        importServices.convertToSpecial(id, num);
+    public ResponseEntity<?> changeArchiveFile(@RequestParam int id, @RequestBody Body body) {
+        importServices.convertToSpecial(id, body.num());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
+    private record Body(short num) {}
 }
