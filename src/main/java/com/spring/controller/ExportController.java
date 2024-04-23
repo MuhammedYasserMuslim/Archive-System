@@ -114,7 +114,7 @@ public class ExportController {
         return new ResponseEntity<>(exportServices.findByYearDate(year.substring(5, 9)), HttpStatus.OK);
     }
 
-    @PutMapping("/change-achive-file")
+    @PutMapping("/convert-to-special")
     public ResponseEntity<?> changeArchiveFile(@RequestParam int id,@RequestParam short num) {
         exportServices.convertToSpecial(id, num);
         return new ResponseEntity<>(HttpStatus.OK);
