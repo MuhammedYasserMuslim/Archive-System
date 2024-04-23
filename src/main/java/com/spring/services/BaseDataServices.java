@@ -30,23 +30,22 @@ public class BaseDataServices {
 
     public void editAutoIncrementExport() {
         baseDataRepository.editAutoIncrementExport();
-        log.info("Execution Edit Auto Increment");
-
     }
 
     public void editAutoIncrementImport() {
         baseDataRepository.editAutoIncrementImport();
-        log.info("Execution Edit Auto Increment");
     }
 
     public void editAutoIncrementSpecial() {
         baseDataRepository.editAutoIncrementSpecial();
-        log.info("Execution Edit Auto Increment");
     }
 
 
     public void editAutoIncrementDeanDecisions() {
         baseDataRepository.editAutoIncrementDeanDecisions();
-        log.info("Execution Edit Auto Increment");
+    }
+
+    public void editAutoIncrementIncomingSigns() {
+        baseDataRepository.editAutoIncrementIncomingSigns();
     }
 }
