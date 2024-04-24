@@ -224,14 +224,13 @@ public class ExportServices {
     }
 
 
-    private void changeArchiveFile( Export export , short num) {
-        export.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum((byte) 3, num)));
-        exportRepository.save(export);
-    }
+//    private void changeArchiveFile( Export export , short num) {
+//        export.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum((byte) 3, num)));
+//        exportRepository.save(export);
+//    }
 
     public void convertToSpecial(int id , short num){
         Export export = getById(id);
-        changeArchiveFile(export, num);
         SpecialDtoPost special = SpecialDtoPost.builder()
                 .importNum(export.getNo())
                 .summary(export.getSummary())

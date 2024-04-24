@@ -249,14 +249,13 @@ public class ImportServices {
         }
     }
 
-    private void changeArchiveFile(Import importa, short num) {
-        importa.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum((byte) 3, num)));
-        importRepository.save(importa);
-    }
+//    private void changeArchiveFile(Import importa, short num) {
+//        importa.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum((byte) 3, num)));
+//        importRepository.save(importa);
+//    }
 
     public void convertToSpecial(int id, short num) {
         Import importa = getById(id);
-        changeArchiveFile(importa, num);
         SpecialDtoPost special = SpecialDtoPost.builder()
                 .importNum(importa.getNo())
                 .summary(importa.getSummary())
