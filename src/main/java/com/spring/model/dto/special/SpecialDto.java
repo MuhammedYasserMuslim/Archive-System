@@ -25,6 +25,8 @@ public class SpecialDto {
 
     private Integer no;
 
+    private String fileType;
+
     private Integer importNum;
 
     private String summary;

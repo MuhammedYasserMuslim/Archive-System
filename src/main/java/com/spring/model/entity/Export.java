@@ -61,6 +61,9 @@ public class Export extends BaseEntity {
     @JoinColumn(name = "archive_file_id", referencedColumnName = "id", nullable = false)
     private ArchiveFile archiveFile;
 
+    @Column(name = "saved" , nullable = false)
+    private Byte saved;
+
 
     public Export(int id) {
         this.id = id;

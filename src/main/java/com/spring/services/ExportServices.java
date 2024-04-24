@@ -11,7 +11,6 @@ import com.spring.model.entity.Import;
 import com.spring.model.mapper.ArchiveFileMapper;
 import com.spring.model.mapper.ExportMapper;
 import com.spring.repository.ExportRepository;
-import lombok.Builder;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -31,10 +30,11 @@ public class ExportServices {
     private final ImportServices importServices;
     private final SpecialServices specialServices;
     private final BaseDataServices baseDataServices;
+    private final FileUploadService fileUploadService;
 
 
     @Lazy
-    public ExportServices(ImportServices importServices, ExportMapper exportMapper, ArchiveFileMapper archiveFileMapper, ArchiveFileServices archiveFileServices, ExportRepository exportRepository, SpecialServices specialServices, BaseDataServices baseDataServices) {
+    public ExportServices(ImportServices importServices, ExportMapper exportMapper, ArchiveFileMapper archiveFileMapper, ArchiveFileServices archiveFileServices, ExportRepository exportRepository, SpecialServices specialServices, BaseDataServices baseDataServices, FileUploadService fileUploadService) {
         this.importServices = importServices;
         this.exportMapper = exportMapper;
         this.archiveFileMapper = archiveFileMapper;
@@ -42,6 +42,7 @@ public class ExportServices {
         this.exportRepository = exportRepository;
         this.specialServices = specialServices;
         this.baseDataServices = baseDataServices;
+        this.fileUploadService = fileUploadService;
     }
 
     /**
@@ -224,15 +225,18 @@ public class ExportServices {
     }
 
 
-//    private void changeArchiveFile( Export export , short num) {
-//        export.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum((byte) 3, num)));
-//        exportRepository.save(export);
-//    }
+    private void save(Export export) {
+        export.setSaved((byte) 1);
+        exportRepository.save(export);
+    }
+
 
     public void convertToSpecial(int id , short num){
         Export export = getById(id);
+        save(export);
         SpecialDtoPost special = SpecialDtoPost.builder()
                 .importNum(export.getNo())
+                .fileType("صادر")
                 .summary(export.getSummary())
                 .numberOfAttachments(export.getNumberOfAttachments())
                 .num(num)
@@ -240,6 +244,8 @@ public class ExportServices {
                 .sender(export.getReceiver())
                 .build();
         specialServices.insert(special);
+        fileUploadService.convertImageExport(specialServices.count(),export.getId());
+
     }
 
 

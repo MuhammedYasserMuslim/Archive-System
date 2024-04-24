@@ -61,6 +61,8 @@ public class IncomingSigns {
     private String signExcutedSelf;//صفة المختص بتنفيذ الأشارة
     @Column(name = "sign_excuted_date")
     private Date SignExecutionDate;//تاريخ تنفيذ الأشارة
+    @Column(name = "depend")
+    private String depend; //يعتمد
 
 
 }

@@ -83,9 +83,9 @@ public class FileUploadService {
     private void updateImagePath(int id, String pathType, String imagePath, File file) {
 
         if (pathType.contains("imports") ||
-            pathType.contains("exports") ||
-            pathType.contains("specials") ||
-            pathType.contains("decisions")) {
+                pathType.contains("exports") ||
+                pathType.contains("specials") ||
+                pathType.contains("decisions")) {
 
             Image image = new Image();
             image.setImagePath("assets\\".concat(imagePath));
@@ -136,6 +136,15 @@ public class FileUploadService {
             return imageRepository.findByImagePath(imagePath).get();
         else
             throw new RecordNotFountException("invalid path");
+    }
+
+
+    void convertImageImport(int specialId, int importId) {
+        imageRepository.convertImageImport(specialId, importId);
+    }
+
+    void convertImageExport(int specialId, int importId) {
+        imageRepository.convertImageExport(specialId, importId);
     }
 
 

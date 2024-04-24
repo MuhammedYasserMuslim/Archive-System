@@ -62,6 +62,9 @@ public class Import extends BaseEntity {
     @Column(name = "expect_response_date")
     private Date expectResponseDate;
 
+    @Column(name = "saved" , nullable = false)
+    private Byte saved;
+
     public Import(int id) {
         this.id = id;
     }

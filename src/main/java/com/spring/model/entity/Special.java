@@ -25,6 +25,9 @@ public class Special extends BaseEntity {
     @Column(name = "no" , nullable = false )
     private Integer no;
 
+    @Column(name = "file_type")
+    private String fileType;
+
     @Column(name = "import_num")
     private Integer importNum;
 

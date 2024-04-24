@@ -30,10 +30,11 @@ public class ImportServices {
     private final ExportServices exportServices;
     private final SpecialServices specialServices;
     private final BaseDataServices baseDataServices;
+    private final FileUploadService fileUploadService;
 
 
     @Lazy
-    public ImportServices(ExportServices exportServices, ImportRepository importRepository, ArchiveFileServices archiveFileServices, ArchiveFileMapper archiveFileMapper, ImportMapper importMapper, SpecialServices specialServices, BaseDataServices baseDataServices) {
+    public ImportServices(ExportServices exportServices, ImportRepository importRepository, ArchiveFileServices archiveFileServices, ArchiveFileMapper archiveFileMapper, ImportMapper importMapper, SpecialServices specialServices, BaseDataServices baseDataServices, FileUploadService fileUploadService) {
         this.exportServices = exportServices;
         this.importRepository = importRepository;
         this.archiveFileServices = archiveFileServices;
@@ -41,6 +42,7 @@ public class ImportServices {
         this.importMapper = importMapper;
         this.specialServices = specialServices;
         this.baseDataServices = baseDataServices;
+        this.fileUploadService = fileUploadService;
     }
 
     /**
@@ -249,15 +251,11 @@ public class ImportServices {
         }
     }
 
-//    private void changeArchiveFile(Import importa, short num) {
-//        importa.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum((byte) 3, num)));
-//        importRepository.save(importa);
-//    }
-
     public void convertToSpecial(int id, short num) {
         Import importa = getById(id);
         SpecialDtoPost special = SpecialDtoPost.builder()
-                .importNum(importa.getNo())
+                .importNum(importa.getIncomingLetterNumber())
+                .fileType("وارد")
                 .summary(importa.getSummary())
                 .numberOfAttachments(importa.getNumberOfAttachments())
                 .num(num)
@@ -265,5 +263,6 @@ public class ImportServices {
                 .sender(importa.getSender())
                 .build();
         specialServices.insert(special);
+        fileUploadService.convertImageImport(specialServices.count(),importa.getId());
     }
 }

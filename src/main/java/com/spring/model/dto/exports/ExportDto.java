@@ -62,6 +62,7 @@ public class ExportDto {
     private Byte typeNumber;
     private Short num;
 
+    private Byte saved;
 
     public List<String> getPaths() {
         List<String> path = new ArrayList<>();
@@ -78,5 +79,5 @@ public class ExportDto {
         return this.urgentNum == null;
     }
 
-    public boolean isHasSpecial(){return this.typeNumber != 3;}
+    public boolean isHasSpecial(){return this.saved == 0;}
 }

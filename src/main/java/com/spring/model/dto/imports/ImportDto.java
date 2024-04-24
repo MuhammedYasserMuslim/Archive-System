@@ -73,6 +73,9 @@ public class ImportDto {
 
     private Short num;
 
+    private Byte saved;
+
+
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date expectResponseDate;
 
@@ -89,7 +92,7 @@ public class ImportDto {
     public boolean isHasResponse() {
         return this.expectResponseDate != null && this.responseNumber == null;
     }
-    public boolean isHasSpecial(){return this.typeNumber != 3 && this.expectResponseDate ==null;}
+    public boolean isHasSpecial(){return this.saved == 0 && this.expectResponseDate ==null;}
 
 
 }

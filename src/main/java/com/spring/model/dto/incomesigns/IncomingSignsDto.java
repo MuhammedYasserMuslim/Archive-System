@@ -43,4 +43,6 @@ public class IncomingSignsDto {
     private String signExcutedSelf;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date SignExecutionDate;
+
+    private String depend;
 }

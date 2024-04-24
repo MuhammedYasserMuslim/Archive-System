@@ -16,6 +16,8 @@ import java.util.List;
 public class SpecialDtoPost {
     private Integer id;
     private Integer no;
+    private String fileType;
+
     private String summary;
     private Integer importNum;
 
