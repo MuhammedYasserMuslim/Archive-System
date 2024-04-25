@@ -165,6 +165,9 @@ public class SpecialServices {
 
     }
 
+    /**
+     * @return special by id
+     */
     private Special getById(int id) {
         return specialRepository.findById(id).orElseThrow(() -> new RecordNotFountException("Not Found"));
     }

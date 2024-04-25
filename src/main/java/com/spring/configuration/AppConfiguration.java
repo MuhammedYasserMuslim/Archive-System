@@ -9,10 +9,11 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @Configuration
 @EnableAspectJAutoProxy
 public class AppConfiguration {
+
     /**
      * @return ConfigurableServletWebServerFactory
      * to allow special character in request
-     * */
+     */
 
     @Bean
     public ConfigurableServletWebServerFactory webServerFactory() {

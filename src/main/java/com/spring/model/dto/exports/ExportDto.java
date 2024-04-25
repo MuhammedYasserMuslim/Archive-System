@@ -9,7 +9,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -70,6 +69,7 @@ public class ExportDto {
             path.add(im.getImagePath());
         return path;
     }
+
 
     public boolean isHasResponse() {
         return this.responseNumber == null;

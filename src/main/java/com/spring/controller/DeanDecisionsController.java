@@ -29,6 +29,11 @@ public class DeanDecisionsController {
         return new ResponseEntity<>(deanDecisionsServices.findByYear(), HttpStatus.OK);
     }
 
+    @GetMapping("/decision")
+    public ResponseEntity<DeanDecisionsDto> findById(@RequestParam Integer id) {
+        return new ResponseEntity<>(deanDecisionsServices.findById(id), HttpStatus.OK);
+    }
+
     @GetMapping("/decisions-pagination")
     public ResponseEntity<DeanDecisionsDto> findAllPagination(@RequestParam int page) {
         return new ResponseEntity<>(deanDecisionsServices.findAllPaginationByYear(page - 1), HttpStatus.OK);

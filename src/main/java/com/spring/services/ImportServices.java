@@ -176,6 +176,7 @@ public class ImportServices {
         Import importa = importMapper.mapToEntity(dto);
         importa.setNo(imports.isEmpty() ? 1 : imports.get(imports.size() - 1).getNo() + 1);
         importa.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum(importa.getArchiveFile().getTypeNumber(), importa.getArchiveFile().getNum())));
+        importa.setSaved(0);
         baseDataServices.editAutoIncrementImport();
         importRepository.save(importa);
 
@@ -203,6 +204,7 @@ public class ImportServices {
         importa.setExport(getById(dto.getId()).getExport());
         importa.setCreatedBy(getById(id).getCreatedBy());
         importa.setCreatedDate(getById(id).getCreatedDate());
+        importa.setSaved(getById(id).getSaved());
         baseDataServices.editAutoIncrementImport();
         importRepository.save(importa);
 
@@ -235,6 +237,9 @@ public class ImportServices {
         return importRepository.findByYearDate(year).size();
     }
 
+    /**
+     * @return import by id
+     */
     private Import getById(int id) {
         return importRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
     }
@@ -251,8 +256,16 @@ public class ImportServices {
         }
     }
 
+    /**
+     * convert import to special
+     *
+     * @param id  import id
+     * @param num num of archive file
+     */
     public void convertToSpecial(int id, short num) {
         Import importa = getById(id);
+        importa.setSaved(specialServices.count() + 1);
+        importRepository.save(importa);
         SpecialDtoPost special = SpecialDtoPost.builder()
                 .importNum(importa.getIncomingLetterNumber())
                 .fileType("وارد")
@@ -263,6 +276,6 @@ public class ImportServices {
                 .sender(importa.getSender())
                 .build();
         specialServices.insert(special);
-        fileUploadService.convertImageImport(specialServices.count(),importa.getId());
+        fileUploadService.convertImageImport(specialServices.count(), importa.getId());
     }
 }

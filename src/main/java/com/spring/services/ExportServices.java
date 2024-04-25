@@ -131,6 +131,7 @@ public class ExportServices {
         export.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
                 (export.getArchiveFile().getTypeNumber(),
                         export.getArchiveFile().getNum())));
+        export.setSaved(0);
         baseDataServices.editAutoIncrementExport();
         exportRepository.save(export);
 
@@ -163,6 +164,7 @@ public class ExportServices {
         export.setAimport(getById(dto.getId()).getAimport());
         export.setCreatedBy(getById(dto.getId()).getCreatedBy());
         export.setCreatedDate(getById(dto.getId()).getCreatedDate());
+        export.setSaved(getById(dto.getId()).getSaved());
         baseDataServices.editAutoIncrementExport();
         exportRepository.save(export);
 
@@ -215,6 +217,9 @@ public class ExportServices {
         return exportRepository.findByYearDate(year).size();
     }
 
+    /**
+     * @return export by id
+     */
     private Export getById(int id) {
         return exportRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
     }
@@ -225,15 +230,16 @@ public class ExportServices {
     }
 
 
-    private void save(Export export) {
-        export.setSaved((byte) 1);
-        exportRepository.save(export);
-    }
-
-
-    public void convertToSpecial(int id , short num){
+    /**
+     * convert export to special
+     *
+     * @param id  export id
+     * @param num num of archive file
+     */
+    public void convertToSpecial(int id, short num) {
         Export export = getById(id);
-        save(export);
+        export.setSaved(specialServices.count() +1);
+        exportRepository.save(export);
         SpecialDtoPost special = SpecialDtoPost.builder()
                 .importNum(export.getNo())
                 .fileType("صادر")
@@ -244,7 +250,7 @@ public class ExportServices {
                 .sender(export.getReceiver())
                 .build();
         specialServices.insert(special);
-        fileUploadService.convertImageExport(specialServices.count(),export.getId());
+        fileUploadService.convertImageExport(specialServices.count(), export.getId());
 
     }
 

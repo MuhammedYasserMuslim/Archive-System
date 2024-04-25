@@ -3,7 +3,6 @@ package com.spring.services;
 
 import com.spring.model.dto.deandecisions.DeanDecisionsDto;
 import com.spring.model.dto.deandecisions.DeanDecisionsDtoPost;
-import com.spring.model.dto.exports.ExportDto;
 import com.spring.model.entity.DeanDecisions;
 import com.spring.model.mapper.ArchiveFileMapper;
 import com.spring.model.mapper.DeanDecisionsDtoMapper;
@@ -36,6 +35,11 @@ public class DeanDecisionsServices {
 
     public List<DeanDecisionsDto> findByYear() {
         return deanDecisionsDtoMapper.mapListToDto(deanDecisionsRepository.findByYear());
+    }
+
+    public DeanDecisionsDto findById(int id) {
+        DeanDecisions deanDecisions = deanDecisionsRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
+        return deanDecisionsDtoMapper.mapToDto(deanDecisions);
     }
 
     public DeanDecisionsDto findAllPaginationByYear(int page) {
