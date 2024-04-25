@@ -61,7 +61,7 @@ public class ExportDto {
     private Byte typeNumber;
     private Short num;
 
-    private Byte saved;
+    private Integer saved;
 
     public List<String> getPaths() {
         List<String> path = new ArrayList<>();

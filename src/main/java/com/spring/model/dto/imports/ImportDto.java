@@ -73,7 +73,7 @@ public class ImportDto {
 
     private Short num;
 
-    private Byte saved;
+    private Integer saved;
 
 
     @JsonFormat(pattern = "yyyy-MM-dd")
