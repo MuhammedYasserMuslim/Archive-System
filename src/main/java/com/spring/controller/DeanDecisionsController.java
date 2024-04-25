@@ -24,6 +24,11 @@ public class DeanDecisionsController {
         return new ResponseEntity<>(deanDecisionsServices.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/count")
+    public ResponseEntity<Integer> count() {
+        return new ResponseEntity<>(deanDecisionsServices.count() , HttpStatus.OK);
+    }
+
     @GetMapping("/decisions")
     public ResponseEntity<List<DeanDecisionsDto>> findByYear() {
         return new ResponseEntity<>(deanDecisionsServices.findByYear(), HttpStatus.OK);

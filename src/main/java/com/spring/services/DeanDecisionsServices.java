@@ -29,6 +29,14 @@ public class DeanDecisionsServices {
     private final BaseDataServices baseDataServices;
 
 
+    public Long countAll(){
+        return deanDecisionsRepository.count();
+    }
+
+    public Integer count(){
+        return findByYear().size();
+    }
+
     public List<DeanDecisionsDto> findAll() {
         return deanDecisionsDtoMapper.mapListToDto(deanDecisionsRepository.findAll());
     }
