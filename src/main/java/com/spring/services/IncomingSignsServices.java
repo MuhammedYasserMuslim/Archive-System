@@ -5,6 +5,8 @@ import com.spring.model.entity.IncomingSigns;
 import com.spring.model.mapper.IncomingSignsMapper;
 import com.spring.repository.IncomingSignsRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +27,11 @@ public class IncomingSignsServices {
     public IncomingSignsDto findById(int id) {
         IncomingSigns incomingSigns = incomingSignsMapperRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
         return incomingSignsMapper.mapToDto(incomingSigns);
+    }
+
+    public IncomingSignsDto findAllPagination(int page) {
+        Pageable pageable = PageRequest.of(page, 1);
+        return incomingSignsMapper.mapToDto(incomingSignsMapperRepository.findAll(pageable).getContent().get(0));
     }
 
 

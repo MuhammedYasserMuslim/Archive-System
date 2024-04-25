@@ -26,6 +26,11 @@ public class IncomingSignsController {
         return new ResponseEntity<>(incomingSignsServices.findById(id), HttpStatus.OK);
     }
 
+    @GetMapping("/sign-pagination")
+    public ResponseEntity<IncomingSignsDto> findAllPagination(@RequestParam int page ) {
+        return new ResponseEntity<>(incomingSignsServices.findAllPagination(page-1), HttpStatus.OK);
+    }
+
     @PostMapping("/sign")
     public ResponseEntity<?> insert(@RequestBody IncomingSignsDto incomingSignsDto) {
         incomingSignsServices.insert(incomingSignsDto);
