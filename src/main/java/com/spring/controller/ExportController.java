@@ -29,10 +29,11 @@ public class ExportController {
     }
 
     @GetMapping("/count-current")
-    @Operation(summary = "Show Exports today Count")
+    @Operation(summary = "Show Exports Count")
     public ResponseEntity<Integer> countCurrent() {
-        return new ResponseEntity<>(exportServices.countCurrent(), HttpStatus.OK);
+        return ResponseEntity.ok(exportServices.countCurrent());
     }
+
 
     @GetMapping("/exports")
     @Operation(summary = "Show All Exports in Current Year")
@@ -119,6 +120,7 @@ public class ExportController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    private record Body(short num) {}
+    private record Body(short num) {
+    }
 
 }

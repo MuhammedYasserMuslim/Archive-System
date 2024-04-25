@@ -49,16 +49,16 @@ public class ExportServices {
      * @return count exports in current year
      */
     public int count() {
+        return (int) exportRepository.count();
+    }
+
+    /**
+     * @return count exports in current year
+     */
+    public int countCurrent() {
         return exportRepository.findByYear().size();
     }
 
-
-    /**
-     * @return count today  exports
-     */
-    public int countCurrent() {
-        return exportRepository.findByDate().size();
-    }
 
     /**
      * @return all exports in all years
@@ -238,7 +238,7 @@ public class ExportServices {
      */
     public void convertToSpecial(int id, short num) {
         Export export = getById(id);
-        export.setSaved(specialServices.count() +1);
+        export.setSaved((int) (specialServices.count() + 1));
         exportRepository.save(export);
         SpecialDtoPost special = SpecialDtoPost.builder()
                 .importNum(export.getNo())

@@ -49,16 +49,16 @@ public class ImportServices {
      * @return count imports in current year
      */
     public int count() {
+        return (int) importRepository.count();
+    }
+
+    /**
+     * @return count imports in current year
+     */
+    public int countCurrent() {
         return importRepository.findByYear().size();
     }
 
-
-    /**
-     * @return count today imports
-     */
-    public int countCurrent() {
-        return importRepository.findByIncomeDate().size();
-    }
 
     /**
      * @return count imports time has come

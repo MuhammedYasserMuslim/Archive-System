@@ -29,7 +29,14 @@ public class SpecialServices {
     /**
      * @return count specials in current year
      */
-    public int count() {
+    public Integer count() {
+        return (int) specialRepository.count();
+    }
+
+    /**
+     * @return count specials in current year
+     */
+    public int countCurrent() {
         return specialRepository.findByYear().size();
     }
 

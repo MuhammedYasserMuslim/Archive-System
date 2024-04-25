@@ -23,7 +23,6 @@ public class ImportController {
 
     @GetMapping("/count")
     @Operation(summary = "Get Import Count")
-//    @PreAuthorize("hasRole('MANGER')")
     public ResponseEntity<Integer> count() {
         return ResponseEntity.ok(importServices.count());
     }
@@ -35,7 +34,6 @@ public class ImportController {
     }
 
     @GetMapping("/count-important")
-//    @PreAuthorize(" hasRole('ADMIN') ")
     @Operation(summary = "Get count Important Imports  (عدد الخطابات الهامة )")
     public ResponseEntity<Integer> countImportantFile() {
         return ResponseEntity.ok(importServices.countImportantFile());
@@ -161,5 +159,6 @@ public class ImportController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    private record Body(short num) {}
+    private record Body(short num) {
+    }
 }

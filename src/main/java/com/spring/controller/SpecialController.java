@@ -26,6 +26,11 @@ public class SpecialController {
         return new ResponseEntity<>(specialServices.count(), HttpStatus.OK);
     }
 
+    @GetMapping("/count-current")
+    public ResponseEntity<Integer> countCurrent() {
+        return new ResponseEntity<>(specialServices.countCurrent(), HttpStatus.OK);
+    }
+
     @GetMapping("/all-specials")
     public ResponseEntity<List<SpecialDto>> findAll() {
         return new ResponseEntity<>(specialServices.findAll(), HttpStatus.OK);
