@@ -25,8 +25,13 @@ public class DeanDecisionsController {
     }
 
     @GetMapping("/count")
+    public ResponseEntity<Long> countAll() {
+        return new ResponseEntity<>(deanDecisionsServices.countAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/count-current")
     public ResponseEntity<Integer> count() {
-        return new ResponseEntity<>(deanDecisionsServices.count() , HttpStatus.OK);
+        return new ResponseEntity<>(deanDecisionsServices.count(), HttpStatus.OK);
     }
 
     @GetMapping("/decisions")
