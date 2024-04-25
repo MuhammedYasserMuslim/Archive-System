@@ -21,15 +21,19 @@ public abstract class BaseEntity {
 
 
     @CreatedBy
+    @Column(updatable = false)
     private String createdBy;
 
     @LastModifiedBy
+    @Column(updatable = false)
     private String lastModifiedBy;
 
     @CreatedDate
+    @Column(updatable = false)
     private LocalDateTime createdDate;
 
     @LastModifiedDate
+    @Column(updatable = false)
     private LocalDateTime lastModifiedDate;
 
 

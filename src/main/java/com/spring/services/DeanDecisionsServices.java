@@ -29,11 +29,11 @@ public class DeanDecisionsServices {
     private final BaseDataServices baseDataServices;
 
 
-    public Long countAll(){
+    public Long count(){
         return deanDecisionsRepository.count();
     }
 
-    public Integer count(){
+    public Integer countCurrent(){
         return findByYear().size();
     }
 
