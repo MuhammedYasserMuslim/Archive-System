@@ -22,7 +22,7 @@ public class ExportDtoPost {
     private String summary;//ملخص الخطاب
     private String recipientName;// المستلم
     private Date recipientDate;//تاريخ الاستلام
-    private Byte saved;
+    private Integer saved;
 
     // ArchiveFileDto
     private ArchiveFileDto archiveFile;
