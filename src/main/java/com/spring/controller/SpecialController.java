@@ -68,6 +68,13 @@ public class SpecialController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @PostMapping("/specials")
+    public ResponseEntity<?> insertALl(@RequestBody List<SpecialDtoPost> specials) {
+        for (SpecialDtoPost special : specials)
+            specialServices.insert(special);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
     @PutMapping("/special")
     public ResponseEntity<?> update(@RequestBody SpecialDtoPost special, @RequestParam int id) {
         specialServices.update(special, id);
