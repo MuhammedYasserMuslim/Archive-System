@@ -19,13 +19,13 @@ public class Decision {
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     private Integer id;
 
-    @Column(name = "num")
+    @Column(name = "num", nullable = false)
     private Integer num;
 
-    @Column(name = "summary")
+    @Column(name = "summary" ,nullable = false)
     private String summary;
 
-    @Column(name = "qarar")
+    @Column(name = "qarar" ,nullable = false)
     private String qarar;
 
     @ManyToOne(cascade = CascadeType.MERGE ,fetch = FetchType.LAZY)
