@@ -57,7 +57,7 @@ public class SpecialController {
         return new ResponseEntity<>(specialServices.findByArchiveFile(id), HttpStatus.OK);
     }
 
-    @GetMapping("/special")
+    @GetMapping("/special-id")
     public ResponseEntity<SpecialDto> findById(@RequestParam int id) {
         return new ResponseEntity<>(specialServices.findById(id), HttpStatus.OK);
     }
