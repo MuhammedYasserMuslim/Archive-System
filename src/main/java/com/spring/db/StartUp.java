@@ -199,7 +199,7 @@ public class StartUp implements CommandLineRunner, ApplicationRunner {
     public void run(ApplicationArguments args)  {
         if (authorityService.findAll().isEmpty()) {
             authorityService.insert(new Authority((byte) 1, "ROLE_ADMIN"));
-            authorityService.insert(new Authority((byte) 2, "ROLE_MANGER"));
+            authorityService.insert(new Authority((byte) 2, "ROLE_MANAGER"));
             authorityService.insert(new Authority((byte) 3, "ROLE_USER"));
         }
 

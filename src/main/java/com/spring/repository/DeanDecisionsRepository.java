@@ -12,9 +12,9 @@ import java.util.List;
 @Repository
 public interface DeanDecisionsRepository extends JpaRepository<DeanDecisions, Integer> {
 
-    @Query(value = "select decision from DeanDecisions decision where Year(decision.date) = Year(current_date)")
+    @Query(value = "select decision from DeanDecisions decision where Year(decision.createdDate) = Year(current_date)")
     List<DeanDecisions> findByYear();
 
-    @Query(value = "select decision from DeanDecisions decision where Year(decision.date) = Year(current_date)")
+    @Query(value = "select decision from DeanDecisions decision where Year(decision.createdDate) = Year(current_date)")
     Page<DeanDecisions> findByYear(Pageable pageable);
 }

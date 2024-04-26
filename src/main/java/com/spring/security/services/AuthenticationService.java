@@ -59,12 +59,17 @@ public class AuthenticationService {
         List<Authority> list = new ArrayList<>(authorities);
         list.sort(Comparator.comparing(Authority::getId));
         for (Authority authority : list) {
-            if (authority.getName().equals("ROLE_ADMIN"))
-                return "admin";
-            if (authority.getName().equals("ROLE_MANAGER"))
-                return "manager";
-            if (authority.getName().equals("ROLE_USER"))
-                return "user";
+            switch (authority.getName()) {
+                case "ROLE_ADMIN" -> {
+                    return "admin";
+                }
+                case "ROLE_MANAGER" -> {
+                    return "manager";
+                }
+                case "ROLE_USER" -> {
+                    return "user";
+                }
+            }
         }
         return null;
     }

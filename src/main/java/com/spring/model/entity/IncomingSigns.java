@@ -23,9 +23,9 @@ public class IncomingSigns extends BaseEntity{
     private Integer id;  //رقم الأشارة
 
 
-    @Column(name = "date")
+    @Column(name = "date" , nullable = false)
     private Date date; // تاريخ الاشارة
-    @Column(name = "sender")
+    @Column(name = "sender" , nullable = false)
     private String sender; //الجهة الوارد منها الاشارة
     @Column(name = "via")
     private String via; //عن طريق
@@ -38,7 +38,7 @@ public class IncomingSigns extends BaseEntity{
     private String signInformerPhone;//موبايل مبلغ الاشارة
 
 
-    @Column(name = "summary")
+    @Column(name = "summary"   ,nullable = false )
     private String summary;//محتوي الاشارة
     @Column(name = "sign_signature")
     private String signSignature;//توقيع الاشارة
