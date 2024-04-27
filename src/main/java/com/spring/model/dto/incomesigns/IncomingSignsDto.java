@@ -22,6 +22,7 @@ public class IncomingSignsDto {
     private String sender;
 
     private String via;
+    private String universityYear ;
 
     private String signInformer;
     private String signInformerSelf;

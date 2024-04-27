@@ -41,14 +41,14 @@ public class IncomingSignsServices {
 
 
     public void insert(IncomingSignsDto incomingSignsDto) {
-        incomingSignsMapperRepository.save(incomingSignsMapper.mapToEntity(incomingSignsDto));
         baseDataServices.editAutoIncrementIncomingSigns();
+        incomingSignsMapperRepository.save(incomingSignsMapper.mapToEntity(incomingSignsDto));
     }
 
     public void update(IncomingSignsDto incomingSignsDto, int id) {
+        baseDataServices.editAutoIncrementIncomingSigns();
         incomingSignsDto.setId(id);
         incomingSignsMapperRepository.save(incomingSignsMapper.mapToEntity(incomingSignsDto));
-        baseDataServices.editAutoIncrementIncomingSigns();
     }
 
 

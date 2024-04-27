@@ -56,6 +56,7 @@ public class DeanDecisionsServices {
     }
 
     public void insert(DeanDecisionsDtoPost dto) {
+        baseDataServices.editAutoIncrementDeanDecisions();
         dto.setTypeNumber((byte) 2);
         DeanDecisions decisions = deanDecisionsDtoMapper.mapToEntity(dto);
         List<DeanDecisions> deanDecisions = deanDecisionsRepository.findByYear();
@@ -63,12 +64,12 @@ public class DeanDecisionsServices {
         decisions.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
                 (decisions.getArchiveFile().getTypeNumber(),
                         decisions.getArchiveFile().getNum())));
-        baseDataServices.editAutoIncrementDeanDecisions();
         deanDecisionsRepository.save(decisions);
     }
 
 
     public void update(DeanDecisionsDtoPost dto, int id) {
+        baseDataServices.editAutoIncrementDeanDecisions();
         dto.setId(id);
         DeanDecisions decisions = deanDecisionsDtoMapper.mapToEntity(dto);
         DeanDecisions dec = getById(id);
@@ -80,7 +81,6 @@ public class DeanDecisionsServices {
         decisions.setCreatedBy(getById(dto.getId()).getCreatedBy());
         decisions.setCreatedDate(getById(dto.getId()).getCreatedDate());
         decisions.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum((byte) 2, decisions.getArchiveFile().getNum())));
-        baseDataServices.editAutoIncrementDeanDecisions();
         deanDecisionsRepository.save(decisions);
 
     }

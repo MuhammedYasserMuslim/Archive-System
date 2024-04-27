@@ -171,13 +171,13 @@ public class ImportServices {
      * @param dto add new import file
      */
     public void insert(ImportDtoPost dto) {
+        baseDataServices.editAutoIncrementImport();
         List<Import> imports = importRepository.findByYear();
         dto.setTypeNumber((byte) 1);
         Import importa = importMapper.mapToEntity(dto);
         importa.setNo(imports.isEmpty() ? 1 : imports.get(imports.size() - 1).getNo() + 1);
         importa.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum(importa.getArchiveFile().getTypeNumber(), importa.getArchiveFile().getNum())));
         importa.setSaved(0);
-        baseDataServices.editAutoIncrementImport();
         importRepository.save(importa);
 
     }
@@ -187,6 +187,7 @@ public class ImportServices {
      * @param id  chose import file to update
      */
     public void update(ImportDtoPost dto, int id) {
+        baseDataServices.editAutoIncrementImport();
         dto.setId(id);
         Import im = getById(id);
         Import importa = importMapper.mapToEntity(dto);
@@ -205,7 +206,6 @@ public class ImportServices {
         importa.setCreatedBy(getById(id).getCreatedBy());
         importa.setCreatedDate(getById(id).getCreatedDate());
         importa.setSaved(getById(id).getSaved());
-        baseDataServices.editAutoIncrementImport();
         importRepository.save(importa);
 
     }

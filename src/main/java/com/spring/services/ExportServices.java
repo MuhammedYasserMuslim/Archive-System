@@ -124,6 +124,7 @@ public class ExportServices {
      */
     // @CacheEvict(value = "findAllExports", key = "#root.methodName", allEntries = true)
     public void insert(ExportDtoPost dto) {
+        baseDataServices.editAutoIncrementExport();
         dto.setTypeNumber((byte) 2);
         Export export = exportMapper.mapToEntity(dto);
         List<Export> exports = exportRepository.findByYear();
@@ -132,7 +133,6 @@ public class ExportServices {
                 (export.getArchiveFile().getTypeNumber(),
                         export.getArchiveFile().getNum())));
         export.setSaved(0);
-        baseDataServices.editAutoIncrementExport();
         exportRepository.save(export);
 
     }
@@ -150,6 +150,7 @@ public class ExportServices {
      */
     // @CacheEvict(value = "findAllExports", key = "#root.methodName", allEntries = true)
     public void update(ExportDtoPost dto, int id) {
+        baseDataServices.editAutoIncrementExport();
         dto.setId(id);
         Export export = exportMapper.mapToEntity(dto);
         Export ex = getById(id);
@@ -165,7 +166,6 @@ public class ExportServices {
         export.setCreatedBy(getById(dto.getId()).getCreatedBy());
         export.setCreatedDate(getById(dto.getId()).getCreatedDate());
         export.setSaved(getById(dto.getId()).getSaved());
-        baseDataServices.editAutoIncrementExport();
         exportRepository.save(export);
 
     }

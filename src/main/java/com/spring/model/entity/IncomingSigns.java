@@ -30,6 +30,9 @@ public class IncomingSigns extends BaseEntity{
     @Column(name = "via")
     private String via; //عن طريق
 
+    @Column(name = "university_year")
+    private String universityYear ;
+
     @Column(name = "sign_informer")
     private String signInformer;//مبلغ الاشارة
     @Column(name = "sign_informer_self")

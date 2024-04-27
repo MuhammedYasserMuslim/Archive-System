@@ -117,6 +117,7 @@ public class SpecialServices {
      * @param dto add new special file
      */
     public void insert(SpecialDtoPost dto) {
+        baseDataServices.editAutoIncrementSpecial();
         List<Special> specials = specialRepository.findByYear();
         dto.setTypeNumber((byte) 3);
         Special special = specialMapper.mapToEntity(dto);
@@ -124,7 +125,6 @@ public class SpecialServices {
         special.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum
                 (special.getArchiveFile().getTypeNumber(),
                         special.getArchiveFile().getNum())));
-        baseDataServices.editAutoIncrementSpecial();
         specialRepository.save(special);
         if (!(dto.getSubjects() == null)) {
             List<Subject> subjects = dto.getSubjects();
@@ -142,6 +142,7 @@ public class SpecialServices {
      * @param id  chose special file to update
      */
     public void update(SpecialDtoPost dto, int id) {
+        baseDataServices.editAutoIncrementSpecial();
         Special sp = getById(id);
         dto.setId(id);
         dto.setTypeNumber((byte) 3);
@@ -153,7 +154,6 @@ public class SpecialServices {
         special.setCreatedBy(getById(id).getCreatedBy());
         special.setCreatedDate(getById(id).getCreatedDate());
         special.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum((byte) 3, special.getArchiveFile().getNum())));
-        baseDataServices.editAutoIncrementSpecial();
         List<Subject> subjectList = getById(id).getSubject();
         for (int i = 0; i < subjectList.size(); i++) {
             getById(id).getSubject().get(i).setSpecial(null);
