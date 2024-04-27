@@ -1,6 +1,7 @@
 package com.spring.services;
 
 import com.spring.model.dto.incomesigns.IncomingSignsDto;
+import com.spring.model.dto.incomesigns.IncomingSignsDtoPost;
 import com.spring.model.entity.IncomingSigns;
 import com.spring.model.mapper.IncomingSignsMapper;
 import com.spring.repository.IncomingSignsRepository;
@@ -40,15 +41,15 @@ public class IncomingSignsServices {
     }
 
 
-    public void insert(IncomingSignsDto incomingSignsDto) {
+    public void insert(IncomingSignsDtoPost incomingSignsDtoPost) {
         baseDataServices.editAutoIncrementIncomingSigns();
-        incomingSignsMapperRepository.save(incomingSignsMapper.mapToEntity(incomingSignsDto));
+        incomingSignsMapperRepository.save(incomingSignsMapper.mapToEntity(incomingSignsDtoPost));
     }
 
-    public void update(IncomingSignsDto incomingSignsDto, int id) {
+    public void update(IncomingSignsDtoPost incomingSignsDtoPost, int id) {
         baseDataServices.editAutoIncrementIncomingSigns();
-        incomingSignsDto.setId(id);
-        incomingSignsMapperRepository.save(incomingSignsMapper.mapToEntity(incomingSignsDto));
+        incomingSignsDtoPost.setId(id);
+        incomingSignsMapperRepository.save(incomingSignsMapper.mapToEntity(incomingSignsDtoPost));
     }
 
 

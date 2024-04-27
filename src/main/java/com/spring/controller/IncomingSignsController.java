@@ -1,6 +1,7 @@
 package com.spring.controller;
 
 import com.spring.model.dto.incomesigns.IncomingSignsDto;
+import com.spring.model.dto.incomesigns.IncomingSignsDtoPost;
 import com.spring.services.IncomingSignsServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -37,13 +38,13 @@ public class IncomingSignsController {
     }
 
     @PostMapping("/sign")
-    public ResponseEntity<?> insert(@RequestBody IncomingSignsDto incomingSignsDto) {
+    public ResponseEntity<?> insert(@RequestBody IncomingSignsDtoPost incomingSignsDto) {
         incomingSignsServices.insert(incomingSignsDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/sign")
-    public ResponseEntity<?> update(@RequestBody IncomingSignsDto incomingSignsDto, @RequestParam int id) {
+    public ResponseEntity<?> update(@RequestBody IncomingSignsDtoPost incomingSignsDto, @RequestParam int id) {
         incomingSignsServices.update(incomingSignsDto, id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
