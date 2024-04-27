@@ -16,6 +16,11 @@ public class IncomingSignsController {
 
     private final IncomingSignsServices incomingSignsServices;
 
+
+    @GetMapping("/count")
+    public ResponseEntity<Long> count(){
+        return new ResponseEntity<>(incomingSignsServices.count(),HttpStatus.OK);
+    }
     @GetMapping("/signs")
     public ResponseEntity<List<IncomingSignsDto>> findAll() {
         return new ResponseEntity<>(incomingSignsServices.findAll(), HttpStatus.OK);

@@ -31,13 +31,13 @@ ALTER TABLE `archive`.`incoming_signs`
     CHANGE COLUMN `last_modified_date` `last_modified_date` DATETIME(6) NOT NULL;
 
 ALTER TABLE `archive`.`subjects`
-    CHANGE COLUMN `head` `head` VARCHAR(255) NOT NULL ,
-    CHANGE COLUMN `num` `num` INT NOT NULL ;
+    CHANGE COLUMN `head` `head` VARCHAR(255) NOT NULL,
+    CHANGE COLUMN `num` `num` INT NOT NULL;
 
 ALTER TABLE `archive`.`decisions`
-    CHANGE COLUMN `num` `num` INT NOT NULL ,
-    CHANGE COLUMN `qarar` `qarar` VARCHAR(255) NOT NULL ,
-    CHANGE COLUMN `summary` `summary` VARCHAR(255) NOT NULL ;
+    CHANGE COLUMN `num` `num` INT NOT NULL,
+    CHANGE COLUMN `qarar` `qarar` VARCHAR(255) NOT NULL,
+    CHANGE COLUMN `summary` `summary` VARCHAR(255) NOT NULL;
 
 
 
@@ -54,6 +54,11 @@ ALTER TABLE `archive`.`archive_file`
     CHANGE COLUMN `created_date` `created_date` DATETIME(6) NOT NULL,
     CHANGE COLUMN `last_modified_by` `last_modified_by` VARCHAR(255) NOT NULL,
     CHANGE COLUMN `last_modified_date` `last_modified_date` DATETIME(6) NOT NULL;
+
+
+update authorities
+set name = 'ROLE_MANAGER'
+where id = 2;
 
 
 

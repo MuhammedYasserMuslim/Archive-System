@@ -7,6 +7,7 @@ import com.spring.repository.IncomingSignsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,10 @@ public class IncomingSignsServices {
     private final IncomingSignsMapper incomingSignsMapper;
     private final BaseDataServices baseDataServices;
 
+
+    public Long count() {
+        return incomingSignsMapperRepository.count();
+    }
 
     public List<IncomingSignsDto> findAll() {
         return incomingSignsMapper.mapToDto(incomingSignsMapperRepository.findAll());
@@ -45,4 +50,6 @@ public class IncomingSignsServices {
         incomingSignsMapperRepository.save(incomingSignsMapper.mapToEntity(incomingSignsDto));
         baseDataServices.editAutoIncrementIncomingSigns();
     }
+
+
 }
