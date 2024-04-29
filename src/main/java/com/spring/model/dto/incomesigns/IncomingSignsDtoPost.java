@@ -42,7 +42,7 @@ public class IncomingSignsDtoPost {
     private String signExcutedName;
     private String signExcutedSelf;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date SignExecutionDate;
+    private Date signExecutionDate;
 
     private String depend;
 }

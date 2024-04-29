@@ -16,7 +16,7 @@ public class IncomingSignsDto {
 
     private Integer id;
 
-    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm")
     private Date date;
 
     private String sender;
@@ -43,7 +43,7 @@ public class IncomingSignsDto {
     private String signExcutedName;
     private String signExcutedSelf;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date SignExecutionDate;
+    private Date signExecutionDate;
 
     private String depend;
 }

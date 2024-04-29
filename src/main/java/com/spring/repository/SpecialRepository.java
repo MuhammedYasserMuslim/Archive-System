@@ -1,8 +1,6 @@
 package com.spring.repository;
 
-import com.spring.model.entity.ArchiveFile;
 import com.spring.model.entity.Special;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

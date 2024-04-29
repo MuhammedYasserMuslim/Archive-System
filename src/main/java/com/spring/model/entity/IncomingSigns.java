@@ -1,5 +1,6 @@
 package com.spring.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,6 +25,7 @@ public class IncomingSigns extends BaseEntity{
 
 
     @Column(name = "date" , nullable = false)
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm")
     private Date date; // تاريخ الاشارة
     @Column(name = "sender" , nullable = false)
     private String sender; //الجهة الوارد منها الاشارة

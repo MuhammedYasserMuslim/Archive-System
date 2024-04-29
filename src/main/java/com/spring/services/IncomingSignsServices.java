@@ -8,7 +8,6 @@ import com.spring.repository.IncomingSignsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,39 +16,54 @@ import java.util.List;
 @RequiredArgsConstructor
 public class IncomingSignsServices {
 
-    private final IncomingSignsRepository incomingSignsMapperRepository;
+    private final IncomingSignsRepository incomingSignsRepository;
     private final IncomingSignsMapper incomingSignsMapper;
     private final BaseDataServices baseDataServices;
 
-
+    /**
+     * @return count Incoming signs
+     */
     public Long count() {
-        return incomingSignsMapperRepository.count();
+        return incomingSignsRepository.count();
     }
 
+    /**
+     * @return all Incoming signs
+     */
     public List<IncomingSignsDto> findAll() {
-        return incomingSignsMapper.mapToDto(incomingSignsMapperRepository.findAll());
+        return incomingSignsMapper.mapToDto(incomingSignsRepository.findAll());
     }
-
+    /**
+     * @param id to find Incoming signs by
+     * @return Incoming signs by id
+     */
     public IncomingSignsDto findById(int id) {
-        IncomingSigns incomingSigns = incomingSignsMapperRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
+        IncomingSigns incomingSigns = incomingSignsRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
         return incomingSignsMapper.mapToDto(incomingSigns);
     }
-
+    /**
+     * @param page number of page in pagination
+     * @return Incoming signs  for pagination
+     */
     public IncomingSignsDto findAllPagination(int page) {
         Pageable pageable = PageRequest.of(page, 1);
-        return incomingSignsMapper.mapToDto(incomingSignsMapperRepository.findAll(pageable).getContent().get(0));
+        return incomingSignsMapper.mapToDto(incomingSignsRepository.findAll(pageable).getContent().get(0));
     }
+    /**
+     * @param dto add new Incoming sign
+     */
 
-
-    public void insert(IncomingSignsDtoPost incomingSignsDtoPost) {
+    public void insert(IncomingSignsDtoPost dto) {
         baseDataServices.editAutoIncrementIncomingSigns();
-        incomingSignsMapperRepository.save(incomingSignsMapper.mapToEntity(incomingSignsDtoPost));
+        incomingSignsRepository.save(incomingSignsMapper.mapToEntity(dto));
     }
-
-    public void update(IncomingSignsDtoPost incomingSignsDtoPost, int id) {
-        baseDataServices.editAutoIncrementIncomingSigns();
-        incomingSignsDtoPost.setId(id);
-        incomingSignsMapperRepository.save(incomingSignsMapper.mapToEntity(incomingSignsDtoPost));
+    /**
+     * @param signs take new values
+     * @param id  chose Incoming sign to update
+     */
+    public void update(IncomingSigns signs,int id) {
+        signs.setId(id);
+        incomingSignsRepository.save(signs);
     }
 
 

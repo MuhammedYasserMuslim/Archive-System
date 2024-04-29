@@ -179,7 +179,10 @@ public class SpecialServices {
         return specialRepository.findById(id).orElseThrow(() -> new RecordNotFountException("Not Found"));
     }
 
-
+    /**
+     * @param dtos to reverse list
+     * @return specialDto
+     */
     private List<SpecialDto> reverseList(List<SpecialDto> dtos) {
         Collections.reverse(dtos);
         return dtos;

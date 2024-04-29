@@ -1,6 +1,5 @@
 package com.spring.repository;
 
-import com.spring.model.entity.ArchiveFile;
 import com.spring.model.entity.Import;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
