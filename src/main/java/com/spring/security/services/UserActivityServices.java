@@ -1,13 +1,7 @@
 package com.spring.security.services;
 
-import com.spring.model.entity.DeanDecisions;
-import com.spring.model.entity.Export;
-import com.spring.model.entity.Import;
-import com.spring.model.entity.Special;
-import com.spring.repository.DeanDecisionsRepository;
-import com.spring.repository.ExportRepository;
-import com.spring.repository.ImportRepository;
-import com.spring.repository.SpecialRepository;
+import com.spring.model.entity.*;
+import com.spring.repository.*;
 import com.spring.security.model.dto.UserActivity;
 import com.spring.security.model.mapper.UserActivityMapper;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +19,7 @@ public class UserActivityServices {
     private final ImportRepository importRepository;
     private final SpecialRepository specialRepository;
     private final DeanDecisionsRepository deanDecisionsRepository;
+    private final IncomingSignsRepository incomingSignsRepository;
     private final UserActivityMapper userActivityMapper;
 
 
@@ -51,6 +46,11 @@ public class UserActivityServices {
         for (DeanDecisions decisions : deanDecisionsRepository.findByYear()) {
             UserActivity userActivity = userActivityMapper.mapToUserActivity(decisions);
             userActivity.setType("قرارت عميد الكلية");
+            activities.add(userActivity);
+        }
+        for (IncomingSigns signs : incomingSignsRepository.findAll()) {
+            UserActivity userActivity = userActivityMapper.mapToUserActivity(signs);
+            userActivity.setType("أشارات");
             activities.add(userActivity);
         }
 

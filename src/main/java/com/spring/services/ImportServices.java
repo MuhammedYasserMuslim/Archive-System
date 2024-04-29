@@ -267,7 +267,7 @@ public class ImportServices {
         importa.setSaved(specialServices.count() + 1);
         importRepository.save(importa);
         SpecialDtoPost special = SpecialDtoPost.builder()
-                .importNum(importa.getIncomingLetterNumber())
+                .importNum(importa.getNo())
                 .fileType("وارد")
                 .summary(importa.getSummary())
                 .numberOfAttachments(importa.getNumberOfAttachments())

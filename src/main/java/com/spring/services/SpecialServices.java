@@ -126,7 +126,7 @@ public class SpecialServices {
                 (special.getArchiveFile().getTypeNumber(),
                         special.getArchiveFile().getNum())));
         specialRepository.save(special);
-        if (!(dto.getSubjects() == null)) {
+        if (dto.getSubjects() != null && !(dto.getSubjects().isEmpty())) {
             List<Subject> subjects = dto.getSubjects();
 
             for (Subject subject : subjects) {
