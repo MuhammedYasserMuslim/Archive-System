@@ -19,8 +19,8 @@ public class BaseDataServices {
      * used to find image folder path
      */
 
-    public String findBaseData() {
-        return baseDataRepository.findBaseData();
+    public String findImagePath() {
+        return baseDataRepository.findImagesPath();
     }
 
 

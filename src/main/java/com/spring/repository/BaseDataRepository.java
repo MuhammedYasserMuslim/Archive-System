@@ -16,7 +16,7 @@ public interface BaseDataRepository extends JpaRepository<BaseData, Byte> {
      * select images_path from base_data
      */
     @Query("SELECT base.imagesPath FROM BaseData base")
-    String findBaseData();
+    String findImagesPath();
 
     /**
      * @return years

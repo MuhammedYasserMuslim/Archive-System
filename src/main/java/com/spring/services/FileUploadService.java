@@ -39,7 +39,7 @@ public class FileUploadService {
      * @return file name
      */
     public String storeFile(File file, int id, String pathType) {
-        this.fileStorageLocation = Paths.get(baseDataServices.findBaseData() + pathType).toAbsolutePath().normalize();
+        this.fileStorageLocation = Paths.get(baseDataServices.findImagePath() + pathType).toAbsolutePath().normalize();
         try {
             Files.createDirectories(this.fileStorageLocation);
         } catch (Exception ex) {
@@ -111,7 +111,7 @@ public class FileUploadService {
 
     public byte[] getFileFromFileSystem(String name) throws IOException {
         Image image = imageRepository.findByName(name).orElseThrow();
-        String filePath = baseDataServices.findBaseData() + image.getImagePath();
+        String filePath = baseDataServices.findImagePath() + image.getImagePath();
         return Files.readAllBytes(new File(filePath).toPath());
     }
 

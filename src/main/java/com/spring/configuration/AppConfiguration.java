@@ -1,5 +1,7 @@
 package com.spring.configuration;
 
+import com.spring.services.BaseDataServices;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +13,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @EnableAspectJAutoProxy
 public class AppConfiguration implements WebMvcConfigurer {
+
+
+    private final BaseDataServices baseDataServices;
+
+    public AppConfiguration(BaseDataServices baseDataServices) {
+        this.baseDataServices = baseDataServices;
+    }
 
     /**
      * @return ConfigurableServletWebServerFactory
@@ -24,10 +33,11 @@ public class AppConfiguration implements WebMvcConfigurer {
         return factory;
     }
 
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/images/**")
-                .addResourceLocations(Global.IMAGE_URL);
+                .addResourceLocations("file:///" + baseDataServices.findImagePath());
     }
 
 }
