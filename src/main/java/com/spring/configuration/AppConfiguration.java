@@ -27,7 +27,7 @@ public class AppConfiguration implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/images/**")
-                .addResourceLocations("file:///home/muhammed/Desktop/images/");
+                .addResourceLocations(Global.IMAGE_URL);
     }
 
 }

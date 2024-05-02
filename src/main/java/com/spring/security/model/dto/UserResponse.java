@@ -20,6 +20,6 @@ public class UserResponse {
     private String imagePath;
 
     public String getImagePath() {
-        return Global.baseUrl+(imagePath);
+        return Global.BASE_URL +(imagePath);
     }
 }

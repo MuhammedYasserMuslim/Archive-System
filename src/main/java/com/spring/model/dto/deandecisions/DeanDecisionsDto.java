@@ -47,7 +47,7 @@ public class DeanDecisionsDto {
     public List<String> getPaths() {
         List<String> path = new ArrayList<>();
         for (Image im : this.images)
-            path.add(Global.baseUrl.concat(im.getImagePath()));
+            path.add(Global.BASE_URL.concat(im.getImagePath()));
         return path;
     }
 }

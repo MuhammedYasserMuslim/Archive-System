@@ -20,6 +20,6 @@ public class AuthenticationResponse {
     private String roles;
 
     public String getImagePath() {
-        return Global.baseUrl.concat(imagePath);
+        return Global.BASE_URL.concat(imagePath);
     }
 }
