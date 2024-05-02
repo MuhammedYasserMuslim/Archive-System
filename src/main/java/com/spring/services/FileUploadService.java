@@ -88,7 +88,7 @@ public class FileUploadService {
                 pathType.contains("decisions")) {
 
             Image image = new Image();
-            image.setImagePath("assets\\".concat(imagePath));
+            image.setImagePath("images\\".concat(imagePath));
             image.setName(id + "-" + pathType + "-" + file.getName());
             if (pathType.equals("imports"))
                 image.setAnImport(new Import(id));

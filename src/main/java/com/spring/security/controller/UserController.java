@@ -22,12 +22,11 @@ import java.util.List;
 public class UserController {
 
     private final UserServices userServices;
-    private final UserMapper userMapper;
     private final FileUploadService fileUploadService;
 
     @GetMapping("/users")
     public ResponseEntity<List<UserResponse>> findALlUsers() {
-        return new ResponseEntity<>(userServices.findALlUsers(), HttpStatus.OK);
+        return new ResponseEntity<>(userServices.findAllUsers(), HttpStatus.OK);
     }
 
     @GetMapping("/user")

@@ -26,8 +26,8 @@ public class UserServices {
     /**
      * @return all users
      */
-    public List<UserResponse> findALlUsers() {
-        List<AppUser> users = userRepository.findAll();
+    public List<UserResponse> findAllUsers() {
+        List<AppUser> users = findAll();
         List<UserResponse> dtos = new ArrayList<>();
         for (AppUser user : users) {
             UserResponse dto = userMapper.mapToDto(user);
@@ -44,12 +44,17 @@ public class UserServices {
         List<Authority> list = new ArrayList<>(authorities);
         list.sort(Comparator.comparing(Authority::getId));
         for (Authority authority : list) {
-            if (authority.getName().equals("ROLE_ADMIN"))
-                return "admin";
-            if (authority.getName().equals("ROLE_MANGER"))
-                return "manager";
-            if (authority.getName().equals("ROLE_USER"))
-                return "user";
+            switch (authority.getName()) {
+                case "ROLE_ADMIN" -> {
+                    return "admin";
+                }
+                case "ROLE_MANGER" -> {
+                    return "manager";
+                }
+                case "ROLE_USER" -> {
+                    return "user";
+                }
+            }
         }
         return null;
     }

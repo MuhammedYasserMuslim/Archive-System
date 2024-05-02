@@ -61,5 +61,8 @@ set name = 'ROLE_MANAGER'
 where id = 2;
 
 
+update archive.image set image_path  = CONCAT('images', SUBSTRING(image_path, 7)) where id >0;
+update archive.users set image_path  = CONCAT('images', SUBSTRING(image_path, 7)) where id >0;
+
 
 

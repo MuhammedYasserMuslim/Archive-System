@@ -23,7 +23,7 @@ public class SecurityController {
 
     @GetMapping("/users")
     public ResponseEntity<List<UserResponse>> findALlUsers() {
-        return new ResponseEntity<>(userServices.findALlUsers(), HttpStatus.OK);
+        return new ResponseEntity<>(userServices.findAllUsers(), HttpStatus.OK);
     }
 
     @PostMapping("login")

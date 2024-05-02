@@ -5,10 +5,12 @@ import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerF
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableAspectJAutoProxy
-public class AppConfiguration {
+public class AppConfiguration implements WebMvcConfigurer {
 
     /**
      * @return ConfigurableServletWebServerFactory
@@ -20,6 +22,12 @@ public class AppConfiguration {
         TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory();
         factory.addConnectorCustomizers(connector -> connector.setProperty("relaxedQueryChars", "|{}[]/\\"));
         return factory;
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/images/**")
+                .addResourceLocations("file:///home/muhammed/Desktop/images/");
     }
 
 }

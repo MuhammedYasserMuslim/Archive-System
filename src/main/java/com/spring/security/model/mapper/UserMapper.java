@@ -6,10 +6,16 @@ import com.spring.security.model.dto.UserUpdate;
 import com.spring.security.model.entity.AppUser;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
     UserResponse mapToDto(AppUser user);
+
+    List<UserResponse> mapToDto(List<AppUser> user);
+
     AppUser mapToEntity(UserRequest dto);
+
     AppUser mapToEntity(UserUpdate dto);
 }
