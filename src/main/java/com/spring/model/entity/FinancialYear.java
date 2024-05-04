@@ -19,8 +19,10 @@ public class FinancialYear {
     @Id
     @Column(name = "financial_year")
     private String year;
+
     @Column(name = "from_date")
     private Date from;
+
     @Column(name = "to_date")
     private Date to;
 }

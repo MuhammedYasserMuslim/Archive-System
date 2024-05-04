@@ -10,64 +10,72 @@ import lombok.Setter;
 import java.util.Date;
 
 
-@Entity
-@Table(name = "incoming_signs")
 @Setter
 @Getter
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class IncomingSigns extends BaseEntity{
+@Table(name = "incoming_signs")
+public class IncomingSigns extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;  //رقم الأشارة
+    private Integer id;
 
-
-    @Column(name = "date" , nullable = false)
+    @Column(name = "date", nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd hh:mm")
-    private Date date; // تاريخ الاشارة
-    @Column(name = "sender" , nullable = false)
-    private String sender; //الجهة الوارد منها الاشارة
+    private Date date;
+
+    @Column(name = "sender", nullable = false)
+    private String sender;
+
     @Column(name = "via")
-    private String via; //عن طريق
+    private String via;
 
     @Column(name = "university_year")
-    private String universityYear ;
+    private String universityYear;
 
     @Column(name = "sign_informer")
-    private String signInformer;//مبلغ الاشارة
+    private String signInformer;
+
     @Column(name = "sign_informer_self")
-    private String signInformerSelf;//صفة مبلغ الاشارة
+    private String signInformerSelf;
+
     @Column(name = "sign_informer_phone")
-    private String signInformerPhone;//موبايل مبلغ الاشارة
+    private String signInformerPhone;
 
 
-    @Column(name = "summary"   ,nullable = false )
-    private String summary;//محتوي الاشارة
+    @Column(name = "summary", nullable = false)
+    private String summary;
+
     @Column(name = "sign_signature")
-    private String signSignature;//توقيع الاشارة
+    private String signSignature;
+
     @Column(name = "sign_self")
-    private String signSelf;//صفة الأشارة
+    private String signSelf;
 
 
     @Column(name = "sign_recipient_name")
-    private String signRecipientName;//اسم مستلم الاشارة
+    private String signRecipientName;
 
     @Column(name = "sign_recipient_self")
-    private String signRecipientSelf;//صفة مستلم الاشارة
+    private String signRecipientSelf;
 
     @Column(name = "sign_recipient_date")
-    private Date signRecipientDate;//تاريخ استلام الاشارة
+    private Date signRecipientDate;
 
     @Column(name = "sign_excuted_name")
-    private String signExcutedName;//اسم الامختص بتنفيذ الأشارة
+    private String signExcutedName;
+
     @Column(name = "sign_excuted_self")
-    private String signExcutedSelf;//صفة المختص بتنفيذ الأشارة
+    private String signExcutedSelf;
+
     @Column(name = "sign_excuted_date")
-    private Date SignExecutionDate;//تاريخ تنفيذ الأشارة
+    private Date SignExecutionDate;
+
     @Column(name = "depend")
-    private String depend; //يعتمد
+    private String depend;
 
 
 }

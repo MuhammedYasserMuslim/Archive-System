@@ -21,19 +21,19 @@ public abstract class BaseEntity {
 
 
     @CreatedBy
-    @Column(updatable = false)
+    @Column(nullable = false)
     private String createdBy;
 
     @LastModifiedBy
-    @Column(updatable = false)
+    @Column(nullable = false)
     private String lastModifiedBy;
 
     @CreatedDate
-    @Column(updatable = false)
+    @Column(nullable = false)
     private LocalDateTime createdDate;
 
     @LastModifiedDate
-    @Column(updatable = false)
+    @Column(nullable = false)
     private LocalDateTime lastModifiedDate;
 
 

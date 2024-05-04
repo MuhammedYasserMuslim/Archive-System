@@ -13,9 +13,9 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
-@Table(name = "special")
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "special")
 public class Special extends BaseEntity {
 
     @Id

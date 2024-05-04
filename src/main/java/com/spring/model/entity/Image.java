@@ -7,12 +7,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
 @Setter
 @Getter
-@Table(name = "image")
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "image")
 public class Image extends BaseEntity {
 
     @Id

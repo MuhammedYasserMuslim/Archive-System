@@ -18,20 +18,20 @@ public class ArchiveFile extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Short id;     // primary key
+    private Short id;
 
     @Column(name = "num", nullable = false)
-    private Short num;//   رقم الملف
+    private Short num;
 
     @Column(name = "name", unique = true, nullable = false)
-    private String name;// اسم الملف
+    private String name;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
-    private FileType fileType;// نوع الملف
+    private FileType fileType;
 
     @Column(name = "type_number", nullable = false)
-    private Byte typeNumber;// رفم نوع الملف
+    private Byte typeNumber;
 
     @OneToMany(mappedBy = "archiveFile")
     @JsonIgnore

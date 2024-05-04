@@ -33,6 +33,7 @@ public class IncomingSignsServices {
     public List<IncomingSignsDto> findAll() {
         return incomingSignsMapper.mapToDto(incomingSignsRepository.findAll());
     }
+
     /**
      * @param id to find Incoming signs by
      * @return Incoming signs by id
@@ -41,6 +42,7 @@ public class IncomingSignsServices {
         IncomingSigns incomingSigns = incomingSignsRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
         return incomingSignsMapper.mapToDto(incomingSigns);
     }
+
     /**
      * @param page number of page in pagination
      * @return Incoming signs  for pagination
@@ -49,6 +51,7 @@ public class IncomingSignsServices {
         Pageable pageable = PageRequest.of(page, 1);
         return incomingSignsMapper.mapToDto(incomingSignsRepository.findAll(pageable).getContent().get(0));
     }
+
     /**
      * @param dto add new Incoming sign
      */
@@ -57,13 +60,20 @@ public class IncomingSignsServices {
         baseDataServices.editAutoIncrementIncomingSigns();
         incomingSignsRepository.save(incomingSignsMapper.mapToEntity(dto));
     }
+
     /**
      * @param signs take new values
-     * @param id  chose Incoming sign to update
+     * @param id    chose Incoming sign to update
      */
-    public void update(IncomingSigns signs,int id) {
+    public void update(IncomingSigns signs, int id) {
         signs.setId(id);
+        signs.setCreatedBy(getById(id).getCreatedBy());
+        signs.setCreatedDate(getById(id).getCreatedDate());
         incomingSignsRepository.save(signs);
+    }
+
+    private IncomingSigns getById(int id) {
+        return incomingSignsRepository.findById(id).orElseThrow(() -> new RuntimeException("NOT Found"));
     }
 
 

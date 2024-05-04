@@ -40,6 +40,7 @@ public class SecurityConfiguration {
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((authz) -> authz
                         .requestMatchers("/login").permitAll()
+                        .requestMatchers("/images/**").permitAll()
                         .requestMatchers("/user/changePassword-admin").hasRole("ADMIN")
                         .requestMatchers("/user/activated").hasRole("ADMIN")
                         .requestMatchers("/user/unactivated").hasRole("ADMIN")

@@ -1,6 +1,5 @@
 package com.spring.security.model.dto;
 
-import com.spring.configuration.Global;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +18,4 @@ public class UserResponse {
     private String roles;
     private String imagePath;
 
-    public String getImagePath() {
-        return Global.BASE_URL +(imagePath);
-    }
 }

@@ -4,7 +4,6 @@ package com.spring.model.dto.imports;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.spring.configuration.Global;
 import com.spring.model.dto.archivefile.ArchiveFileDto;
 import com.spring.model.dto.exports.ExportDto;
 import com.spring.model.entity.Image;
@@ -86,7 +85,7 @@ public class ImportDto {
     public List<String> getPaths() {
         List<String> path = new ArrayList<>();
         for (Image im : this.images)
-            path.add(Global.BASE_URL.concat(im.getImagePath()));
+            path.add(im.getImagePath());
         return path;
     }
 

@@ -9,8 +9,8 @@ import java.util.List;
 
 @Setter
 @Getter
-@Entity
 @Builder
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "imports")

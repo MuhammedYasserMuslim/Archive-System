@@ -21,33 +21,33 @@ public interface BaseDataRepository extends JpaRepository<BaseData, Byte> {
     /**
      * @return years
      */
-    @Query(value = "SELECT distinct CASE WHEN MONTH(date) >= 7 THEN CONCAT(YEAR(date), '-', YEAR(date) + 1) ELSE CONCAT(YEAR(date) - 1, '-', YEAR(date)) END  FROM exports; ", nativeQuery = true)
+    @Query(value = "SELECT distinct CASE WHEN MONTH(created_date) >= 7 THEN CONCAT(YEAR(created_date), '-', YEAR(created_date) + 1) ELSE CONCAT(YEAR(created_date) - 1, '-', YEAR(created_date)) END  FROM imports; ", nativeQuery = true)
     List<String> findYears();
 
 
     @Modifying
     @Transactional
-    @Query(value = " alter table exports auto_increment 1", nativeQuery = true)
+    @Query(value = "alter table exports auto_increment 1", nativeQuery = true)
     void editAutoIncrementExport();
 
     @Modifying
     @Transactional
-    @Query(value = " alter table imports auto_increment 1", nativeQuery = true)
+    @Query(value = "alter table imports auto_increment 1", nativeQuery = true)
     void editAutoIncrementImport();
 
     @Modifying
     @Transactional
-    @Query(value = " alter table special auto_increment 1", nativeQuery = true)
+    @Query(value = "alter table special auto_increment 1", nativeQuery = true)
     void editAutoIncrementSpecial();
 
     @Modifying
     @Transactional
-    @Query(value = " alter table dean_decisions auto_increment 1", nativeQuery = true)
+    @Query(value = "alter table dean_decisions auto_increment 1", nativeQuery = true)
     void editAutoIncrementDeanDecisions();
 
     @Modifying
     @Transactional
-    @Query(value = " alter table incoming_signs auto_increment 1", nativeQuery = true)
+    @Query(value = "alter table incoming_signs auto_increment 1", nativeQuery = true)
     void editAutoIncrementIncomingSigns();
 
 

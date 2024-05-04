@@ -12,9 +12,9 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
-@Table(name = "subjects")
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "subjects")
 public class Subject {
 
     @Id

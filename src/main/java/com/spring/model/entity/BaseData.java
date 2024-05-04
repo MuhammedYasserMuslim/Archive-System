@@ -7,12 +7,12 @@ import org.springframework.web.context.annotation.ApplicationScope;
 
 import java.util.UUID;
 
-@Entity
-@Table(name = "base_data")
 @Setter
 @Getter
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "base_data")
 public class BaseData {
 
     @Id
