@@ -8,7 +8,6 @@ import com.spring.model.entity.*;
 import com.spring.repository.ImageRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -24,7 +23,6 @@ import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
-@Log4j2
 @Getter
 public class FileUploadService {
 
@@ -43,8 +41,7 @@ public class FileUploadService {
         try {
             Files.createDirectories(this.fileStorageLocation);
         } catch (Exception ex) {
-            throw new FileStorageException("Could not create the directory where the uploaded files will be stored.",
-                    ex);
+            throw new FileStorageException("Could not create the directory where the uploaded files will be stored.", ex);
         }
 
         String fileName = StringUtils.cleanPath(id + "-" + file.getName());
@@ -82,11 +79,7 @@ public class FileUploadService {
      */
     private void updateImagePath(int id, String pathType, String imagePath, File file) {
 
-        if (pathType.contains("imports") ||
-                pathType.contains("exports") ||
-                pathType.contains("specials") ||
-                pathType.contains("decisions")) {
-
+        if (pathType.equals("imports") || pathType.equals("exports") || pathType.equals("specials") || pathType.equals("decisions")) {
             Image image = new Image();
             image.setImagePath("images\\".concat(imagePath));
             image.setName(id + "-" + pathType + "-" + file.getName());
@@ -138,14 +131,22 @@ public class FileUploadService {
             throw new RecordNotFountException("invalid path");
     }
 
-
+    /**
+     * @param specialId to add image
+     * @param importId to find import file by
+     * used to add images in import file to special file
+     */
     void convertImageImport(int specialId, int importId) {
         imageRepository.convertImageImport(specialId, importId);
     }
 
-    void convertImageExport(int specialId, int importId) {
-        imageRepository.convertImageExport(specialId, importId);
+    /**
+     * @param specialId to add image
+     * @param exportId to find export file by
+     * used to add images in export file to special file
+     */
+    void convertImageExport(int specialId, int exportId) {
+        imageRepository.convertImageExport(specialId, exportId);
     }
-
 
 }

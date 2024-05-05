@@ -103,7 +103,6 @@ public class UserServices {
      * @deprecated
      * @param user,id add new user
      */
-    @Deprecated
     public void save(AppUser user, int id) {
         user.setIsActive(1);
         user.setPassword(passwordEncoder.encode(user.getPassword()));

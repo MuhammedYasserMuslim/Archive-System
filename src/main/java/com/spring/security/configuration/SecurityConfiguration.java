@@ -38,7 +38,7 @@ public class SecurityConfiguration {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests((authz) -> authz
+                .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/images/**").permitAll()
                         .requestMatchers("/user/changePassword-admin").hasRole("ADMIN")

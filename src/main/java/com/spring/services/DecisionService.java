@@ -33,7 +33,6 @@ public class DecisionService {
 
     /**
      * @param dto add new decision
-     *            add new decision
      */
     public void insert(DecisionDto dto) {
         decisionRepository.save(decisionMapper.mapToEntity(dto));

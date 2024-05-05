@@ -30,7 +30,6 @@ public class ArchiveFileServices {
      * @return all archiveFiles
      */
 
-    //@Cacheable(value = "findAllArchive", key = "#root.methodName")//saved in cache
     public List<ArchiveFileDto> findAll() {
         return archiveFileMapper.mapListToDto(archiveFileRepository.findAll());
     }
@@ -74,8 +73,6 @@ public class ArchiveFileServices {
     /**
      * @param dto add new archiveFile
      */
-    // @CacheEvict(value = "findAllArchive", key = "#root.methodName", allEntries = true)
-    //refresh cache when in method in value
     public void insert(ArchiveFileDto dto) {
         ArchiveFile archiveFile = archiveFileMapper.mapToEntity(dto);
         switch (archiveFile.getTypeNumber()) {
@@ -90,27 +87,9 @@ public class ArchiveFileServices {
     /**
      * @param dto update archiveFile file by id
      */
-    //@CacheEvict(value = "findAllArchive", key = "#root.methodName", allEntries = true)
-    //refresh cache when in method in value
     public void update(ArchiveFileDto dto) {
         ArchiveFile archiveFile = archiveFileMapper.mapToEntity(dto);
         archiveFileRepository.save(archiveFile);
-    }
-
-
-    public void saveAll(List<ArchiveFileDto> dtos) {
-        List<ArchiveFile> archiveFiles = new ArrayList<>();
-        for (ArchiveFileDto dto : dtos) {
-            ArchiveFile archiveFile = archiveFileMapper.mapToEntity(dto);
-            switch (archiveFile.getTypeNumber()) {
-                case 1 -> archiveFile.setFileType(FileType.exports);
-                case 2 -> archiveFile.setFileType(FileType.imports);
-                case 3 -> archiveFile.setFileType(FileType.special);
-                default -> throw new RuntimeException("Invalid Input Value " + archiveFile.getTypeNumber());
-            }
-            archiveFiles.add(archiveFile);
-        }
-        archiveFileRepository.saveAll(archiveFiles);
     }
 
 }

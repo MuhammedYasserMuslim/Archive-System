@@ -57,13 +57,6 @@ public class ArchiveFileController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/archives")
-    @Operation(summary = "Add List Of  Archive Files")
-    public ResponseEntity<?> saveAll(@RequestBody List<ArchiveFileDto> archiveFiles) {
-        archiveFileServices.saveAll(archiveFiles);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
     @PutMapping("/archive")
     @Operation(summary = "Update Archive Files")
     public ResponseEntity<?> update(@RequestBody ArchiveFileDto archiveFile) {

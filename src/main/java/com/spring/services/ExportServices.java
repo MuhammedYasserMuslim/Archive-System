@@ -34,7 +34,10 @@ public class ExportServices {
 
 
     @Lazy
-    public ExportServices(ImportServices importServices, ExportMapper exportMapper, ArchiveFileMapper archiveFileMapper, ArchiveFileServices archiveFileServices, ExportRepository exportRepository, SpecialServices specialServices, BaseDataServices baseDataServices, FileUploadService fileUploadService) {
+    public ExportServices(ImportServices importServices, ExportMapper exportMapper,
+                          ArchiveFileMapper archiveFileMapper, ArchiveFileServices archiveFileServices,
+                          ExportRepository exportRepository, SpecialServices specialServices,
+                          BaseDataServices baseDataServices, FileUploadService fileUploadService) {
         this.importServices = importServices;
         this.exportMapper = exportMapper;
         this.archiveFileMapper = archiveFileMapper;
@@ -95,7 +98,6 @@ public class ExportServices {
      * @param id to find export by
      * @return exports by id
      */
-    //@Cacheable(value = "findAllExports", key = "#root.methodName")
     public ExportDto findById(int id) {
         if (exportRepository.findById(id).isPresent()) {
             Export export = exportRepository.findById(id).get();
@@ -122,7 +124,6 @@ public class ExportServices {
     /**
      * @param dto add new export file
      */
-    // @CacheEvict(value = "findAllExports", key = "#root.methodName", allEntries = true)
     public void insert(ExportDtoPost dto) {
         baseDataServices.editAutoIncrementExport();
         dto.setTypeNumber((byte) 2);
@@ -137,18 +138,10 @@ public class ExportServices {
 
     }
 
-    public void insertAll(List<ExportDtoPost> dtos) {
-        for (ExportDtoPost dto : dtos) {
-            this.insert(dto);
-        }
-
-    }
-
     /**
      * @param dto take new values
      * @param id  chose export file to update
      */
-    // @CacheEvict(value = "findAllExports", key = "#root.methodName", allEntries = true)
     public void update(ExportDtoPost dto, int id) {
         baseDataServices.editAutoIncrementExport();
         dto.setId(id);
@@ -174,7 +167,6 @@ public class ExportServices {
      * @param id  chose export file to add urgent
      * @param dto take new export file
      */
-    //@CacheEvict(value = "findAllExports", key = "#root.methodName", allEntries = true)
     public void addUrgent(ExportDtoPost dto, int id) {
         Export export = findByNo(id);
         if (export.getUrgentNum() == null) {
@@ -193,7 +185,6 @@ public class ExportServices {
      * @param id  chose export file to add response
      * @param dto take new import file
      */
-    // @CacheEvict(value = "findAllExports", key = "#root.methodName", allEntries = true)
     public void addResponse(ImportDtoPost dto, int id) {
         Export export = getById(id);
         if (export.getAimport() == null) {
@@ -232,7 +223,6 @@ public class ExportServices {
 
     /**
      * convert export to special
-     *
      * @param id  export id
      * @param num num of archive file
      */
@@ -253,6 +243,5 @@ public class ExportServices {
         fileUploadService.convertImageExport(specialServices.count(), export.getId());
 
     }
-
 
 }

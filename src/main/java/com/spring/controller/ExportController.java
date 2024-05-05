@@ -78,14 +78,6 @@ public class ExportController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/exports")
-    @Operation(summary = "add Exports Files ")
-    public ResponseEntity<?> insertAll(@RequestBody List<ExportDtoPost> dtos) {
-        exportServices.insertAll(dtos);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-
     @PutMapping("/export-id")
     @Operation(summary = "update Export By Id ")
     public ResponseEntity<?> update(@RequestBody ExportDtoPost dto, @RequestParam int id) {
