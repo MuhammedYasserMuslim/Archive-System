@@ -35,6 +35,9 @@ public class AppUser {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
+    @Column(name = "phone")
+    private String phone;
+
     @Column(name = "image_path")
     private String imagePath;
 

@@ -21,5 +21,6 @@ public class UserRequest {
     private String firstName;
     @NotEmpty
     private String lastName;
+    private String phone;
     private String imagePath;
 }
