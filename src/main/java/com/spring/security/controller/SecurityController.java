@@ -20,12 +20,7 @@ public class SecurityController {
     private final AuthenticationService authenticationService;
     private final UserServices userServices;
 
-
-    @GetMapping("/users")
-    public ResponseEntity<List<UserResponse>> findALlUsers() {
-        return new ResponseEntity<>(userServices.findAllUsers(), HttpStatus.OK);
-    }
-
+    
     @PostMapping("login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest request) throws Exception {
         return ResponseEntity.ok(authenticationService.authenticate(request));

@@ -37,6 +37,11 @@ public class UserController {
         return new ResponseEntity<>(userServices.findById(id), HttpStatus.OK);
     }
 
+    @GetMapping("/user-username")
+    public ResponseEntity<UserResponse> findUserByUserName(@RequestParam String username) {
+        return new ResponseEntity<>(userServices.findUserByUserName(username), HttpStatus.OK);
+    }
+
     @PutMapping("/user")
     public ResponseEntity<?> update(@RequestBody UserUpdate dto, @RequestParam byte id) {
         userServices.update(dto, id);

@@ -82,6 +82,15 @@ public class UserServices {
             throw new RecordNotFountException("This Record with id " + id + " Not Found");
     }
 
+    public UserResponse findUserByUserName(String username) {
+        if (userRepository.findByUsername(username).isPresent()) {
+            UserResponse dto = userMapper.mapToDto(userRepository.findByUsername(username).get());
+            dto.setRoles(getAuthority(userRepository.findByUsername(username).get().getAuthorities()));
+            return dto;
+        } else
+            throw new RecordNotFountException("This Record with username " + username + " Not Found");
+    }
+
     /**
      * @param dto add new user
      */
@@ -166,10 +175,7 @@ public class UserServices {
      * @return user
      */
     public AppUser findByUserName(String username) {
-        if (userRepository.findByUsername(username).isPresent())
-            return userRepository.findByUsername(username).get();
-        else
-            throw new UsernameNotFoundException("This User " + username + " NotFound");
+            return userRepository.findByUsername(username).orElse(null);
     }
 
     /**
