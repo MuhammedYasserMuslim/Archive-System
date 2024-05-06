@@ -36,6 +36,9 @@ public class UserServices {
         }
         return dtos;
     }
+    public long count() {
+        return userRepository.count();
+    }
 
     /**
      * @return user authorities
@@ -48,7 +51,7 @@ public class UserServices {
                 case "ROLE_ADMIN" -> {
                     return "admin";
                 }
-                case "ROLE_MANGER" -> {
+                case "ROLE_MANAGER" -> {
                     return "manager";
                 }
                 case "ROLE_USER" -> {
@@ -129,6 +132,7 @@ public class UserServices {
         user.setFirstName(dto.getFirstName());
         user.setLastName(dto.getLastName());
         user.setUsername(dto.getUsername());
+        user.setPhone(dto.getPhone());
         user.setAuthorities(getById(id).getAuthorities());
         user.setIsActive(getById(id).getIsActive());
         user.setImagePath(getById(id).getImagePath());

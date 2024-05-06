@@ -27,6 +27,11 @@ public class UserController {
         return new ResponseEntity<>(userServices.findAllUsers(), HttpStatus.OK);
     }
 
+    @GetMapping("/count")
+    public ResponseEntity<Long> count() {
+        return new ResponseEntity<>(userServices.count(), HttpStatus.OK);
+    }
+
     @GetMapping("/user")
     public ResponseEntity<UserResponse> findById(@RequestParam byte id) {
         return new ResponseEntity<>(userServices.findById(id), HttpStatus.OK);
