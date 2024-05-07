@@ -1,10 +1,13 @@
 package com.spring.security.jwt;
 
+import com.spring.security.model.entity.AppUser;
+import com.spring.security.services.UserServices;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -20,16 +23,27 @@ public class JwtServices {
     private static final String SECRET_KEY = "LLMk0WHH53SWsBi2tlLXbI1UVO7UVpult765D7GFFgeBcxPLlBAdlZIeleAkJijh";
     private static final Long EXPIRATION_TIME = 36000L;
 
+    private final UserServices userServices;
+
+    @Lazy
+    public JwtServices(UserServices userServices) {
+        this.userServices = userServices;
+    }
+
     public String generateToken(UserDetails userDetails) {
         return generateToken(new HashMap<>(), userDetails);
     }
 
     public String generateToken(Map<String, Object> extractClaim, UserDetails userDetails) {
+        AppUser user = userServices.findByUserName(userDetails.getUsername());
         return Jwts.builder()
                 .setClaims(extractClaim)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + (1000 * EXPIRATION_TIME)))
+                .setAudience(user.getImagePath())
+                .setIssuer(user.getFirstName().concat(" ").concat(user.getLastName()))
+                .setId(userServices.findUserByUserName(userDetails.getUsername()).getRoles())
                 .signWith(getSercurtKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
