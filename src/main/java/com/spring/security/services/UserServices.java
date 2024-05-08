@@ -36,6 +36,7 @@ public class UserServices {
         }
         return dtos;
     }
+
     public long count() {
         return userRepository.count();
     }
@@ -112,8 +113,8 @@ public class UserServices {
     }
 
     /**
-     * @deprecated
      * @param user,id add new user
+     * @deprecated
      */
     public void save(AppUser user, int id) {
         user.setIsActive(1);
@@ -175,35 +176,30 @@ public class UserServices {
      * @return user
      */
     public AppUser findByUserName(String username) {
-            return userRepository.findByUsername(username).orElse(null);
+        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username " + username + " Not Found"));
     }
 
     /**
      * @param username used to activated user
      */
     public void activeUser(String username) {
-        if (userRepository.findByUsername(username).isPresent()) {
-            AppUser user = findByUserName(username);
-            user.setIsActive(1);
-            userRepository.save(user);
-        } else
-            throw new UsernameNotFoundException("This user id Not Exist");
+        AppUser user = findByUserName(username);
+        user.setIsActive(1);
+        userRepository.save(user);
+
     }
 
     /**
      * @param username used to unActivated user
      */
     public void unActiveUser(String username) {
-        if (userRepository.findByUsername(username).isPresent()) {
-            AppUser user = findByUserName(username);
-            user.setIsActive(0);
-            userRepository.save(user);
-        } else
-            throw new UsernameNotFoundException("This user id Not Exist");
+        AppUser user = findByUserName(username);
+        user.setIsActive(0);
+        userRepository.save(user);
     }
 
     private AppUser getById(Byte id) {
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
+        return userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("This user id Not Exist"));
     }
 
 
