@@ -1,6 +1,7 @@
 package com.spring.security.controller;
 
 import com.spring.exception.UserExistedException;
+import com.spring.security.jwt.JwtServices;
 import com.spring.security.model.dto.*;
 import com.spring.security.model.entity.AppUser;
 import com.spring.security.services.AuthenticationService;
@@ -19,8 +20,18 @@ public class SecurityController {
 
     private final AuthenticationService authenticationService;
     private final UserServices userServices;
+    private final JwtServices jwtServices;
 
-    
+
+    @GetMapping("is-token-valid")
+    public ResponseEntity<?> isTokenValid(@RequestParam String token, String username) {
+        return jwtServices.isTokenValid(token.substring(7), username)
+                ? new ResponseEntity<>(HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+    }
+
+
     @PostMapping("login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest request) throws Exception {
         return ResponseEntity.ok(authenticationService.authenticate(request));

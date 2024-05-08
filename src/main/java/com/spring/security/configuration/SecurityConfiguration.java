@@ -41,6 +41,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/login").permitAll()
                         .requestMatchers("/images/**").permitAll()
+                        .requestMatchers("/is-token-valid").permitAll()
                         .requestMatchers("/user/changePassword-admin").hasRole("ADMIN")
                         .requestMatchers("/user/activated").hasRole("ADMIN")
                         .requestMatchers("/user/unactivated").hasRole("ADMIN")
