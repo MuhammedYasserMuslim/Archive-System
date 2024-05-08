@@ -27,7 +27,7 @@ public class SecurityController {
     public ResponseEntity<?> isTokenValid(@RequestParam String token, String username) {
         return jwtServices.isTokenValid(token.substring(7), username)
                 ? new ResponseEntity<>(1,HttpStatus.OK)
-                : new ResponseEntity<>(0,HttpStatus.OK);
+                : new ResponseEntity<>(0,HttpStatus.UNAUTHORIZED);
 
     }
 
