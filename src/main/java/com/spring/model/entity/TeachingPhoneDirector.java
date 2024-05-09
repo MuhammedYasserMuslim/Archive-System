@@ -16,6 +16,9 @@ public class TeachingPhoneDirector {
     @Column(name = "id")
     private Integer id;
 
+    @Column(name = "serial" , nullable = false)
+    private Integer serial;
+
     @Column(name = "name" , nullable = false)
     private String name;
 

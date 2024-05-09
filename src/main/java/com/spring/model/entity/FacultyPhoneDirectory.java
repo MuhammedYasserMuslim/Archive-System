@@ -20,8 +20,13 @@ public class FacultyPhoneDirectory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
+
+    @Column(name = "serial" , nullable = false)
+    private Integer serial;
+
     @Column(name = "side", nullable = false)
     private String side;
+
     @Column(name = "phone", nullable = false)
     private String phone;
 }

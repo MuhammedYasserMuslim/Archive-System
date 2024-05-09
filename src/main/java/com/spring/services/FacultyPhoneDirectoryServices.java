@@ -2,7 +2,6 @@ package com.spring.services;
 
 import com.spring.exception.RecordNotFountException;
 import com.spring.model.dto.phonedirector.FacultyPhoneDirectoryDto;
-import com.spring.model.dto.phonedirector.TeachingPhoneDirectorDto;
 import com.spring.model.mapper.FacultyPhoneDirectoryMapper;
 import com.spring.repository.FacultyPhoneDirectoryRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,7 @@ public class FacultyPhoneDirectoryServices {
 
 
     public List<FacultyPhoneDirectoryDto> findAll() {
-        return facultyPhoneDirectoryMapper.mapToDto(facultyPhoneDirectoryRepository.findAll());
+        return facultyPhoneDirectoryMapper.mapToDto(facultyPhoneDirectoryRepository.findAllByOrderBySerialAsc());
     }
 
     public void insert(FacultyPhoneDirectoryDto dto) {

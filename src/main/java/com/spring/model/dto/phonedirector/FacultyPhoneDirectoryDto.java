@@ -14,6 +14,8 @@ public class FacultyPhoneDirectoryDto {
 
     private Integer id;
 
+    private Integer serial;
+
     private String side;
 
     private String phone;

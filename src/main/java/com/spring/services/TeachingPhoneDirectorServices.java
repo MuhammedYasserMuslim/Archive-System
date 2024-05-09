@@ -18,7 +18,7 @@ public class TeachingPhoneDirectorServices {
 
 
     public List<TeachingPhoneDirectorDto> findAll() {
-        return teachingPhoneDirectorMapper.mapToDto(teachingPhoneDirectorRepository.findAll());
+        return teachingPhoneDirectorMapper.mapToDto(teachingPhoneDirectorRepository.findAllByOrderBySerialAsc());
     }
 
     public void insert(TeachingPhoneDirectorDto dto) {
