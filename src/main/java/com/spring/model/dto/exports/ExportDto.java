@@ -21,12 +21,12 @@ import java.util.List;
 public class ExportDto {
 
 
-    private Integer id;   //رقم
+    private Integer id;
 
     private Integer no;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date date; //تاريخ
-    private Byte numberOfAttachments; //عدد الموافقات
+    private Date date;
+    private Byte numberOfAttachments;
 
     private String createdBy;
 
@@ -37,23 +37,23 @@ public class ExportDto {
     private boolean isHasResponse;
     private boolean isHasUrgent;
 
-    private String receiver; //الجهة الصادر منها الخطاب
-    private String summary;//ملخص الخطاب
-    private String recipientName;// المستلم
+    private String receiver;
+    private String summary;
+    private String recipientName;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date recipientDate;//تاريخ الاستلام
-    private Short urgentNum;// رقم الاستعجلات
+    private Date recipientDate;
+    private Short urgentNum;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date urgentDate; //تاريخ الاستعجالات
+    private Date urgentDate;
 
-    // Import
+
     @JsonBackReference
     private ImportDto aimport;
-    private Integer responseNumber; // رقم الرد
+    private Integer responseNumber;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date responseDate; //تاريخ الرد
+    private Date responseDate;
 
-    // ArchiveFileDto
+
     @JsonBackReference
     private ArchiveFileDto archiveFile;
 

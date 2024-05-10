@@ -22,14 +22,14 @@ import java.util.List;
 @NoArgsConstructor
 public class ImportDto {
 
-    private Integer id; // رقم الملف
+    private Integer id;
 
     private Integer no;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date incomeDate; //تاريخ الورود
+    private Date incomeDate;
 
-    private Byte numberOfAttachments; //عدد الموافقات
+    private Byte numberOfAttachments;
 
     private String createdBy;
 
@@ -38,32 +38,30 @@ public class ImportDto {
 
     private List<String> paths;
 
-    private String sender; //الجهة الوارد منها الخطاب
+    private String sender;
 
-    private Short incomingLetterNumber; //رقم الخطاب الوارد
-
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date incomingLetterDate;//تاريخ الخطاب الوارد
-
-    private String summary;//ملخص الخطاب
-
-    private String recipientName;//توقيع المستلم
+    private Short incomingLetterNumber;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date recipientDate; // تاريخ الاستلام
+    private Date incomingLetterDate;
 
-    //Export
+    private String summary;
+
+    private String recipientName;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date recipientDate;
+
     @JsonBackReference
     private ExportDto export;
 
-    private Integer responseNumber; // رقم الرد
+    private Integer responseNumber;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date responseDate; //تاريخ الرد
+    private Date responseDate;
 
-    private String responseSide; //الجهة الصادر اليها الخطاب
+    private String responseSide;
 
-    // ArchiveFileDto
     @JsonBackReference
     private ArchiveFileDto archiveFile;
 

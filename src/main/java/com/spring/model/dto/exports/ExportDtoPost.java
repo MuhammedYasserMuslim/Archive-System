@@ -16,15 +16,15 @@ public class ExportDtoPost {
 
     private Integer id;
     private Integer no;
-    private String receiver; //الجهة الصادر منها الخطاب
+    private String receiver;
     private Byte numberOfAttachments;
     private Date date;
-    private String summary;//ملخص الخطاب
-    private String recipientName;// المستلم
-    private Date recipientDate;//تاريخ الاستلام
+    private String summary;
+    private String recipientName;
+    private Date recipientDate;
     private Integer saved;
 
-    // ArchiveFileDto
+
     private ArchiveFileDto archiveFile;
     private Byte typeNumber;
     private Short num;

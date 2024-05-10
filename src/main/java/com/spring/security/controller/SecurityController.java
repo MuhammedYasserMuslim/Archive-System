@@ -6,6 +6,7 @@ import com.spring.security.model.dto.*;
 import com.spring.security.model.entity.AppUser;
 import com.spring.security.services.AuthenticationService;
 import com.spring.security.services.UserServices;
+import io.jsonwebtoken.security.SignatureException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,11 +24,16 @@ public class SecurityController {
     private final JwtServices jwtServices;
 
 
-    @GetMapping("is-token-valid")
-    public ResponseEntity<?> isTokenValid(@RequestParam String token, String username) {
-        return jwtServices.isTokenValid(token.substring(7), username)
-                ? new ResponseEntity<>(1,HttpStatus.OK)
-                : new ResponseEntity<>(0,HttpStatus.UNAUTHORIZED);
+    @PostMapping("is-token-valid")
+    public ResponseEntity<?> isTokenValid(@RequestBody CheckToken token) {
+        try {
+            return jwtServices.isTokenValid(token.token().substring(7), token.username())
+                    ? new ResponseEntity<>(1, HttpStatus.OK)
+                    : new ResponseEntity<>(0, HttpStatus.UNAUTHORIZED);
+        }
+        catch (SignatureException  e) {
+            return new ResponseEntity<>(0, HttpStatus.UNAUTHORIZED);
+        }
 
     }
 
@@ -60,3 +66,4 @@ public class SecurityController {
     }
 }
 
+record CheckToken(String token, String username) {}
