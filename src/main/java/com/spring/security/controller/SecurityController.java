@@ -30,9 +30,9 @@ public class SecurityController {
         try {
             return jwtServices.isTokenValid(token.token().substring(7), token.username())
                     ? new ResponseEntity<>(1, HttpStatus.OK)
-                    : new ResponseEntity<>(0, HttpStatus.BAD_REQUEST);
+                    : new ResponseEntity<>(0, HttpStatus.OK);
         } catch (JwtException e) {
-            return new ResponseEntity<>(0, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(0, HttpStatus.OK);
         }
 
     }
