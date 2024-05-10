@@ -2,18 +2,18 @@ package com.spring.security.controller;
 
 import com.spring.exception.UserExistedException;
 import com.spring.security.jwt.JwtServices;
-import com.spring.security.model.dto.*;
+import com.spring.security.model.dto.AuthenticationRequest;
+import com.spring.security.model.dto.AuthenticationResponse;
+import com.spring.security.model.dto.Pass;
+import com.spring.security.model.dto.UserRequest;
 import com.spring.security.model.entity.AppUser;
 import com.spring.security.services.AuthenticationService;
 import com.spring.security.services.UserServices;
 import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.security.SignatureException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/")
@@ -30,10 +30,9 @@ public class SecurityController {
         try {
             return jwtServices.isTokenValid(token.token().substring(7), token.username())
                     ? new ResponseEntity<>(1, HttpStatus.OK)
-                    : new ResponseEntity<>(0, HttpStatus.UNAUTHORIZED);
-        }
-        catch (JwtException e) {
-            return new ResponseEntity<>(0, HttpStatus.UNAUTHORIZED);
+                    : new ResponseEntity<>(0, HttpStatus.BAD_REQUEST);
+        } catch (JwtException e) {
+            return new ResponseEntity<>(0, HttpStatus.BAD_REQUEST);
         }
 
     }
@@ -67,4 +66,5 @@ public class SecurityController {
     }
 }
 
-record CheckToken(String token, String username) {}
+record CheckToken(String token, String username) {
+}
