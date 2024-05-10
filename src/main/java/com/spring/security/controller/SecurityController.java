@@ -6,6 +6,7 @@ import com.spring.security.model.dto.*;
 import com.spring.security.model.entity.AppUser;
 import com.spring.security.services.AuthenticationService;
 import com.spring.security.services.UserServices;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.security.SignatureException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -31,7 +32,7 @@ public class SecurityController {
                     ? new ResponseEntity<>(1, HttpStatus.OK)
                     : new ResponseEntity<>(0, HttpStatus.UNAUTHORIZED);
         }
-        catch (SignatureException  e) {
+        catch (JwtException e) {
             return new ResponseEntity<>(0, HttpStatus.UNAUTHORIZED);
         }
 

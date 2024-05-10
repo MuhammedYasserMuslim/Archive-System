@@ -3,6 +3,7 @@ package com.spring.security.jwt;
 import com.spring.security.model.entity.AppUser;
 import com.spring.security.services.UserServices;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.SignatureException;
@@ -54,7 +55,7 @@ public class JwtServices {
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
-    public boolean isTokenValid(String token, String username) throws SignatureException {
+    public boolean isTokenValid(String token, String username) throws   JwtException {
         final String userName = extractUserName(token);
         return (username.equals(userName) && !isTokenExpired(token));
     }
