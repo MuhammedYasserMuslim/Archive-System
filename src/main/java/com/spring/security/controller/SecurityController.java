@@ -25,10 +25,10 @@ public class SecurityController {
     private final JwtServices jwtServices;
 
 
-    @PostMapping("is-token-valid")
-    public ResponseEntity<?> isTokenValid(@RequestBody CheckToken token) {
+    @GetMapping("is-token-valid")
+    public ResponseEntity<?> isTokenValid(@RequestParam String token, @RequestParam String username) {
         try {
-            return jwtServices.isTokenValid(token.token().substring(7), token.username())
+            return jwtServices.isTokenValid(token.substring(7), username)
                     ? new ResponseEntity<>(1, HttpStatus.OK)
                     : new ResponseEntity<>(0, HttpStatus.OK);
         } catch (JwtException e) {
