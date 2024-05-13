@@ -30,9 +30,9 @@ public class SecurityController {
         try {
             return jwtServices.isTokenValid(token.substring(7), username)
                     ? new ResponseEntity<>(1, HttpStatus.OK)
-                    : new ResponseEntity<>(0, HttpStatus.OK);
+                    : new ResponseEntity<>(0, HttpStatus.UNAUTHORIZED);
         } catch (JwtException e) {
-            return new ResponseEntity<>(0, HttpStatus.OK);
+            return new ResponseEntity<>(0, HttpStatus.UNAUTHORIZED);
         }
 
     }
@@ -64,7 +64,4 @@ public class SecurityController {
         }
         throw new UserExistedException("This username with id ( " + id + " ) is Not exist");
     }
-}
-
-record CheckToken(String token, String username) {
 }
