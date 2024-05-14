@@ -43,6 +43,8 @@ public class SpecialDto {
 
     private Byte numberOfAttachments;
 
+    private Byte numberOfImages;
+
     @JsonBackReference
     private List<Subject> subject;
 
@@ -65,6 +67,10 @@ public class SpecialDto {
         for (Subject subject1 : this.subject)
             dtos.add(new SubjectDto(subject1.getNum(), subject1.getHead(), subject1.getDecision()));
         return dtos;
+    }
+
+    public Byte getNumberOfImages() {
+        return (byte)this.images.size() ;
     }
 
     public List<String> getPaths() {

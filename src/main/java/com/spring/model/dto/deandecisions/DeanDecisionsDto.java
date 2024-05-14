@@ -31,6 +31,8 @@ public class DeanDecisionsDto {
 
     private String createdBy;
 
+    private Byte numberOfImage;
+
     @JsonBackReference
     private List<Image> images;
 
@@ -48,5 +50,9 @@ public class DeanDecisionsDto {
         for (Image im : this.images)
             path.add(im.getImagePath());
         return path;
+    }
+
+    public Byte getNumberOfImage() {
+        return (byte)this.images.size() ;
     }
 }

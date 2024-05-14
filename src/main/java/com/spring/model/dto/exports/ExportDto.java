@@ -27,6 +27,7 @@ public class ExportDto {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date;
     private Byte numberOfAttachments;
+    private Byte numberOfImages;
 
     private String createdBy;
 
@@ -68,6 +69,10 @@ public class ExportDto {
         for (Image im : this.images)
             path.add(im.getImagePath());
         return path;
+    }
+
+    public Byte getNumberOfImages() {
+        return (byte)this.images.size() ;
     }
 
 

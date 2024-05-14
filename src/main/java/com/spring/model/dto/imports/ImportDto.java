@@ -31,6 +31,8 @@ public class ImportDto {
 
     private Byte numberOfAttachments;
 
+    private Byte numberOfImages;
+
     private String createdBy;
 
     @JsonIgnore
@@ -85,6 +87,9 @@ public class ImportDto {
         for (Image im : this.images)
             path.add(im.getImagePath());
         return path;
+    }
+    public Byte getNumberOfImages() {
+        return (byte)this.images.size() ;
     }
 
     public boolean isHasResponse() {
