@@ -27,7 +27,7 @@ public interface ImportRepository extends JpaRepository<Import, Integer> {
     /**
      * @return imports in archive file
      */
-    @Query(value = "SELECT * FROM archive.imports where archive_file_id = :id and created_date between( SELECT from_date FROM archive.financial_year where financial_year = (SELECT CASE WHEN MONTH(CURRENT_DATE()) < 7 THEN CONCAT(YEAR(CURRENT_DATE()) - 1, '-', YEAR(CURRENT_DATE())) ELSE CONCAT(YEAR(CURRENT_DATE()), '-', YEAR(CURRENT_DATE()) + 1) END )) and ( SELECT to_date FROM archive.financial_year where financial_year = (SELECT CASE WHEN MONTH(CURRENT_DATE()) < 7 THEN CONCAT(YEAR(CURRENT_DATE()) - 1, '-', YEAR(CURRENT_DATE())) ELSE CONCAT(YEAR(CURRENT_DATE()), '-', YEAR(CURRENT_DATE()) + 1) END )) and saved = 0" , nativeQuery = true)
+    @Query(value = "SELECT * FROM archive.imports where archive_file_id = :id and created_date between( SELECT from_date FROM archive.financial_year where financial_year = (SELECT CASE WHEN MONTH(CURRENT_DATE()) < 7 THEN CONCAT(YEAR(CURRENT_DATE()) - 1, '-', YEAR(CURRENT_DATE())) ELSE CONCAT(YEAR(CURRENT_DATE()), '-', YEAR(CURRENT_DATE()) + 1) END )) and ( SELECT to_date FROM archive.financial_year where financial_year = (SELECT CASE WHEN MONTH(CURRENT_DATE()) < 7 THEN CONCAT(YEAR(CURRENT_DATE()) - 1, '-', YEAR(CURRENT_DATE())) ELSE CONCAT(YEAR(CURRENT_DATE()), '-', YEAR(CURRENT_DATE()) + 1) END )) and saved = 0", nativeQuery = true)
     List<Import> findByArchiveFile(Short id);
 
     /**
@@ -54,10 +54,16 @@ public interface ImportRepository extends JpaRepository<Import, Integer> {
     @Query(value = "SELECT * FROM archive.imports where expect_response_date < current_date() and response_id is null and created_date between( SELECT from_date FROM archive.financial_year where financial_year = (SELECT CASE WHEN MONTH(CURRENT_DATE()) < 7  THEN CONCAT(YEAR(CURRENT_DATE()) - 1, '-', YEAR(CURRENT_DATE())) ELSE CONCAT(YEAR(CURRENT_DATE()), '-', YEAR(CURRENT_DATE()) + 1) END )) and ( SELECT to_date FROM archive.financial_year where financial_year = (SELECT CASE WHEN MONTH(CURRENT_DATE()) < 7 THEN CONCAT(YEAR(CURRENT_DATE()) - 1, '-', YEAR(CURRENT_DATE())) ELSE CONCAT(YEAR(CURRENT_DATE()), '-', YEAR(CURRENT_DATE()) + 1) END ))", nativeQuery = true)
     List<Import> findPassedDate();
 
+//    /**
+//     * @return today imports
+//     */
+//    @Query(value = "SELECT  * FROM archive.imports WHERE income_date >= CURRENT_DATE() AND income_date < CURRENT_DATE() + INTERVAL 1 DAY", nativeQuery = true)
+//    List<Import> findByIncomeDate();
+
     /**
      * @return today imports
      */
-    @Query(value = "SELECT  * FROM archive.imports WHERE income_date >= CURRENT_DATE() AND income_date < CURRENT_DATE() + INTERVAL 1 DAY", nativeQuery = true)
+    @Query(value = "SELECT  * FROM archive.imports WHERE created_date between( SELECT from_date FROM archive.financial_year where financial_year = (SELECT CASE WHEN MONTH(CURRENT_DATE()) < 7 THEN CONCAT(YEAR(CURRENT_DATE()) - 1, '-', YEAR(CURRENT_DATE())) ELSE CONCAT(YEAR(CURRENT_DATE()), '-', YEAR(CURRENT_DATE()) + 1) END )) and ( SELECT to_date FROM archive.financial_year where financial_year = (SELECT CASE WHEN MONTH(CURRENT_DATE()) < 7 THEN CONCAT(YEAR(CURRENT_DATE()) - 1, '-', YEAR(CURRENT_DATE())) ELSE CONCAT(YEAR(CURRENT_DATE()), '-', YEAR(CURRENT_DATE()) + 1) END )) and (recipient_name is null or recipient_name = '') or income_date >= CURRENT_DATE() AND income_date < CURRENT_DATE() + INTERVAL 1 DAY order by no desc ", nativeQuery = true)
     List<Import> findByIncomeDate();
 
     /**
