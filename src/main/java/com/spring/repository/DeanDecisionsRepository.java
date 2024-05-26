@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface DeanDecisionsRepository extends JpaRepository<DeanDecisions, Integer> {
 
-    @Query(value = "select decision from DeanDecisions decision where Year(decision.createdDate) = Year(current_date) order by decision.id desc ")
+    @Query(value = "select decision from DeanDecisions decision where Year(decision.createdDate) = Year(current_date) ")
     List<DeanDecisions> findByYear();
 
     @Query(value = "select decision from DeanDecisions decision where Year(decision.createdDate) = Year(current_date)")

@@ -3,6 +3,7 @@ package com.spring.services;
 
 import com.spring.model.dto.deandecisions.DeanDecisionsDto;
 import com.spring.model.dto.deandecisions.DeanDecisionsDtoPost;
+import com.spring.model.dto.exports.ExportDto;
 import com.spring.model.entity.DeanDecisions;
 import com.spring.model.mapper.ArchiveFileMapper;
 import com.spring.model.mapper.DeanDecisionsDtoMapper;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -50,7 +52,7 @@ public class DeanDecisionsServices {
      * @return dean-decision in current year
      */
     public List<DeanDecisionsDto> findByYear() {
-        return deanDecisionsDtoMapper.mapListToDto(deanDecisionsRepository.findByYear());
+        return reverseList(deanDecisionsDtoMapper.mapListToDto(deanDecisionsRepository.findByYear()));
     }
 
     /**
@@ -109,6 +111,11 @@ public class DeanDecisionsServices {
     }
 
 
+
+    private List<DeanDecisionsDto> reverseList(List<DeanDecisionsDto> dtos) {
+        Collections.reverse(dtos);
+        return dtos;
+    }
     private DeanDecisions getById(int id) {
         return deanDecisionsRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
     }
