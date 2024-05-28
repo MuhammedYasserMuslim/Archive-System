@@ -1,13 +1,11 @@
 package com.spring.db;
 
-import com.spring.model.dto.archivefile.ArchiveFileDto;
 import com.spring.model.entity.FinancialYear;
 import com.spring.repository.FinancialYearRepository;
 import com.spring.security.model.entity.AppUser;
 import com.spring.security.model.entity.Authority;
 import com.spring.security.services.AuthorityService;
 import com.spring.security.services.UserServices;
-import com.spring.services.ArchiveFileServices;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.ApplicationArguments;
@@ -17,8 +15,6 @@ import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Component
@@ -29,7 +25,6 @@ public class StartUp implements CommandLineRunner, ApplicationRunner {
     private final UserServices userServices;
     private final AuthorityService authorityService;
     private final FinancialYearRepository financialYearRepository;
-    private final ArchiveFileServices archiveFileServices;
 
     @Override
     public void run(String... args) throws ParseException {
@@ -48,18 +43,11 @@ public class StartUp implements CommandLineRunner, ApplicationRunner {
 
         List<Authority> authorities = authorityService.findAll();
         if (userServices.findAll().isEmpty()) {
-            AppUser user = new AppUser("admin", ("1234"), 1, "admin", "admin");
+            AppUser user = new AppUser("admin", "admin", 1, "admin", "admin");
             user.getAuthorities().add(authorities.get(0));
             user.getAuthorities().add(authorities.get(1));
             user.getAuthorities().add(authorities.get(2));
             userServices.save(user, 1);
-            AppUser user0 = new AppUser("manager", ("456"), 1, "manager", "manager");
-            user0.getAuthorities().add(authorities.get(1));
-            user0.getAuthorities().add(authorities.get(2));
-            userServices.save(user0, 1);
-            AppUser user1 = new AppUser("user", ("789"), 1, "user", "user");
-            user1.getAuthorities().add(authorities.get(2));
-            userServices.save(user1, 1);
         }
     }
 
