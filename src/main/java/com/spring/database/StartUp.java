@@ -1,4 +1,4 @@
-package com.spring.db;
+package com.spring.database;
 
 import com.spring.model.entity.FinancialYear;
 import com.spring.repository.FinancialYearRepository;

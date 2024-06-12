@@ -1,4 +1,4 @@
-package com.spring.db;
+package com.spring.database;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -16,8 +16,8 @@ import java.util.Date;
 @Service
 public class DatabaseBackupService {
 
-    @Value("${database.backup.url}")
-    private  String backupDirectory;
+//    private  final String backupDirectory = "D:\\Archive_System\\backup\\";
+    private  final String backupDirectory = "/home/muhammed/Desktop/Folder/";
 
     private final String dbName = "archive";
 

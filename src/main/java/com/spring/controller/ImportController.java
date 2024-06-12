@@ -159,6 +159,6 @@ public class ImportController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    private record Body(short num) {
+    public record Body(short num) {
     }
 }

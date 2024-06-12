@@ -1,4 +1,4 @@
-package com.spring.db;
+package com.spring.database;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;

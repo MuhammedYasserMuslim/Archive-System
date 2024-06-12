@@ -48,6 +48,8 @@ public class SecurityConfiguration {
                         .requestMatchers("/user/users").hasRole("ADMIN")
                         .requestMatchers("/register").hasRole("ADMIN")
                         .requestMatchers("/user/user-activity").hasRole("ADMIN")
+                        .requestMatchers("/database/backup").hasRole("ADMIN")
+                        .requestMatchers("/database/restore").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.OPTIONS).permitAll()
                         .anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider())

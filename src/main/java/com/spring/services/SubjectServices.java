@@ -61,9 +61,10 @@ public class SubjectServices {
      */
     public void insert(Subject subject) {
         List<Decision> decisions = subject.getDecision();
-        for (Decision decision : decisions) {
-            decision.setSubject(subject);
-        }
+        for (int i = 0; i < decisions.size(); i++) {
+            Decision decision = decisions.get(i);
+            decision.setNum(i+1);
+            decision.setSubject(subject);}
         subjectRepository.save(subject);
     }
 

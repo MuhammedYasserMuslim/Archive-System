@@ -66,7 +66,6 @@ public class ExportServices {
     /**
      * @return all exports in all years
      */
-    //  @Cacheable(value = "findAllExports", key = "#root.methodName")
     public List<ExportDto> findAll() {
         return exportMapper.mapListToDto(exportRepository.findAll());
     }

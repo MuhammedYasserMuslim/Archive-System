@@ -128,8 +128,9 @@ public class SpecialServices {
         specialRepository.save(special);
         if (dto.getSubjects() != null && !(dto.getSubjects().isEmpty())) {
             List<Subject> subjects = dto.getSubjects();
-
-            for (Subject subject : subjects) {
+            for (int i = 0; i < subjects.size(); i++) {
+                Subject subject = subjects.get(i);
+                subject.setNum(i + 1);
                 subject.setSpecial(special);
                 subjectServices.insert(subject);
             }
