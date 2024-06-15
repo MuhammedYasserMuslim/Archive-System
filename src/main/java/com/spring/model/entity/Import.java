@@ -18,38 +18,38 @@ public class Import extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id; // رقم الملف
+    private Integer id;
 
     @Column(name = "no", nullable = false)
     private Integer no;
 
     @Column(name = "income_date", nullable = false)
-    private Date incomeDate; //تاريخ الورود
+    private Date incomeDate;
 
     @OneToMany(mappedBy = "anImport")
     private List<Image> images;
 
     @Column(name = "sender")
-    private String sender; //الجهة الوارد منها الخطاب
+    private String sender;
 
     @Column(name = "incoming_letter_number")
-    private Integer incomingLetterNumber; //رقم الخطاب الوارد
+    private Integer incomingLetterNumber;
 
     @Column(name = "incoming_letter_date")
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date incomingLetterDate;//تاريخ الخطاب الوارد
+    private Date incomingLetterDate;
 
     @Column(name = "summary", nullable = false)
-    private String summary;//ملخص الخطاب
+    private String summary;
 
     @Column(name = "recipient_name")
-    private String recipientName;//توقيع المستلم
+    private String recipientName;
 
     @Column(name = "recipient_date")
-    private Date recipientDate; // تاريخ الاستلام
+    private Date recipientDate;
 
     @Column(name = "number_of_attachments", nullable = false )
-    private Byte numberOfAttachments; //عدد الموافقات
+    private Byte numberOfAttachments; 
 
     @OneToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "response_id", referencedColumnName = "id")

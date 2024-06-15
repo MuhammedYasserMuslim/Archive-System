@@ -64,5 +64,11 @@ public class ArchiveFileController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @DeleteMapping("/archive")
+    public ResponseEntity<?> delete(@RequestParam Byte typeNumber,@RequestParam Short num) {
+        archiveFileServices.deleteByTypeNumberAndNum(typeNumber, num);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
 }

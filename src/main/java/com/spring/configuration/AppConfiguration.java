@@ -33,6 +33,9 @@ public class AppConfiguration implements WebMvcConfigurer {
     }
 
 
+    /**
+     * used to configure resource handlers for serving static resources , used to serve those images
+     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/images/**")

@@ -1,5 +1,6 @@
 package com.spring.services;
 
+import com.spring.exception.FileStorageException;
 import com.spring.exception.RecordNotFountException;
 import com.spring.model.dto.archivefile.ArchiveFileDto;
 import com.spring.model.entity.ArchiveFile;
@@ -7,6 +8,7 @@ import com.spring.model.enums.FileType;
 import com.spring.model.mapper.ArchiveFileMapper;
 import com.spring.repository.ArchiveFileRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -74,6 +76,12 @@ public class ArchiveFileServices {
      * @param dto add new archiveFile
      */
     public void insert(ArchiveFileDto dto) {
+        for (ArchiveFileDto archiveFile : findAll()) {
+            if (archiveFile.getTypeNumber() == dto.getTypeNumber() && archiveFile.getNum() == dto.getNum()) {
+                throw new FileStorageException("لا يمكن اضافة هذا الملف ");
+            }
+        }
+
         ArchiveFile archiveFile = archiveFileMapper.mapToEntity(dto);
         switch (archiveFile.getTypeNumber()) {
             case 1 -> archiveFile.setFileType(FileType.imports);
@@ -81,7 +89,11 @@ public class ArchiveFileServices {
             case 3 -> archiveFile.setFileType(FileType.special);
             default -> throw new RuntimeException("Invalid Input Value " + archiveFile.getTypeNumber());
         }
-        archiveFileRepository.save(archiveFile);
+        try {
+            archiveFileRepository.save(archiveFile);
+        }catch (DataIntegrityViolationException e){
+            throw new FileStorageException("يوجد ملف بهذا لاسم");
+        }
     }
 
     /**
@@ -90,6 +102,13 @@ public class ArchiveFileServices {
     public void update(ArchiveFileDto dto) {
         ArchiveFile archiveFile = archiveFileMapper.mapToEntity(dto);
         archiveFileRepository.save(archiveFile);
+    }
+
+    public void deleteByTypeNumberAndNum(Byte typeNumber, Short num) {
+        if (archiveFileRepository.findByTypeNumberAndNum(typeNumber,num).isPresent()) {
+            archiveFileRepository.deleteByTypeNumberAndNum(typeNumber,num);
+        }
+        else throw new RecordNotFountException("This Record " + typeNumber/num + " Not Found");
     }
 
 }

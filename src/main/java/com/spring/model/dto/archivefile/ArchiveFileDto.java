@@ -4,6 +4,7 @@ package com.spring.model.dto.archivefile;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spring.model.entity.Export;
 import com.spring.model.entity.Import;
+import com.spring.model.entity.Special;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,9 +32,18 @@ public class ArchiveFileDto {
     @JsonIgnore
     private Set<Export> exports;
 
+    @JsonIgnore
+    private Set<Special> specials;
+
+    private boolean canDelete;
+
     public ArchiveFileDto(Short num, String name, Byte typeNumber) {
         this.num = num;
         this.name = name;
         this.typeNumber = typeNumber;
+    }
+
+    public boolean isCanDelete() {
+        return imports.isEmpty() && exports.isEmpty() && specials.isEmpty();
     }
 }
