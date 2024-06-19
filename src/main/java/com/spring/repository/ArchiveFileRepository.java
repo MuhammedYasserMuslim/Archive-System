@@ -30,6 +30,11 @@ public interface ArchiveFileRepository extends JpaRepository<ArchiveFile, Short>
      */
     Optional<ArchiveFile> findByTypeNumberAndNum(Byte typeNumber, Short num);
 
+    @Transactional
+    @Modifying
+    @Query("UPDATE ArchiveFile file set file.name = :name where file.id = :id")
+    void updateName(String name, Short id);
+
 
     @Transactional
     @Modifying

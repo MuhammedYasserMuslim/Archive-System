@@ -104,6 +104,12 @@ public class ArchiveFileServices {
         archiveFileRepository.save(archiveFile);
     }
 
+    public void updateName(String name, Short id) {
+        archiveFileRepository.updateName(name , id);
+    }
+
+
+
     public void deleteByTypeNumberAndNum(Byte typeNumber, Short num) {
         if (archiveFileRepository.findByTypeNumberAndNum(typeNumber,num).isPresent()) {
             archiveFileRepository.deleteByTypeNumberAndNum(typeNumber,num);

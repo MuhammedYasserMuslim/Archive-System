@@ -64,10 +64,20 @@ public class ArchiveFileController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PutMapping("/archive-name")
+    @Operation(summary = "Update Archive Files")
+    public ResponseEntity<?> updateName(@RequestBody Body body) {
+        archiveFileServices.updateName(body.name, body.id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @DeleteMapping("/archive")
-    public ResponseEntity<?> delete(@RequestParam Byte typeNumber,@RequestParam Short num) {
+    public ResponseEntity<?> delete(@RequestParam Byte typeNumber, @RequestParam Short num) {
         archiveFileServices.deleteByTypeNumberAndNum(typeNumber, num);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    public record Body(String name, Short id) {
     }
 
 
