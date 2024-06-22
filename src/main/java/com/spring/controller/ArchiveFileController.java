@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "Archive File Apis")
+@Tag(name = "Archive File")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/archive")
@@ -20,54 +20,46 @@ public class ArchiveFileController {
     private final ArchiveFileServices archiveFileServices;
 
     @GetMapping("/count")
-    @Operation(summary = "Show Archive Files Count ")
     public ResponseEntity<Long> count() {
         return new ResponseEntity<>(archiveFileServices.count(), HttpStatus.OK);
     }
 
     @GetMapping("/archives")
-    @Operation(summary = "Show All Archive Files")
     public ResponseEntity<List<ArchiveFileDto>> findAll() {
         return new ResponseEntity<>(archiveFileServices.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/archive-id")
-    @Operation(summary = "Show Archive File By Id")
     public ResponseEntity<ArchiveFileDto> findById(@RequestParam short id) {
         return new ResponseEntity<>(archiveFileServices.findById(id), HttpStatus.OK);
     }
 
     @GetMapping("/archive-name")
-    @Operation(summary = "Show Archive File By Name")
     public ResponseEntity<List<ArchiveFileDto>> findByNameLike(String name) {
         return new ResponseEntity<>(archiveFileServices.findByNameContaining(name), HttpStatus.OK);
     }
 
     @GetMapping("/archive-num")
-    @Operation(summary = "Show Archive File By Number and Num")
     public ResponseEntity<ArchiveFileDto> findByTypeNumberAndNum(@RequestParam Byte typeNumber, @RequestParam Short num) {
 
         return new ResponseEntity<>(archiveFileServices.findByTypeNumberAndNum(typeNumber, num), HttpStatus.OK);
     }
 
     @PostMapping("/archive")
-    @Operation(summary = "Add Archive File")
     public ResponseEntity<?> insert(@RequestBody ArchiveFileDto archiveFile) {
         archiveFileServices.insert(archiveFile);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/archive")
-    @Operation(summary = "Update Archive Files")
     public ResponseEntity<?> update(@RequestBody ArchiveFileDto archiveFile) {
         archiveFileServices.update(archiveFile);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/archive-name")
-    @Operation(summary = "Update Archive Files")
-    public ResponseEntity<?> updateName(@RequestBody Body body) {
-        archiveFileServices.updateName(body.name, body.id);
+    public ResponseEntity<?> updateName(@RequestBody Body body ,@RequestParam short id ) {
+        archiveFileServices.updateName(body.name, id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -77,7 +69,7 @@ public class ArchiveFileController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    public record Body(String name, Short id) {
+    public record Body(String name) {
     }
 
 

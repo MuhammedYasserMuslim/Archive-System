@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "Dean Decisions Apis")
+@Tag(name = "Dean Decisions")
 @RestController
 @RequestMapping("/dean-decisions")
 @RequiredArgsConstructor

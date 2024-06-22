@@ -10,6 +10,7 @@ import com.spring.security.model.entity.AppUser;
 import com.spring.security.services.AuthenticationService;
 import com.spring.security.services.UserServices;
 import io.jsonwebtoken.JwtException;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/")
 @RequiredArgsConstructor
+@Tag(name = "Authentication")
 public class SecurityController {
 
     private final AuthenticationService authenticationService;
@@ -45,23 +47,13 @@ public class SecurityController {
 
     @PostMapping("register")
     public ResponseEntity<?> register(@RequestBody UserRequest dto) {
-        for (AppUser users : userServices.findAll()) {
-            if (users.getUsername().equals(dto.getUsername())) {
-                throw new UserExistedException("This username ( " + dto.getUsername() + " ) is exist");
-            }
-        }
         userServices.save(dto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("user/changePassword-admin")
     private ResponseEntity<?> changePassword(@RequestParam byte id, @RequestBody Pass password) {
-        for (AppUser users : userServices.findAll()) {
-            if (users.getId() == id) {
-                userServices.changePassword(id, password);
-                return new ResponseEntity<>(HttpStatus.CREATED);
-            }
-        }
-        throw new UserExistedException("This username with id ( " + id + " ) is Not exist");
+        userServices.changePassword(id, password);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/special")
 @RequiredArgsConstructor
-@Tag(name = "Special Apis")
+@Tag(name = "Special")
 public class SpecialController {
 
 

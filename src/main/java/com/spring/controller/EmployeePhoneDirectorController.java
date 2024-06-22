@@ -3,6 +3,7 @@ package com.spring.controller;
 
 import com.spring.model.dto.phonedirector.EmployeePhoneDirectorDto;
 import com.spring.services.EmployeePhoneDirectorServices;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/e-phone")
+@Tag(name = "Employee Phone Director")
 public class EmployeePhoneDirectorController {
 
     private final EmployeePhoneDirectorServices employeePhoneDirectorServices;

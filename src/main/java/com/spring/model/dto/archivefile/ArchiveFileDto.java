@@ -37,6 +37,8 @@ public class ArchiveFileDto {
 
     private boolean canDelete;
 
+    private Integer count;
+
     public ArchiveFileDto(Short num, String name, Byte typeNumber) {
         this.num = num;
         this.name = name;
@@ -45,5 +47,11 @@ public class ArchiveFileDto {
 
     public boolean isCanDelete() {
         return imports.isEmpty() && exports.isEmpty() && specials.isEmpty();
+    }
+
+    public Integer getCount() {
+        return imports.stream().filter(anImport -> anImport.getSaved() == 0).toList().size()
+                + exports.stream().filter(export -> export.getSaved() == 0).toList().size()
+                + specials.size();
     }
 }

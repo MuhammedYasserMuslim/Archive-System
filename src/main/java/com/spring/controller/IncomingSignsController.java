@@ -4,6 +4,7 @@ import com.spring.model.dto.incomesigns.IncomingSignsDto;
 import com.spring.model.dto.incomesigns.IncomingSignsDtoPost;
 import com.spring.model.entity.IncomingSigns;
 import com.spring.services.IncomingSignsServices;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/sign")
+@Tag(name = "Incoming Signs ")
 public class IncomingSignsController {
 
     private final IncomingSignsServices incomingSignsServices;

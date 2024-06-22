@@ -2,6 +2,7 @@ package com.spring.controller;
 
 import com.spring.model.dto.phonedirector.FacultyPhoneDirectoryDto;
 import com.spring.services.FacultyPhoneDirectoryServices;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/f-phone")
+@Tag(name = " Faculty Phone Director")
 public class FacultyPhoneDirectoryController {
 
     private final FacultyPhoneDirectoryServices facultyPhoneDirectoryServices;

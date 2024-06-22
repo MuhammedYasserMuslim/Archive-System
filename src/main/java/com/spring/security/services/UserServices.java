@@ -96,6 +96,8 @@ public class UserServices {
      * @param dto add new user
      */
     public void save(UserRequest dto) {
+        if (findAll().stream().anyMatch(use -> use.getUsername().equals(dto.getUsername())))
+            throw new RecordNotFountException("اسم المستخدم موجود بالفعل");
         this.save(userMapper.mapToEntity(dto));
     }
 
@@ -109,6 +111,8 @@ public class UserServices {
         user.setAuthorities(set);
         user.setIsActive(1);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if (findAll().stream().anyMatch(use -> use.getUsername().equals(user.getUsername())))
+            throw new RecordNotFountException("اسم المستخدم موجود بالفعل");
         this.userRepository.save(user);
     }
 
@@ -126,7 +130,6 @@ public class UserServices {
      * @param user update user
      */
     public void update(AppUser user) {
-
         user.setAuthorities(getById(user.getId()).getAuthorities());
         user.setIsActive(1);
         user.setPassword((user.getPassword()));
@@ -147,6 +150,8 @@ public class UserServices {
         user.setIsActive(getById(id).getIsActive());
         user.setImagePath(getById(id).getImagePath());
         user.setPassword(getById(id).getPassword());
+        if (findAll().stream().anyMatch(use -> use.getUsername().equals(dto.getUsername())))
+            throw new RecordNotFountException("اسم المستخدم موجود بالفعل");
         this.userRepository.save(user);
     }
 
@@ -159,7 +164,7 @@ public class UserServices {
             user.setPassword(passwordEncoder.encode(password.getNewPassword()));
             userRepository.save(user);
         } else
-            throw new InvalidPasswordException("invalid password");
+            throw new InvalidPasswordException("الرقم السري غير صحيح");
     }
 
     /**

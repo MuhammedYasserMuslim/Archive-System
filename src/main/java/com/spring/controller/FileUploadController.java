@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/image")
 @RequiredArgsConstructor
-@Tag(name = "Image Apis")
+@Tag(name = "Image")
 public class FileUploadController {
 
     private final FileUploadService fileUploadService;

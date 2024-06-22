@@ -6,6 +6,7 @@ import com.spring.security.model.dto.UserUpdate;
 import com.spring.security.model.entity.AppUser;
 import com.spring.security.services.UserServices;
 import com.spring.services.FileUploadService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
+@Tag(name = "User")
 public class UserController {
 
     private final UserServices userServices;
