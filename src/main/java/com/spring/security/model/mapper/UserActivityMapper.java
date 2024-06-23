@@ -13,5 +13,6 @@ public interface UserActivityMapper {
    UserActivity mapToUserActivity (Import export);
    UserActivity mapToUserActivity (Special special);
    UserActivity mapToUserActivity (DeanDecisions decisions);
+   @Mapping(source = "id" , target = "no")
    UserActivity mapToUserActivity (IncomingSigns signs);
 }
