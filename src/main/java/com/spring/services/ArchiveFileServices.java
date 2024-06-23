@@ -91,7 +91,7 @@ public class ArchiveFileServices {
         }
         try {
             archiveFileRepository.save(archiveFile);
-        }catch (DataIntegrityViolationException e){
+        } catch (DataIntegrityViolationException e) {
             throw new FileStorageException("يوجد ملف بهذا لاسم");
         }
     }
@@ -104,17 +104,16 @@ public class ArchiveFileServices {
         archiveFileRepository.save(archiveFile);
     }
 
+
     public void updateName(String name, Short id) {
-        archiveFileRepository.updateName(name , id);
+        archiveFileRepository.updateName(name, id);
     }
 
 
-
     public void deleteByTypeNumberAndNum(Byte typeNumber, Short num) {
-        if (archiveFileRepository.findByTypeNumberAndNum(typeNumber,num).isPresent()) {
-            archiveFileRepository.deleteByTypeNumberAndNum(typeNumber,num);
-        }
-        else throw new RecordNotFountException("This Record " + typeNumber/num + " Not Found");
+        if (archiveFileRepository.findByTypeNumberAndNum(typeNumber, num).isPresent()) {
+            archiveFileRepository.deleteByTypeNumberAndNum(typeNumber, num);
+        } else throw new RecordNotFountException("This Record " + typeNumber / num + " Not Found");
     }
 
 }

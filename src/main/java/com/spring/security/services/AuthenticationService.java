@@ -1,5 +1,6 @@
 package com.spring.security.services;
 
+import com.spring.exception.RecordNotFountException;
 import com.spring.security.jwt.JwtServices;
 import com.spring.security.model.AppUserDetail;
 import com.spring.security.model.dto.AuthenticationRequest;
@@ -9,6 +10,7 @@ import com.spring.security.model.entity.Authority;
 import com.spring.security.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
@@ -31,14 +33,23 @@ public class AuthenticationService {
      * @return Authentication
      */
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getUsername(),
-                        request.getPassword()
-                )
-        );
+        AppUser user = repository.findByUsername(request.getUsername())
+                .orElseThrow(() -> new RecordNotFountException("اسم المستخدم غير صحيح"));
+        if (user.getIsActive() == 0)
+            throw new RecordNotFountException("هذا المستخدم غير مفعل برجاء مراجعة مسئول البرنامج");
 
-        AppUser user = repository.findByUsername(request.getUsername()).orElseThrow();
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getUsername(),
+                            request.getPassword()
+                    )
+            );
+        }catch (BadCredentialsException e) {
+            throw new RecordNotFountException("الرقم السري غير صحيح");
+        }
+
+
         var jwtToken = jwtService.generateToken(new AppUserDetail(user));
 
         return AuthenticationResponse.builder()
