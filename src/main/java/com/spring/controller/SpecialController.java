@@ -62,6 +62,11 @@ public class SpecialController {
         return new ResponseEntity<>(specialServices.findById(id), HttpStatus.OK);
     }
 
+    @GetMapping("/count-special-by-year")
+    public ResponseEntity<Integer> findByYearDate(@RequestParam String year) throws StringIndexOutOfBoundsException {
+        return new ResponseEntity<>(specialServices.findByYearDate(year.substring(5, 9)), HttpStatus.OK);
+    }
+
     @PostMapping("/special")
     public ResponseEntity<?> insert(@RequestBody SpecialDtoPost special) {
         specialServices.insert(special);

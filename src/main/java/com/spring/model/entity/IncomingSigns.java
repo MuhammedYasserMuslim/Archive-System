@@ -23,6 +23,9 @@ public class IncomingSigns extends BaseEntity {
     @Column(name = "id")
     private Integer id;
 
+    @Column(name = "no" , nullable = false)
+    private Integer no;
+
     @Column(name = "date", nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd hh:mm")
     private Date date;

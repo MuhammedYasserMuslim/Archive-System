@@ -52,8 +52,11 @@ public class SpecialServices {
      * @return specials in current year for pagination
      */
     public SpecialDto findAllPagination(int page) {
-        Pageable pageable = PageRequest.of(page, 1);
-        return specialMapper.mapToDto(specialRepository.findByYear(pageable).getContent().get(0));
+        if (!specialRepository.findByYear().isEmpty()) {
+            Pageable pageable = PageRequest.of(page, 1);
+            return specialMapper.mapToDto(specialRepository.findByYear(pageable).getContent().get(0));
+        }
+        return null;
     }
 
 
@@ -187,5 +190,9 @@ public class SpecialServices {
     private List<SpecialDto> reverseList(List<SpecialDto> dtos) {
         Collections.reverse(dtos);
         return dtos;
+    }
+
+    public int findByYearDate(String year) {
+        return specialRepository.findByYearDate(year);
     }
 }

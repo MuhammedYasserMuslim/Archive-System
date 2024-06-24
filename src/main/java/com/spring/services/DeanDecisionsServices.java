@@ -3,7 +3,6 @@ package com.spring.services;
 
 import com.spring.model.dto.deandecisions.DeanDecisionsDto;
 import com.spring.model.dto.deandecisions.DeanDecisionsDtoPost;
-import com.spring.model.dto.exports.ExportDto;
 import com.spring.model.entity.DeanDecisions;
 import com.spring.model.mapper.ArchiveFileMapper;
 import com.spring.model.mapper.DeanDecisionsDtoMapper;
@@ -30,14 +29,14 @@ public class DeanDecisionsServices {
     /**
      * @return count dean-decision
      */
-    public Long count(){
+    public Long count() {
         return deanDecisionsRepository.count();
     }
 
     /**
      * @return count dean-decision in current year
      */
-    public Integer countCurrent(){
+    public Integer countCurrent() {
         return findByYear().size();
     }
 
@@ -70,8 +69,11 @@ public class DeanDecisionsServices {
      * @return dean-decision in current year for pagination
      */
     public DeanDecisionsDto findAllPaginationByYear(int page) {
-        Pageable pageable = PageRequest.of(page, 1);
-        return deanDecisionsDtoMapper.mapToDto(deanDecisionsRepository.findByYear(pageable).getContent().get(0));
+        if (!findByYear().isEmpty()) {
+            Pageable pageable = PageRequest.of(page, 1);
+            return deanDecisionsDtoMapper.mapToDto(deanDecisionsRepository.findByYear(pageable).getContent().get(0));
+        }
+        return null;
     }
 
     /**
@@ -111,11 +113,11 @@ public class DeanDecisionsServices {
     }
 
 
-
     private List<DeanDecisionsDto> reverseList(List<DeanDecisionsDto> dtos) {
         Collections.reverse(dtos);
         return dtos;
     }
+
     private DeanDecisions getById(int id) {
         return deanDecisionsRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
     }

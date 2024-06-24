@@ -15,6 +15,7 @@ import java.util.Date;
 public class IncomingSignsDto {
 
     private Integer id;
+    private Integer no;
 
     @JsonFormat(pattern = "yyyy-MM-dd hh:mm")
     private Date date;

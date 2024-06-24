@@ -89,8 +89,11 @@ public class ExportServices {
      * @return exports in current year for pagination
      */
     public ExportDto findAllPaginationByYear(int page) {
-        Pageable pageable = PageRequest.of(page, 1);
-        return exportMapper.mapToDto(exportRepository.findByYear(pageable).getContent().get(0));
+        if (!exportRepository.findByYear().isEmpty()) {
+            Pageable pageable = PageRequest.of(page, 1);
+            return exportMapper.mapToDto(exportRepository.findByYear(pageable).getContent().get(0));
+        }
+        return null;
     }
 
     /**
@@ -204,7 +207,7 @@ public class ExportServices {
      * @return count of exports in year
      */
     public int findByYearDate(String year) {
-        return exportRepository.findByYearDate(year).size();
+        return exportRepository.findByYearDate(year);
     }
 
     /**
@@ -222,6 +225,7 @@ public class ExportServices {
 
     /**
      * convert export to special
+     *
      * @param id  export id
      * @param num num of archive file
      */

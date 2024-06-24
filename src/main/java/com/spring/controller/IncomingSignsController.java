@@ -22,12 +22,23 @@ public class IncomingSignsController {
 
 
     @GetMapping("/count")
-    public ResponseEntity<Long> count(){
-        return new ResponseEntity<>(incomingSignsServices.count(),HttpStatus.OK);
+    public ResponseEntity<Long> count() {
+        return new ResponseEntity<>(incomingSignsServices.count(), HttpStatus.OK);
     }
-    @GetMapping("/signs")
+
+    @GetMapping("/count-current")
+    public ResponseEntity<Integer> countCurrent() {
+        return new ResponseEntity<>(incomingSignsServices.countCurrent(), HttpStatus.OK);
+    }
+
+    @GetMapping("/all-signs")
     public ResponseEntity<List<IncomingSignsDto>> findAll() {
         return new ResponseEntity<>(incomingSignsServices.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/signs")
+    public ResponseEntity<List<IncomingSignsDto>> findByYear() {
+        return new ResponseEntity<>(incomingSignsServices.findByYear(), HttpStatus.OK);
     }
 
     @GetMapping("/sign")
@@ -36,8 +47,13 @@ public class IncomingSignsController {
     }
 
     @GetMapping("/sign-pagination")
-    public ResponseEntity<IncomingSignsDto> findAllPagination(@RequestParam int page ) {
-        return new ResponseEntity<>(incomingSignsServices.findAllPagination(page-1), HttpStatus.OK);
+    public ResponseEntity<IncomingSignsDto> findAllPaginationByYear(@RequestParam int page) {
+        return new ResponseEntity<>(incomingSignsServices.findAllPaginationByYear(page - 1), HttpStatus.OK);
+    }
+
+    @GetMapping("/all-sign-pagination")
+    public ResponseEntity<IncomingSignsDto> findAllPagination(@RequestParam int page) {
+        return new ResponseEntity<>(incomingSignsServices.findAllPagination(page - 1), HttpStatus.OK);
     }
 
     @PostMapping("/sign")

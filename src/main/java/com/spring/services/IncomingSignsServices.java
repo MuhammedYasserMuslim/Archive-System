@@ -1,7 +1,9 @@
 package com.spring.services;
 
+import com.spring.model.dto.exports.ExportDto;
 import com.spring.model.dto.incomesigns.IncomingSignsDto;
 import com.spring.model.dto.incomesigns.IncomingSignsDtoPost;
+import com.spring.model.entity.Export;
 import com.spring.model.entity.IncomingSigns;
 import com.spring.model.mapper.IncomingSignsMapper;
 import com.spring.repository.IncomingSignsRepository;
@@ -27,11 +29,21 @@ public class IncomingSignsServices {
         return incomingSignsRepository.count();
     }
 
+    public int countCurrent() {
+        return  findByYear().size();
+    }
+
+
     /**
      * @return all Incoming signs
      */
     public List<IncomingSignsDto> findAll() {
         return incomingSignsMapper.mapToDto(incomingSignsRepository.findAll());
+    }
+
+
+    public List<IncomingSignsDto> findByYear() {
+        return incomingSignsMapper.mapToDto(incomingSignsRepository.findByYear());
     }
 
     /**
@@ -52,12 +64,18 @@ public class IncomingSignsServices {
         return incomingSignsMapper.mapToDto(incomingSignsRepository.findAll(pageable).getContent().get(0));
     }
 
+    public IncomingSignsDto findAllPaginationByYear(int page) {
+        Pageable pageable = PageRequest.of(page, 1);
+        return incomingSignsMapper.mapToDto(incomingSignsRepository.findByYear(pageable).getContent().get(0));
+    }
+
     /**
      * @param dto add new Incoming sign
      */
 
     public void insert(IncomingSignsDtoPost dto) {
         baseDataServices.editAutoIncrementIncomingSigns();
+        dto.setNo(findByYear().isEmpty() ? 1 :incomingSignsRepository.findByYear().get(incomingSignsRepository.findByYear().size() - 1).getNo() + 1);
         incomingSignsRepository.save(incomingSignsMapper.mapToEntity(dto));
     }
 
@@ -67,6 +85,7 @@ public class IncomingSignsServices {
      */
     public void update(IncomingSigns signs, int id) {
         signs.setId(id);
+        signs.setNo(findById(id).getNo());
         signs.setCreatedBy(getById(id).getCreatedBy());
         signs.setCreatedDate(getById(id).getCreatedDate());
         incomingSignsRepository.save(signs);

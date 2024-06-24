@@ -37,7 +37,7 @@ public class ImportServices {
     public ImportServices(ExportServices exportServices, ImportRepository importRepository,
                           ArchiveFileServices archiveFileServices, ArchiveFileMapper archiveFileMapper,
                           ImportMapper importMapper, SpecialServices specialServices, BaseDataServices
-                                      baseDataServices, FileUploadService fileUploadService) {
+                                  baseDataServices, FileUploadService fileUploadService) {
         this.exportServices = exportServices;
         this.importRepository = importRepository;
         this.archiveFileServices = archiveFileServices;
@@ -111,8 +111,11 @@ public class ImportServices {
      * @return imports in current year for pagination
      */
     public ImportDto findAllPagination(int page) {
-        Pageable pageable = PageRequest.of(page, 1);
-        return importMapper.mapToDto(importRepository.findByYear(pageable).getContent().get(0));
+        if (!importRepository.findByYear().isEmpty()) {
+            Pageable pageable = PageRequest.of(page, 1);
+            return importMapper.mapToDto(importRepository.findByYear(pageable).getContent().get(0));
+        }
+        return null;
     }
 
     /**
@@ -237,7 +240,7 @@ public class ImportServices {
      * @return count of import in year
      */
     public int findByYearDate(String year) {
-        return importRepository.findByYearDate(year).size();
+        return importRepository.findByYearDate(year);
     }
 
     /**

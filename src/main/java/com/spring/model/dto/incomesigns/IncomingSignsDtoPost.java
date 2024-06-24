@@ -15,6 +15,7 @@ import java.util.Date;
 public class IncomingSignsDtoPost {
 
     private Integer id;
+    private Integer no;
 
     private Date date;
 

@@ -1,5 +1,6 @@
 package com.spring.repository;
 
+import com.spring.model.entity.Export;
 import com.spring.model.entity.Special;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -7,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -30,5 +32,7 @@ public interface SpecialRepository extends JpaRepository<Special, Integer> {
     List<Special> findByArchiveFile(Short id);
 
 
+    @Query(value = "SELECT count(*)  FROM special WHERE created_date >= DATE_FORMAT(CONCAT(:year, '-07-01 00:00:00'), '%Y-07-01 00:00:00') - INTERVAL 1 YEAR AND created_date <= DATE_FORMAT(CONCAT(:year, '-06-30 23:59:59'), '%Y-06-30 23:59:59') and import_num is null" , nativeQuery = true)
+    Integer findByYearDate(String year);
 }
 

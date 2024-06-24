@@ -69,8 +69,8 @@ public interface ImportRepository extends JpaRepository<Import, Integer> {
     /**
      * @return imports by year
      */
-    @Query(value = "SELECT * FROM imports WHERE created_date >= DATE_FORMAT(CONCAT(:year, '-07-01 00:00:00'), '%Y-07-01 00:00:00') - INTERVAL 1 YEAR AND created_date <= DATE_FORMAT(CONCAT(:year, '-06-30 23:59:59'), '%Y-06-30 23:59:59')", nativeQuery = true)
-    List<Import> findByYearDate(String year);
+    @Query(value = "SELECT count(*) FROM imports WHERE created_date >= DATE_FORMAT(CONCAT(:year, '-07-01 00:00:00'), '%Y-07-01 00:00:00') - INTERVAL 1 YEAR AND created_date <= DATE_FORMAT(CONCAT(:year, '-06-30 23:59:59'), '%Y-06-30 23:59:59')", nativeQuery = true)
+    Integer findByYearDate(String year);
 
 
 }
