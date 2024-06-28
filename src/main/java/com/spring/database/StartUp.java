@@ -1,6 +1,8 @@
 package com.spring.database;
 
+import com.spring.model.entity.Days;
 import com.spring.model.entity.FinancialYear;
+import com.spring.repository.DaysRepository;
 import com.spring.repository.FinancialYearRepository;
 import com.spring.security.model.entity.AppUser;
 import com.spring.security.model.entity.Authority;
@@ -25,6 +27,7 @@ public class StartUp implements CommandLineRunner, ApplicationRunner {
     private final UserServices userServices;
     private final AuthorityService authorityService;
     private final FinancialYearRepository financialYearRepository;
+    private final DaysRepository daysRepository;
 
     @Override
     public void run(String... args) throws ParseException {
@@ -57,6 +60,15 @@ public class StartUp implements CommandLineRunner, ApplicationRunner {
             authorityService.insert(new Authority((byte) 1, "ROLE_ADMIN"));
             authorityService.insert(new Authority((byte) 2, "ROLE_MANAGER"));
             authorityService.insert(new Authority((byte) 3, "ROLE_USER"));
+        }
+        if (daysRepository.findAll().isEmpty()) {
+            daysRepository.save(new Days("السبت"));
+            daysRepository.save(new Days("الأحد"));
+            daysRepository.save(new Days("ألاثنين"));
+            daysRepository.save(new Days("الثلاثاء"));
+            daysRepository.save(new Days("الأربعاء"));
+            daysRepository.save(new Days("الخميس"));
+            daysRepository.save(new Days("الجمعة"));
         }
     }
 }

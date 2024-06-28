@@ -19,7 +19,7 @@ public class SubjectDto {
     private int num;
     private String head;
 
-    List<Decision> decision;
+   private List<Decision> decision;
 
 
 }
