@@ -16,9 +16,9 @@ import java.util.Date;
 @Service
 public class DatabaseBackupService {
 
-//    private  final String backupDirectory = "D:\\Archive_System\\backup\\";
 
-    private  final String backupDirectory = "/home/muhammed/Desktop/Folder/";
+    @Value("${spring.datasource.backup}")
+    private  String backupDirectory ;
 
     private final String dbName = "archive";
 
@@ -32,11 +32,8 @@ public class DatabaseBackupService {
         removeOldBackups();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         String backupFileName = backupDirectory + dbName + "_" + sdf.format(new Date()) + ".sql";
-
         String command = String.format("mysqldump -u%s -p%s %s -r %s", dbUser, dbPassword, dbName, backupFileName);
-
         Process process = Runtime.getRuntime().exec(command);
-
         try {
             int processComplete = process.waitFor();
             if (processComplete == 0) {
@@ -50,11 +47,9 @@ public class DatabaseBackupService {
     }
 
     public String restoreDatabase(String backupFileName) throws IOException {
-        String command = String.format("mysql -u%s -p%s %s < %s", dbUser, dbPassword, dbName, backupDirectory + backupFileName);
-
+        String command = String.format("mysql -u%s -p%s %s < \"%s\"", dbUser, dbPassword, dbName, backupDirectory + backupFileName);
         try {
             Process process = Runtime.getRuntime().exec(new String[]{"bash", "-c", command});
-
             int processComplete = process.waitFor();
 
             if (processComplete == 0) {
@@ -66,7 +61,7 @@ public class DatabaseBackupService {
                     while ((line = reader.readLine()) != null) {
                         errorMsg.append(line).append(System.lineSeparator());
                     }
-                    return "فشل استرجاع النسخة  " + errorMsg.toString();
+                    return "فشل استرجاع النسخة  " + errorMsg;
                 }
             }
         } catch (InterruptedException e) {

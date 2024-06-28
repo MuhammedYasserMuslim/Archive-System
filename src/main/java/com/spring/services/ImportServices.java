@@ -270,7 +270,7 @@ public class ImportServices {
      */
     public void convertToSpecial(int id, short num) {
         Import importa = getById(id);
-        importa.setSaved(specialServices.count() + 1);
+        importa.setSaved(specialServices.countCurrent() + 1);
         importRepository.save(importa);
         SpecialDtoPost special = SpecialDtoPost.builder()
                 .importNum(importa.getNo())

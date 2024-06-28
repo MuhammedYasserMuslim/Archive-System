@@ -48,7 +48,7 @@ public class UserActivityServices {
             userActivity.setType("قرارت عميد الكلية");
             activities.add(userActivity);
         }
-        for (IncomingSigns signs : incomingSignsRepository.findAll()) {
+        for (IncomingSigns signs : incomingSignsRepository.findByYear()) {
             UserActivity userActivity = userActivityMapper.mapToUserActivity(signs);
             userActivity.setType("أشارات");
             activities.add(userActivity);

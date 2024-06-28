@@ -231,7 +231,7 @@ public class ExportServices {
      */
     public void convertToSpecial(int id, short num) {
         Export export = getById(id);
-        export.setSaved((specialServices.count() + 1));
+        export.setSaved((specialServices.countCurrent() + 1));
         exportRepository.save(export);
         SpecialDtoPost special = SpecialDtoPost.builder()
                 .importNum(export.getNo())

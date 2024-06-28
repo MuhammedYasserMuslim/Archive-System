@@ -2,6 +2,7 @@ package com.spring.model.dto.archivefile;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spring.model.entity.DeanDecisions;
 import com.spring.model.entity.Export;
 import com.spring.model.entity.Import;
 import com.spring.model.entity.Special;
@@ -41,6 +42,9 @@ public class ArchiveFileDto {
     @JsonIgnore
     private Set<Special> specials;
 
+    @JsonIgnore
+    private Set<DeanDecisions> deanDecisions;
+
     private boolean canDelete;
 
 
@@ -53,13 +57,14 @@ public class ArchiveFileDto {
     }
 
     public boolean isCanDelete() {
-        return imports.isEmpty() && exports.isEmpty() && specials.isEmpty();
+        return imports.isEmpty() && exports.isEmpty() && specials.isEmpty()&& deanDecisions.isEmpty();
     }
 
     public Integer getCount() {
         return imports.stream().filter(anImport -> anImport.getSaved() == 0 && checkMonth(anImport.getCreatedDate())[0] == checkMonth(LocalDateTime.now())[0]).toList().size() +
                exports.stream().filter(export -> export.getSaved() == 0 && checkMonth(export.getCreatedDate())[0] == checkMonth(LocalDateTime.now())[0]).toList().size() +
-               specials.stream().filter(special -> checkMonth(special.getCreatedDate())[0] == checkMonth(LocalDateTime.now())[0]).toList().size();
+               specials.stream().filter(special -> checkMonth(special.getCreatedDate())[0] == checkMonth(LocalDateTime.now())[0]).toList().size()+
+                deanDecisions.stream().filter(decisions -> checkMonth(decisions.getCreatedDate())[0] == checkMonth(LocalDateTime.now())[0]).toList().size();
     }
 
 

@@ -34,6 +34,4 @@ public interface ExportMapper {
     @Mapping(target = "responseNumber", source = "aimport.no")
     @Mapping(target = "responseDate", source = "aimport.incomeDate")
     List<ExportDto> mapListToDto(List<Export> exports);
-
-
 }

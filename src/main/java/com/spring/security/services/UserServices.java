@@ -118,7 +118,6 @@ public class UserServices {
 
     /**
      * @param user,id add new user
-     * @deprecated
      */
     public void save(AppUser user, int id) {
         user.setIsActive(1);
@@ -150,7 +149,7 @@ public class UserServices {
         user.setIsActive(getById(id).getIsActive());
         user.setImagePath(getById(id).getImagePath());
         user.setPassword(getById(id).getPassword());
-        if (findAll().stream().anyMatch(use -> use.getUsername().equals(dto.getUsername())))
+        if (findAll().stream().anyMatch(use -> use.getUsername().equals(dto.getUsername())) && !(dto.getUsername().equals(getById(id).getUsername())))
             throw new RecordNotFountException("اسم المستخدم موجود بالفعل");
         this.userRepository.save(user);
     }
