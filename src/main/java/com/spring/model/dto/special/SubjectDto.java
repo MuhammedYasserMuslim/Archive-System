@@ -18,22 +18,8 @@ public class SubjectDto {
 
     private int num;
     private String head;
-    @JsonBackReference
+
     List<Decision> decision;
-    List<DecisionDto> decisions;
 
-    public SubjectDto(int num, String head, List<Decision> decision) {
-        this.num = num;
-        this.head = head;
-        this.decision = decision;
-    }
 
-    public List<DecisionDto> getDecisions() {
-        List<DecisionDto> dtos = new ArrayList<>();
-        for (Decision d : this.decision) {
-            DecisionDto dto = new DecisionDto(d.getNum(), d.getSummary() , d.getQarar());
-            dtos.add(dto);
-        }
-        return dtos;
-    }
 }
