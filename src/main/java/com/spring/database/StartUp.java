@@ -1,5 +1,6 @@
 package com.spring.database;
 
+import com.spring.model.dto.deputation.DeputationDto;
 import com.spring.model.entity.Days;
 import com.spring.model.entity.FinancialYear;
 import com.spring.repository.DaysRepository;
@@ -8,6 +9,7 @@ import com.spring.security.model.entity.AppUser;
 import com.spring.security.model.entity.Authority;
 import com.spring.security.services.AuthorityService;
 import com.spring.security.services.UserServices;
+import com.spring.services.DeputationServices;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.ApplicationArguments;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -28,6 +31,7 @@ public class StartUp implements CommandLineRunner, ApplicationRunner {
     private final AuthorityService authorityService;
     private final FinancialYearRepository financialYearRepository;
     private final DaysRepository daysRepository;
+    private final DeputationServices deputationServices;
 
     @Override
     public void run(String... args) throws ParseException {
@@ -68,7 +72,28 @@ public class StartUp implements CommandLineRunner, ApplicationRunner {
             daysRepository.save(new Days("الثلاثاء"));
             daysRepository.save(new Days("الأربعاء"));
             daysRepository.save(new Days("الخميس"));
-            daysRepository.save(new Days("الجمعة"));
         }
+//        List<Days> findAll = daysRepository.findAll();
+//        DeputationDto deputationDto = DeputationDto.builder()
+//                .no(1)
+//                .degree("أ.د.م")
+//                .department("قسم دعم القرار")
+//                .name("د/محمود أسماعيل")
+//                .deputationUniversity("الجامعة الروسية")
+//                .deputationPeriod((byte) 1)
+//                .departmentRecordNum(5)
+//                .departmentAccept((byte) 1)
+//                .departmentDate(new Date())
+//                .facultyRecordNum(6)
+//                .facultyAccept((byte) 1)
+//                .facultyDate(new Date())
+//                .universityRecordNum(7)
+//                .universityAccept((byte) 1)
+//                .universityDate(new Date())
+//                .notes("لا يوجد ملاحظات")
+//                .build();
+//        deputationDto.getDeputationDays().add(findAll.get(0));
+//        deputationDto.getDeputationDays().add(findAll.get(1));
+//        deputationServices.save(deputationDto);
     }
 }
