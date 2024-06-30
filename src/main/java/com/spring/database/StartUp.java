@@ -68,11 +68,12 @@ public class StartUp implements CommandLineRunner, ApplicationRunner {
         if (daysRepository.findAll().isEmpty()) {
             daysRepository.save(new Days("السبت"));
             daysRepository.save(new Days("الأحد"));
-            daysRepository.save(new Days("ألاثنين"));
+            daysRepository.save(new Days("الاثنين"));
             daysRepository.save(new Days("الثلاثاء"));
             daysRepository.save(new Days("الأربعاء"));
             daysRepository.save(new Days("الخميس"));
         }
+
 
     }
 }

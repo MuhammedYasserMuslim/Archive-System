@@ -6,8 +6,10 @@ import com.spring.model.entity.Deputation;
 import com.spring.model.mapper.DeputationMapper;
 import com.spring.repository.DeputationRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -29,20 +31,34 @@ public class DeputationServices {
         return deputationRepository.findByYear().size();
     }
 
-    public List<DeputationDto> findAccepted(){
+    public List<DeputationDto> findAccepted() {
         return deputationMapper.mapToDto(deputationRepository.findAccepted());
     }
 
-    public Integer countAccepted(){
+    public Integer countAccepted() {
         return deputationRepository.findAccepted().size();
     }
 
-    public List<DeputationDto> findNotAccepted(){
+    public List<DeputationDto> findNotAccepted() {
         return deputationMapper.mapToDto(deputationRepository.findNotAccepted());
     }
 
-    public Integer countNotAccepted(){
+    public Integer countNotAccepted() {
         return deputationRepository.findNotAccepted().size();
+    }
+
+    public List<DeputationDto> findCurrentDeputation() {
+        return deputationMapper.mapToDto(deputationRepository.findCurrentDeputation());
+    }
+
+    public Integer countCurrentDeputation() {
+        return deputationRepository.findCurrentDeputation().size();
+    }
+
+    public List<DeputationDto> findTodayDeputation() {
+
+        return findCurrentDeputation().stream().filter(dto -> dto.getDeputationDays().stream().anyMatch(days -> days.getId() == dayOfWeek())).toList();
+
     }
 
 
@@ -71,5 +87,19 @@ public class DeputationServices {
             deputationRepository.deleteById(id);
         else
             throw new RecordNotFountException("Not Found");
+    }
+
+    private static int dayOfWeek() {
+        int i = LocalDateTime.now().getDayOfWeek().getValue();
+        return switch (i) {
+            case 6 -> 1;
+            case 7 -> 2;
+            case 1 -> 3;
+            case 2 -> 4;
+            case 3 -> 5;
+            case 4 -> 6;
+            case 5 -> 7;
+            default -> 0;
+        };
     }
 }

@@ -58,6 +58,23 @@ public class DeputationController {
         return deputationServices.countNotAccepted();
     }
 
+    @GetMapping("/current-deputations")
+    @ResponseStatus(HttpStatus.OK)
+    public List<DeputationDto> findCurrentDeputation() {
+        return deputationServices.findCurrentDeputation();
+    }
+
+    @GetMapping("/count-current-deputations")
+    @ResponseStatus(HttpStatus.OK)
+    public Integer countCurrentDeputation() {
+        return deputationServices.countCurrentDeputation();
+    }
+
+    @GetMapping("/today-deputations")
+    public List<DeputationDto> home() {
+        return deputationServices.findTodayDeputation();
+    }
+
     @PostMapping("/deputation")
     @ResponseStatus(HttpStatus.CREATED)
     public DeputationDto createDeputation(@RequestBody DeputationDto deputationDto) {
