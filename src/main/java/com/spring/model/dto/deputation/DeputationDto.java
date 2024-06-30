@@ -1,5 +1,6 @@
 package com.spring.model.dto.deputation;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.spring.model.entity.Days;
 import lombok.*;
 
@@ -33,16 +34,19 @@ public class DeputationDto {
 
 
     private Integer departmentRecordNum;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date departmentDate;
     private Byte departmentAccept;
 
 
     private Integer facultyRecordNum;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date facultyDate;
     private Byte facultyAccept;
 
 
     private Integer universityRecordNum;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date universityDate;
     private Byte universityAccept;
 

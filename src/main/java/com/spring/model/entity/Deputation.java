@@ -20,22 +20,22 @@ public class Deputation extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "no")
+    @Column(name = "no" , nullable = false)
     private Integer no;
 
-    @Column(name = "degree")
+    @Column(name = "degree" , nullable = false)
     private String degree;
 
-    @Column(name = "name")
+    @Column(name = "name" , nullable = false)
     private String name;
 
-    @Column(name = "department")
+    @Column(name = "department" , nullable = false)
     private String department;
 
-    @Column(name = "deputation_university")
+    @Column(name = "deputation_university", nullable = false)
     private String deputationUniversity;
 
-    @Column(name = "deputation_period")
+    @Column(name = "deputation_period",nullable = false)
     private Byte deputationPeriod;
 
     @JoinTable(
