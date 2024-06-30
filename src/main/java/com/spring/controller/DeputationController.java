@@ -71,8 +71,13 @@ public class DeputationController {
     }
 
     @GetMapping("/today-deputations")
-    public List<DeputationDto> home() {
+    public List<DeputationDto> findTodayDeputation() {
         return deputationServices.findTodayDeputation();
+    }
+
+    @GetMapping("/today-in")
+    public List<DeputationDto> findTodayIn() {
+        return deputationServices.findTodayIn();
     }
 
     @PostMapping("/deputation")
