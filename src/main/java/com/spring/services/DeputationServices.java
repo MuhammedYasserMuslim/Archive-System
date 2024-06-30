@@ -60,7 +60,7 @@ public class DeputationServices {
     }
 
     public List<DeputationDto> findTodayIn() {
-        return findTodayDeputation().stream().filter(dto -> dto.getDeputationDays().stream().anyMatch(days -> days.getId() != dayOfWeek())).toList();
+        return findCurrentDeputation().stream().filter(dto -> dto.getDeputationDays().stream().allMatch(days -> days.getId() != dayOfWeek())).toList();
     }
 
 
