@@ -116,4 +116,7 @@ public class ArchiveFileServices {
         } else throw new RecordNotFountException("This Record " + typeNumber / num + " Not Found");
     }
 
+    public void closeArchiveFile() {
+        archiveFileRepository.closeArchiveFile();
+    }
 }

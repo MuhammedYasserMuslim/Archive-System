@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Tag(name = "Archive File")
@@ -57,7 +58,7 @@ public class ArchiveFileController {
     }
 
     @PutMapping("/archive-name")
-    public ResponseEntity<?> updateName(@RequestBody Body body ,@RequestParam short id ) {
+    public ResponseEntity<?> updateName(@RequestBody Body body, @RequestParam short id) {
         archiveFileServices.updateName(body.name, id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -66,6 +67,19 @@ public class ArchiveFileController {
     public ResponseEntity<?> delete(@RequestParam Byte typeNumber, @RequestParam Short num) {
         archiveFileServices.deleteByTypeNumberAndNum(typeNumber, num);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/close")
+    public ResponseEntity<?> close() {
+        archiveFileServices.closeArchiveFile();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/can-closed")
+    public boolean canClose() {
+        return LocalDateTime.now().getMonth().getValue() == 7 &&
+                (LocalDateTime.now().getDayOfMonth() == 1 || LocalDateTime.now().getDayOfMonth() == 2 || LocalDateTime.now().getDayOfMonth() == 3
+                || LocalDateTime.now().getDayOfMonth() == 4 || LocalDateTime.now().getDayOfMonth() == 5);
     }
 
     public record Body(String name) {

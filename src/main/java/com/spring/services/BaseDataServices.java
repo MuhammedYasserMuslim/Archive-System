@@ -48,4 +48,8 @@ public class BaseDataServices {
     public void editAutoIncrementIncomingSigns() {
         baseDataRepository.editAutoIncrementIncomingSigns();
     }
+
+    public void editAutoIncrementDeputation() {
+        baseDataRepository.editAutoIncrementDeputation();
+    }
 }

@@ -60,11 +60,11 @@ public class ArchiveFileDto {
         return imports.isEmpty() && exports.isEmpty() && specials.isEmpty()&& deanDecisions.isEmpty();
     }
 
+
     public Integer getCount() {
         return imports.stream().filter(anImport -> anImport.getSaved() == 0 && checkMonth(anImport.getCreatedDate())[0] == checkMonth(LocalDateTime.now())[0]).toList().size() +
                exports.stream().filter(export -> export.getSaved() == 0 && checkMonth(export.getCreatedDate())[0] == checkMonth(LocalDateTime.now())[0]).toList().size() +
-               specials.stream().filter(special -> checkMonth(special.getCreatedDate())[0] == checkMonth(LocalDateTime.now())[0]).toList().size()+
-                deanDecisions.stream().filter(decisions -> checkMonth(decisions.getCreatedDate())[0] == checkMonth(LocalDateTime.now())[0]).toList().size();
+               specials.stream().filter(special -> checkMonth(special.getCreatedDate())[0] == checkMonth(LocalDateTime.now())[0]).toList().size();
     }
 
 

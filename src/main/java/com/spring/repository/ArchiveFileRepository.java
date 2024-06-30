@@ -14,7 +14,7 @@ import java.util.Optional;
 public interface ArchiveFileRepository extends JpaRepository<ArchiveFile, Short> {
 
 
-    @Query("SELECT archiveFile from ArchiveFile archiveFile order by archiveFile.typeNumber , archiveFile.num")
+    @Query("SELECT archiveFile from ArchiveFile archiveFile where archiveFile.typeNumber in (1,2,3) order by archiveFile.typeNumber , archiveFile.num")
     List<ArchiveFile> findAll();
 
 
@@ -39,4 +39,10 @@ public interface ArchiveFileRepository extends JpaRepository<ArchiveFile, Short>
     @Transactional
     @Modifying
     void deleteByTypeNumberAndNum(Byte typeNumber, Short num);
+
+
+    @Modifying
+    @Transactional
+    @Query(value = "update archive_file set type_number = 4 ", nativeQuery = true)
+    void closeArchiveFile();
 }

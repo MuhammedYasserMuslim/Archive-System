@@ -158,19 +158,16 @@ public class SpecialServices {
         special.setCreatedBy(getById(id).getCreatedBy());
         special.setCreatedDate(getById(id).getCreatedDate());
         special.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum((byte) 3, special.getArchiveFile().getNum())));
-        List<Subject> subjectList = getById(id).getSubject();
-        for (int i = 0; i < subjectList.size(); i++) {
-            getById(id).getSubject().get(i).setSpecial(null);
-        }
-        specialRepository.save(special);
-        List<Subject> subjects = dto.getSubjects();
-        for (Subject subject : subjects) {
-            subject.setSpecial(special);
-            subjectServices.insert(subject);
-        }
-        for (Subject subject : subjectList) {
-            subjectServices.removeById(subject.getId());
-            System.out.println(subject.getId());
+
+        if (dto.getSubjects().isEmpty()) {
+            specialRepository.save(special);
+        } else {
+            for (int i = 0; i < dto.getSubjects().size(); i++) {
+                dto.getSubjects().get(i).setNum(i + 1);
+                dto.getSubjects().get(i).setHead(dto.getSubjects().get(i).getHead());
+                dto.getSubjects().get(i).setSpecial(special);
+            }
+            specialRepository.save(special);
         }
 
 

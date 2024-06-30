@@ -51,4 +51,13 @@ public interface BaseDataRepository extends JpaRepository<BaseData, Byte> {
     void editAutoIncrementIncomingSigns();
 
 
+    @Modifying
+    @Transactional
+    @Query(value = "alter table deputation auto_increment 1", nativeQuery = true)
+    void editAutoIncrementDeputation();
+
+    @Modifying
+    @Transactional
+    @Query(value = "alter table deputation auto_increment 1", nativeQuery = true)
+    void closeArchiveFile();
 }

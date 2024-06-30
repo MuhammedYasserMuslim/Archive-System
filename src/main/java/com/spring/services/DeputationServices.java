@@ -19,6 +19,7 @@ public class DeputationServices {
 
     private final DeputationRepository deputationRepository;
     private final DeputationMapper deputationMapper;
+    private final BaseDataServices baseDataServices;
 
     public List<DeputationDto> findAll() {
         return deputationMapper.mapToDto(deputationRepository.findAll());
@@ -84,6 +85,7 @@ public class DeputationServices {
     }
 
     public DeputationDto insert(DeputationDto deputationDto) {
+        baseDataServices.editAutoIncrementDeputation();
         deputationDto.setNo(findByYear().isEmpty() ? 1 : findByYear().get(findByYear().size() - 1).getNo() + 1);
         deputationRepository.save(deputationMapper.mapToEntity(deputationDto));
         return deputationDto;
