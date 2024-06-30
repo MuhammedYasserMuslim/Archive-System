@@ -41,13 +41,19 @@ public class ArchiveFileController {
 
     @GetMapping("/archive-num")
     public ResponseEntity<ArchiveFileDto> findByTypeNumberAndNum(@RequestParam Byte typeNumber, @RequestParam Short num) {
-
         return new ResponseEntity<>(archiveFileServices.findByTypeNumberAndNum(typeNumber, num), HttpStatus.OK);
     }
 
     @PostMapping("/archive")
     public ResponseEntity<?> insert(@RequestBody ArchiveFileDto archiveFile) {
         archiveFileServices.insert(archiveFile);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @PostMapping("/archives")
+    public ResponseEntity<?> insert(@RequestBody List<ArchiveFileDto> archiveFiles) {
+        for (ArchiveFileDto archiveFile : archiveFiles) {
+            archiveFileServices.insert(archiveFile);
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -78,8 +84,7 @@ public class ArchiveFileController {
     @GetMapping("/can-closed")
     public boolean canClose() {
         return LocalDateTime.now().getMonth().getValue() == 7 &&
-                (LocalDateTime.now().getDayOfMonth() == 1 || LocalDateTime.now().getDayOfMonth() == 2 || LocalDateTime.now().getDayOfMonth() == 3
-                || LocalDateTime.now().getDayOfMonth() == 4 || LocalDateTime.now().getDayOfMonth() == 5);
+                (LocalDateTime.now().getDayOfMonth() == 1 || LocalDateTime.now().getDayOfMonth() == 2 || LocalDateTime.now().getDayOfMonth() == 3 || LocalDateTime.now().getDayOfMonth() == 4 || LocalDateTime.now().getDayOfMonth() == 5 || LocalDateTime.now().getDayOfMonth() == 6 || LocalDateTime.now().getDayOfMonth() == 7);
     }
 
     public record Body(String name) {

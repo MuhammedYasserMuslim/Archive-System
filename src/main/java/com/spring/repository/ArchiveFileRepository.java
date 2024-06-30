@@ -43,6 +43,6 @@ public interface ArchiveFileRepository extends JpaRepository<ArchiveFile, Short>
 
     @Modifying
     @Transactional
-    @Query(value = "update archive_file set type_number = 4 ", nativeQuery = true)
+    @Query(value = "update archive_file set type_number = 0 ", nativeQuery = true)
     void closeArchiveFile();
 }
