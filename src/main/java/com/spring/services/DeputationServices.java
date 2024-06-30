@@ -1,16 +1,17 @@
 package com.spring.services;
 
 import com.spring.exception.RecordNotFountException;
+import com.spring.model.dto.deputation.DeputationDays;
 import com.spring.model.dto.deputation.DeputationDto;
+import com.spring.model.entity.Days;
 import com.spring.model.entity.Deputation;
 import com.spring.model.mapper.DeputationMapper;
 import com.spring.repository.DeputationRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -61,6 +62,20 @@ public class DeputationServices {
 
     public List<DeputationDto> findTodayIn() {
         return findCurrentDeputation().stream().filter(dto -> dto.getDeputationDays().stream().allMatch(days -> days.getId() != dayOfWeek())).toList();
+    }
+
+    public List<DeputationDays> findDeputationDays() {
+        List<DeputationDays> deputationDays = deputationMapper.mapToDaysDto(deputationRepository.findCurrentDeputation());
+        Map<String, DeputationDays> mergedMap = new HashMap<>();
+        for (DeputationDays days : deputationDays) {
+            if (mergedMap.containsKey(days.getName())) {
+                List<Days> existingDays = mergedMap.get(days.getName()).getDeputationDays();
+                existingDays.addAll(days.getDeputationDays());
+            } else {
+                mergedMap.put(days.getName(), new DeputationDays(days.getId(),days.getName(), new ArrayList<>(days.getDeputationDays())));
+            }
+        }
+        return  new ArrayList<>(mergedMap.values());
     }
 
 

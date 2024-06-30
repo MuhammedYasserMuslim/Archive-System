@@ -1,5 +1,6 @@
 package com.spring.controller;
 
+import com.spring.model.dto.deputation.DeputationDays;
 import com.spring.model.dto.deputation.DeputationDto;
 import com.spring.services.DeputationServices;
 import lombok.RequiredArgsConstructor;
@@ -71,13 +72,20 @@ public class DeputationController {
     }
 
     @GetMapping("/today-deputations")
+    @ResponseStatus(HttpStatus.OK)
     public List<DeputationDto> findTodayDeputation() {
         return deputationServices.findTodayDeputation();
     }
 
     @GetMapping("/today-in")
+    @ResponseStatus(HttpStatus.OK)
     public List<DeputationDto> findTodayIn() {
         return deputationServices.findTodayIn();
+    }
+    @GetMapping("/deputation-days")
+    @ResponseStatus(HttpStatus.OK)
+    public List<DeputationDays>findDeputationDays(){
+        return deputationServices.findDeputationDays();
     }
 
     @PostMapping("/deputation")

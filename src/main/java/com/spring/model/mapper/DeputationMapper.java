@@ -1,5 +1,6 @@
 package com.spring.model.mapper;
 
+import com.spring.model.dto.deputation.DeputationDays;
 import com.spring.model.dto.deputation.DeputationDto;
 import com.spring.model.entity.Deputation;
 import org.mapstruct.Mapper;
@@ -13,7 +14,9 @@ public interface DeputationMapper {
 
     DeputationDto mapToDto(Deputation dto);
 
-    List<DeputationDto> mapToDto(List<Deputation> dtoList);
+    List<DeputationDto> mapToDto(List<Deputation> deputations);
 
-    List<Deputation> mapToEntity(List<DeputationDto> dtoList);
+    List<Deputation> mapToEntity(List<DeputationDto> dtos);
+
+    List<DeputationDays> mapToDaysDto(List<Deputation> deputations);
 }
