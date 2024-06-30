@@ -13,4 +13,13 @@ public interface DeputationRepository extends JpaRepository<Deputation, Integer>
 
     @Query(value = FIND_ALL, nativeQuery = true)
     List<Deputation> findByYear();
+
+
+    @Query(value = FIND_ALL + "and university_accept = 1 and faculty_accept = 1 and department_accept = 1 ", nativeQuery = true)
+    List<Deputation> findAccepted();
+
+    @Query(value = FIND_ALL + "and university_accept = 0 or faculty_accept = 0 or department_accept = 0 ", nativeQuery = true)
+    List<Deputation> findNotAccepted();
+
+
 }

@@ -21,10 +21,41 @@ public class DeputationController {
         return deputationServices.findByYear();
     }
 
+    @GetMapping("/count-deputations")
+    @ResponseStatus(HttpStatus.OK)
+    public Integer countDeputations() {
+        return deputationServices.countByYear();
+    }
+
     @GetMapping("/all-deputations")
     @ResponseStatus(HttpStatus.OK)
     public List<DeputationDto> findAll() {
         return deputationServices.findAll();
+    }
+
+
+    @GetMapping("/accepted-deputations")
+    @ResponseStatus(HttpStatus.OK)
+    public List<DeputationDto> findAccepted() {
+        return deputationServices.findAccepted();
+    }
+
+    @GetMapping("/count-accepted-deputations")
+    @ResponseStatus(HttpStatus.OK)
+    public Integer countAccepted() {
+        return deputationServices.countAccepted();
+    }
+
+    @GetMapping("/not-accepted-deputations")
+    @ResponseStatus(HttpStatus.OK)
+    public List<DeputationDto> findNotAccepted() {
+        return deputationServices.findNotAccepted();
+    }
+
+    @GetMapping("/count-not-accepted-deputations")
+    @ResponseStatus(HttpStatus.OK)
+    public Integer countNotAccepted() {
+        return deputationServices.countNotAccepted();
     }
 
     @PostMapping("/deputation")
@@ -35,7 +66,13 @@ public class DeputationController {
 
     @PutMapping("/deputation")
     @ResponseStatus(HttpStatus.OK)
-    public void updateDeputation(@RequestBody DeputationDto deputationDto ,@RequestParam int id) {
-         deputationServices.update(deputationDto , id);
+    public void updateDeputation(@RequestBody DeputationDto deputationDto, @RequestParam int id) {
+        deputationServices.update(deputationDto, id);
+    }
+
+    @DeleteMapping("/deputation")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteById(@RequestParam Integer id) {
+        deputationServices.deleteById(id);
     }
 }
