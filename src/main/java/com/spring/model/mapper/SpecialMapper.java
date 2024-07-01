@@ -1,6 +1,7 @@
 package com.spring.model.mapper;
 
 
+import com.spring.model.dto.special.AllSpecialDto;
 import com.spring.model.dto.special.SpecialDto;
 import com.spring.model.dto.special.SpecialDtoPost;
 import com.spring.model.entity.Special;
@@ -29,4 +30,15 @@ public interface SpecialMapper {
     @Mapping(target = "num", source = "archiveFile.num")
     @Mapping(target = "archiveId", source = "archiveFile.id")
     List<SpecialDto> mapListToDto(List<Special> specials);
+
+    @Mapping(target = "archiveFile", ignore = true)
+    @Mapping(target = "num", source = "archiveFile.num")
+    @Mapping(target = "archiveId", source = "archiveFile.id")
+    AllSpecialDto mapAllToDto(Special entity);
+
+
+    @Mapping(target = "archiveFile", ignore = true)
+    @Mapping(target = "num", source = "archiveFile.num")
+    @Mapping(target = "archiveId", source = "archiveFile.id")
+    List<AllSpecialDto> mapAllToDto(List<Special> specials);
 }

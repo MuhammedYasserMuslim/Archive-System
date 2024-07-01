@@ -1,6 +1,7 @@
 package com.spring.services;
 
 import com.spring.exception.RecordNotFountException;
+import com.spring.model.dto.special.AllSpecialDto;
 import com.spring.model.dto.special.SpecialDto;
 import com.spring.model.dto.special.SpecialDtoPost;
 import com.spring.model.entity.Special;
@@ -43,8 +44,8 @@ public class SpecialServices {
     /**
      * @return all specials in all years
      */
-    public List<SpecialDto> findAll() {
-        return specialMapper.mapListToDto(specialRepository.findAll());
+    public List<AllSpecialDto> findAll() {
+        return specialMapper.mapAllToDto(specialRepository.findAll());
     }
 
     /**
@@ -159,13 +160,21 @@ public class SpecialServices {
         special.setCreatedDate(getById(id).getCreatedDate());
         special.setArchiveFile(archiveFileMapper.mapToEntity(archiveFileServices.findByTypeNumberAndNum((byte) 3, special.getArchiveFile().getNum())));
 
-        if (dto.getSubjects().isEmpty()) {
+        if (dto.getSubjects().isEmpty()  || getById(id).getSubject().isEmpty()) {
             specialRepository.save(special);
-        } else {
+        }
+
+        else {
+            for (Subject subject : specialRepository.findById(id).get().getSubject()) {
+                subjectServices.deleteById(subject.getId());
+                System.out.println(subject.getId());
+
+            }
             for (int i = 0; i < dto.getSubjects().size(); i++) {
                 dto.getSubjects().get(i).setNum(i + 1);
                 dto.getSubjects().get(i).setHead(dto.getSubjects().get(i).getHead());
                 dto.getSubjects().get(i).setSpecial(special);
+                subjectServices.insert(dto.getSubjects().get(i));
             }
             specialRepository.save(special);
         }

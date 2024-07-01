@@ -38,5 +38,13 @@ public class DecisionService {
         decisionRepository.save(decisionMapper.mapToEntity(dto));
     }
 
+    public void deleteById(int id) {
+        decisionRepository.deleteById(id);
+    }
+
+    public void deleteBySubjectId(Integer id){
+        decisionRepository.deleteBySubjectId(id);;
+    }
+
 
 }

@@ -71,7 +71,8 @@ public class SubjectServices {
     /**
      * @param id delete subject by
      */
-    public void removeById(int id) {
+    public void deleteById(int id) {
+        decisionService.deleteBySubjectId(id);
         subjectRepository.deleteById(id);
     }
 

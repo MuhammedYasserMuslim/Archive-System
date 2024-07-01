@@ -2,6 +2,7 @@ package com.spring.services;
 
 import com.spring.exception.ConflictException;
 import com.spring.exception.RecordNotFountException;
+import com.spring.model.dto.exports.AllExportDto;
 import com.spring.model.dto.exports.ExportDto;
 import com.spring.model.dto.exports.ExportDtoPost;
 import com.spring.model.dto.imports.ImportDtoPost;
@@ -66,8 +67,8 @@ public class ExportServices {
     /**
      * @return all exports in all years
      */
-    public List<ExportDto> findAll() {
-        return exportMapper.mapListToDto(exportRepository.findAll());
+    public List<AllExportDto> findAll() {
+        return exportMapper.mapAllToDto(exportRepository.findAll());
     }
 
     /**

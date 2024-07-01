@@ -1,5 +1,6 @@
 package com.spring.controller;
 
+import com.spring.model.dto.special.AllSpecialDto;
 import com.spring.model.dto.special.SpecialDto;
 import com.spring.model.dto.special.SpecialDtoPost;
 import com.spring.services.SpecialServices;
@@ -32,7 +33,7 @@ public class SpecialController {
     }
 
     @GetMapping("/all-specials")
-    public ResponseEntity<List<SpecialDto>> findAll() {
+    public ResponseEntity<List<AllSpecialDto>> findAll() {
         return new ResponseEntity<>(specialServices.findAll(), HttpStatus.OK);
     }
 

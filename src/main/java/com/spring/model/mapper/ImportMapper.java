@@ -1,5 +1,6 @@
 package com.spring.model.mapper;
 
+import com.spring.model.dto.imports.AllImportDto;
 import com.spring.model.dto.imports.ImportDto;
 import com.spring.model.dto.imports.ImportDtoPost;
 import com.spring.model.entity.Import;
@@ -36,5 +37,25 @@ public interface ImportMapper {
     @Mapping(target = "responseDate", source = "export.date")
     @Mapping(target = "responseSide", source = "export.receiver")
     List<ImportDto> mapListToDto(List<Import> imports);
+
+
+    @Mapping(target = "archiveFile", ignore = true)
+    @Mapping(target = "num", source = "archiveFile.num")
+    @Mapping(target = "archiveId", source = "archiveFile.id")
+    @Mapping(target = "export", ignore = true)
+    @Mapping(target = "responseNumber", source = "export.no")
+    @Mapping(target = "responseDate", source = "export.date")
+    @Mapping(target = "responseSide", source = "export.receiver")
+    AllImportDto mapAllToDto(Import entity);
+
+
+    @Mapping(target = "archiveFile", ignore = true)
+    @Mapping(target = "num", source = "archiveFile.num")
+    @Mapping(target = "archiveId", source = "archiveFile.id")
+    @Mapping(target = "export", ignore = true)
+    @Mapping(target = "responseNumber", source = "export.no")
+    @Mapping(target = "responseDate", source = "export.date")
+    @Mapping(target = "responseSide", source = "export.receiver")
+    List<AllImportDto> mapAllToDto(List<Import> imports);
 
 }

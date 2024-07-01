@@ -39,7 +39,7 @@ public class ExportController {
     }
 
     @GetMapping("/all-exports")
-    public ResponseEntity<List<ExportDto>> findAll() {
+    public ResponseEntity<List<AllExportDto>> findAll() {
         return new ResponseEntity<>(exportServices.findAll(), HttpStatus.OK);
     }
 

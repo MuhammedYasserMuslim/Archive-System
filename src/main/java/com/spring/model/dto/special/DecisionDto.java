@@ -15,4 +15,6 @@ public class DecisionDto {
     int num;
     String summary;
     private String qarar;
+
+
 }

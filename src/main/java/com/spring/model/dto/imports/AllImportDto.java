@@ -1,8 +1,10 @@
-package com.spring.model.dto.deandecisions;
+package com.spring.model.dto.imports;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spring.model.dto.archivefile.ArchiveFileDto;
+import com.spring.model.dto.exports.ExportDto;
 import com.spring.model.entity.Image;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,33 +19,67 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DeanDecisionsDto {
-
+public class AllImportDto {
 
     private Integer id;
 
     private Integer no;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date date;
+    private Date incomeDate;
 
-    private String summary;//ملخص الخطاب
-
-    private String createdBy;
+    private Byte numberOfAttachments;
 
     private Byte numberOfImages;
 
-    @JsonBackReference
+    private String createdBy;
+
+    @JsonIgnore
     private List<Image> images;
 
     private List<String> paths;
+
+    private String sender;
+
+    private Short incomingLetterNumber;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date incomingLetterDate;
+
+    private String summary;
+
+    private String recipientName;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date recipientDate;
+
+    @JsonBackReference
+    private ExportDto export;
+
+    private Integer responseNumber;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date responseDate;
+
+    private String responseSide;
 
     @JsonBackReference
     private ArchiveFileDto archiveFile;
 
     private Short archiveId;
+
     private Byte typeNumber;
+
     private Short num;
+
+    private Integer saved;
+
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date expectResponseDate;
+
+    private boolean isHasResponse;
+
 
     public List<String> getPaths() {
         List<String> path = new ArrayList<>();
@@ -51,12 +87,12 @@ public class DeanDecisionsDto {
             path.add(im.getImagePath());
         return path;
     }
-
-    public Byte getTypeNumber() {
-        return 2;
-    }
-
     public Byte getNumberOfImages() {
         return (byte)this.images.size() ;
     }
+
+    public Byte getTypeNumber() {
+        return 1;
+    }
 }
+

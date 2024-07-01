@@ -25,7 +25,7 @@ public class DeputationController {
     @GetMapping("/count-deputations")
     @ResponseStatus(HttpStatus.OK)
     public Integer countDeputations() {
-        return deputationServices.countByYear();
+        return deputationServices.findByYear().size();
     }
 
     @GetMapping("/all-deputations")
@@ -44,7 +44,7 @@ public class DeputationController {
     @GetMapping("/count-accepted-deputations")
     @ResponseStatus(HttpStatus.OK)
     public Integer countAccepted() {
-        return deputationServices.countAccepted();
+        return deputationServices.findAccepted().size();
     }
 
     @GetMapping("/not-accepted-deputations")
@@ -56,7 +56,7 @@ public class DeputationController {
     @GetMapping("/count-not-accepted-deputations")
     @ResponseStatus(HttpStatus.OK)
     public Integer countNotAccepted() {
-        return deputationServices.countNotAccepted();
+        return deputationServices.findNotAccepted().size();
     }
 
     @GetMapping("/current-deputations")
@@ -68,7 +68,7 @@ public class DeputationController {
     @GetMapping("/count-current-deputations")
     @ResponseStatus(HttpStatus.OK)
     public Integer countCurrentDeputation() {
-        return deputationServices.countCurrentDeputation();
+        return deputationServices.findCurrentDeputation().size();
     }
 
     @GetMapping("/today-deputations")
@@ -86,6 +86,18 @@ public class DeputationController {
     @ResponseStatus(HttpStatus.OK)
     public List<DeputationDays>findDeputationDays(){
         return deputationServices.findDeputationDays();
+    }
+
+    @GetMapping("/exception-deputation")
+    @ResponseStatus(HttpStatus.OK)
+    public List<DeputationDto> findExceptionDeputation(){
+        return deputationServices.findExceptionDeputation();
+    }
+
+    @GetMapping("/count-exception-deputation")
+    @ResponseStatus(HttpStatus.OK)
+    public Integer countExceptionDeputation(){
+        return deputationServices.findExceptionDeputation().size();
     }
 
     @PostMapping("/deputation")

@@ -1,6 +1,5 @@
 package com.spring.database;
 
-import com.spring.model.dto.deputation.DeputationDto;
 import com.spring.model.entity.Days;
 import com.spring.model.entity.FinancialYear;
 import com.spring.repository.DaysRepository;
@@ -9,7 +8,6 @@ import com.spring.security.model.entity.AppUser;
 import com.spring.security.model.entity.Authority;
 import com.spring.security.services.AuthorityService;
 import com.spring.security.services.UserServices;
-import com.spring.services.DeputationServices;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.ApplicationArguments;
@@ -19,7 +17,6 @@ import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Component
@@ -31,7 +28,6 @@ public class StartUp implements CommandLineRunner, ApplicationRunner {
     private final AuthorityService authorityService;
     private final FinancialYearRepository financialYearRepository;
     private final DaysRepository daysRepository;
-    private final DeputationServices deputationServices;
 
     @Override
     public void run(String... args) throws ParseException {
@@ -73,7 +69,6 @@ public class StartUp implements CommandLineRunner, ApplicationRunner {
             daysRepository.save(new Days("الأربعاء"));
             daysRepository.save(new Days("الخميس"));
         }
-
 
     }
 }

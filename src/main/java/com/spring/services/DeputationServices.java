@@ -29,32 +29,17 @@ public class DeputationServices {
         return deputationMapper.mapToDto(deputationRepository.findByYear());
     }
 
-    public Integer countByYear() {
-        return deputationRepository.findByYear().size();
-    }
 
     public List<DeputationDto> findAccepted() {
         return deputationMapper.mapToDto(deputationRepository.findAccepted());
-    }
-
-    public Integer countAccepted() {
-        return deputationRepository.findAccepted().size();
     }
 
     public List<DeputationDto> findNotAccepted() {
         return deputationMapper.mapToDto(deputationRepository.findNotAccepted());
     }
 
-    public Integer countNotAccepted() {
-        return deputationRepository.findNotAccepted().size();
-    }
-
     public List<DeputationDto> findCurrentDeputation() {
         return deputationMapper.mapToDto(deputationRepository.findCurrentDeputation());
-    }
-
-    public Integer countCurrentDeputation() {
-        return deputationRepository.findCurrentDeputation().size();
     }
 
     public List<DeputationDto> findTodayDeputation() {
@@ -63,6 +48,10 @@ public class DeputationServices {
 
     public List<DeputationDto> findTodayIn() {
         return findCurrentDeputation().stream().filter(dto -> dto.getDeputationDays().stream().allMatch(days -> days.getId() != dayOfWeek())).toList();
+    }
+
+    public List<DeputationDto> findExceptionDeputation() {
+        return findCurrentDeputation().stream().filter(dto -> dto.getDeputationUniversity().equals("الكلية الجوية")).toList();
     }
 
     public List<DeputationDays> findDeputationDays() {

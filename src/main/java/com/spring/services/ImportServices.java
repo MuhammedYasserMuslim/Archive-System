@@ -3,6 +3,7 @@ package com.spring.services;
 import com.spring.exception.ConflictException;
 import com.spring.exception.RecordNotFountException;
 import com.spring.model.dto.exports.ExportDtoPost;
+import com.spring.model.dto.imports.AllImportDto;
 import com.spring.model.dto.imports.ImportDto;
 import com.spring.model.dto.imports.ImportDtoPost;
 import com.spring.model.dto.special.SpecialDtoPost;
@@ -95,8 +96,8 @@ public class ImportServices {
      * @return all imports in all years
      */
     //@Cacheable(value = "findAllImports", key = "#root.methodName")
-    public List<ImportDto> findAll() {
-        return importMapper.mapListToDto(importRepository.findAll());
+    public List<AllImportDto> findAll() {
+        return importMapper.mapAllToDto(importRepository.findAll());
     }
 
     /**
