@@ -5,6 +5,7 @@ import com.spring.model.dto.deputation.DeputationDays;
 import com.spring.model.dto.deputation.DeputationDto;
 import com.spring.model.entity.Days;
 import com.spring.model.entity.Deputation;
+import com.spring.model.entity.ExceptionUniversity;
 import com.spring.model.mapper.DeputationMapper;
 import com.spring.repository.DeputationRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ public class DeputationServices {
     private final DeputationRepository deputationRepository;
     private final DeputationMapper deputationMapper;
     private final BaseDataServices baseDataServices;
+    private final ExceptionUniversityService exceptionUniversityService;
 
     public List<DeputationDto> findAll() {
         return deputationMapper.mapToDto(deputationRepository.findAll());
@@ -51,7 +53,7 @@ public class DeputationServices {
     }
 
     public List<DeputationDto> findExceptionDeputation() {
-        return findCurrentDeputation().stream().filter(dto -> dto.getDeputationUniversity().equals("الكلية الجوية")).toList();
+        return findCurrentDeputation().stream().filter(dto -> universities().contains(dto.getDeputationUniversity())).toList();
     }
 
     public List<DeputationDays> findDeputationDays() {
@@ -109,5 +111,13 @@ public class DeputationServices {
             case 5 -> 7;
             default -> 0;
         };
+    }
+
+    private List<String> universities() {
+        List<String> universities = new ArrayList<>();
+        for (ExceptionUniversity university : exceptionUniversityService.findAll()){
+            universities.add(university.getUniversity());
+        }
+        return universities;
     }
 }
