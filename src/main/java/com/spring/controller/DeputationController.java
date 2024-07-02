@@ -38,8 +38,8 @@ public class DeputationController {
 
     @GetMapping("/deputation")
     @ResponseStatus(HttpStatus.OK)
-    public Deputation findById(@RequestParam int id) {
-        return deputationServices.findById(id);
+    public DeputationPost findById(@RequestParam int id) {
+        return deputationServices.findByIdPost(id);
     }
 
     @GetMapping("/accepted-deputations")

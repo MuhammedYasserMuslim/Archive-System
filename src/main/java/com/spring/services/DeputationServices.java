@@ -89,6 +89,9 @@ public class DeputationServices {
         return deputationRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
     }
 
+    public DeputationPost findByIdPost(int id){
+        return mapToDto(findById(id));
+    }
     public void insert(DeputationPost deputationPost) {
         baseDataServices.editAutoIncrementDeputation();
         deputationPost.setNo(findByYear().isEmpty() ? 1 : findByYear().get(findByYear().size() - 1).getNo() + 1);
@@ -156,6 +159,33 @@ public class DeputationServices {
                 .universityAccept(dto.getUniversityAccept())
                 .notes(dto.getNotes())
                 .deputationDays(days)
+                .build();
+    }
+
+    private DeputationPost mapToDto(Deputation entity) {
+        List<Integer> days = new ArrayList<>();
+        for (Days day : entity.getDeputationDays()) {
+            days.add(day.getId());
+        }
+        return DeputationPost.builder()
+                .id(entity.getId())
+                .no(entity.getNo())
+                .degree(entity.getDegree())
+                .name(entity.getName())
+                .department(entity.getDepartment())
+                .deputationUniversity(entity.getDeputationUniversity())
+                .deputationPeriod(entity.getDeputationPeriod())
+                .departmentRecordNum(entity.getDepartmentRecordNum())
+                .departmentDate(entity.getDepartmentDate())
+                .departmentAccept(entity.getDepartmentAccept())
+                .facultyRecordNum(entity.getFacultyRecordNum())
+                .facultyDate(entity.getFacultyDate())
+                .facultyAccept(entity.getFacultyAccept())
+                .universityRecordNum(entity.getUniversityRecordNum())
+                .universityDate(entity.getUniversityDate())
+                .universityAccept(entity.getUniversityAccept())
+                .notes(entity.getNotes())
+                .deputationDaysIds(days)
                 .build();
     }
 }
