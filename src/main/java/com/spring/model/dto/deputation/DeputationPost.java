@@ -1,7 +1,6 @@
 package com.spring.model.dto.deputation;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.spring.model.entity.Days;
 import lombok.*;
 
 import java.util.Date;
@@ -12,8 +11,7 @@ import java.util.List;
 @Setter
 @Getter
 @Builder
-public class DeputationDto {
-
+public class DeputationPost {
 
     private Integer id;
 
@@ -30,7 +28,8 @@ public class DeputationDto {
     private Byte deputationPeriod;
 
 
-    private List<Days> deputationDays;
+
+    List<Integer> deputationDaysIds;
 
 
     private Integer departmentRecordNum;
@@ -51,6 +50,4 @@ public class DeputationDto {
     private Byte universityAccept;
 
     private String notes;
-
-
 }

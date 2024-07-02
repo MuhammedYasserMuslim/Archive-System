@@ -2,6 +2,7 @@ package com.spring.controller;
 
 import com.spring.model.dto.deputation.DeputationDays;
 import com.spring.model.dto.deputation.DeputationDto;
+import com.spring.model.dto.deputation.DeputationPost;
 import com.spring.services.DeputationServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -102,8 +103,8 @@ public class DeputationController {
 
     @PostMapping("/deputation")
     @ResponseStatus(HttpStatus.CREATED)
-    public DeputationDto createDeputation(@RequestBody DeputationDto deputationDto) {
-        return deputationServices.insert(deputationDto);
+    public void createDeputation(@RequestBody DeputationPost dto) {
+        deputationServices.insert(dto);
     }
 
     @PutMapping("/deputation")
@@ -117,4 +118,5 @@ public class DeputationController {
     public void deleteById(@RequestParam Integer id) {
         deputationServices.deleteById(id);
     }
+
 }

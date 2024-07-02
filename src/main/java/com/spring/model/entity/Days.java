@@ -2,7 +2,6 @@ package com.spring.model.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.spring.security.model.entity.AppUser;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,5 +29,9 @@ public class Days {
 
     public Days(String day) {
         this.day = day;
+    }
+
+    public Days(Integer id) {
+        this.id = id;
     }
 }

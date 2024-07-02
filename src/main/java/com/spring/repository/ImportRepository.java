@@ -18,7 +18,7 @@ public interface ImportRepository extends JpaRepository<Import, Integer> {
                       "ELSE CONCAT(YEAR(CURRENT_DATE()), '-', YEAR(CURRENT_DATE()) + 1) END )) and " +
                       "( SELECT to_date FROM archive.financial_year where financial_year = " +
                       "(SELECT CASE WHEN MONTH(CURRENT_DATE()) < 7 THEN CONCAT(YEAR(CURRENT_DATE()) - 1, '-', YEAR(CURRENT_DATE())) " +
-                      "ELSE CONCAT(YEAR(CURRENT_DATE()), '-', YEAR(CURRENT_DATE()) + 1) END ))";
+                      "ELSE CONCAT(YEAR(CURRENT_DATE()), '-', YEAR(CURRENT_DATE()) + 1) END )) ";
 
     /**
      * @return imports in current year
@@ -35,7 +35,7 @@ public interface ImportRepository extends JpaRepository<Import, Integer> {
     /**
      * @return imports in archive file
      */
-    @Query(value = FIND_ALL + "and archive_file_id = :id and  and saved = 0", nativeQuery = true)
+    @Query(value = FIND_ALL + "and archive_file_id = :id  and saved = 0", nativeQuery = true)
     List<Import> findByArchiveFile(Short id);
 
     /**

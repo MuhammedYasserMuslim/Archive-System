@@ -29,7 +29,7 @@ public interface ExportRepository extends JpaRepository<Export, Integer> {
     /**
      * @return exports in archive file
      */
-    @Query(value = FIND_ALL + "and archive_file_id = :id", nativeQuery = true)
+    @Query(value = FIND_ALL + "and archive_file_id = :id and saved = 0", nativeQuery = true)
     List<Export> findByArchiveFile(Short id);
 
     /**

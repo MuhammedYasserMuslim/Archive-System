@@ -3,6 +3,7 @@ package com.spring.services;
 import com.spring.exception.RecordNotFountException;
 import com.spring.model.dto.deputation.DeputationDays;
 import com.spring.model.dto.deputation.DeputationDto;
+import com.spring.model.dto.deputation.DeputationPost;
 import com.spring.model.entity.Days;
 import com.spring.model.entity.Deputation;
 import com.spring.model.entity.ExceptionUniversity;
@@ -31,7 +32,6 @@ public class DeputationServices {
         return deputationMapper.mapToDto(deputationRepository.findByYear());
     }
 
-
     public List<DeputationDto> findAccepted() {
         return deputationMapper.mapToDto(deputationRepository.findAccepted());
     }
@@ -49,7 +49,7 @@ public class DeputationServices {
     }
 
     public List<DeputationDto> findTodayIn() {
-        return findCurrentDeputation().stream().filter(dto -> dto.getDeputationDays().stream().allMatch(days -> days.getId() != dayOfWeek())).toList();
+        return findDistinctDeputation().stream().filter(dto -> dto.getDeputationDays().stream().allMatch(days -> days.getId() != dayOfWeek())).toList();
     }
 
     public List<DeputationDto> findExceptionDeputation() {
@@ -64,22 +64,35 @@ public class DeputationServices {
                 List<Days> existingDays = mergedMap.get(days.getName()).getDeputationDays();
                 existingDays.addAll(days.getDeputationDays());
             } else {
-                mergedMap.put(days.getName(), new DeputationDays(days.getId(),days.getName(), new ArrayList<>(days.getDeputationDays())));
+                mergedMap.put(days.getName(), new DeputationDays(days.getId(), days.getName(), new ArrayList<>(days.getDeputationDays())));
             }
         }
-        return  new ArrayList<>(mergedMap.values());
+        return new ArrayList<>(mergedMap.values());
     }
 
+    public List<DeputationDto> findDistinctDeputation() {
+        List<DeputationDto> dtos = deputationMapper.mapToDto(deputationRepository.findCurrentDeputation());
+        Map<String, DeputationDto> mergedMap = new HashMap<>();
+        for (DeputationDto dto : dtos) {
+            if (mergedMap.containsKey(dto.getName())) {
+                List<Days> existingDays = mergedMap.get(dto.getName()).getDeputationDays();
+                existingDays.addAll(dto.getDeputationDays());
+            } else {
+                mergedMap.put(dto.getName(),
+                        new DeputationDto(dto.getId(), dto.getNo(), dto.getDegree(), dto.getName(), dto.getDepartment(), dto.getDeputationUniversity(), dto.getDeputationPeriod(), new ArrayList<>(dto.getDeputationDays()), dto.getDepartmentRecordNum(), dto.getDepartmentDate(), dto.getDepartmentAccept(), dto.getFacultyRecordNum(), dto.getFacultyDate(), dto.getFacultyAccept(), dto.getUniversityRecordNum(), dto.getUniversityDate(), dto.getUniversityAccept(), dto.getNotes()));
+            }
+        }
+        return new ArrayList<>(mergedMap.values());
+    }
 
     public Deputation findById(int id) {
         return deputationRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
     }
 
-    public DeputationDto insert(DeputationDto deputationDto) {
+    public void insert(DeputationPost deputationPost) {
         baseDataServices.editAutoIncrementDeputation();
-        deputationDto.setNo(findByYear().isEmpty() ? 1 : findByYear().get(findByYear().size() - 1).getNo() + 1);
-        deputationRepository.save(deputationMapper.mapToEntity(deputationDto));
-        return deputationDto;
+        deputationPost.setNo(findByYear().isEmpty() ? 1 : findByYear().get(findByYear().size() - 1).getNo() + 1);
+        deputationRepository.save(mapToEntity(deputationPost));
     }
 
     public void update(DeputationDto deputationDto, int id) {
@@ -115,9 +128,35 @@ public class DeputationServices {
 
     private List<String> universities() {
         List<String> universities = new ArrayList<>();
-        for (ExceptionUniversity university : exceptionUniversityService.findAll()){
+        for (ExceptionUniversity university : exceptionUniversityService.findAll()) {
             universities.add(university.getUniversity());
         }
         return universities;
+    }
+
+    private Deputation mapToEntity(DeputationPost dto) {
+        List<Days> days = new ArrayList<>();
+        for (Integer post : dto.getDeputationDaysIds()) {
+            days.add(new Days(post));
+        }
+        return Deputation.builder()
+                .no(dto.getNo())
+                .degree(dto.getDegree())
+                .name(dto.getName())
+                .department(dto.getDepartment())
+                .deputationUniversity(dto.getDeputationUniversity())
+                .deputationPeriod(dto.getDeputationPeriod())
+                .departmentRecordNum(dto.getDepartmentRecordNum())
+                .departmentDate(dto.getDepartmentDate())
+                .departmentAccept(dto.getDepartmentAccept())
+                .facultyRecordNum(dto.getFacultyRecordNum())
+                .facultyDate(dto.getFacultyDate())
+                .facultyAccept(dto.getFacultyAccept())
+                .universityRecordNum(dto.getUniversityRecordNum())
+                .universityDate(dto.getUniversityDate())
+                .universityAccept(dto.getUniversityAccept())
+                .notes(dto.getNotes())
+                .deputationDays(days)
+                .build();
     }
 }
