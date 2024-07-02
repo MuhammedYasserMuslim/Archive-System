@@ -1,5 +1,6 @@
 package com.spring.database;
 
+import com.spring.services.BaseDataServices;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +18,6 @@ import java.util.Date;
 public class DatabaseBackupService {
 
 
-    @Value("${spring.datasource.backup}")
-    private  String backupDirectory ;
-
     private final String dbName = "archive";
 
     @Value("${spring.datasource.username}")
@@ -28,10 +26,16 @@ public class DatabaseBackupService {
     @Value("${spring.datasource.password}")
     private  String dbPassword ;
 
+    private final BaseDataServices baseDataServices;
+
+    public DatabaseBackupService(BaseDataServices baseDataServices) {
+        this.baseDataServices = baseDataServices;
+    }
+
     public String backupDatabase() throws IOException {
         removeOldBackups();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-        String backupFileName = backupDirectory + dbName + "_" + sdf.format(new Date()) + ".sql";
+        String backupFileName = baseDataServices.findBackupPath() + dbName + "_" + sdf.format(new Date()) + ".sql";
         String command = String.format("mysqldump -u%s -p%s %s -r %s", dbUser, dbPassword, dbName, backupFileName);
         Process process = Runtime.getRuntime().exec(command);
         try {
@@ -47,7 +51,7 @@ public class DatabaseBackupService {
     }
 
     public String restoreDatabase(String backupFileName) throws IOException {
-        String command = String.format("mysql -u%s -p%s %s < \"%s\"", dbUser, dbPassword, dbName, backupDirectory + backupFileName);
+        String command = String.format("mysql -u%s -p%s %s < \"%s\"", dbUser, dbPassword, dbName, baseDataServices.findBackupPath() + backupFileName);
         try {
             Process process = Runtime.getRuntime().exec(new String[]{"bash", "-c", command});
             int processComplete = process.waitFor();
@@ -71,7 +75,7 @@ public class DatabaseBackupService {
 
     public String getLastBackupFile() {
         try {
-            return Files.list(Paths.get(backupDirectory))
+            return Files.list(Paths.get(baseDataServices.findBackupPath()))
                     .filter(f -> f.toString().endsWith(".sql"))
                     .map(f -> f.getFileName().toString()).min((f1, f2) -> -f1.compareTo(f2))
                     .orElse(null);
@@ -80,7 +84,7 @@ public class DatabaseBackupService {
         }
     }
     private void removeOldBackups() throws IOException {
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(backupDirectory), "*.sql")) {
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(baseDataServices.findBackupPath()), "*.sql")) {
             for (Path entry : stream) {
                 Files.delete(entry);
             }

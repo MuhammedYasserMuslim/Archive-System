@@ -95,13 +95,12 @@ public class DeputationServices {
         deputationRepository.save(mapToEntity(deputationPost));
     }
 
-    public void update(DeputationDto deputationDto, int id) {
-        Deputation deputation = deputationMapper.mapToEntity(deputationDto);
+    public void update(DeputationPost deputationPost, int id) {
+        Deputation deputation = mapToEntity(deputationPost);
         deputation.setId(id);
         deputation.setNo(findById(id).getNo());
         deputation.setCreatedBy(findById(id).getCreatedBy());
         deputation.setCreatedDate(findById(id).getCreatedDate());
-
         deputationRepository.save(deputation);
     }
 

@@ -18,10 +18,13 @@ public interface BaseDataRepository extends JpaRepository<BaseData, Byte> {
     @Query("SELECT base.imagesPath FROM BaseData base")
     String findImagesPath();
 
+    @Query("SELECT base.backupPath FROM BaseData base")
+    String findBackupPath();
+
     /**
      * @return years
      */
-    @Query(value = "SELECT distinct CASE WHEN MONTH(created_date) >= 7 THEN CONCAT(YEAR(created_date), '-', YEAR(created_date) + 1) ELSE CONCAT(YEAR(created_date) - 1, '-', YEAR(created_date)) END  FROM imports; ", nativeQuery = true)
+    @Query(value = "SELECT DISTINCT CASE WHEN MONTH(created_date) >= 7 THEN CONCAT(YEAR(created_date), '-', YEAR(created_date) + 1) ELSE CONCAT(YEAR(created_date) - 1, '-', YEAR(created_date)) END  FROM imports UNION SELECT DISTINCT CASE WHEN MONTH(created_date) >= 7 THEN CONCAT(YEAR(created_date), '-', YEAR(created_date) + 1) ELSE CONCAT(YEAR(created_date) - 1, '-', YEAR(created_date)) END FROM exports", nativeQuery = true)
     List<String> findYears();
 
 

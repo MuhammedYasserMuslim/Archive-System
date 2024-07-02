@@ -22,5 +22,8 @@ public class BaseData {
     @Column(name = "images_path")
     private String imagesPath;
 
+    @Column(name = "backup_path")
+    private String backupPath;
+
 
 }

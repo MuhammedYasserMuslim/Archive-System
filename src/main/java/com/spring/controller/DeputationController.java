@@ -3,6 +3,7 @@ package com.spring.controller;
 import com.spring.model.dto.deputation.DeputationDays;
 import com.spring.model.dto.deputation.DeputationDto;
 import com.spring.model.dto.deputation.DeputationPost;
+import com.spring.model.entity.Deputation;
 import com.spring.services.DeputationServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,11 @@ public class DeputationController {
         return deputationServices.findAll();
     }
 
+    @GetMapping("/deputation")
+    @ResponseStatus(HttpStatus.OK)
+    public Deputation findById(@RequestParam int id) {
+        return deputationServices.findById(id);
+    }
 
     @GetMapping("/accepted-deputations")
     @ResponseStatus(HttpStatus.OK)
@@ -83,21 +89,22 @@ public class DeputationController {
     public List<DeputationDto> findTodayIn() {
         return deputationServices.findTodayIn();
     }
+
     @GetMapping("/deputation-days")
     @ResponseStatus(HttpStatus.OK)
-    public List<DeputationDays>findDeputationDays(){
+    public List<DeputationDays> findDeputationDays() {
         return deputationServices.findDeputationDays();
     }
 
     @GetMapping("/exception-deputation")
     @ResponseStatus(HttpStatus.OK)
-    public List<DeputationDto> findExceptionDeputation(){
+    public List<DeputationDto> findExceptionDeputation() {
         return deputationServices.findExceptionDeputation();
     }
 
     @GetMapping("/count-exception-deputation")
     @ResponseStatus(HttpStatus.OK)
-    public Integer countExceptionDeputation(){
+    public Integer countExceptionDeputation() {
         return deputationServices.findExceptionDeputation().size();
     }
 
@@ -109,8 +116,8 @@ public class DeputationController {
 
     @PutMapping("/deputation")
     @ResponseStatus(HttpStatus.OK)
-    public void updateDeputation(@RequestBody DeputationDto deputationDto, @RequestParam int id) {
-        deputationServices.update(deputationDto, id);
+    public void updateDeputation(@RequestBody DeputationPost deputationPost, @RequestParam int id) {
+        deputationServices.update(deputationPost, id);
     }
 
     @DeleteMapping("/deputation")

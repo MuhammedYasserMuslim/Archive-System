@@ -23,6 +23,10 @@ public class BaseDataServices {
         return baseDataRepository.findImagesPath();
     }
 
+    public String findBackupPath() {
+        return baseDataRepository.findBackupPath();
+    }
+
 
     public List<String> findYears() {
         return baseDataRepository.findYears();
