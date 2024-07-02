@@ -20,7 +20,8 @@ public class DeputationController {
 
     @GetMapping("/deputations")
     @ResponseStatus(HttpStatus.OK)
-    public List<DeputationDto> findByYear() {
+    public List<DeputationDto> findByYear(@RequestHeader("Authorization") String token) {
+
         return deputationServices.findByYear();
     }
 
@@ -102,10 +103,23 @@ public class DeputationController {
         return deputationServices.findExceptionDeputation();
     }
 
+
     @GetMapping("/count-exception-deputation")
     @ResponseStatus(HttpStatus.OK)
     public Integer countExceptionDeputation() {
         return deputationServices.findExceptionDeputation().size();
+    }
+
+    @GetMapping("/non-exception-deputation")
+    @ResponseStatus(HttpStatus.OK)
+    public List<DeputationDto>findNotExceptionDeputation(){
+        return deputationServices.findNotExceptionDeputation();
+    }
+
+    @GetMapping("/count-non-exception-deputation")
+    @ResponseStatus(HttpStatus.OK)
+    public Integer countNotExceptionDeputation(){
+        return deputationServices.findNotExceptionDeputation().size();
     }
 
     @PostMapping("/deputation")

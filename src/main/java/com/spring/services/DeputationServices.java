@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -56,8 +57,12 @@ public class DeputationServices {
         return findCurrentDeputation().stream().filter(dto -> universities().contains(dto.getDeputationUniversity())).toList();
     }
 
+    public List<DeputationDto> findNotExceptionDeputation() {
+        return findCurrentDeputation().stream().filter(dto -> !universities().contains(dto.getDeputationUniversity())).toList();
+    }
+
     public List<DeputationDays> findDeputationDays() {
-        List<DeputationDays> deputationDays = deputationMapper.mapToDaysDto(deputationRepository.findCurrentDeputation());
+        List<DeputationDays> deputationDays = deputationMapper.mapToDaysDto(deputationMapper.mapToEntity(findNotExceptionDeputation()));
         Map<String, DeputationDays> mergedMap = new HashMap<>();
         for (DeputationDays days : deputationDays) {
             if (mergedMap.containsKey(days.getName())) {
@@ -67,7 +72,7 @@ public class DeputationServices {
                 mergedMap.put(days.getName(), new DeputationDays(days.getId(), days.getName(), new ArrayList<>(days.getDeputationDays())));
             }
         }
-        return new ArrayList<>(mergedMap.values());
+        return new ArrayList<>(mergedMap.values()).stream().sorted(Comparator.comparing(DeputationDays::getCount).reversed()).toList();
     }
 
     public List<DeputationDto> findDistinctDeputation() {
