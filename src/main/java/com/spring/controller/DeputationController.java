@@ -4,11 +4,15 @@ import com.spring.model.dto.deputation.DeputationDays;
 import com.spring.model.dto.deputation.DeputationDto;
 import com.spring.model.dto.deputation.DeputationPost;
 import com.spring.model.entity.Deputation;
+import com.spring.model.entity.ExceptionUniversity;
+import com.spring.security.jwt.JwtServices;
 import com.spring.services.DeputationServices;
+import com.spring.services.ExceptionUniversityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -17,18 +21,21 @@ import java.util.List;
 public class DeputationController {
 
     private final DeputationServices deputationServices;
+    private final JwtServices jwtServices;
+    private final ExceptionUniversityService exceptionUniversityService;
 
     @GetMapping("/deputations")
     @ResponseStatus(HttpStatus.OK)
     public List<DeputationDto> findByYear(@RequestHeader("Authorization") String token) {
-
-        return deputationServices.findByYear();
+        if (jwtServices.extractRole(token.substring(7)).equals("admin"))
+            return deputationServices.findByYear();
+        return deputationServices.findByYear().stream().filter(dto -> !universities().contains(dto.getDeputationUniversity())).toList();
     }
 
     @GetMapping("/count-deputations")
     @ResponseStatus(HttpStatus.OK)
-    public Integer countDeputations() {
-        return deputationServices.findByYear().size();
+    public Integer countDeputations(@RequestHeader("Authorization") String token) {
+        return findByYear(token).size();
     }
 
     @GetMapping("/all-deputations")
@@ -112,13 +119,13 @@ public class DeputationController {
 
     @GetMapping("/non-exception-deputation")
     @ResponseStatus(HttpStatus.OK)
-    public List<DeputationDto>findNotExceptionDeputation(){
+    public List<DeputationDto> findNotExceptionDeputation() {
         return deputationServices.findNotExceptionDeputation();
     }
 
     @GetMapping("/count-non-exception-deputation")
     @ResponseStatus(HttpStatus.OK)
-    public Integer countNotExceptionDeputation(){
+    public Integer countNotExceptionDeputation() {
         return deputationServices.findNotExceptionDeputation().size();
     }
 
@@ -140,4 +147,12 @@ public class DeputationController {
         deputationServices.deleteById(id);
     }
 
+
+    private List<String> universities() {
+        List<String> universities = new ArrayList<>();
+        for (ExceptionUniversity university : exceptionUniversityService.findAll()) {
+            universities.add(university.getUniversity());
+        }
+        return universities;
+    }
 }
