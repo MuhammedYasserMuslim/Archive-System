@@ -20,9 +20,6 @@ public class Deputation extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "no" , nullable = false)
-    private Integer no;
-
     @Column(name = "degree" , nullable = false)
     private String degree;
 

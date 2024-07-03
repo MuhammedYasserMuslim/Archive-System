@@ -24,6 +24,7 @@ public class SpecialDtoPost {
     private Byte numberOfAttachments;
     private Date incomeDate;
     private String sender;
+    private String notes;
     private List<Subject> subjects;
 
     // ArchiveFileDto

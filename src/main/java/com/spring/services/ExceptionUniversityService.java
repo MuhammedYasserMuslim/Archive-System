@@ -21,6 +21,7 @@ public class ExceptionUniversityService {
     }
 
     public ExceptionUniversity insert(ExceptionUniversity exceptionUniversity) {
+        exceptionUniversity.setUniversity(exceptionUniversity.getUniversity().trim());
         return exceptionUniversityRepository.save(exceptionUniversity);
     }
 

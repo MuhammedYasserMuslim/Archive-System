@@ -84,7 +84,7 @@ public class DeputationServices {
                 existingDays.addAll(dto.getDeputationDays());
             } else {
                 mergedMap.put(dto.getName(),
-                        new DeputationDto(dto.getId(), dto.getNo(), dto.getDegree(), dto.getName(), dto.getDepartment(), dto.getDeputationUniversity(), dto.getDeputationPeriod(), new ArrayList<>(dto.getDeputationDays()), dto.getDepartmentRecordNum(), dto.getDepartmentDate(), dto.getDepartmentAccept(), dto.getFacultyRecordNum(), dto.getFacultyDate(), dto.getFacultyAccept(), dto.getUniversityRecordNum(), dto.getUniversityDate(), dto.getUniversityAccept(), dto.getNotes()));
+                        new DeputationDto(dto.getId(), dto.getDegree(), dto.getName(), dto.getDepartment(), dto.getDeputationUniversity(), dto.getDeputationPeriod(), new ArrayList<>(dto.getDeputationDays()), dto.getDepartmentRecordNum(), dto.getDepartmentDate(), dto.getDepartmentAccept(), dto.getFacultyRecordNum(), dto.getFacultyDate(), dto.getFacultyAccept(), dto.getUniversityRecordNum(), dto.getUniversityDate(), dto.getUniversityAccept(), dto.getNotes()));
             }
         }
         return new ArrayList<>(mergedMap.values());
@@ -99,14 +99,12 @@ public class DeputationServices {
     }
     public void insert(DeputationPost deputationPost) {
         baseDataServices.editAutoIncrementDeputation();
-        deputationPost.setNo(findByYear().isEmpty() ? 1 : findByYear().get(findByYear().size() - 1).getNo() + 1);
         deputationRepository.save(mapToEntity(deputationPost));
     }
 
     public void update(DeputationPost deputationPost, int id) {
         Deputation deputation = mapToEntity(deputationPost);
         deputation.setId(id);
-        deputation.setNo(findById(id).getNo());
         deputation.setCreatedBy(findById(id).getCreatedBy());
         deputation.setCreatedDate(findById(id).getCreatedDate());
         deputationRepository.save(deputation);
@@ -147,7 +145,6 @@ public class DeputationServices {
             days.add(new Days(post));
         }
         return Deputation.builder()
-                .no(dto.getNo())
                 .degree(dto.getDegree())
                 .name(dto.getName())
                 .department(dto.getDepartment())
@@ -174,7 +171,6 @@ public class DeputationServices {
         }
         return DeputationPost.builder()
                 .id(entity.getId())
-                .no(entity.getNo())
                 .degree(entity.getDegree())
                 .name(entity.getName())
                 .department(entity.getDepartment())

@@ -43,6 +43,9 @@ public class Special extends BaseEntity {
     @Column(name = "sender")
     private String sender;
 
+    @Column(name = "notes")
+    private String notes;
+
     @OneToMany(mappedBy = "special")
     private List<Image> images;
 

@@ -17,7 +17,6 @@ public class DeputationDto {
 
     private Integer id;
 
-    private Integer no;
 
     private String degree;
 

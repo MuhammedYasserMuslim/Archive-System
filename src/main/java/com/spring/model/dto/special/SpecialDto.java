@@ -36,6 +36,9 @@ public class SpecialDto {
 
     private String sender;
 
+    private String notes;
+
+
     @JsonBackReference
     private List<Image> images;
 

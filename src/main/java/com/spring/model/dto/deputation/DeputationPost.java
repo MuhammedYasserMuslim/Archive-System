@@ -15,7 +15,6 @@ public class DeputationPost {
 
     private Integer id;
 
-    private Integer no;
 
     private String degree;
 
