@@ -25,10 +25,21 @@ public class TeachingPhoneDirectorController {
         return ResponseEntity.ok(teachingPhoneDirectorServices.findAll());
     }
 
+    @GetMapping("/t-phone")
+    public ResponseEntity<TeachingPhoneDirectorDto> findById(@RequestParam("id") Integer id){
+        return ResponseEntity.ok(teachingPhoneDirectorServices.findById(id));
+    }
+
     @PostMapping("/t-phone")
     public ResponseEntity<?>insert(@RequestBody TeachingPhoneDirectorDto teachingPhoneDirectorDto){
         teachingPhoneDirectorServices.insert(teachingPhoneDirectorDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PutMapping("/t-phone")
+    public ResponseEntity<?>update(@RequestBody TeachingPhoneDirectorDto teachingPhoneDirectorDto,@RequestParam int id){
+        teachingPhoneDirectorServices.update(teachingPhoneDirectorDto,id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/t-phone")

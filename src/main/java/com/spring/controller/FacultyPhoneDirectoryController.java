@@ -1,6 +1,7 @@
 package com.spring.controller;
 
 import com.spring.model.dto.phonedirector.FacultyPhoneDirectoryDto;
+import com.spring.model.dto.phonedirector.TeachingPhoneDirectorDto;
 import com.spring.services.FacultyPhoneDirectoryServices;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -24,10 +25,21 @@ public class FacultyPhoneDirectoryController {
         return ResponseEntity.ok(facultyPhoneDirectoryServices.findAll());
     }
 
+    @GetMapping("/f-phone")
+    public ResponseEntity<FacultyPhoneDirectoryDto> findById(@RequestParam("id") Integer id) {
+        return ResponseEntity.ok(facultyPhoneDirectoryServices.findById(id));
+    }
+
     @PostMapping("/f-phone")
     public ResponseEntity<?> insert(@RequestBody FacultyPhoneDirectoryDto dto) {
         facultyPhoneDirectoryServices.insert(dto);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PutMapping("/f-phone")
+    public ResponseEntity<?> update(@RequestBody FacultyPhoneDirectoryDto dto,@RequestParam int id) {
+        facultyPhoneDirectoryServices.update(dto,id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/f-phone")

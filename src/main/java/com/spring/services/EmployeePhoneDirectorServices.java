@@ -2,6 +2,9 @@ package com.spring.services;
 
 import com.spring.exception.RecordNotFountException;
 import com.spring.model.dto.phonedirector.EmployeePhoneDirectorDto;
+import com.spring.model.dto.phonedirector.FacultyPhoneDirectoryDto;
+import com.spring.model.entity.EmployeePhoneDirector;
+import com.spring.model.entity.FacultyPhoneDirectory;
 import com.spring.model.mapper.EmployeePhoneDirectorMapper;
 import com.spring.repository.EmployeePhoneDirectorRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +28,11 @@ public class EmployeePhoneDirectorServices {
         employeePhoneDirectorRepository.save(employeePhoneDirectorMapper.mapToEntity(dto));
     }
 
+    public EmployeePhoneDirectorDto findById(Integer id) {
+        EmployeePhoneDirector entity = employeePhoneDirectorRepository.findById(id).orElseThrow(() -> new RecordNotFountException(""));
+        return employeePhoneDirectorMapper.mapToDto(entity);
+    }
+
     public void deleteById(int id) {
         if (employeePhoneDirectorRepository.findById(id).isPresent())
             employeePhoneDirectorRepository.deleteById(id);
@@ -32,4 +40,8 @@ public class EmployeePhoneDirectorServices {
             throw new RecordNotFountException("Record not found");
     }
 
+    public void update(EmployeePhoneDirectorDto teachingPhoneDirectorDto, int id) {
+        teachingPhoneDirectorDto.setId(id);
+        employeePhoneDirectorRepository.save(employeePhoneDirectorMapper.mapToEntity(teachingPhoneDirectorDto));
+    }
 }
