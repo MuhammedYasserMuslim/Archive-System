@@ -4,6 +4,7 @@ import com.spring.model.entity.*;
 import com.spring.repository.*;
 import com.spring.security.model.dto.UserActivity;
 import com.spring.security.model.mapper.UserActivityMapper;
+import com.spring.services.DecisionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class UserActivityServices {
     private final SpecialRepository specialRepository;
     private final DeanDecisionsRepository deanDecisionsRepository;
     private final IncomingSignsRepository incomingSignsRepository;
+    private final DeputationRepository deputationRepository;
     private final UserActivityMapper userActivityMapper;
 
 
@@ -51,6 +53,12 @@ public class UserActivityServices {
         for (IncomingSigns signs : incomingSignsRepository.findByYear()) {
             UserActivity userActivity = userActivityMapper.mapToUserActivity(signs);
             userActivity.setType("أشارات");
+            activities.add(userActivity);
+        }
+
+        for (Deputation deputation : deputationRepository.findByYear()) {
+            UserActivity userActivity = userActivityMapper.mapToUserActivity(deputation);
+            userActivity.setType("الانتدابات");
             activities.add(userActivity);
         }
 

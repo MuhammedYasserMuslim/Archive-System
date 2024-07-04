@@ -61,6 +61,8 @@ public class AllExportDto {
     private Byte typeNumber;
     private Short num;
 
+    private Byte secure;
+
     private Integer saved;
 
     public List<String> getPaths() {

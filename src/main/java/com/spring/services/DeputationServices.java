@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -84,7 +83,7 @@ public class DeputationServices {
                 existingDays.addAll(dto.getDeputationDays());
             } else {
                 mergedMap.put(dto.getName(),
-                        new DeputationDto(dto.getId(), dto.getDegree(), dto.getName(), dto.getDepartment(), dto.getDeputationUniversity(), dto.getDeputationPeriod(), new ArrayList<>(dto.getDeputationDays()), dto.getDepartmentRecordNum(), dto.getDepartmentDate(), dto.getDepartmentAccept(), dto.getFacultyRecordNum(), dto.getFacultyDate(), dto.getFacultyAccept(), dto.getUniversityRecordNum(), dto.getUniversityDate(), dto.getUniversityAccept(), dto.getNotes()));
+                        new DeputationDto(dto.getId(), dto.getDegree(), dto.getName(), dto.getDepartment(), dto.getDeputationUniversity(), dto.getDeputationPeriod(), new ArrayList<>(dto.getDeputationDays()), dto.getDepartmentRecordNum(),dto.getDepartmentSpecialNum(), dto.getDepartmentDate(), dto.getDepartmentAccept(), dto.getFacultyRecordNum(),dto.getFacultySpecialNum(), dto.getFacultyDate(), dto.getFacultyAccept(), dto.getUniversityRecordNum(), dto.getUniversityDate(), dto.getUniversityAccept(), dto.getNotes()));
             }
         }
         return new ArrayList<>(mergedMap.values());
@@ -153,9 +152,11 @@ public class DeputationServices {
                 .departmentRecordNum(dto.getDepartmentRecordNum())
                 .departmentDate(dto.getDepartmentDate())
                 .departmentAccept(dto.getDepartmentAccept())
+                .departmentSpecialNum(dto.getDepartmentSpecialNum())
                 .facultyRecordNum(dto.getFacultyRecordNum())
                 .facultyDate(dto.getFacultyDate())
                 .facultyAccept(dto.getFacultyAccept())
+                .facultySpecialNum(dto.getFacultySpecialNum())
                 .universityRecordNum(dto.getUniversityRecordNum())
                 .universityDate(dto.getUniversityDate())
                 .universityAccept(dto.getUniversityAccept())
@@ -179,9 +180,11 @@ public class DeputationServices {
                 .departmentRecordNum(entity.getDepartmentRecordNum())
                 .departmentDate(entity.getDepartmentDate())
                 .departmentAccept(entity.getDepartmentAccept())
+                .departmentSpecialNum(entity.getDepartmentSpecialNum())
                 .facultyRecordNum(entity.getFacultyRecordNum())
                 .facultyDate(entity.getFacultyDate())
                 .facultyAccept(entity.getFacultyAccept())
+                .facultySpecialNum(entity.getFacultySpecialNum())
                 .universityRecordNum(entity.getUniversityRecordNum())
                 .universityDate(entity.getUniversityDate())
                 .universityAccept(entity.getUniversityAccept())

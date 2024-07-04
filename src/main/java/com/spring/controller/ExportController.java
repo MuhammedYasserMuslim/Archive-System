@@ -4,6 +4,7 @@ import com.spring.model.dto.exports.AllExportDto;
 import com.spring.model.dto.exports.ExportDto;
 import com.spring.model.dto.exports.ExportDtoPost;
 import com.spring.model.dto.imports.ImportDtoPost;
+import com.spring.security.jwt.JwtServices;
 import com.spring.services.ExportServices;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import java.util.List;
 public class ExportController {
 
     private final ExportServices exportServices;
+    private final JwtServices jwtServices;
 
 
     @GetMapping("/count")
@@ -34,8 +36,10 @@ public class ExportController {
 
 
     @GetMapping("/exports")
-    public ResponseEntity<List<ExportDto>> findByYear() {
-        return new ResponseEntity<>(exportServices.findByYear(), HttpStatus.OK);
+    public ResponseEntity<List<ExportDto>> findByYear(@RequestHeader("Authorization") String token) {
+        if (jwtServices.extractRole(token.substring(7)).equals("admin"))
+            return new ResponseEntity<>(exportServices.findByYear(), HttpStatus.OK);
+        return new ResponseEntity<>(exportServices.findByYear().stream().filter(exportDto -> exportDto.getSecure() == 0).toList(), HttpStatus.OK);
     }
 
     @GetMapping("/all-exports")

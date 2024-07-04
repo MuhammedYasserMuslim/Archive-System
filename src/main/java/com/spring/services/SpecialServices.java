@@ -167,8 +167,6 @@ public class SpecialServices {
         else {
             for (Subject subject : specialRepository.findById(id).get().getSubject()) {
                 subjectServices.deleteById(subject.getId());
-                System.out.println(subject.getId());
-
             }
             for (int i = 0; i < dto.getSubjects().size(); i++) {
                 dto.getSubjects().get(i).setNum(i + 1);

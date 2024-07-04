@@ -108,11 +108,8 @@ public class DeputationController {
 
     @GetMapping("/today-in")
     @ResponseStatus(HttpStatus.OK)
-    public List<DeputationDto> findTodayIn(@RequestHeader("Authorization") String token) {
-        if (jwtServices.extractRole(token.substring(7)).equals("admin"))
+    public List<DeputationDto> findTodayIn() {
             return deputationServices.findTodayIn();
-        return deputationServices.findTodayIn().stream().filter(dto -> !universities().contains(dto.getDeputationUniversity())).toList();
-
     }
 
     @GetMapping("/deputation-days")

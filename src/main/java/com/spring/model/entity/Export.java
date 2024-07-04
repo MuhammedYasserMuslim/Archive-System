@@ -63,7 +63,10 @@ public class Export extends BaseEntity {
     private ArchiveFile archiveFile;
 
     @Column(name = "saved", nullable = false)
-    private Integer saved ;
+    private Integer saved;
+
+    @Column(name = "secure", nullable = false)
+    private Byte secure = 0;
 
 
     public Export(int id) {

@@ -33,12 +33,15 @@ public class DeputationDto {
 
 
     private Integer departmentRecordNum;
+    private Integer departmentSpecialNum;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date departmentDate;
     private Byte departmentAccept;
 
 
     private Integer facultyRecordNum;
+    private Integer facultySpecialNum;
+
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date facultyDate;
     private Byte facultyAccept;

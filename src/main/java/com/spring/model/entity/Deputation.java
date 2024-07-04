@@ -45,6 +45,8 @@ public class Deputation extends BaseEntity {
     @Column(name = "department_record_num")
     private Integer departmentRecordNum;
 
+    private Integer departmentSpecialNum;
+
     @Column(name = "department_date")
     private Date departmentDate;
 
@@ -53,6 +55,8 @@ public class Deputation extends BaseEntity {
 
     @Column(name = "faculty_record_num")
     private Integer facultyRecordNum;
+
+    private Integer facultySpecialNum;
 
     @Column(name = "faculty_date")
     private Date facultyDate;
