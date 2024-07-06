@@ -153,6 +153,8 @@ public class ExportServices {
         dto.setTypeNumber((byte) 2);
         export.setId(dto.getId());
         export.setNo(ex.getNo());
+        export.setUrgentNum(ex.getUrgentNum());
+        export.setUrgentDate(ex.getUrgentDate());
         export.setReceiver(dto.getReceiver());
         export.setSummary(dto.getSummary());
         export.setDate(dto.getDate());
@@ -162,6 +164,7 @@ public class ExportServices {
         export.setCreatedBy(getById(dto.getId()).getCreatedBy());
         export.setCreatedDate(getById(dto.getId()).getCreatedDate());
         export.setSaved(getById(dto.getId()).getSaved());
+        export.setSecure(dto.getSecure());
         exportRepository.save(export);
 
     }

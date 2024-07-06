@@ -3,7 +3,9 @@ package com.spring.model.dto.deputation;
 import com.spring.model.entity.Days;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,6 +22,8 @@ public class DeputationDays {
 
     private Integer count;
 
+    private boolean notice;
+
     public DeputationDays(Integer id, String name, List<Days> deputationDays) {
         this.id = id;
         this.name = name;
@@ -28,5 +32,10 @@ public class DeputationDays {
 
     public Integer getCount() {
         return deputationDays.size();
+    }
+
+    public boolean isNotice() {
+        Set<Days> set = new HashSet<>(deputationDays);
+        return this.deputationDays.size() > 2 || this.deputationDays.size() != set.size();
     }
 }

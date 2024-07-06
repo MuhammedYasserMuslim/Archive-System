@@ -10,6 +10,7 @@ import com.spring.security.services.AuthorityService;
 import com.spring.security.services.UserServices;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.CommandLineRunner;
@@ -28,6 +29,7 @@ public class StartUp implements CommandLineRunner, ApplicationRunner {
     private final AuthorityService authorityService;
     private final FinancialYearRepository financialYearRepository;
     private final DaysRepository daysRepository;
+
 
     @Override
     public void run(String... args) throws ParseException {
@@ -69,6 +71,7 @@ public class StartUp implements CommandLineRunner, ApplicationRunner {
             daysRepository.save(new Days("الأربعاء"));
             daysRepository.save(new Days("الخميس"));
         }
+
 
     }
 }

@@ -49,7 +49,7 @@ public class DeputationServices {
     }
 
     public List<DeputationDto> findTodayIn() {
-        return findDistinctDeputation().stream().filter(dto -> dto.getDeputationDays().stream().allMatch(days -> days.getId() != dayOfWeek())).toList();
+        return dayOfWeek() != 7 ? findDistinctDeputation().stream().filter(dto -> dto.getDeputationDays().stream().allMatch(days -> days.getId() != dayOfWeek())).toList() : new ArrayList<>();
     }
 
     public List<DeputationDto> findExceptionDeputation() {
@@ -83,7 +83,7 @@ public class DeputationServices {
                 existingDays.addAll(dto.getDeputationDays());
             } else {
                 mergedMap.put(dto.getName(),
-                        new DeputationDto(dto.getId(), dto.getDegree(), dto.getName(), dto.getDepartment(), dto.getDeputationUniversity(), dto.getDeputationPeriod(), new ArrayList<>(dto.getDeputationDays()), dto.getDepartmentRecordNum(),dto.getDepartmentSpecialNum(), dto.getDepartmentDate(), dto.getDepartmentAccept(), dto.getFacultyRecordNum(),dto.getFacultySpecialNum(), dto.getFacultyDate(), dto.getFacultyAccept(), dto.getUniversityRecordNum(), dto.getUniversityDate(), dto.getUniversityAccept(), dto.getNotes()));
+                        new DeputationDto(dto.getId(), dto.getDegree(), dto.getName(), dto.getDepartment(), dto.getDeputationUniversity(), dto.getDeputationPeriod(), new ArrayList<>(dto.getDeputationDays()), dto.getDepartmentRecordNum(), dto.getDepartmentSpecialNum(), dto.getDepartmentDate(), dto.getDepartmentAccept(), dto.getFacultyRecordNum(), dto.getFacultySpecialNum(), dto.getFacultyDate(), dto.getFacultyAccept(), dto.getUniversityRecordNum(), dto.getUniversityDate(), dto.getUniversityAccept(), dto.getNotes()));
             }
         }
         return new ArrayList<>(mergedMap.values());
@@ -93,9 +93,10 @@ public class DeputationServices {
         return deputationRepository.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
     }
 
-    public DeputationPost findByIdPost(int id){
+    public DeputationPost findByIdPost(int id) {
         return mapToDto(findById(id));
     }
+
     public void insert(DeputationPost deputationPost) {
         baseDataServices.editAutoIncrementDeputation();
         deputationRepository.save(mapToEntity(deputationPost));
@@ -155,11 +156,11 @@ public class DeputationServices {
                 .departmentSpecialNum(dto.getDepartmentSpecialNum())
                 .facultyRecordNum(dto.getFacultyRecordNum())
                 .facultyDate(dto.getFacultyDate())
-                .facultyAccept(dto.getFacultyAccept())
+                .facultyAccept(dto.getFacultyAccept() == null ? 0 : dto.getFacultyAccept())
                 .facultySpecialNum(dto.getFacultySpecialNum())
                 .universityRecordNum(dto.getUniversityRecordNum())
                 .universityDate(dto.getUniversityDate())
-                .universityAccept(dto.getUniversityAccept())
+                .universityAccept(dto.getUniversityAccept() == null ? 0 : dto.getUniversityAccept())
                 .notes(dto.getNotes())
                 .deputationDays(days)
                 .build();

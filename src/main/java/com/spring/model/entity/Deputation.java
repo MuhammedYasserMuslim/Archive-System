@@ -20,19 +20,19 @@ public class Deputation extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "degree" , nullable = false)
+    @Column(name = "degree", nullable = false)
     private String degree;
 
-    @Column(name = "name" , nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "department" , nullable = false)
+    @Column(name = "department", nullable = false)
     private String department;
 
     @Column(name = "deputation_university", nullable = false)
     private String deputationUniversity;
 
-    @Column(name = "deputation_period",nullable = false)
+    @Column(name = "deputation_period", nullable = false)
     private Byte deputationPeriod;
 
     @JoinTable(
@@ -50,7 +50,7 @@ public class Deputation extends BaseEntity {
     @Column(name = "department_date")
     private Date departmentDate;
 
-    @Column(name = "department_accept")
+    @Column(name = "department_accept", nullable = false)
     private Byte departmentAccept;
 
     @Column(name = "faculty_record_num")
@@ -61,8 +61,8 @@ public class Deputation extends BaseEntity {
     @Column(name = "faculty_date")
     private Date facultyDate;
 
-    @Column(name = "faculty_accept")
-    private Byte facultyAccept;
+    @Column(name = "faculty_accept", nullable = false, columnDefinition = "int default 0")
+    private Byte facultyAccept = 0;
 
     @Column(name = "university_record_num")
     private Integer universityRecordNum;
@@ -70,8 +70,8 @@ public class Deputation extends BaseEntity {
     @Column(name = "university_date")
     private Date universityDate;
 
-    @Column(name = "university_accept")
-    private Byte universityAccept;
+    @Column(name = "university_accept", nullable = false, columnDefinition = "int default 0")
+    private Byte universityAccept = 0;
 
     @Column(name = "notes")
     private String notes;
