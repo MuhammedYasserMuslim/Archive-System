@@ -51,27 +51,32 @@ public class DatabaseBackupService {
     }
 
     public String restoreDatabase(String backupFileName) throws IOException {
-        String command = String.format("mysql -u%s -p%s %s < \"%s\"", dbUser, dbPassword, dbName, baseDataServices.findBackupPath() + backupFileName);
-        try {
-            Process process = Runtime.getRuntime().exec(new String[]{"bash", "-c", command});
-            int processComplete = process.waitFor();
+        String backupFilePath = baseDataServices.findBackupPath() + backupFileName;
+        String command = String.format("mysql -u%s -p%s %s < \"%s\"", dbUser, dbPassword, dbName, backupFilePath);
 
+        ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
+        processBuilder.redirectErrorStream(true); // Merge error stream with output stream
+        Process process = processBuilder.start();
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+            StringBuilder output = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                output.append(line).append(System.lineSeparator());
+            }
+
+            int processComplete = process.waitFor();
             if (processComplete == 0) {
                 return "تم استرجاع النسخة الاحتاطية بنجاح ";
             } else {
-                try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
-                    StringBuilder errorMsg = new StringBuilder();
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        errorMsg.append(line).append(System.lineSeparator());
-                    }
-                    return "فشل استرجاع النسخة  " + errorMsg;
-                }
+                return "فشل استرجاع النسخة " + output.toString();
             }
         } catch (InterruptedException e) {
             throw new IOException("Restore interrupted", e);
         }
     }
+
+
 
     public String getLastBackupFile() {
         try {
