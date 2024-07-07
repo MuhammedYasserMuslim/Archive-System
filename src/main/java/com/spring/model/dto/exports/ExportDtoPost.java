@@ -24,8 +24,6 @@ public class ExportDtoPost {
     private Date recipientDate;
     private Integer saved;
 
-    private Byte secure = 0;
-
 
     private ArchiveFileDto archiveFile;
     private Byte typeNumber;

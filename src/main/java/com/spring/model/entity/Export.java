@@ -65,8 +65,7 @@ public class Export extends BaseEntity {
     @Column(name = "saved", nullable = false)
     private Integer saved;
 
-    @Column(name = "secure", nullable = false , columnDefinition = "int default 0")
-    private Byte secure =0;
+
 
 
     public Export(int id) {

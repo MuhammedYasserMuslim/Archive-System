@@ -36,10 +36,8 @@ public class ExportController {
 
 
     @GetMapping("/exports")
-    public ResponseEntity<List<ExportDto>> findByYear(@RequestHeader("Authorization") String token) {
-        if (jwtServices.extractRole(token.substring(7)).equals("admin"))
+    public ResponseEntity<List<ExportDto>> findByYear() {
             return new ResponseEntity<>(exportServices.findByYear(), HttpStatus.OK);
-        return new ResponseEntity<>(exportServices.findByYear().stream().filter(exportDto -> exportDto.getSecure()==0).toList(), HttpStatus.OK);
     }
 
     @GetMapping("/all-exports")
