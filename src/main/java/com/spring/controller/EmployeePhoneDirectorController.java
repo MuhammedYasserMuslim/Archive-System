@@ -37,9 +37,10 @@ public class EmployeePhoneDirectorController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+
     @PutMapping("/e-phone")
-    public ResponseEntity<?> update(@RequestBody EmployeePhoneDirectorDto teachingPhoneDirectorDto ,@RequestParam int id) {
-        employeePhoneDirectorServices.update(teachingPhoneDirectorDto , id);
+    public ResponseEntity<?> update(@RequestBody EmployeePhoneDirectorDto teachingPhoneDirectorDto, @RequestParam int id) {
+        employeePhoneDirectorServices.update(teachingPhoneDirectorDto, id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

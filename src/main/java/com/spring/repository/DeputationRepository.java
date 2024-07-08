@@ -14,7 +14,7 @@ public interface DeputationRepository extends JpaRepository<Deputation, Integer>
 
     String FIND_NOT_ACCEPTED = FIND_ALL + " AND (university_accept = 0 or faculty_accept = 0 or department_accept = 0) ";
 
-    String FIND_CURRENT_DEPUTATION = FIND_ACCEPTED + " AND ((deputation_period = 1 and month(current_date) in (9 ,10 ,11 , 12, 1)) or (deputation_period = 2 and month(current_date) in (2 ,3 , 4, 5 ,6 , 7))or (deputation_period = 3 and month(current_date) in (9, 10 ,11 , 12, 1 , 2 , 3 , 4 , 5 , 6 , 7))) ";
+    String FIND_CURRENT_DEPUTATION = FIND_ACCEPTED + " AND ((deputation_period = 1 and month(current_date) in ( 9 , 10 , 11 , 12 , 1 )) or (deputation_period = 2 and month(current_date) in (2 ,3 , 4, 5 ,6 ))or (deputation_period = 3 and month(current_date) in (9, 10 ,11 , 12, 1 , 2 , 3 , 4 , 5 , 6 , 7, 8))) ";
 
     @Query(value = FIND_ALL, nativeQuery = true)
     List<Deputation> findByYear();
@@ -22,7 +22,7 @@ public interface DeputationRepository extends JpaRepository<Deputation, Integer>
     @Query(value = FIND_ACCEPTED, nativeQuery = true)
     List<Deputation> findAccepted();
 
-    @Query(value = FIND_NOT_ACCEPTED , nativeQuery = true)
+    @Query(value = FIND_NOT_ACCEPTED, nativeQuery = true)
     List<Deputation> findNotAccepted();
 
     @Query(value = FIND_CURRENT_DEPUTATION, nativeQuery = true)
