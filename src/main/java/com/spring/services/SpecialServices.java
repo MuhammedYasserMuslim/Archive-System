@@ -25,7 +25,6 @@ public class SpecialServices {
     private final SpecialMapper specialMapper;
     private final ArchiveFileMapper archiveFileMapper;
     private final ArchiveFileServices archiveFileServices;
-    private final BaseDataServices baseDataServices;
 
     /**
      * @return count specials in current year
@@ -121,7 +120,6 @@ public class SpecialServices {
      * @param dto add new special file
      */
     public void insert(SpecialDtoPost dto) {
-        baseDataServices.editAutoIncrementSpecial();
         List<Special> specials = specialRepository.findByYear();
         dto.setTypeNumber((byte) 3);
         Special special = specialMapper.mapToEntity(dto);
@@ -146,7 +144,6 @@ public class SpecialServices {
      * @param id  chose special file to update
      */
     public void update(SpecialDtoPost dto, int id) {
-        baseDataServices.editAutoIncrementSpecial();
         Special sp = getById(id);
         dto.setId(id);
         dto.setTypeNumber((byte) 3);

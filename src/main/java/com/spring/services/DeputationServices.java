@@ -21,7 +21,6 @@ public class DeputationServices {
 
     private final DeputationRepository deputationRepository;
     private final DeputationMapper deputationMapper;
-    private final BaseDataServices baseDataServices;
     private final ExceptionUniversityService exceptionUniversityService;
 
     public List<DeputationDto> findAll() {
@@ -71,7 +70,7 @@ public class DeputationServices {
                 mergedMap.put(days.getName(), new DeputationDays(days.getId(), days.getName(), new ArrayList<>(days.getDeputationDays())));
             }
         }
-        return new ArrayList<>(mergedMap.values()).stream().sorted(Comparator.comparing(DeputationDays::getCount).reversed()).toList();
+        return new ArrayList<>(mergedMap.values()).stream().sorted(Comparator.comparing(DeputationDays::isNotice).reversed()).toList();
     }
 
     public List<DeputationDto> findDistinctDeputation() {
@@ -98,7 +97,6 @@ public class DeputationServices {
     }
 
     public void insert(DeputationPost deputationPost) {
-        baseDataServices.editAutoIncrementDeputation();
         deputationRepository.save(mapToEntity(deputationPost));
     }
 

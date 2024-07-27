@@ -1,7 +1,6 @@
 package com.spring.security.model.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
 import java.util.HashSet;

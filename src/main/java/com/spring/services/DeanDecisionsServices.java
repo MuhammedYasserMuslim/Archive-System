@@ -23,7 +23,6 @@ public class DeanDecisionsServices {
     private final DeanDecisionsDtoMapper deanDecisionsDtoMapper;
     private final ArchiveFileServices archiveFileServices;
     private final ArchiveFileMapper archiveFileMapper;
-    private final BaseDataServices baseDataServices;
 
 
     /**
@@ -80,7 +79,6 @@ public class DeanDecisionsServices {
      * @param dto add new dean-decision file
      */
     public void insert(DeanDecisionsDtoPost dto) {
-        baseDataServices.editAutoIncrementDeanDecisions();
         dto.setTypeNumber((byte) 2);
         DeanDecisions decisions = deanDecisionsDtoMapper.mapToEntity(dto);
         List<DeanDecisions> deanDecisions = deanDecisionsRepository.findByYear();
@@ -96,7 +94,6 @@ public class DeanDecisionsServices {
      * @param id  chose dean-decision file to update
      */
     public void update(DeanDecisionsDtoPost dto, int id) {
-        baseDataServices.editAutoIncrementDeanDecisions();
         dto.setId(id);
         DeanDecisions decisions = deanDecisionsDtoMapper.mapToEntity(dto);
         DeanDecisions dec = getById(id);

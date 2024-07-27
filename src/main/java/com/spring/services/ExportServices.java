@@ -30,22 +30,19 @@ public class ExportServices {
     private final ExportMapper exportMapper;
     private final ImportServices importServices;
     private final SpecialServices specialServices;
-    private final BaseDataServices baseDataServices;
     private final FileUploadService fileUploadService;
 
 
     @Lazy
     public ExportServices(ImportServices importServices, ExportMapper exportMapper,
                           ArchiveFileMapper archiveFileMapper, ArchiveFileServices archiveFileServices,
-                          ExportRepository exportRepository, SpecialServices specialServices,
-                          BaseDataServices baseDataServices, FileUploadService fileUploadService) {
+                          ExportRepository exportRepository, SpecialServices specialServices, FileUploadService fileUploadService) {
         this.importServices = importServices;
         this.exportMapper = exportMapper;
         this.archiveFileMapper = archiveFileMapper;
         this.archiveFileServices = archiveFileServices;
         this.exportRepository = exportRepository;
         this.specialServices = specialServices;
-        this.baseDataServices = baseDataServices;
         this.fileUploadService = fileUploadService;
     }
 
@@ -128,7 +125,6 @@ public class ExportServices {
      * @param dto add new export file
      */
     public void insert(ExportDtoPost dto) {
-        baseDataServices.editAutoIncrementExport();
         dto.setTypeNumber((byte) 2);
         Export export = exportMapper.mapToEntity(dto);
         List<Export> exports = exportRepository.findByYear();
@@ -146,7 +142,6 @@ public class ExportServices {
      * @param id  chose export file to update
      */
     public void update(ExportDtoPost dto, int id) {
-        baseDataServices.editAutoIncrementExport();
         dto.setId(id);
         Export export = exportMapper.mapToEntity(dto);
         Export ex = getById(id);
@@ -179,7 +174,6 @@ public class ExportServices {
             insert(dto);
             export.setUrgentNum(exports.get(exports.size() - 1).getNo() + 1);
             export.setUrgentDate(dto.getDate());
-            baseDataServices.editAutoIncrementExport();
             exportRepository.save(export);
 
         } else
@@ -197,7 +191,6 @@ public class ExportServices {
             export.setAimport(
                     new Import(importServices.findAll().get(importServices.findAll().size() - 1).getId())
             );
-            baseDataServices.editAutoIncrementExport();
             exportRepository.save(export);
 
         } else

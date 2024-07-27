@@ -29,7 +29,7 @@ public class DatabaseBackupController {
         try {
             String lastBackupFile = backupService.getLastBackupFile();
             if (lastBackupFile != null) {
-                return backupService.restoreDatabase(lastBackupFile);
+                return backupService.restoreDatabase();
             } else {
                 return "لا يوجد اي نسخة أحتياطية";
             }

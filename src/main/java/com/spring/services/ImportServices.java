@@ -30,22 +30,21 @@ public class ImportServices {
     private final ImportMapper importMapper;
     private final ExportServices exportServices;
     private final SpecialServices specialServices;
-    private final BaseDataServices baseDataServices;
+
     private final FileUploadService fileUploadService;
 
 
     @Lazy
     public ImportServices(ExportServices exportServices, ImportRepository importRepository,
                           ArchiveFileServices archiveFileServices, ArchiveFileMapper archiveFileMapper,
-                          ImportMapper importMapper, SpecialServices specialServices, BaseDataServices
-                                  baseDataServices, FileUploadService fileUploadService) {
+                          ImportMapper importMapper, SpecialServices specialServices,
+                                   FileUploadService fileUploadService) {
         this.exportServices = exportServices;
         this.importRepository = importRepository;
         this.archiveFileServices = archiveFileServices;
         this.archiveFileMapper = archiveFileMapper;
         this.importMapper = importMapper;
         this.specialServices = specialServices;
-        this.baseDataServices = baseDataServices;
         this.fileUploadService = fileUploadService;
     }
 
@@ -178,7 +177,6 @@ public class ImportServices {
      * @param dto add new import file
      */
     public void insert(ImportDtoPost dto) {
-        baseDataServices.editAutoIncrementImport();
         List<Import> imports = importRepository.findByYear();
         dto.setTypeNumber((byte) 1);
         Import importa = importMapper.mapToEntity(dto);
@@ -194,7 +192,6 @@ public class ImportServices {
      * @param id  chose import file to update
      */
     public void update(ImportDtoPost dto, int id) {
-        baseDataServices.editAutoIncrementImport();
         dto.setId(id);
         Import im = getById(id);
         Import importa = importMapper.mapToEntity(dto);
@@ -229,7 +226,6 @@ public class ImportServices {
             aImport.setExport(
                     new Export(exportServices.findAll().get(exportServices.findAll().size() - 1).getId())
             );
-            baseDataServices.editAutoIncrementImport();
             importRepository.save(aImport);
 
         } else

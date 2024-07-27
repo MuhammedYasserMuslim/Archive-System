@@ -1,6 +1,7 @@
 package com.spring.database;
 
 import com.spring.services.BaseDataServices;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Service
+@Log4j2
 public class DatabaseBackupService {
 
 
@@ -50,24 +52,25 @@ public class DatabaseBackupService {
         }
     }
 
-    public String restoreDatabase(String backupFileName) throws IOException {
+    public String restoreDatabase() throws IOException {
+        String backupFileName = getLastBackupFile();
+        if (backupFileName == null) {
+            return "لا توجد ملفات نسخ احتياطي للاسترجاع";
+        }
         String backupFilePath = baseDataServices.findBackupPath() + backupFileName;
         String command = String.format("mysql -u%s -p%s %s < \"%s\"", dbUser, dbPassword, dbName, backupFilePath);
-
         ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
-        processBuilder.redirectErrorStream(true); // Merge error stream with output stream
+        processBuilder.redirectErrorStream(true);
         Process process = processBuilder.start();
-
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
             StringBuilder output = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
                 output.append(line).append(System.lineSeparator());
             }
-
             int processComplete = process.waitFor();
             if (processComplete == 0) {
-                return "تم استرجاع النسخة الاحتاطية بنجاح ";
+                return "تم استرجاع النسخة الاحتياطية بنجاح";
             } else {
                 return "فشل استرجاع النسخة " + output.toString();
             }

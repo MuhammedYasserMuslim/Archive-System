@@ -6,3 +6,5 @@ FROM base as production
 COPY ./target/ArchiveSystem-0.0.1-SNAPSHOT.jar /archive/Archive.jar
 ENTRYPOINT ["java","-jar","/archive/Archive.jar"]
 
+#docker build --tag muhammedyassermuslim/archive-spring .
+#docker push muhammedyassermuslim/archive-spring

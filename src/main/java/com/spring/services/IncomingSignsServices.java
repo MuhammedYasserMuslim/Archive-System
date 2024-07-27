@@ -1,9 +1,7 @@
 package com.spring.services;
 
-import com.spring.model.dto.exports.ExportDto;
 import com.spring.model.dto.incomesigns.IncomingSignsDto;
 import com.spring.model.dto.incomesigns.IncomingSignsDtoPost;
-import com.spring.model.entity.Export;
 import com.spring.model.entity.IncomingSigns;
 import com.spring.model.mapper.IncomingSignsMapper;
 import com.spring.repository.IncomingSignsRepository;
@@ -20,7 +18,7 @@ public class IncomingSignsServices {
 
     private final IncomingSignsRepository incomingSignsRepository;
     private final IncomingSignsMapper incomingSignsMapper;
-    private final BaseDataServices baseDataServices;
+
 
     /**
      * @return count Incoming signs
@@ -74,7 +72,6 @@ public class IncomingSignsServices {
      */
 
     public void insert(IncomingSignsDtoPost dto) {
-        baseDataServices.editAutoIncrementIncomingSigns();
         dto.setNo(findByYear().isEmpty() ? 1 :incomingSignsRepository.findByYear().get(incomingSignsRepository.findByYear().size() - 1).getNo() + 1);
         incomingSignsRepository.save(incomingSignsMapper.mapToEntity(dto));
     }
