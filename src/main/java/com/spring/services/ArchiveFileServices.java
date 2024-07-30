@@ -71,6 +71,10 @@ public class ArchiveFileServices {
         } else throw new RecordNotFountException("This Record With number " + typeNumber + "/" + num + " Not Found");
     }
 
+    public List<ArchiveFileDto> findByTypeNumber(Byte typeNumber) {
+        return archiveFileMapper.mapListToDto(archiveFileRepository.findByTypeNumber(typeNumber));
+    }
+
 
     /**
      * @param dto add new archiveFile
@@ -119,4 +123,6 @@ public class ArchiveFileServices {
     public void closeArchiveFile() {
         archiveFileRepository.closeArchiveFile();
     }
+
+
 }

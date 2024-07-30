@@ -44,11 +44,18 @@ public class ArchiveFileController {
         return new ResponseEntity<>(archiveFileServices.findByTypeNumberAndNum(typeNumber, num), HttpStatus.OK);
     }
 
+
+    @GetMapping("/archive-type")
+    public ResponseEntity<List<ArchiveFileDto>> findByTypeNumber(@RequestParam Byte typeNumber) {
+        return new ResponseEntity<>(archiveFileServices.findByTypeNumber(typeNumber), HttpStatus.OK);
+    }
+
     @PostMapping("/archive")
     public ResponseEntity<?> insert(@RequestBody ArchiveFileDto archiveFile) {
         archiveFileServices.insert(archiveFile);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
     @PostMapping("/archives")
     public ResponseEntity<?> insert(@RequestBody List<ArchiveFileDto> archiveFiles) {
         for (ArchiveFileDto archiveFile : archiveFiles) {

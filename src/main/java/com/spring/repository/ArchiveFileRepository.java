@@ -1,5 +1,6 @@
 package com.spring.repository;
 
+import com.spring.model.dto.archivefile.ArchiveFileDto;
 import com.spring.model.entity.ArchiveFile;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -45,4 +46,6 @@ public interface ArchiveFileRepository extends JpaRepository<ArchiveFile, Short>
     @Transactional
     @Query(value = "update archive_file set type_number = 0 ", nativeQuery = true)
     void closeArchiveFile();
+
+    List<ArchiveFile> findByTypeNumber(Byte typeNumber);
 }
