@@ -47,26 +47,26 @@ public interface ImportRepository extends JpaRepository<Import, Integer> {
     /**
      * @return imports time has come
      */
-    @Query(value = FIND_ALL + "and expect_response_date >= CURRENT_DATE() and  expect_response_date <CURRENT_DATE()+ INTERVAL 3 DAY  AND response_id IS NULL", nativeQuery = true)
+    @Query(value = FIND_ALL + "and expect_response_date >= CURRENT_DATE() and  expect_response_date <CURRENT_DATE()+ INTERVAL 3 DAY  AND response_id IS NULL ", nativeQuery = true)
     List<Import> findItIsTime();
 
     /**
      * @return imports time has not come
      */
-    @Query(value = FIND_ALL + "and expect_response_date >= (CURRENT_DATE() + INTERVAL 3 DAY) AND response_id IS NULL", nativeQuery = true)
+    @Query(value = FIND_ALL + "and expect_response_date >= (CURRENT_DATE() + INTERVAL 3 DAY) AND response_id IS NULL order by no desc", nativeQuery = true)
     List<Import> findItIsNotTime();
 
     /**
      * @return imports time has passed
      */
-    @Query(value = FIND_ALL + "and expect_response_date < current_date() and response_id is null ", nativeQuery = true)
+    @Query(value = FIND_ALL + "and expect_response_date < current_date() and response_id is null order by no desc", nativeQuery = true)
     List<Import> findPassedDate();
 
 
     /**
      * @return today imports
      */
-    @Query(value = FIND_ALL + "and (recipient_name is null or recipient_name = '') or income_date >= CURRENT_DATE() AND income_date < CURRENT_DATE() + INTERVAL 1 DAY order by no desc ", nativeQuery = true)
+    @Query(value = FIND_ALL + "and ((recipient_name is null or recipient_name = '') or income_date >= CURRENT_DATE() AND income_date < CURRENT_DATE() + INTERVAL 1 DAY) order by no desc ", nativeQuery = true)
     List<Import> findByIncomeDate();
 
     /**
